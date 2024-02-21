@@ -119,13 +119,13 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>distribute_not_over_and(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Not(contents) =&gt; <span class="kw">match </span>contents.as_ref() {
-            Expr::And(exprs) =&gt; {
+        Expr::Not(metadata, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+            Expr::And(metadata, exprs) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>new_exprs = Vec::new();
                 <span class="kw">for </span>e <span class="kw">in </span>exprs {
-                    new_exprs.push(Expr::Not(Box::new(e.clone())));
+                    new_exprs.push(Expr::Not(metadata.clone(), Box::new(e.clone())));
                 }
-                <span class="prelude-val">Ok</span>(Expr::Or(new_exprs))
+                <span class="prelude-val">Ok</span>(Expr::Or(metadata.clone(), new_exprs))
             }
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
         },
@@ -143,13 +143,13 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>distribute_not_over_or(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Not(contents) =&gt; <span class="kw">match </span>contents.as_ref() {
-            Expr::Or(exprs) =&gt; {
+        Expr::Not(metadata, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+            Expr::Or(metadata, exprs) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>new_exprs = Vec::new();
                 <span class="kw">for </span>e <span class="kw">in </span>exprs {
-                    new_exprs.push(Expr::Not(Box::new(e.clone())));
+                    new_exprs.push(Expr::Not(metadata.clone(), Box::new(e.clone())));
                 }
-                <span class="prelude-val">Ok</span>(Expr::And(new_exprs))
+                <span class="prelude-val">Ok</span>(Expr::And(metadata.clone(), new_exprs))
             }
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
         },
@@ -170,7 +170,7 @@
         <span class="comment">// ToDo: may be better to move this to some kind of utils module?
         </span><span class="kw">for </span>(i, e) <span class="kw">in </span>exprs.iter().enumerate() {
             <span class="kw">match </span>e {
-                Expr::And(<span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Some</span>(i),
+                Expr::And(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Some</span>(i),
                 <span class="kw">_ </span>=&gt; (),
             }
         }
@@ -178,23 +178,23 @@
     </span>}
 
     <span class="kw">match </span>expr {
-        Expr::Or(exprs) =&gt; <span class="kw">match </span>find_and(exprs) {
+        Expr::Or(metadata, exprs) =&gt; <span class="kw">match </span>find_and(exprs) {
             <span class="prelude-val">Some</span>(idx) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>rest = exprs.clone();
                 <span class="kw">let </span>and_expr = rest.remove(idx);
 
                 <span class="kw">match </span>and_expr {
-                    Expr::And(and_exprs) =&gt; {
+                    Expr::And(metadata, and_exprs) =&gt; {
                         <span class="kw">let </span><span class="kw-2">mut </span>new_and_contents = Vec::new();
 
                         <span class="kw">for </span>e <span class="kw">in </span>and_exprs {
                             <span class="comment">// ToDo: Cloning everything may be a bit inefficient - discuss
                             </span><span class="kw">let </span><span class="kw-2">mut </span>new_or_contents = rest.clone();
                             new_or_contents.push(e.clone());
-                            new_and_contents.push(Expr::Or(new_or_contents))
+                            new_and_contents.push(Expr::Or(metadata.clone(), new_or_contents))
                         }
 
-                        <span class="prelude-val">Ok</span>(Expr::And(new_and_contents))
+                        <span class="prelude-val">Ok</span>(Expr::And(metadata.clone(), new_and_contents))
                     }
                     <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
                 }

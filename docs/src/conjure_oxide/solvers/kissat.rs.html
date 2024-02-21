@@ -560,8 +560,87 @@
 <a href="#558" id="558">558</a>
 <a href="#559" id="559">559</a>
 <a href="#560" id="560">560</a>
+<a href="#561" id="561">561</a>
+<a href="#562" id="562">562</a>
+<a href="#563" id="563">563</a>
+<a href="#564" id="564">564</a>
+<a href="#565" id="565">565</a>
+<a href="#566" id="566">566</a>
+<a href="#567" id="567">567</a>
+<a href="#568" id="568">568</a>
+<a href="#569" id="569">569</a>
+<a href="#570" id="570">570</a>
+<a href="#571" id="571">571</a>
+<a href="#572" id="572">572</a>
+<a href="#573" id="573">573</a>
+<a href="#574" id="574">574</a>
+<a href="#575" id="575">575</a>
+<a href="#576" id="576">576</a>
+<a href="#577" id="577">577</a>
+<a href="#578" id="578">578</a>
+<a href="#579" id="579">579</a>
+<a href="#580" id="580">580</a>
+<a href="#581" id="581">581</a>
+<a href="#582" id="582">582</a>
+<a href="#583" id="583">583</a>
+<a href="#584" id="584">584</a>
+<a href="#585" id="585">585</a>
+<a href="#586" id="586">586</a>
+<a href="#587" id="587">587</a>
+<a href="#588" id="588">588</a>
+<a href="#589" id="589">589</a>
+<a href="#590" id="590">590</a>
+<a href="#591" id="591">591</a>
+<a href="#592" id="592">592</a>
+<a href="#593" id="593">593</a>
+<a href="#594" id="594">594</a>
+<a href="#595" id="595">595</a>
+<a href="#596" id="596">596</a>
+<a href="#597" id="597">597</a>
+<a href="#598" id="598">598</a>
+<a href="#599" id="599">599</a>
+<a href="#600" id="600">600</a>
+<a href="#601" id="601">601</a>
+<a href="#602" id="602">602</a>
+<a href="#603" id="603">603</a>
+<a href="#604" id="604">604</a>
+<a href="#605" id="605">605</a>
+<a href="#606" id="606">606</a>
+<a href="#607" id="607">607</a>
+<a href="#608" id="608">608</a>
+<a href="#609" id="609">609</a>
+<a href="#610" id="610">610</a>
+<a href="#611" id="611">611</a>
+<a href="#612" id="612">612</a>
+<a href="#613" id="613">613</a>
+<a href="#614" id="614">614</a>
+<a href="#615" id="615">615</a>
+<a href="#616" id="616">616</a>
+<a href="#617" id="617">617</a>
+<a href="#618" id="618">618</a>
+<a href="#619" id="619">619</a>
+<a href="#620" id="620">620</a>
+<a href="#621" id="621">621</a>
+<a href="#622" id="622">622</a>
+<a href="#623" id="623">623</a>
+<a href="#624" id="624">624</a>
+<a href="#625" id="625">625</a>
+<a href="#626" id="626">626</a>
+<a href="#627" id="627">627</a>
+<a href="#628" id="628">628</a>
+<a href="#629" id="629">629</a>
+<a href="#630" id="630">630</a>
+<a href="#631" id="631">631</a>
+<a href="#632" id="632">632</a>
+<a href="#633" id="633">633</a>
+<a href="#634" id="634">634</a>
+<a href="#635" id="635">635</a>
+<a href="#636" id="636">636</a>
+<a href="#637" id="637">637</a>
+<a href="#638" id="638">638</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{FromConjureModel, SolverError};
 <span class="kw">use </span><span class="kw">crate</span>::Solver;
+<span class="kw">use </span>conjure_core::metadata::Metadata;
 <span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>thiserror::Error;
 
@@ -692,7 +771,7 @@
             expr_clauses.push(<span class="self">self</span>.clause_to_expression(clause)<span class="question-mark">?</span>);
         }
 
-        <span class="prelude-val">Ok</span>(ConjureExpression::And(expr_clauses))
+        <span class="prelude-val">Ok</span>(ConjureExpression::And(Metadata::new(), expr_clauses))
     }
 
     <span class="doccomment">/**
@@ -706,17 +785,20 @@
                 <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(CNFError::ClauseIndexNotFound(<span class="kw-2">*</span>idx)),
                 <span class="prelude-val">Some</span>(name) =&gt; {
                     <span class="kw">if </span><span class="kw-2">*</span>idx &gt; <span class="number">0 </span>{
-                        ans.push(ConjureExpression::Reference(name.clone()))
+                        ans.push(ConjureExpression::Reference(Metadata::new(), name.clone()));
                     } <span class="kw">else </span>{
                         <span class="kw">let </span>expression: ConjureExpression =
-                            ConjureExpression::Reference(name.clone());
-                        ans.push(ConjureExpression::Not(Box::from(expression)))
+                            ConjureExpression::Reference(Metadata::new(), name.clone());
+                        ans.push(ConjureExpression::Not(
+                            Metadata::new(),
+                            Box::from(expression),
+                        ))
                     }
                 }
             }
         }
 
-        <span class="prelude-val">Ok</span>(ConjureExpression::Or(ans))
+        <span class="prelude-val">Ok</span>(ConjureExpression::Or(Metadata::new(), ans))
     }
 
     <span class="doccomment">/**
@@ -747,7 +829,9 @@
         <span class="kw">let </span>expr = expr_box.as_ref();
         <span class="kw">match </span>expr {
             <span class="comment">// Expression inside the Not()
-            </span>ConjureExpression::Reference(name) =&gt; <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[-<span class="self">self</span>.get_reference_index(name)<span class="question-mark">?</span>]),
+            </span>ConjureExpression::Reference(metadata, name) =&gt; {
+                <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[-<span class="self">self</span>.get_reference_index(name)<span class="question-mark">?</span>])
+            }
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(CNFError::UnexpectedExpressionInsideNot(expr.clone())),
         }
     }
@@ -773,9 +857,9 @@
      */
     </span><span class="kw">fn </span>handle_flat_expression(<span class="kw-2">&amp;</span><span class="self">self</span>, expression: <span class="kw-2">&amp;</span>ConjureExpression) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;i32&gt;, CNFError&gt; {
         <span class="kw">match </span>expression {
-            ConjureExpression::Reference(name) =&gt; <span class="self">self</span>.handle_reference(name),
-            ConjureExpression::Not(var_box) =&gt; <span class="self">self</span>.handle_not(var_box),
-            ConjureExpression::Or(expressions) =&gt; <span class="self">self</span>.handle_or(expressions),
+            ConjureExpression::Reference(metadata, name) =&gt; <span class="self">self</span>.handle_reference(name),
+            ConjureExpression::Not(metadata, var_box) =&gt; <span class="self">self</span>.handle_not(var_box),
+            ConjureExpression::Or(metadata, expressions) =&gt; <span class="self">self</span>.handle_or(expressions),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(CNFError::UnexpectedExpression(expression.clone())),
         }
     }
@@ -788,7 +872,7 @@
 
         <span class="kw">for </span>expression <span class="kw">in </span>expressions {
             <span class="kw">match </span>expression {
-                ConjureExpression::And(_expressions) =&gt; {
+                ConjureExpression::And(_metadata, _expressions) =&gt; {
                     <span class="kw">return </span><span class="prelude-val">Err</span>(CNFError::NestedAnd(expression.clone()));
                 }
                 <span class="kw">_ </span>=&gt; {
@@ -805,7 +889,7 @@
      */
     </span><span class="kw">fn </span>handle_expression(<span class="kw-2">&amp;</span><span class="self">self</span>, expression: <span class="kw-2">&amp;</span>ConjureExpression) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Vec&lt;i32&gt;&gt;, CNFError&gt; {
         <span class="kw">match </span>expression {
-            ConjureExpression::And(expressions) =&gt; <span class="self">self</span>.handle_and(expressions),
+            ConjureExpression::And(_metadata, expressions) =&gt; <span class="self">self</span>.handle_and(expressions),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="self">self</span>.handle_flat_expression(expression)<span class="question-mark">?</span>]),
         }
     }
@@ -872,6 +956,8 @@
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
+    <span class="kw">use </span>conjure_core::metadata::Metadata;
+
     <span class="kw">use </span><span class="kw">crate</span>::ast::Domain::{BoolDomain, IntDomain};
     <span class="kw">use </span><span class="kw">crate</span>::ast::Expression::{And, Not, Or, Reference};
     <span class="kw">use </span><span class="kw">crate</span>::ast::{DecisionVariable, Model};
@@ -888,7 +974,7 @@
 
         <span class="kw">let </span>x: Name = Name::UserName(String::from(<span class="string">'x'</span>));
         model.add_variable(x.clone(), DecisionVariable { domain: BoolDomain });
-        model.add_constraint(Reference(x.clone()));
+        model.add_constraint(Reference(Metadata::new(), x.clone()));
 
         <span class="kw">let </span>res: <span class="prelude-ty">Result</span>&lt;CNF, SolverError&gt; = CNF::from_conjure(model);
         <span class="macro">assert!</span>(res.is_ok());
@@ -910,7 +996,10 @@
 
         <span class="kw">let </span>x: Name = Name::UserName(String::from(<span class="string">'x'</span>));
         model.add_variable(x.clone(), DecisionVariable { domain: BoolDomain });
-        model.add_constraint(Not(Box::from(Reference(x.clone()))));
+        model.add_constraint(Not(
+            Metadata::new(),
+            Box::from(Reference(Metadata::new(), x.clone())),
+        ));
 
         <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
         <span class="macro">assert_eq!</span>(cnf.get_index(<span class="kw-2">&amp;</span>x), <span class="prelude-val">Some</span>(<span class="number">1</span>));
@@ -918,7 +1007,16 @@
 
         <span class="macro">assert_eq!</span>(
             if_ok(cnf.as_expression()),
-            And(<span class="macro">vec!</span>[Or(<span class="macro">vec!</span>[Not(Box::from(Reference(x.clone())))])])
+            And(
+                Metadata::new(),
+                <span class="macro">vec!</span>[Or(
+                    Metadata::new(),
+                    <span class="macro">vec!</span>[Not(
+                        Metadata::new(),
+                        Box::from(Reference(Metadata::new(), x.clone()))
+                    )]
+                )]
+            )
         )
     }
 
@@ -934,7 +1032,13 @@
         model.add_variable(x.clone(), DecisionVariable { domain: BoolDomain });
         model.add_variable(y.clone(), DecisionVariable { domain: BoolDomain });
 
-        model.add_constraint(Or(<span class="macro">vec!</span>[Reference(x.clone()), Reference(y.clone())]));
+        model.add_constraint(Or(
+            Metadata::new(),
+            <span class="macro">vec!</span>[
+                Reference(Metadata::new(), x.clone()),
+                Reference(Metadata::new(), y.clone()),
+            ],
+        ));
 
         <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
 
@@ -944,7 +1048,16 @@
 
         <span class="macro">assert_eq!</span>(
             if_ok(cnf.as_expression()),
-            And(<span class="macro">vec!</span>[Or(<span class="macro">vec!</span>[Reference(x.clone()), Reference(y.clone())])])
+            And(
+                Metadata::new(),
+                <span class="macro">vec!</span>[Or(
+                    Metadata::new(),
+                    <span class="macro">vec!</span>[
+                        Reference(Metadata::new(), x.clone()),
+                        Reference(Metadata::new(), y.clone())
+                    ]
+                )]
+            )
         )
     }
 
@@ -960,10 +1073,16 @@
         model.add_variable(x.clone(), DecisionVariable { domain: BoolDomain });
         model.add_variable(y.clone(), DecisionVariable { domain: BoolDomain });
 
-        model.add_constraint(Or(<span class="macro">vec!</span>[
-            Reference(x.clone()),
-            Not(Box::from(Reference(y.clone()))),
-        ]));
+        model.add_constraint(Or(
+            Metadata::new(),
+            <span class="macro">vec!</span>[
+                Reference(Metadata::new(), x.clone()),
+                Not(
+                    Metadata::new(),
+                    Box::from(Reference(Metadata::new(), y.clone())),
+                ),
+            ],
+        ));
 
         <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
 
@@ -973,10 +1092,19 @@
 
         <span class="macro">assert_eq!</span>(
             if_ok(cnf.as_expression()),
-            And(<span class="macro">vec!</span>[Or(<span class="macro">vec!</span>[
-                Reference(x.clone()),
-                Not(Box::from(Reference(y.clone())))
-            ])])
+            And(
+                Metadata::new(),
+                <span class="macro">vec!</span>[Or(
+                    Metadata::new(),
+                    <span class="macro">vec!</span>[
+                        Reference(Metadata::new(), x.clone()),
+                        Not(
+                            Metadata::new(),
+                            Box::from(Reference(Metadata::new(), y.clone()))
+                        )
+                    ]
+                )]
+            )
         )
     }
 
@@ -992,8 +1120,8 @@
         model.add_variable(x.clone(), DecisionVariable { domain: BoolDomain });
         model.add_variable(y.clone(), DecisionVariable { domain: BoolDomain });
 
-        model.add_constraint(Reference(x.clone()));
-        model.add_constraint(Reference(y.clone()));
+        model.add_constraint(Reference(Metadata::new(), x.clone()));
+        model.add_constraint(Reference(Metadata::new(), y.clone()));
 
         <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
 
@@ -1003,10 +1131,13 @@
 
         <span class="macro">assert_eq!</span>(
             if_ok(cnf.as_expression()),
-            And(<span class="macro">vec!</span>[
-                Or(<span class="macro">vec!</span>[Reference(x.clone())]),
-                Or(<span class="macro">vec!</span>[Reference(y.clone())])
-            ])
+            And(
+                Metadata::new(),
+                <span class="macro">vec!</span>[
+                    Or(Metadata::new(), <span class="macro">vec!</span>[Reference(Metadata::new(), x.clone())]),
+                    Or(Metadata::new(), <span class="macro">vec!</span>[Reference(Metadata::new(), y.clone())])
+                ]
+            )
         )
     }
 
@@ -1022,7 +1153,13 @@
         model.add_variable(x.clone(), DecisionVariable { domain: BoolDomain });
         model.add_variable(y.clone(), DecisionVariable { domain: BoolDomain });
 
-        model.add_constraint(And(<span class="macro">vec!</span>[Reference(x.clone()), Reference(y.clone())]));
+        model.add_constraint(And(
+            Metadata::new(),
+            <span class="macro">vec!</span>[
+                Reference(Metadata::new(), x.clone()),
+                Reference(Metadata::new(), y.clone()),
+            ],
+        ));
 
         <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
 
@@ -1032,10 +1169,13 @@
 
         <span class="macro">assert_eq!</span>(
             if_ok(cnf.as_expression()),
-            And(<span class="macro">vec!</span>[
-                Or(<span class="macro">vec!</span>[Reference(x.clone())]),
-                Or(<span class="macro">vec!</span>[Reference(y.clone())])
-            ])
+            And(
+                Metadata::new(),
+                <span class="macro">vec!</span>[
+                    Or(Metadata::new(), <span class="macro">vec!</span>[Reference(Metadata::new(), x.clone())]),
+                    Or(Metadata::new(), <span class="macro">vec!</span>[Reference(Metadata::new(), y.clone())])
+                ]
+            )
         )
     }
 
@@ -1053,10 +1193,19 @@
         model.add_variable(y.clone(), DecisionVariable { domain: BoolDomain });
         model.add_variable(z.clone(), DecisionVariable { domain: BoolDomain });
 
-        model.add_constraint(Or(<span class="macro">vec!</span>[
-            Reference(x.clone()),
-            Or(<span class="macro">vec!</span>[Reference(y.clone()), Reference(z.clone())]),
-        ]));
+        model.add_constraint(Or(
+            Metadata::new(),
+            <span class="macro">vec!</span>[
+                Reference(Metadata::new(), x.clone()),
+                Or(
+                    Metadata::new(),
+                    <span class="macro">vec!</span>[
+                        Reference(Metadata::new(), y.clone()),
+                        Reference(Metadata::new(), z.clone()),
+                    ],
+                ),
+            ],
+        ));
 
         <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
 
@@ -1067,11 +1216,17 @@
 
         <span class="macro">assert_eq!</span>(
             if_ok(cnf.as_expression()),
-            And(<span class="macro">vec!</span>[Or(<span class="macro">vec!</span>[
-                Reference(x.clone()),
-                Reference(y.clone()),
-                Reference(z.clone())
-            ])])
+            And(
+                Metadata::new(),
+                <span class="macro">vec!</span>[Or(
+                    Metadata::new(),
+                    <span class="macro">vec!</span>[
+                        Reference(Metadata::new(), x.clone()),
+                        Reference(Metadata::new(), y.clone()),
+                        Reference(Metadata::new(), z.clone())
+                    ]
+                )]
+            )
         )
     }
 
@@ -1092,8 +1247,8 @@
             },
         );
 
-        model.add_constraint(Reference(x.clone()));
-        model.add_constraint(Reference(y.clone()));
+        model.add_constraint(Reference(Metadata::new(), x.clone()));
+        model.add_constraint(Reference(Metadata::new(), y.clone()));
 
         <span class="kw">let </span>cnf: <span class="prelude-ty">Result</span>&lt;CNF, SolverError&gt; = CNF::from_conjure(model);
         <span class="macro">assert!</span>(cnf.is_err());
@@ -1112,8 +1267,9 @@
         model.add_variable(y.clone(), DecisionVariable { domain: BoolDomain });
 
         model.add_constraint(Expression::Eq(
-            Box::from(Reference(x.clone())),
-            Box::from(Reference(y.clone())),
+            Metadata::new(),
+            Box::from(Reference(Metadata::new(), x.clone())),
+            Box::from(Reference(Metadata::new(), y.clone())),
         ));
 
         <span class="kw">let </span>cnf: <span class="prelude-ty">Result</span>&lt;CNF, SolverError&gt; = CNF::from_conjure(model);

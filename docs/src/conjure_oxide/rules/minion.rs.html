@@ -186,6 +186,13 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::{
     ast::Constant <span class="kw">as </span>Const, ast::Expression <span class="kw">as </span>Expr, metadata::Metadata, rule::RuleApplicationError,
 };
@@ -197,7 +204,7 @@
 
 </span><span class="kw">fn </span>is_nested_sum(exprs: <span class="kw-2">&amp;</span>Vec&lt;Expr&gt;) -&gt; bool {
     <span class="kw">for </span>e <span class="kw">in </span>exprs {
-        <span class="kw">if let </span>Expr::Sum(<span class="kw">_</span>) = e {
+        <span class="kw">if let </span>Expr::Sum(<span class="kw">_</span>, <span class="kw">_</span>) = e {
             <span class="kw">return </span><span class="bool-val">true</span>;
         }
     }
@@ -209,7 +216,7 @@
  */
 </span><span class="kw">fn </span>sum_to_vector(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Expr&gt;, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Sum(exprs) =&gt; {
+        Expr::Sum(metadata, exprs) =&gt; {
             <span class="kw">if </span>is_nested_sum(exprs) {
                 <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable)
             } <span class="kw">else </span>{
@@ -229,9 +236,9 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>flatten_sum_geq(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Geq(a, b) =&gt; {
+        Expr::Geq(metadata, a, b) =&gt; {
             <span class="kw">let </span>exprs = sum_to_vector(a)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(Expr::SumGeq(exprs, b.clone()))
+            <span class="prelude-val">Ok</span>(Expr::SumGeq(metadata.clone(), exprs, b.clone()))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
     }
@@ -246,9 +253,9 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>sum_leq_to_sumleq(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Leq(a, b) =&gt; {
+        Expr::Leq(metadata, a, b) =&gt; {
             <span class="kw">let </span>exprs = sum_to_vector(a)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(Expr::SumLeq(exprs, b.clone()))
+            <span class="prelude-val">Ok</span>(Expr::SumLeq(metadata.clone(), exprs, b.clone()))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
     }
@@ -263,9 +270,9 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>sum_eq_to_sumeq(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Eq(a, b) =&gt; {
+        Expr::Eq(metadata, a, b) =&gt; {
             <span class="kw">let </span>exprs = sum_to_vector(a)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(Expr::SumEq(exprs, b.clone()))
+            <span class="prelude-val">Ok</span>(Expr::SumEq(metadata.clone(), exprs, b.clone()))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
     }
@@ -289,10 +296,13 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>sumeq_to_minion(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::SumEq(exprs, eq_to) =&gt; <span class="prelude-val">Ok</span>(Expr::And(<span class="macro">vec!</span>[
-            Expr::SumGeq(exprs.clone(), Box::from(<span class="kw-2">*</span>eq_to.clone())),
-            Expr::SumLeq(exprs.clone(), Box::from(<span class="kw-2">*</span>eq_to.clone())),
-        ])),
+        Expr::SumEq(metadata, exprs, eq_to) =&gt; <span class="prelude-val">Ok</span>(Expr::And(
+            metadata.clone(),
+            <span class="macro">vec!</span>[
+                Expr::SumGeq(metadata.clone(), exprs.clone(), Box::from(<span class="kw-2">*</span>eq_to.clone())),
+                Expr::SumLeq(metadata.clone(), exprs.clone(), Box::from(<span class="kw-2">*</span>eq_to.clone())),
+            ],
+        )),
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
     }
 }
@@ -307,7 +317,8 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>lt_to_ineq(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Lt(a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+        Expr::Lt(metadata, a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+            metadata.clone(),
             a.clone(),
             b.clone(),
             Box::new(Expr::Constant(Metadata::new(), Const::Int(-<span class="number">1</span>))),
@@ -326,7 +337,8 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>gt_to_ineq(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Gt(a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+        Expr::Gt(metadata, a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+            metadata.clone(),
             b.clone(),
             a.clone(),
             Box::new(Expr::Constant(Metadata::new(), Const::Int(-<span class="number">1</span>))),
@@ -345,7 +357,8 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>geq_to_ineq(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Geq(a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+        Expr::Geq(metadata, a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+            metadata.clone(),
             b.clone(),
             a.clone(),
             Box::new(Expr::Constant(Metadata::new(), Const::Int(<span class="number">0</span>))),
@@ -364,7 +377,8 @@
 </span><span class="attr">#[register_rule]
 </span><span class="kw">fn </span>leq_to_ineq(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Leq(a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+        Expr::Leq(metadata, a, b) =&gt; <span class="prelude-val">Ok</span>(Expr::Ineq(
+            metadata.clone(),
             a.clone(),
             b.clone(),
             Box::new(Expr::Constant(Metadata::new(), Const::Int(<span class="number">0</span>))),

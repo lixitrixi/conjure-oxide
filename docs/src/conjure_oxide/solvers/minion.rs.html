@@ -304,6 +304,12 @@
 <a href="#302" id="302">302</a>
 <a href="#303" id="303">303</a>
 <a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Solver interface to minion_rs.
 
 </span><span class="attr">#![allow(unreachable_patterns)]
@@ -434,19 +440,19 @@
 
 <span class="kw">fn </span>parse_expr(expr: ConjureExpression, minion_model: <span class="kw-2">&amp;mut </span>MinionModel) -&gt; <span class="prelude-ty">Result</span>&lt;(), SolverError&gt; {
     <span class="kw">match </span>expr {
-        ConjureExpression::SumLeq(lhs, rhs) =&gt; {
+        ConjureExpression::SumLeq(metadata, lhs, rhs) =&gt; {
             minion_model
                 .constraints
                 .push(MinionConstraint::SumLeq(read_vars(lhs)<span class="question-mark">?</span>, read_var(<span class="kw-2">*</span>rhs)<span class="question-mark">?</span>));
             <span class="prelude-val">Ok</span>(())
         }
-        ConjureExpression::SumGeq(lhs, rhs) =&gt; {
+        ConjureExpression::SumGeq(metadata, lhs, rhs) =&gt; {
             minion_model
                 .constraints
                 .push(MinionConstraint::SumGeq(read_vars(lhs)<span class="question-mark">?</span>, read_var(<span class="kw-2">*</span>rhs)<span class="question-mark">?</span>));
             <span class="prelude-val">Ok</span>(())
         }
-        ConjureExpression::Ineq(a, b, c) =&gt; {
+        ConjureExpression::Ineq(metadata, a, b, c) =&gt; {
             minion_model.constraints.push(MinionConstraint::Ineq(
                 read_var(<span class="kw-2">*</span>a)<span class="question-mark">?</span>,
                 read_var(<span class="kw-2">*</span>b)<span class="question-mark">?</span>,
@@ -454,7 +460,7 @@
             ));
             <span class="prelude-val">Ok</span>(())
         }
-        ConjureExpression::Neq(a, b) =&gt; {
+        ConjureExpression::Neq(metadata, a, b) =&gt; {
             minion_model
                 .constraints
                 .push(MinionConstraint::WatchNeq(read_var(<span class="kw-2">*</span>a)<span class="question-mark">?</span>, read_var(<span class="kw-2">*</span>b)<span class="question-mark">?</span>));
@@ -486,7 +492,7 @@
 
 <span class="kw">fn </span>_read_ref(e: ConjureExpression) -&gt; <span class="prelude-ty">Result</span>&lt;String, SolverError&gt; {
     <span class="kw">let </span>name = <span class="kw">match </span>e {
-        ConjureExpression::Reference(n) =&gt; <span class="prelude-val">Ok</span>(n),
+        ConjureExpression::Reference(metdata, n) =&gt; <span class="prelude-val">Ok</span>(n),
         x =&gt; <span class="prelude-val">Err</span>(SolverError::InvalidInstance(
             SOLVER,
             <span class="macro">format!</span>(<span class="string">"expected a reference, but got `{0:?}`"</span>, x),
@@ -530,27 +536,33 @@
         <span class="comment">// TODO: convert to use public interfaces when these exist.
         </span><span class="kw">let </span><span class="kw-2">mut </span>model = ConjureModel {
             variables: HashMap::new(),
-            constraints: Expression::And(Vec::new()),
+            constraints: Expression::And(Metadata::new(), Vec::new()),
         };
 
         add_int_with_range(<span class="kw-2">&amp;mut </span>model, <span class="string">"x"</span>, <span class="number">1</span>, <span class="number">3</span>)<span class="question-mark">?</span>;
         add_int_with_range(<span class="kw-2">&amp;mut </span>model, <span class="string">"y"</span>, <span class="number">2</span>, <span class="number">4</span>)<span class="question-mark">?</span>;
         add_int_with_range(<span class="kw-2">&amp;mut </span>model, <span class="string">"z"</span>, <span class="number">1</span>, <span class="number">5</span>)<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>x = ConjureExpression::Reference(ConjureName::UserName(<span class="string">"x"</span>.to_owned()));
-        <span class="kw">let </span>y = ConjureExpression::Reference(ConjureName::UserName(<span class="string">"y"</span>.to_owned()));
-        <span class="kw">let </span>z = ConjureExpression::Reference(ConjureName::UserName(<span class="string">"z"</span>.to_owned()));
+        <span class="kw">let </span>x =
+            ConjureExpression::Reference(Metadata::new(), ConjureName::UserName(<span class="string">"x"</span>.to_owned()));
+        <span class="kw">let </span>y =
+            ConjureExpression::Reference(Metadata::new(), ConjureName::UserName(<span class="string">"y"</span>.to_owned()));
+        <span class="kw">let </span>z =
+            ConjureExpression::Reference(Metadata::new(), ConjureName::UserName(<span class="string">"z"</span>.to_owned()));
         <span class="kw">let </span>four = ConjureExpression::Constant(Metadata::new(), ConjureConstant::Int(<span class="number">4</span>));
 
         <span class="kw">let </span>geq = ConjureExpression::SumGeq(
+            Metadata::new(),
             <span class="macro">vec!</span>[x.to_owned(), y.to_owned(), z.to_owned()],
             Box::from(four.to_owned()),
         );
         <span class="kw">let </span>leq = ConjureExpression::SumLeq(
+            Metadata::new(),
             <span class="macro">vec!</span>[x.to_owned(), y.to_owned(), z.to_owned()],
             Box::from(four.to_owned()),
         );
-        <span class="kw">let </span>ineq = ConjureExpression::Ineq(Box::from(x), Box::from(y), Box::from(four));
+        <span class="kw">let </span>ineq =
+            ConjureExpression::Ineq(Metadata::new(), Box::from(x), Box::from(y), Box::from(four));
 
         model.add_constraints(<span class="macro">vec!</span>[geq, leq, ineq]);
 

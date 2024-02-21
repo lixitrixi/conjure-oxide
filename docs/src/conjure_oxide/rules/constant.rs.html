@@ -114,6 +114,10 @@
 <a href="#112" id="112">112</a>
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::{
     ast::Constant <span class="kw">as </span>Const, ast::Expression <span class="kw">as </span>Expr, metadata::Metadata, rule::RuleApplicationError,
 };
@@ -136,33 +140,37 @@
 /// `Some(Const)` if the expression can be simplified to a constant
 </span><span class="kw">pub fn </span>eval_constant(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;Const&gt; {
     <span class="kw">match </span>expr {
-        Expr::Constant(m, c) =&gt; <span class="prelude-val">Some</span>(c.clone()),
-        Expr::Reference(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+        Expr::Constant(metadata, c) =&gt; <span class="prelude-val">Some</span>(c.clone()),
+        Expr::Reference(metadata, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
 
-        Expr::Eq(a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a == b, a, b)
+        Expr::Eq(metadata, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a == b, a, b)
             .or_else(|| bin_op::&lt;bool, bool&gt;(|a, b| a == b, a, b))
             .map(Const::Bool),
-        Expr::Neq(a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a != b, a, b).map(Const::Bool),
-        Expr::Lt(a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &lt; b, a, b).map(Const::Bool),
-        Expr::Gt(a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &gt; b, a, b).map(Const::Bool),
-        Expr::Leq(a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &lt;= b, a, b).map(Const::Bool),
-        Expr::Geq(a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &gt;= b, a, b).map(Const::Bool),
+        Expr::Neq(metadata, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a != b, a, b).map(Const::Bool),
+        Expr::Lt(metadata, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &lt; b, a, b).map(Const::Bool),
+        Expr::Gt(metadata, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &gt; b, a, b).map(Const::Bool),
+        Expr::Leq(metadata, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &lt;= b, a, b).map(Const::Bool),
+        Expr::Geq(metadata, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a &gt;= b, a, b).map(Const::Bool),
 
-        Expr::Not(expr) =&gt; un_op::&lt;bool, bool&gt;(|e| !e, expr).map(Const::Bool),
+        Expr::Not(metadata, expr) =&gt; un_op::&lt;bool, bool&gt;(|e| !e, expr).map(Const::Bool),
 
-        Expr::And(exprs) =&gt; vec_op::&lt;bool, bool&gt;(|e| e.iter().all(|<span class="kw-2">&amp;</span>e| e), exprs).map(Const::Bool),
-        Expr::Or(exprs) =&gt; vec_op::&lt;bool, bool&gt;(|e| e.iter().any(|<span class="kw-2">&amp;</span>e| e), exprs).map(Const::Bool),
+        Expr::And(metadata, exprs) =&gt; {
+            vec_op::&lt;bool, bool&gt;(|e| e.iter().all(|<span class="kw-2">&amp;</span>e| e), exprs).map(Const::Bool)
+        }
+        Expr::Or(metadata, exprs) =&gt; {
+            vec_op::&lt;bool, bool&gt;(|e| e.iter().any(|<span class="kw-2">&amp;</span>e| e), exprs).map(Const::Bool)
+        }
 
-        Expr::Sum(exprs) =&gt; vec_op::&lt;i32, i32&gt;(|e| e.iter().sum(), exprs).map(Const::Int),
+        Expr::Sum(metadata, exprs) =&gt; vec_op::&lt;i32, i32&gt;(|e| e.iter().sum(), exprs).map(Const::Int),
 
-        Expr::Ineq(a, b, c) =&gt; {
+        Expr::Ineq(metadata, a, b, c) =&gt; {
             tern_op::&lt;i32, bool&gt;(|a, b, c| a &lt;= (b + c), a, b, c).map(Const::Bool)
         }
 
-        Expr::SumGeq(exprs, a) =&gt; {
+        Expr::SumGeq(metadata, exprs, a) =&gt; {
             flat_op::&lt;i32, bool&gt;(|e, a| e.iter().sum::&lt;i32&gt;() &gt;= a, exprs, a).map(Const::Bool)
         }
-        Expr::SumLeq(exprs, a) =&gt; {
+        Expr::SumLeq(metadata, exprs, a) =&gt; {
             flat_op::&lt;i32, bool&gt;(|e, a| e.iter().sum::&lt;i32&gt;() &lt;= a, exprs, a).map(Const::Bool)
         }
         <span class="kw">_ </span>=&gt; {
