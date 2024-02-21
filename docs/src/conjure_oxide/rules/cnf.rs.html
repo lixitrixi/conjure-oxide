@@ -102,24 +102,27 @@
 <a href="#100" id="100">100</a>
 <a href="#101" id="101">101</a>
 <a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::{ast::Expression <span class="kw">as </span>Expr, rule::RuleApplicationError};
-<span class="kw">use </span>conjure_rules::register_rule;
+<span class="kw">use </span>conjure_rules::{register_rule, register_rule_set};
 
 <span class="comment">/***********************************************************************************/
 /*        This file contains rules for converting logic expressions to CNF         */
 /***********************************************************************************/
 
-</span><span class="doccomment">/**
+</span><span class="macro">register_rule_set!</span>(<span class="string">"CNF"</span>, <span class="number">100</span>, (<span class="string">"Base"</span>));
+
+<span class="doccomment">/**
 * Distribute `not` over `and` (De Morgan's Law):
 
 * ```text
 * not(and(a, b)) = or(not a, not b)
 * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"CNF"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>distribute_not_over_and(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Not(metadata, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+        Expr::Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
             Expr::And(metadata, exprs) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>new_exprs = Vec::new();
                 <span class="kw">for </span>e <span class="kw">in </span>exprs {
@@ -140,10 +143,10 @@
 * not(or(a, b)) = and(not a, not b)
 * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"CNF"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>distribute_not_over_or(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Not(metadata, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+        Expr::Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
             Expr::Or(metadata, exprs) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>new_exprs = Vec::new();
                 <span class="kw">for </span>e <span class="kw">in </span>exprs {
@@ -164,21 +167,20 @@
 * or(and(a, b), c) = and(or(a, c), or(b, c))
 * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"CNF"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>distribute_or_over_and(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">fn </span>find_and(exprs: <span class="kw-2">&amp;</span>Vec&lt;Expr&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
         <span class="comment">// ToDo: may be better to move this to some kind of utils module?
         </span><span class="kw">for </span>(i, e) <span class="kw">in </span>exprs.iter().enumerate() {
-            <span class="kw">match </span>e {
-                Expr::And(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="kw">return </span><span class="prelude-val">Some</span>(i),
-                <span class="kw">_ </span>=&gt; (),
+            <span class="kw">if let </span>Expr::And(<span class="kw">_</span>, <span class="kw">_</span>) = e {
+                <span class="kw">return </span><span class="prelude-val">Some</span>(i);
             }
         }
         <span class="prelude-val">None
     </span>}
 
     <span class="kw">match </span>expr {
-        Expr::Or(metadata, exprs) =&gt; <span class="kw">match </span>find_and(exprs) {
+        Expr::Or(<span class="kw">_</span>, exprs) =&gt; <span class="kw">match </span>find_and(exprs) {
             <span class="prelude-val">Some</span>(idx) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>rest = exprs.clone();
                 <span class="kw">let </span>and_expr = rest.remove(idx);

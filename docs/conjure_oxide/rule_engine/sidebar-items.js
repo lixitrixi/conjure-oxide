@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["resolve_rules","rewrite"]};

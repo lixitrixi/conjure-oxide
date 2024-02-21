@@ -383,17 +383,21 @@
 <a href="#381" id="381">381</a>
 <a href="#382" id="382">382</a>
 <a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::{
     ast::Constant <span class="kw">as </span>Const, ast::Expression <span class="kw">as </span>Expr, metadata::Metadata, rule::RuleApplicationError,
 };
-<span class="kw">use </span>conjure_rules::register_rule;
+<span class="kw">use </span>conjure_rules::{register_rule, register_rule_set};
 
 <span class="comment">/*****************************************************************************/
 /*        This file contains basic rules for simplifying expressions         */
 /*****************************************************************************/
 
-</span><span class="doccomment">/**
- * Remove nothings from expressions:
+</span><span class="macro">register_rule_set!</span>(<span class="string">"Base"</span>, <span class="number">100</span>, ());
+
+<span class="doccomment">/**
+ * Remove nothing's from expressions:
  * ```text
  * and([a, nothing, b]) = and([a, b])
  * sum([a, nothing, b]) = sum([a, b])
@@ -401,7 +405,7 @@
  * ...
  * ```
 */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>remove_nothings(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">fn </span>remove_nothings(exprs: Vec&lt;<span class="kw-2">&amp;</span>Expr&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw-2">&amp;</span>Expr&gt;, RuleApplicationError&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>changed = <span class="bool-val">false</span>;
@@ -460,7 +464,7 @@
  * [] = Nothing
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>empty_to_nothing(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr.sub_expressions() {
         <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
@@ -480,16 +484,16 @@
  * sum([1, 2, 3]) = 6
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>sum_constants(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Sum(metadata, exprs) =&gt; {
+        Expr::Sum(<span class="kw">_</span>, exprs) =&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>sum = <span class="number">0</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>new_exprs = Vec::new();
             <span class="kw">let </span><span class="kw-2">mut </span>changed = <span class="bool-val">false</span>;
             <span class="kw">for </span>e <span class="kw">in </span>exprs {
                 <span class="kw">match </span>e {
-                    Expr::Constant(metadata, Const::Int(i)) =&gt; {
+                    Expr::Constant(<span class="kw">_</span>, Const::Int(i)) =&gt; {
                         sum += i;
                         changed = <span class="bool-val">true</span>;
                     }
@@ -513,10 +517,10 @@
  * sum([a]) = a
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>unwrap_sum(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Sum(metadata, exprs) <span class="kw">if </span>(exprs.len() == <span class="number">1</span>) =&gt; <span class="prelude-val">Ok</span>(exprs[<span class="number">0</span>].clone()),
+        Expr::Sum(<span class="kw">_</span>, exprs) <span class="kw">if </span>(exprs.len() == <span class="number">1</span>) =&gt; <span class="prelude-val">Ok</span>(exprs[<span class="number">0</span>].clone()),
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
     }
 }
@@ -527,7 +531,7 @@
  * sum(sum(a, b), c) = sum(a, b, c)
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">pub fn </span>flatten_nested_sum(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
         Expr::Sum(metadata, exprs) =&gt; {
@@ -535,7 +539,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>changed = <span class="bool-val">false</span>;
             <span class="kw">for </span>e <span class="kw">in </span>exprs {
                 <span class="kw">match </span>e {
-                    Expr::Sum(metadata, sub_exprs) =&gt; {
+                    Expr::Sum(<span class="kw">_</span>, sub_exprs) =&gt; {
                         changed = <span class="bool-val">true</span>;
                         <span class="kw">for </span>e <span class="kw">in </span>sub_exprs {
                             new_exprs.push(e.clone());
@@ -560,7 +564,7 @@
 * or(or(a, b), c) = or(a, b, c)
 * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>unwrap_nested_or(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
         Expr::Or(metadata, exprs) =&gt; {
@@ -568,7 +572,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>changed = <span class="bool-val">false</span>;
             <span class="kw">for </span>e <span class="kw">in </span>exprs {
                 <span class="kw">match </span>e {
-                    Expr::Or(metadata, exprs) =&gt; {
+                    Expr::Or(<span class="kw">_</span>, exprs) =&gt; {
                         changed = <span class="bool-val">true</span>;
                         <span class="kw">for </span>e <span class="kw">in </span>exprs {
                             new_exprs.push(e.clone());
@@ -593,7 +597,7 @@
 * and(and(a, b), c) = and(a, b, c)
 * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>unwrap_nested_and(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
         Expr::And(metadata, exprs) =&gt; {
@@ -601,7 +605,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>changed = <span class="bool-val">false</span>;
             <span class="kw">for </span>e <span class="kw">in </span>exprs {
                 <span class="kw">match </span>e {
-                    Expr::And(metadata, exprs) =&gt; {
+                    Expr::And(<span class="kw">_</span>, exprs) =&gt; {
                         changed = <span class="bool-val">true</span>;
                         <span class="kw">for </span>e <span class="kw">in </span>exprs {
                             new_exprs.push(e.clone());
@@ -626,11 +630,11 @@
 * not(not(a)) = a
 * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>remove_double_negation(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Not(metadata, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
-            Expr::Not(metadata, expr_box) =&gt; <span class="prelude-val">Ok</span>(<span class="kw-2">*</span>expr_box.clone()),
+        Expr::Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+            Expr::Not(<span class="kw">_</span>, expr_box) =&gt; <span class="prelude-val">Ok</span>(<span class="kw-2">*</span>expr_box.clone()),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
         },
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleApplicationError::RuleNotApplicable),
@@ -643,10 +647,10 @@
  * and([a]) = a
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>remove_trivial_and(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::And(metadata, exprs) =&gt; {
+        Expr::And(<span class="kw">_</span>, exprs) =&gt; {
             <span class="kw">if </span>exprs.len() == <span class="number">1 </span>{
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(exprs[<span class="number">0</span>].clone());
             }
@@ -662,10 +666,10 @@
  * or([a]) = a
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>remove_trivial_or(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Or(metadata, exprs) =&gt; {
+        Expr::Or(<span class="kw">_</span>, exprs) =&gt; {
             <span class="kw">if </span>exprs.len() == <span class="number">1 </span>{
                 <span class="kw">return </span><span class="prelude-val">Ok</span>(exprs[<span class="number">0</span>].clone());
             }
@@ -682,7 +686,7 @@
  * or([false, a]) = a
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>remove_constants_from_or(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
         Expr::Or(metadata, exprs) =&gt; {
@@ -718,7 +722,7 @@
  * and([false, a]) = false
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>remove_constants_from_and(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
         Expr::And(metadata, exprs) =&gt; {
@@ -754,10 +758,10 @@
  * not(false) = true
  * ```
  */
-</span><span class="attr">#[register_rule]
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
 </span><span class="kw">fn </span>evaluate_constant_not(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Result</span>&lt;Expr, RuleApplicationError&gt; {
     <span class="kw">match </span>expr {
-        Expr::Not(metdata, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+        Expr::Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
             Expr::Constant(metadata, Const::Bool(val)) =&gt; {
                 <span class="prelude-val">Ok</span>(Expr::Constant(metadata.clone(), Const::Bool(!val)))
             }

@@ -829,7 +829,7 @@
         <span class="kw">let </span>expr = expr_box.as_ref();
         <span class="kw">match </span>expr {
             <span class="comment">// Expression inside the Not()
-            </span>ConjureExpression::Reference(metadata, name) =&gt; {
+            </span>ConjureExpression::Reference(_metadata, name) =&gt; {
                 <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[-<span class="self">self</span>.get_reference_index(name)<span class="question-mark">?</span>])
             }
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(CNFError::UnexpectedExpressionInsideNot(expr.clone())),
@@ -857,9 +857,9 @@
      */
     </span><span class="kw">fn </span>handle_flat_expression(<span class="kw-2">&amp;</span><span class="self">self</span>, expression: <span class="kw-2">&amp;</span>ConjureExpression) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;i32&gt;, CNFError&gt; {
         <span class="kw">match </span>expression {
-            ConjureExpression::Reference(metadata, name) =&gt; <span class="self">self</span>.handle_reference(name),
-            ConjureExpression::Not(metadata, var_box) =&gt; <span class="self">self</span>.handle_not(var_box),
-            ConjureExpression::Or(metadata, expressions) =&gt; <span class="self">self</span>.handle_or(expressions),
+            ConjureExpression::Reference(_metadata, name) =&gt; <span class="self">self</span>.handle_reference(name),
+            ConjureExpression::Not(_metadata, var_box) =&gt; <span class="self">self</span>.handle_not(var_box),
+            ConjureExpression::Or(_metadata, expressions) =&gt; <span class="self">self</span>.handle_or(expressions),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(CNFError::UnexpectedExpression(expression.clone())),
         }
     }

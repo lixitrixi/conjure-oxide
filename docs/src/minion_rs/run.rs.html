@@ -747,20 +747,14 @@
 <a href="#745" id="745">745</a>
 <a href="#746" id="746">746</a>
 <a href="#747" id="747">747</a>
-<a href="#748" id="748">748</a>
-<a href="#749" id="749">749</a>
-<a href="#750" id="750">750</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::HashMap,
     ffi::CString,
     sync::atomic::Ordering,
-    sync::{
-        atomic::{<span class="self">self</span>, AtomicBool},
-        Mutex, MutexGuard,
-    },
+    sync::{atomic::AtomicBool, Mutex, MutexGuard},
 };
 
-<span class="kw">use </span><span class="kw">crate</span>::ffi::{<span class="self">self</span>, ConstraintType_CT_WATCHED_LESS};
+<span class="kw">use </span><span class="kw">crate</span>::ffi::{<span class="self">self</span>};
 <span class="kw">use crate</span>::{ast::<span class="kw-2">*</span>, error::<span class="kw-2">*</span>, scoped_ptr::Scoped};
 <span class="kw">use </span>anyhow::anyhow;
 
@@ -1427,7 +1421,7 @@
     raw_constraint: <span class="kw-2">*mut </span>ffi::ProbSpec_ConstraintBlob,
     constant: <span class="kw-2">&amp;</span>Constant,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), MinionError&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>val: i32 = <span class="kw">match </span>constant {
+    <span class="kw">let </span>val: i32 = <span class="kw">match </span>constant {
         Constant::Integer(n) =&gt; <span class="prelude-val">Ok</span>(<span class="kw-2">*</span>n),
         Constant::Bool(<span class="bool-val">true</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="number">1</span>),
         Constant::Bool(<span class="bool-val">false</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="number">0</span>),

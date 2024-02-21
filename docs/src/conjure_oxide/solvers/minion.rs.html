@@ -440,19 +440,19 @@
 
 <span class="kw">fn </span>parse_expr(expr: ConjureExpression, minion_model: <span class="kw-2">&amp;mut </span>MinionModel) -&gt; <span class="prelude-ty">Result</span>&lt;(), SolverError&gt; {
     <span class="kw">match </span>expr {
-        ConjureExpression::SumLeq(metadata, lhs, rhs) =&gt; {
+        ConjureExpression::SumLeq(_metadata, lhs, rhs) =&gt; {
             minion_model
                 .constraints
                 .push(MinionConstraint::SumLeq(read_vars(lhs)<span class="question-mark">?</span>, read_var(<span class="kw-2">*</span>rhs)<span class="question-mark">?</span>));
             <span class="prelude-val">Ok</span>(())
         }
-        ConjureExpression::SumGeq(metadata, lhs, rhs) =&gt; {
+        ConjureExpression::SumGeq(_metadata, lhs, rhs) =&gt; {
             minion_model
                 .constraints
                 .push(MinionConstraint::SumGeq(read_vars(lhs)<span class="question-mark">?</span>, read_var(<span class="kw-2">*</span>rhs)<span class="question-mark">?</span>));
             <span class="prelude-val">Ok</span>(())
         }
-        ConjureExpression::Ineq(metadata, a, b, c) =&gt; {
+        ConjureExpression::Ineq(_metadata, a, b, c) =&gt; {
             minion_model.constraints.push(MinionConstraint::Ineq(
                 read_var(<span class="kw-2">*</span>a)<span class="question-mark">?</span>,
                 read_var(<span class="kw-2">*</span>b)<span class="question-mark">?</span>,
@@ -460,7 +460,7 @@
             ));
             <span class="prelude-val">Ok</span>(())
         }
-        ConjureExpression::Neq(metadata, a, b) =&gt; {
+        ConjureExpression::Neq(_metadata, a, b) =&gt; {
             minion_model
                 .constraints
                 .push(MinionConstraint::WatchNeq(read_var(<span class="kw-2">*</span>a)<span class="question-mark">?</span>, read_var(<span class="kw-2">*</span>b)<span class="question-mark">?</span>));
@@ -492,7 +492,7 @@
 
 <span class="kw">fn </span>_read_ref(e: ConjureExpression) -&gt; <span class="prelude-ty">Result</span>&lt;String, SolverError&gt; {
     <span class="kw">let </span>name = <span class="kw">match </span>e {
-        ConjureExpression::Reference(metdata, n) =&gt; <span class="prelude-val">Ok</span>(n),
+        ConjureExpression::Reference(_metdata, n) =&gt; <span class="prelude-val">Ok</span>(n),
         x =&gt; <span class="prelude-val">Err</span>(SolverError::InvalidInstance(
             SOLVER,
             <span class="macro">format!</span>(<span class="string">"expected a reference, but got `{0:?}`"</span>, x),
