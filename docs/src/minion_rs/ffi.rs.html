@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `solvers/minion/src/ffi.rs`."><title>ffi.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="minion_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (6672c16af 2024-02-17)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `solvers/minion/src/ffi.rs`."><title>ffi.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="minion_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (bb594538f 2024-02-20)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c37d3936c59ababd.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../minion_rs/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -136,9 +136,9 @@
         // Results can be manually inspected in the outputted minion logs.
         </span><span class="kw">unsafe </span>{
             <span class="comment">// See https://rust-lang.github.io/rust-bindgen/cpp.html
-            </span><span class="kw">let </span>options = newSearchOptions();
-            <span class="kw">let </span>args = newSearchMethod();
-            <span class="kw">let </span>instance = newInstance();
+            </span><span class="kw">let </span>options = searchOptions_new();
+            <span class="kw">let </span>args = searchMethod_new();
+            <span class="kw">let </span>instance = instance_new();
 
             <span class="kw">let </span>x_str = CString::new(<span class="string">"x"</span>).expect(<span class="string">"bad x"</span>);
             <span class="kw">let </span>y_str = CString::new(<span class="string">"y"</span>).expect(<span class="string">"bad y"</span>);
@@ -162,23 +162,23 @@
             vec_var_push_back(search_vars <span class="kw">as _</span>, x);
             vec_var_push_back(search_vars <span class="kw">as _</span>, y);
             vec_var_push_back(search_vars <span class="kw">as _</span>, z);
-            <span class="kw">let </span>search_order = newSearchOrder(search_vars <span class="kw">as _</span>, VarOrderEnum_ORDER_STATIC, <span class="bool-val">false</span>);
+            <span class="kw">let </span>search_order = searchOrder_new(search_vars <span class="kw">as _</span>, VarOrderEnum_ORDER_STATIC, <span class="bool-val">false</span>);
             instance_addSearchOrder(instance, search_order);
 
             <span class="comment">// CONSTRAINTS
-            </span><span class="kw">let </span>leq = newConstraintBlob(ConstraintType_CT_LEQSUM);
-            <span class="kw">let </span>geq = newConstraintBlob(ConstraintType_CT_GEQSUM);
-            <span class="kw">let </span>ineq = newConstraintBlob(ConstraintType_CT_INEQ);
+            </span><span class="kw">let </span>leq = constraint_new(ConstraintType_CT_LEQSUM);
+            <span class="kw">let </span>geq = constraint_new(ConstraintType_CT_GEQSUM);
+            <span class="kw">let </span>ineq = constraint_new(ConstraintType_CT_INEQ);
 
             <span class="kw">let </span>rhs_vars = vec_var_new();
             vec_var_push_back(rhs_vars, constantAsVar(<span class="number">4</span>));
 
             <span class="comment">// leq / geq : [var] [var]
-            </span>constraint_addVarList(leq, search_vars <span class="kw">as _</span>);
-            constraint_addVarList(leq, rhs_vars <span class="kw">as _</span>);
+            </span>constraint_addList(leq, search_vars <span class="kw">as _</span>);
+            constraint_addList(leq, rhs_vars <span class="kw">as _</span>);
 
-            constraint_addVarList(geq, search_vars <span class="kw">as _</span>);
-            constraint_addVarList(geq, rhs_vars <span class="kw">as _</span>);
+            constraint_addList(geq, search_vars <span class="kw">as _</span>);
+            constraint_addList(geq, rhs_vars <span class="kw">as _</span>);
 
             <span class="comment">// ineq: [var] [var] [const]
             </span><span class="kw">let </span>x_vec = vec_var_new();
@@ -190,8 +190,8 @@
             <span class="kw">let </span>const_vec = vec_int_new();
             vec_int_push_back(const_vec, -<span class="number">1</span>);
 
-            constraint_addVarList(ineq, x_vec <span class="kw">as _</span>);
-            constraint_addVarList(ineq, y_vec <span class="kw">as _</span>);
+            constraint_addList(ineq, x_vec <span class="kw">as _</span>);
+            constraint_addList(ineq, y_vec <span class="kw">as _</span>);
             constraint_addConstantList(ineq, const_vec <span class="kw">as _</span>);
 
             instance_addConstraint(instance, leq);
