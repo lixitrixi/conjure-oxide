@@ -700,7 +700,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::And(_) | Expr::Or(_) | Expr::Sum(_) =&gt; match expr.sub_expressions() {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::And(_, _) | Expr::Or(_, _) | Expr::Sum(_, _) =&gt; match expr.sub_expressions() {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -828,7 +828,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">        Expr::SumEq(_, _) | Expr::SumLeq(_, _) | Expr::SumGeq(_, _) =&gt; {</pre>
+                <pre class="has-background-white py-0 px-2">        Expr::SumEq(_, _, _) | Expr::SumLeq(_, _, _) | Expr::SumGeq(_, _, _) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1644,7 +1644,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::Sum(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::Sum(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1932,7 +1932,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::Sum(new_exprs)) &#x2F;&#x2F; Let other rules handle only one Expr being contained in the sum</pre>
+                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::Sum(Metadata::new(), new_exprs)) &#x2F;&#x2F; Let other rules handle only one Expr being contained in the sum</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2172,7 +2172,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::Sum(exprs) if (exprs.len() == 1) =&gt; Ok(exprs[0].clone()),</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::Sum(metadata, exprs) if (exprs.len() == 1) =&gt; Ok(exprs[0].clone()),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2396,7 +2396,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::Sum(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::Sum(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2476,7 +2476,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">                    Expr::Sum(sub_exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">                    Expr::Sum(metadata, sub_exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2668,7 +2668,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::Sum(new_exprs))</pre>
+                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::Sum(metadata.clone(), new_exprs))</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2924,7 +2924,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::Or(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::Or(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -3004,7 +3004,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">                    Expr::Or(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">                    Expr::Or(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -3196,7 +3196,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::Or(new_exprs))</pre>
+                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::Or(metadata.clone(), new_exprs))</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -3452,7 +3452,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::And(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::And(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -3532,7 +3532,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">                    Expr::And(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">                    Expr::And(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -3724,7 +3724,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::And(new_exprs))</pre>
+                <pre class="has-background-success-light py-0 px-2">            Ok(Expr::And(metadata.clone(), new_exprs))</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -3980,7 +3980,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::Not(contents) =&gt; match contents.as_ref() {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::Not(metadata, contents) =&gt; match contents.as_ref() {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -3996,7 +3996,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">            Expr::Not(expr_box) =&gt; Ok(*expr_box.clone()),</pre>
+                <pre class="has-background-success-light py-0 px-2">            Expr::Not(metadata, expr_box) =&gt; Ok(*expr_box.clone()),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -4252,7 +4252,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::And(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::And(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -4556,7 +4556,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::Or(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::Or(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -4876,7 +4876,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::Or(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::Or(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -5196,7 +5196,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            Ok(Expr::Or(new_exprs))</pre>
+                <pre class="has-background-danger-light py-0 px-2">            Ok(Expr::Or(metadata.clone(), new_exprs))</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -5452,7 +5452,7 @@
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        Expr::And(exprs) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">        Expr::And(metadata, exprs) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -5772,7 +5772,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            Ok(Expr::And(new_exprs))</pre>
+                <pre class="has-background-danger-light py-0 px-2">            Ok(Expr::And(metadata.clone(), new_exprs))</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -6028,7 +6028,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        Expr::Not(contents) =&gt; match contents.as_ref() {</pre>
+                <pre class="has-background-danger-light py-0 px-2">        Expr::Not(metdata, contents) =&gt; match contents.as_ref() {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -6162,7 +6162,7 @@
 </div>
         <footer class="footer">
             <div class="content has-text-centered">
-                <p class="heading">Date: 2024-02-21 14:55</p>
+                <p class="heading">Date: 2024-02-21 15:27</p>
             </div>
         </footer>
     </body>

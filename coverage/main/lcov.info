@@ -1,12 +1,11 @@
 TN:
 SF:conjure_oxide/tests/model_tests.rs
-FN:7,model_tests::modify_domain
+FN:8,model_tests::modify_domain
 FNDA:1,model_tests::modify_domain
 FNF:1
 FNH:1
 BRF:0
 BRH:0
-DA:7,1
 DA:8,1
 DA:9,1
 DA:10,1
@@ -21,10 +20,11 @@ DA:18,1
 DA:19,1
 DA:20,1
 DA:21,1
-DA:23,1
+DA:22,1
 DA:24,1
 DA:25,1
 DA:26,1
+DA:27,1
 LF:19
 LH:19
 end_of_record
@@ -165,38 +165,38 @@ LH:61
 end_of_record
 SF:conjure_oxide/src/parse.rs
 FN:142,conjure_oxide::parse::parse_expression
-FN:185,conjure_oxide::parse::parse_expression::{closure#4}
+FN:202,conjure_oxide::parse::parse_expression::{closure#4}
 FN:142,conjure_oxide::parse::parse_expression
-FN:182,conjure_oxide::parse::parse_expression::{closure#3}
-FN:202,conjure_oxide::parse::parse_bin_op
-FN:177,conjure_oxide::parse::parse_expression::{closure#1}
-FN:182,conjure_oxide::parse::parse_expression::{closure#3}
-FN:248,conjure_oxide::parse::parse_constant
-FN:178,conjure_oxide::parse::parse_expression::{closure#2}
-FN:243,conjure_oxide::parse::parse_vec_op::{closure#0}
+FN:199,conjure_oxide::parse::parse_expression::{closure#3}
+FN:222,conjure_oxide::parse::parse_bin_op
+FN:194,conjure_oxide::parse::parse_expression::{closure#1}
+FN:199,conjure_oxide::parse::parse_expression::{closure#3}
+FN:268,conjure_oxide::parse::parse_constant
+FN:195,conjure_oxide::parse::parse_expression::{closure#2}
+FN:263,conjure_oxide::parse::parse_vec_op::{closure#0}
 FN:124,conjure_oxide::parse::parse_int_domain::{closure#1}
-FN:243,conjure_oxide::parse::parse_vec_op::{closure#0}
-FN:233,conjure_oxide::parse::parse_vec_op
-FN:222,conjure_oxide::parse::parse_unary_op
+FN:263,conjure_oxide::parse::parse_vec_op::{closure#0}
+FN:253,conjure_oxide::parse::parse_vec_op
+FN:242,conjure_oxide::parse::parse_unary_op
 FN:49,conjure_oxide::parse::parse_variable
 FN:124,conjure_oxide::parse::parse_int_domain::{closure#1}
-FN:188,conjure_oxide::parse::parse_expression::{closure#5}
-FN:202,conjure_oxide::parse::parse_bin_op
-FN:176,conjure_oxide::parse::parse_expression::{closure#0}
+FN:205,conjure_oxide::parse::parse_expression::{closure#5}
+FN:222,conjure_oxide::parse::parse_bin_op
+FN:193,conjure_oxide::parse::parse_expression::{closure#0}
 FN:10,conjure_oxide::parse::model_from_json
-FN:176,conjure_oxide::parse::parse_expression::{closure#0}
-FN:233,conjure_oxide::parse::parse_vec_op
+FN:193,conjure_oxide::parse::parse_expression::{closure#0}
+FN:253,conjure_oxide::parse::parse_vec_op
 FN:49,conjure_oxide::parse::parse_variable
-FN:177,conjure_oxide::parse::parse_expression::{closure#1}
-FN:188,conjure_oxide::parse::parse_expression::{closure#5}
+FN:194,conjure_oxide::parse::parse_expression::{closure#1}
+FN:205,conjure_oxide::parse::parse_expression::{closure#5}
 FN:10,conjure_oxide::parse::model_from_json
 FN:110,conjure_oxide::parse::parse_int_domain::{closure#0}
 FN:110,conjure_oxide::parse::parse_int_domain::{closure#0}
-FN:185,conjure_oxide::parse::parse_expression::{closure#4}
+FN:202,conjure_oxide::parse::parse_expression::{closure#4}
 FN:79,conjure_oxide::parse::parse_int_domain
-FN:178,conjure_oxide::parse::parse_expression::{closure#2}
-FN:248,conjure_oxide::parse::parse_constant
-FN:222,conjure_oxide::parse::parse_unary_op
+FN:195,conjure_oxide::parse::parse_expression::{closure#2}
+FN:268,conjure_oxide::parse::parse_constant
+FN:242,conjure_oxide::parse::parse_unary_op
 FN:79,conjure_oxide::parse::parse_int_domain
 FNDA:0,conjure_oxide::parse::parse_expression
 FNDA:0,conjure_oxide::parse::parse_expression::{closure#4}
@@ -382,72 +382,92 @@ DA:172,78
 DA:173,78
 DA:174,78
 DA:175,78
-DA:176,156
+DA:176,78
 DA:177,78
 DA:178,78
-DA:180,6
+DA:179,78
+DA:180,78
 DA:181,78
-DA:182,156
-DA:183,18
-DA:185,12
-DA:186,0
-DA:188,18
-DA:189,12
-DA:191,0
-DA:193,48
-DA:194,42
-DA:195,42
+DA:182,78
+DA:183,78
+DA:184,78
+DA:185,78
+DA:186,78
+DA:187,78
+DA:188,78
+DA:189,78
+DA:190,78
+DA:191,78
+DA:192,78
+DA:193,126
+DA:194,78
+DA:195,78
 DA:197,6
-DA:198,0
-DA:200,78
-DA:202,18
-DA:203,18
-DA:204,18
-DA:205,18
-DA:208,18
-DA:210,18
-DA:212,18
-DA:213,18
-DA:214,18
-DA:215,18
-DA:216,18
+DA:198,78
+DA:199,126
+DA:200,18
+DA:202,12
+DA:203,0
+DA:205,24
+DA:206,12
+DA:208,0
+DA:210,48
+DA:211,42
+DA:212,42
+DA:213,42
+DA:214,42
+DA:215,42
+DA:217,6
 DA:218,0
-DA:220,18
-DA:222,0
-DA:223,0
-DA:224,0
-DA:225,0
-DA:226,0
-DA:227,0
-DA:229,0
-DA:230,0
-DA:231,0
-DA:233,12
-DA:234,12
-DA:235,12
-DA:236,12
-DA:237,12
-DA:238,12
-DA:240,12
-DA:241,12
-DA:242,12
-DA:243,24
-DA:244,12
-DA:245,12
-DA:246,12
-DA:248,6
-DA:249,6
-DA:250,6
-DA:251,6
-DA:252,6
-DA:253,6
-DA:254,6
-DA:255,6
-DA:256,6
-DA:259,0
-DA:261,6
-LF:210
-LH:178
+DA:220,78
+DA:222,18
+DA:223,18
+DA:224,18
+DA:225,18
+DA:228,18
+DA:230,18
+DA:232,18
+DA:233,18
+DA:234,18
+DA:235,18
+DA:236,18
+DA:238,0
+DA:240,18
+DA:242,0
+DA:243,0
+DA:244,0
+DA:245,0
+DA:246,0
+DA:247,0
+DA:249,0
+DA:250,0
+DA:251,0
+DA:253,12
+DA:254,12
+DA:255,12
+DA:256,12
+DA:257,12
+DA:258,12
+DA:260,12
+DA:261,12
+DA:262,12
+DA:263,24
+DA:264,12
+DA:265,12
+DA:266,12
+DA:268,6
+DA:269,6
+DA:270,6
+DA:271,6
+DA:272,6
+DA:273,6
+DA:274,6
+DA:275,6
+DA:276,6
+DA:279,0
+DA:281,6
+LF:230
+LH:198
 end_of_record
 SF:conjure_oxide/tests/generated_tests.rs
 FN:157,generated_tests::sort_json_variables
@@ -551,39 +571,39 @@ DA:121,4
 DA:123,10
 DA:124,10
 DA:125,10
-DA:132,111
-DA:133,111
-DA:134,65
-DA:135,65
-DA:136,65
-DA:137,73
-DA:138,73
+DA:132,188
+DA:133,188
+DA:134,93
+DA:135,93
+DA:136,93
+DA:137,101
+DA:138,101
 DA:139,8
-DA:141,65
-DA:143,73
-DA:144,65
-DA:145,65
-DA:146,65
-DA:147,65
-DA:148,65
-DA:150,17
-DA:151,29
-DA:153,111
+DA:141,93
+DA:143,101
+DA:144,93
+DA:145,93
+DA:146,93
+DA:147,93
+DA:148,93
+DA:150,38
+DA:151,57
+DA:153,188
 DA:157,8
 DA:158,8
 DA:159,8
 DA:160,8
-DA:161,8
-DA:162,8
-DA:163,8
-DA:164,8
-DA:165,8
-DA:166,8
-DA:167,8
-DA:168,8
-DA:169,8
-DA:170,8
-DA:171,8
+DA:161,10
+DA:162,10
+DA:163,10
+DA:164,10
+DA:165,10
+DA:166,10
+DA:167,10
+DA:168,10
+DA:169,10
+DA:170,10
+DA:171,10
 DA:172,8
 DA:174,0
 DA:176,8
@@ -650,66 +670,66 @@ LF:31
 LH:31
 end_of_record
 SF:conjure_oxide/src/rules/constant.rs
-FN:47,conjure_oxide::rules::constant::eval_constant::{closure#12}
-FN:38,conjure_oxide::rules::constant::eval_constant::{closure#9}
-FN:47,conjure_oxide::rules::constant::eval_constant::{closure#12}
-FN:37,conjure_oxide::rules::constant::eval_constant::{closure#8}::{closure#0}
-FN:38,conjure_oxide::rules::constant::eval_constant::{closure#9}::{closure#0}
+FN:51,conjure_oxide::rules::constant::eval_constant::{closure#12}
+FN:41,conjure_oxide::rules::constant::eval_constant::{closure#9}
+FN:51,conjure_oxide::rules::constant::eval_constant::{closure#12}
+FN:38,conjure_oxide::rules::constant::eval_constant::{closure#8}::{closure#0}
+FN:41,conjure_oxide::rules::constant::eval_constant::{closure#9}::{closure#0}
 FN:7,conjure_oxide::rules::constant::apply_eval_constant
 FN:6,conjure_oxide::rules::constant::CONJURE_GEN_RULE_APPLY_EVAL_CONSTANT::__typecheck
 FN:21,conjure_oxide::rules::constant::eval_constant
 FN:33,conjure_oxide::rules::constant::eval_constant::{closure#6}
-FN:59,conjure_oxide::rules::constant::un_op::<bool, bool>
-FN:86,conjure_oxide::rules::constant::vec_op::<bool, bool>
-FN:76,conjure_oxide::rules::constant::tern_op::<i32, bool>
+FN:63,conjure_oxide::rules::constant::un_op::<bool, bool>
+FN:90,conjure_oxide::rules::constant::vec_op::<bool, bool>
+FN:80,conjure_oxide::rules::constant::tern_op::<i32, bool>
 FN:33,conjure_oxide::rules::constant::eval_constant::{closure#6}
 FN:27,conjure_oxide::rules::constant::eval_constant::{closure#1}
-FN:40,conjure_oxide::rules::constant::eval_constant::{closure#10}
-FN:76,conjure_oxide::rules::constant::tern_op::<i32, bool>
+FN:44,conjure_oxide::rules::constant::eval_constant::{closure#10}
+FN:80,conjure_oxide::rules::constant::tern_op::<i32, bool>
 FN:29,conjure_oxide::rules::constant::eval_constant::{closure#2}
-FN:40,conjure_oxide::rules::constant::eval_constant::{closure#10}
-FN:86,conjure_oxide::rules::constant::vec_op::<i32, i32>
+FN:44,conjure_oxide::rules::constant::eval_constant::{closure#10}
+FN:90,conjure_oxide::rules::constant::vec_op::<i32, i32>
 FN:6,conjure_oxide::rules::constant::CONJURE_GEN_RULE_APPLY_EVAL_CONSTANT::__typecheck
-FN:67,conjure_oxide::rules::constant::bin_op::<i32, bool>
-FN:111,conjure_oxide::rules::constant::unwrap_expr::<i32>
+FN:71,conjure_oxide::rules::constant::bin_op::<i32, bool>
+FN:115,conjure_oxide::rules::constant::unwrap_expr::<i32>
 FN:31,conjure_oxide::rules::constant::eval_constant::{closure#4}
 FN:31,conjure_oxide::rules::constant::eval_constant::{closure#4}
-FN:86,conjure_oxide::rules::constant::vec_op::<bool, bool>
-FN:37,conjure_oxide::rules::constant::eval_constant::{closure#8}
-FN:37,conjure_oxide::rules::constant::eval_constant::{closure#8}::{closure#0}
+FN:90,conjure_oxide::rules::constant::vec_op::<bool, bool>
+FN:38,conjure_oxide::rules::constant::eval_constant::{closure#8}
+FN:38,conjure_oxide::rules::constant::eval_constant::{closure#8}::{closure#0}
 FN:27,conjure_oxide::rules::constant::eval_constant::{closure#1}::{closure#0}
-FN:38,conjure_oxide::rules::constant::eval_constant::{closure#9}::{closure#0}
-FN:37,conjure_oxide::rules::constant::eval_constant::{closure#8}
+FN:41,conjure_oxide::rules::constant::eval_constant::{closure#9}::{closure#0}
+FN:38,conjure_oxide::rules::constant::eval_constant::{closure#8}
 FN:27,conjure_oxide::rules::constant::eval_constant::{closure#1}::{closure#0}
 FN:26,conjure_oxide::rules::constant::eval_constant::{closure#0}
 FN:29,conjure_oxide::rules::constant::eval_constant::{closure#2}
-FN:67,conjure_oxide::rules::constant::bin_op::<bool, bool>
-FN:98,conjure_oxide::rules::constant::flat_op::<i32, bool>
-FN:50,conjure_oxide::rules::constant::eval_constant::{closure#13}
+FN:71,conjure_oxide::rules::constant::bin_op::<bool, bool>
+FN:102,conjure_oxide::rules::constant::flat_op::<i32, bool>
+FN:54,conjure_oxide::rules::constant::eval_constant::{closure#13}
 FN:12,conjure_oxide::rules::constant::apply_eval_constant::{closure#0}
-FN:50,conjure_oxide::rules::constant::eval_constant::{closure#13}
-FN:86,conjure_oxide::rules::constant::vec_op::<i32, i32>
+FN:54,conjure_oxide::rules::constant::eval_constant::{closure#13}
+FN:90,conjure_oxide::rules::constant::vec_op::<i32, i32>
 FN:32,conjure_oxide::rules::constant::eval_constant::{closure#5}
 FN:7,conjure_oxide::rules::constant::apply_eval_constant
-FN:111,conjure_oxide::rules::constant::unwrap_expr::<i32>
+FN:115,conjure_oxide::rules::constant::unwrap_expr::<i32>
 FN:27,conjure_oxide::rules::constant::eval_constant::{closure#1}
-FN:43,conjure_oxide::rules::constant::eval_constant::{closure#11}
-FN:67,conjure_oxide::rules::constant::bin_op::<bool, bool>
-FN:98,conjure_oxide::rules::constant::flat_op::<i32, bool>
+FN:47,conjure_oxide::rules::constant::eval_constant::{closure#11}
+FN:71,conjure_oxide::rules::constant::bin_op::<bool, bool>
+FN:102,conjure_oxide::rules::constant::flat_op::<i32, bool>
 FN:35,conjure_oxide::rules::constant::eval_constant::{closure#7}
 FN:21,conjure_oxide::rules::constant::eval_constant
-FN:111,conjure_oxide::rules::constant::unwrap_expr::<bool>
+FN:115,conjure_oxide::rules::constant::unwrap_expr::<bool>
 FN:26,conjure_oxide::rules::constant::eval_constant::{closure#0}
-FN:67,conjure_oxide::rules::constant::bin_op::<i32, bool>
+FN:71,conjure_oxide::rules::constant::bin_op::<i32, bool>
 FN:12,conjure_oxide::rules::constant::apply_eval_constant::{closure#0}
-FN:38,conjure_oxide::rules::constant::eval_constant::{closure#9}
-FN:43,conjure_oxide::rules::constant::eval_constant::{closure#11}
+FN:41,conjure_oxide::rules::constant::eval_constant::{closure#9}
+FN:47,conjure_oxide::rules::constant::eval_constant::{closure#11}
 FN:35,conjure_oxide::rules::constant::eval_constant::{closure#7}
-FN:111,conjure_oxide::rules::constant::unwrap_expr::<bool>
+FN:115,conjure_oxide::rules::constant::unwrap_expr::<bool>
 FN:30,conjure_oxide::rules::constant::eval_constant::{closure#3}
 FN:32,conjure_oxide::rules::constant::eval_constant::{closure#5}
 FN:30,conjure_oxide::rules::constant::eval_constant::{closure#3}
-FN:59,conjure_oxide::rules::constant::un_op::<bool, bool>
+FN:63,conjure_oxide::rules::constant::un_op::<bool, bool>
 FNDA:0,conjure_oxide::rules::constant::eval_constant::{closure#12}
 FNDA:1,conjure_oxide::rules::constant::eval_constant::{closure#9}
 FNDA:0,conjure_oxide::rules::constant::eval_constant::{closure#12}
@@ -798,70 +818,72 @@ DA:32,0
 DA:33,6
 DA:35,0
 DA:37,102
-DA:38,12
-DA:40,132
-DA:42,18
-DA:43,18
-DA:46,72
-DA:47,72
-DA:49,30
-DA:50,30
-DA:53,36
-DA:54,36
-DA:57,1050
-DA:59,0
-DA:60,0
-DA:61,0
-DA:62,0
+DA:38,102
+DA:40,6
+DA:41,12
+DA:44,132
+DA:46,18
+DA:47,18
+DA:50,72
+DA:51,72
+DA:53,30
+DA:54,30
+DA:57,36
+DA:58,36
+DA:61,1050
 DA:63,0
 DA:64,0
 DA:65,0
-DA:67,132
-DA:68,132
-DA:69,132
-DA:70,132
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
 DA:71,132
-DA:72,18
-DA:73,12
+DA:72,132
+DA:73,132
 DA:74,132
+DA:75,132
 DA:76,18
-DA:77,18
-DA:78,18
-DA:79,18
+DA:77,12
+DA:78,132
 DA:80,18
-DA:81,0
-DA:82,0
-DA:83,0
+DA:81,18
+DA:82,18
+DA:83,18
 DA:84,18
-DA:86,240
-DA:87,240
-DA:88,240
-DA:89,240
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,18
 DA:90,240
 DA:91,240
 DA:92,240
 DA:93,240
 DA:94,240
-DA:95,12
+DA:95,240
 DA:96,240
-DA:98,102
-DA:99,102
-DA:100,102
-DA:101,102
+DA:97,240
+DA:98,240
+DA:99,12
+DA:100,240
 DA:102,102
 DA:103,102
 DA:104,102
 DA:105,102
 DA:106,102
-DA:107,0
-DA:108,0
+DA:107,102
+DA:108,102
 DA:109,102
-DA:111,540
-DA:112,540
-DA:113,96
-DA:114,540
-LF:86
-LH:70
+DA:110,102
+DA:111,0
+DA:112,0
+DA:113,102
+DA:115,540
+DA:116,540
+DA:117,96
+DA:118,540
+LF:88
+LH:72
 end_of_record
 SF:crates/conjure_core/src/metadata.rs
 FN:4,<<conjure_core::metadata::Metadata as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
@@ -916,10 +938,10 @@ FNF:24
 FNH:4
 BRF:0
 BRH:0
-DA:4,12
-DA:10,783
-DA:11,783
-DA:12,783
+DA:4,96
+DA:10,2862
+DA:11,2862
+DA:12,2862
 DA:16,0
 DA:17,0
 DA:18,0
@@ -927,57 +949,57 @@ LF:7
 LH:4
 end_of_record
 SF:conjure_oxide/src/solvers/kissat.rs
-FN:184,<conjure_oxide::solvers::kissat::CNF>::handle_not
-FN:344,conjure_oxide::solvers::kissat::tests::test_single_not
-FN:260,<i32 as conjure_oxide::solvers::kissat::HasVariable>::has_variable
-FN:481,conjure_oxide::solvers::kissat::tests::test_nested_ors
-FN:116,<conjure_oxide::solvers::kissat::CNF>::add_expression
-FN:43,<conjure_oxide::solvers::kissat::CNF>::new
-FN:244,<conjure_oxide::solvers::kissat::CNF>::handle_expression
-FN:54,<conjure_oxide::solvers::kissat::CNF>::get_variables
-FN:196,<conjure_oxide::solvers::kissat::CNF>::handle_or
-FN:165,<conjure_oxide::solvers::kissat::CNF>::get_reference_index
-FN:281,<conjure_oxide::solvers::kissat::CNF as conjure_oxide::solvers::FromConjureModel>::from_conjure
-FN:196,<conjure_oxide::solvers::kissat::CNF>::handle_or
-FN:74,<conjure_oxide::solvers::kissat::CNF>::get_name
-FN:517,conjure_oxide::solvers::kissat::tests::test_int
-FN:43,<conjure_oxide::solvers::kissat::CNF>::new
-FN:54,<conjure_oxide::solvers::kissat::CNF>::get_variables
-FN:390,conjure_oxide::solvers::kissat::tests::test_or_not
-FN:103,<conjure_oxide::solvers::kissat::CNF>::add_clause
-FN:22,<conjure_oxide::solvers::kissat::CNFError as core::fmt::Display>::fmt
-FN:139,<conjure_oxide::solvers::kissat::CNF>::clause_to_expression
-FN:126,<conjure_oxide::solvers::kissat::CNF>::as_expression
-FN:184,<conjure_oxide::solvers::kissat::CNF>::handle_not
-FN:364,conjure_oxide::solvers::kissat::tests::test_single_or
-FN:74,<conjure_oxide::solvers::kissat::CNF>::get_name
-FN:96,<conjure_oxide::solvers::kissat::CNF>::has_variable::<i32>
-FN:422,conjure_oxide::solvers::kissat::tests::test_multiple
-FN:244,<conjure_oxide::solvers::kissat::CNF>::handle_expression
-FN:260,<i32 as conjure_oxide::solvers::kissat::HasVariable>::has_variable
-FN:177,<conjure_oxide::solvers::kissat::CNF>::handle_reference
-FN:165,<conjure_oxide::solvers::kissat::CNF>::get_reference_index
-FN:67,<conjure_oxide::solvers::kissat::CNF>::get_index
-FN:22,<conjure_oxide::solvers::kissat::CNFError as core::fmt::Display>::fmt
-FN:212,<conjure_oxide::solvers::kissat::CNF>::handle_flat_expression
-FN:224,<conjure_oxide::solvers::kissat::CNF>::handle_and
-FN:266,<&conjure_core::ast::Name as conjure_oxide::solvers::kissat::HasVariable>::has_variable
-FN:103,<conjure_oxide::solvers::kissat::CNF>::add_clause
-FN:541,conjure_oxide::solvers::kissat::tests::test_eq
-FN:116,<conjure_oxide::solvers::kissat::CNF>::add_expression
-FN:139,<conjure_oxide::solvers::kissat::CNF>::clause_to_expression
-FN:266,<&conjure_core::ast::Name as conjure_oxide::solvers::kissat::HasVariable>::has_variable
-FN:322,conjure_oxide::solvers::kissat::tests::test_single_var
-FN:88,<conjure_oxide::solvers::kissat::CNF>::add_variable
-FN:126,<conjure_oxide::solvers::kissat::CNF>::as_expression
-FN:177,<conjure_oxide::solvers::kissat::CNF>::handle_reference
-FN:96,<conjure_oxide::solvers::kissat::CNF>::has_variable::<i32>
-FN:212,<conjure_oxide::solvers::kissat::CNF>::handle_flat_expression
-FN:452,conjure_oxide::solvers::kissat::tests::test_and
-FN:67,<conjure_oxide::solvers::kissat::CNF>::get_index
-FN:88,<conjure_oxide::solvers::kissat::CNF>::add_variable
-FN:281,<conjure_oxide::solvers::kissat::CNF as conjure_oxide::solvers::FromConjureModel>::from_conjure
-FN:224,<conjure_oxide::solvers::kissat::CNF>::handle_and
+FN:188,<conjure_oxide::solvers::kissat::CNF>::handle_not
+FN:352,conjure_oxide::solvers::kissat::tests::test_single_not
+FN:266,<i32 as conjure_oxide::solvers::kissat::HasVariable>::has_variable
+FN:543,conjure_oxide::solvers::kissat::tests::test_nested_ors
+FN:117,<conjure_oxide::solvers::kissat::CNF>::add_expression
+FN:44,<conjure_oxide::solvers::kissat::CNF>::new
+FN:250,<conjure_oxide::solvers::kissat::CNF>::handle_expression
+FN:55,<conjure_oxide::solvers::kissat::CNF>::get_variables
+FN:202,<conjure_oxide::solvers::kissat::CNF>::handle_or
+FN:169,<conjure_oxide::solvers::kissat::CNF>::get_reference_index
+FN:287,<conjure_oxide::solvers::kissat::CNF as conjure_oxide::solvers::FromConjureModel>::from_conjure
+FN:202,<conjure_oxide::solvers::kissat::CNF>::handle_or
+FN:75,<conjure_oxide::solvers::kissat::CNF>::get_name
+FN:594,conjure_oxide::solvers::kissat::tests::test_int
+FN:44,<conjure_oxide::solvers::kissat::CNF>::new
+FN:55,<conjure_oxide::solvers::kissat::CNF>::get_variables
+FN:425,conjure_oxide::solvers::kissat::tests::test_or_not
+FN:104,<conjure_oxide::solvers::kissat::CNF>::add_clause
+FN:23,<conjure_oxide::solvers::kissat::CNFError as core::fmt::Display>::fmt
+FN:140,<conjure_oxide::solvers::kissat::CNF>::clause_to_expression
+FN:127,<conjure_oxide::solvers::kissat::CNF>::as_expression
+FN:188,<conjure_oxide::solvers::kissat::CNF>::handle_not
+FN:384,conjure_oxide::solvers::kissat::tests::test_single_or
+FN:75,<conjure_oxide::solvers::kissat::CNF>::get_name
+FN:97,<conjure_oxide::solvers::kissat::CNF>::has_variable::<i32>
+FN:472,conjure_oxide::solvers::kissat::tests::test_multiple
+FN:250,<conjure_oxide::solvers::kissat::CNF>::handle_expression
+FN:266,<i32 as conjure_oxide::solvers::kissat::HasVariable>::has_variable
+FN:181,<conjure_oxide::solvers::kissat::CNF>::handle_reference
+FN:169,<conjure_oxide::solvers::kissat::CNF>::get_reference_index
+FN:68,<conjure_oxide::solvers::kissat::CNF>::get_index
+FN:23,<conjure_oxide::solvers::kissat::CNFError as core::fmt::Display>::fmt
+FN:218,<conjure_oxide::solvers::kissat::CNF>::handle_flat_expression
+FN:230,<conjure_oxide::solvers::kissat::CNF>::handle_and
+FN:272,<&conjure_core::ast::Name as conjure_oxide::solvers::kissat::HasVariable>::has_variable
+FN:104,<conjure_oxide::solvers::kissat::CNF>::add_clause
+FN:618,conjure_oxide::solvers::kissat::tests::test_eq
+FN:117,<conjure_oxide::solvers::kissat::CNF>::add_expression
+FN:140,<conjure_oxide::solvers::kissat::CNF>::clause_to_expression
+FN:272,<&conjure_core::ast::Name as conjure_oxide::solvers::kissat::HasVariable>::has_variable
+FN:330,conjure_oxide::solvers::kissat::tests::test_single_var
+FN:89,<conjure_oxide::solvers::kissat::CNF>::add_variable
+FN:127,<conjure_oxide::solvers::kissat::CNF>::as_expression
+FN:181,<conjure_oxide::solvers::kissat::CNF>::handle_reference
+FN:97,<conjure_oxide::solvers::kissat::CNF>::has_variable::<i32>
+FN:218,<conjure_oxide::solvers::kissat::CNF>::handle_flat_expression
+FN:505,conjure_oxide::solvers::kissat::tests::test_and
+FN:68,<conjure_oxide::solvers::kissat::CNF>::get_index
+FN:89,<conjure_oxide::solvers::kissat::CNF>::add_variable
+FN:287,<conjure_oxide::solvers::kissat::CNF as conjure_oxide::solvers::FromConjureModel>::from_conjure
+FN:230,<conjure_oxide::solvers::kissat::CNF>::handle_and
 FNDA:0,<conjure_oxide::solvers::kissat::CNF>::handle_not
 FNDA:1,conjure_oxide::solvers::kissat::tests::test_single_not
 FNDA:0,<i32 as conjure_oxide::solvers::kissat::HasVariable>::has_variable
@@ -1033,180 +1055,179 @@ FNF:51
 FNH:26
 BRF:0
 BRH:0
-DA:22,0
-DA:43,9
+DA:23,0
 DA:44,9
 DA:45,9
 DA:46,9
 DA:47,9
 DA:48,9
 DA:49,9
-DA:54,0
+DA:50,9
 DA:55,0
-DA:57,0
+DA:56,0
 DA:58,0
 DA:59,0
-DA:61,0
+DA:60,0
 DA:62,0
-DA:67,67
+DA:63,0
 DA:68,67
 DA:69,67
-DA:74,27
-DA:75,41
+DA:70,67
+DA:75,27
 DA:76,41
 DA:77,41
-DA:78,27
-DA:79,14
-DA:82,0
-DA:83,27
-DA:88,16
-DA:89,16
-DA:90,16
-DA:91,16
-DA:96,13
+DA:78,41
+DA:79,27
+DA:80,14
+DA:83,0
+DA:84,27
+DA:89,15
+DA:90,15
+DA:91,15
+DA:92,15
 DA:97,13
 DA:98,13
-DA:103,9
-DA:104,22
-DA:105,13
-DA:106,0
-DA:107,13
-DA:109,9
+DA:99,13
+DA:104,9
+DA:105,22
+DA:106,13
+DA:107,0
+DA:108,13
 DA:110,9
 DA:111,9
-DA:116,10
+DA:112,9
 DA:117,10
-DA:118,9
-DA:120,9
-DA:121,10
-DA:126,6
+DA:118,10
+DA:119,9
+DA:121,9
+DA:122,10
 DA:127,6
-DA:129,14
-DA:130,8
-DA:133,6
+DA:128,6
+DA:130,14
+DA:131,8
 DA:134,6
-DA:139,8
+DA:135,6
 DA:140,8
-DA:142,20
-DA:143,12
-DA:144,0
-DA:145,12
+DA:141,8
+DA:143,20
+DA:144,12
+DA:145,0
 DA:146,12
-DA:147,10
-DA:149,2
+DA:147,12
+DA:148,10
+DA:149,10
 DA:150,2
 DA:151,2
-DA:157,8
-DA:158,8
-DA:165,13
-DA:166,13
-DA:167,0
-DA:168,13
+DA:152,2
+DA:153,2
+DA:154,2
+DA:155,2
+DA:161,8
+DA:162,8
+DA:169,13
 DA:170,13
-DA:177,11
-DA:178,11
-DA:179,11
-DA:184,2
-DA:185,2
-DA:186,2
+DA:171,0
+DA:172,13
+DA:174,13
+DA:181,11
+DA:182,11
+DA:183,11
 DA:188,2
-DA:189,0
-DA:191,2
-DA:196,4
-DA:197,4
-DA:199,12
-DA:200,8
-DA:201,17
-DA:202,9
-DA:203,9
-DA:206,4
-DA:207,4
-DA:212,18
-DA:213,18
-DA:214,11
-DA:215,2
-DA:216,4
-DA:217,1
+DA:189,2
+DA:190,2
+DA:192,2
+DA:193,2
+DA:195,0
+DA:197,2
+DA:202,4
+DA:203,4
+DA:205,12
+DA:206,8
+DA:207,17
+DA:208,9
+DA:209,9
+DA:212,4
+DA:213,4
+DA:218,18
 DA:219,18
-DA:224,0
-DA:225,0
-DA:227,0
-DA:228,0
-DA:229,0
+DA:220,11
+DA:221,2
+DA:222,4
+DA:223,1
+DA:225,18
 DA:230,0
+DA:231,0
 DA:233,0
-DA:238,0
+DA:234,0
+DA:235,0
+DA:236,0
 DA:239,0
-DA:244,10
-DA:245,10
-DA:246,0
-DA:247,10
-DA:249,10
-DA:260,13
-DA:261,13
-DA:262,13
-DA:266,0
-DA:267,0
-DA:268,0
-DA:281,9
-DA:282,9
-DA:284,17
-DA:286,17
-DA:287,17
-DA:288,1
-DA:289,1
-DA:290,1
-DA:291,1
+DA:244,0
+DA:245,0
+DA:250,10
+DA:251,10
+DA:252,0
+DA:253,10
+DA:255,10
+DA:266,13
+DA:267,13
+DA:268,13
+DA:272,0
+DA:273,0
+DA:274,0
+DA:287,9
+DA:288,9
+DA:290,16
 DA:292,16
 DA:293,16
-DA:294,16
-DA:297,10
-DA:298,10
-DA:299,9
-DA:300,1
-DA:301,1
-DA:302,1
-DA:307,7
-DA:308,9
-DA:322,1
-DA:323,1
-DA:324,1
-DA:325,1
-DA:326,1
-DA:327,1
-DA:328,1
-DA:329,1
+DA:294,1
+DA:295,1
+DA:296,1
+DA:297,1
+DA:298,15
+DA:299,15
+DA:300,15
+DA:303,10
+DA:304,10
+DA:305,9
+DA:306,1
+DA:307,1
+DA:308,1
+DA:313,7
+DA:314,9
 DA:330,1
 DA:331,1
 DA:332,1
+DA:333,1
 DA:334,1
 DA:335,1
 DA:336,1
 DA:337,1
 DA:338,1
+DA:339,1
 DA:340,1
-DA:341,1
+DA:342,1
+DA:343,1
 DA:344,1
 DA:345,1
 DA:346,1
-DA:347,1
 DA:348,1
 DA:349,1
-DA:350,1
-DA:351,1
 DA:352,1
 DA:353,1
 DA:354,1
 DA:355,1
+DA:356,1
 DA:357,1
 DA:358,1
 DA:359,1
 DA:360,1
 DA:361,1
+DA:362,1
+DA:363,1
 DA:364,1
 DA:365,1
 DA:366,1
-DA:367,1
 DA:368,1
 DA:369,1
 DA:370,1
@@ -1221,12 +1242,12 @@ DA:378,1
 DA:379,1
 DA:380,1
 DA:381,1
-DA:382,1
-DA:383,1
 DA:384,1
 DA:385,1
 DA:386,1
 DA:387,1
+DA:388,1
+DA:389,1
 DA:390,1
 DA:391,1
 DA:392,1
@@ -1257,9 +1278,9 @@ DA:416,1
 DA:417,1
 DA:418,1
 DA:419,1
+DA:420,1
+DA:421,1
 DA:422,1
-DA:423,1
-DA:424,1
 DA:425,1
 DA:426,1
 DA:427,1
@@ -1285,6 +1306,8 @@ DA:446,1
 DA:447,1
 DA:448,1
 DA:449,1
+DA:450,1
+DA:451,1
 DA:452,1
 DA:453,1
 DA:454,1
@@ -1303,8 +1326,6 @@ DA:466,1
 DA:467,1
 DA:468,1
 DA:469,1
-DA:470,1
-DA:471,1
 DA:472,1
 DA:473,1
 DA:474,1
@@ -1312,6 +1333,8 @@ DA:475,1
 DA:476,1
 DA:477,1
 DA:478,1
+DA:479,1
+DA:480,1
 DA:481,1
 DA:482,1
 DA:483,1
@@ -1334,8 +1357,6 @@ DA:499,1
 DA:500,1
 DA:501,1
 DA:502,1
-DA:503,1
-DA:504,1
 DA:505,1
 DA:506,1
 DA:507,1
@@ -1346,6 +1367,8 @@ DA:511,1
 DA:512,1
 DA:513,1
 DA:514,1
+DA:515,1
+DA:516,1
 DA:517,1
 DA:518,1
 DA:519,1
@@ -1368,8 +1391,8 @@ DA:535,1
 DA:536,1
 DA:537,1
 DA:538,1
-DA:541,1
-DA:542,1
+DA:539,1
+DA:540,1
 DA:543,1
 DA:544,1
 DA:545,1
@@ -1387,8 +1410,82 @@ DA:556,1
 DA:557,1
 DA:558,1
 DA:559,1
-LF:354
-LH:328
+DA:560,1
+DA:561,1
+DA:562,1
+DA:563,1
+DA:564,1
+DA:565,1
+DA:566,1
+DA:567,1
+DA:568,1
+DA:569,1
+DA:570,1
+DA:571,1
+DA:572,1
+DA:573,1
+DA:574,1
+DA:575,1
+DA:576,1
+DA:577,1
+DA:578,1
+DA:579,1
+DA:580,1
+DA:581,1
+DA:582,1
+DA:583,1
+DA:584,1
+DA:585,1
+DA:586,1
+DA:587,1
+DA:588,1
+DA:589,1
+DA:590,1
+DA:591,1
+DA:594,1
+DA:595,1
+DA:596,1
+DA:597,1
+DA:598,1
+DA:599,1
+DA:600,1
+DA:601,1
+DA:602,1
+DA:603,1
+DA:604,1
+DA:605,1
+DA:606,1
+DA:607,1
+DA:608,1
+DA:609,1
+DA:610,1
+DA:611,1
+DA:612,1
+DA:613,1
+DA:614,1
+DA:615,1
+DA:618,1
+DA:619,1
+DA:620,1
+DA:621,1
+DA:622,1
+DA:623,1
+DA:624,1
+DA:625,1
+DA:626,1
+DA:627,1
+DA:628,1
+DA:629,1
+DA:630,1
+DA:631,1
+DA:632,1
+DA:633,1
+DA:634,1
+DA:635,1
+DA:636,1
+DA:637,1
+LF:429
+LH:403
 end_of_record
 SF:solvers/chuffed/tests/chuffed_basic_run.rs
 FN:42,chuffed_basic_run::run_basic_problem
@@ -1758,7 +1855,7 @@ end_of_record
 SF:conjure_oxide/src/solvers/minion.rs
 FN:48,conjure_oxide::solvers::minion::parse_var
 FN:97,conjure_oxide::solvers::minion::_parse_booldomain_var
-FN:256,conjure_oxide::solvers::minion::tests::xyz_callback
+FN:262,conjure_oxide::solvers::minion::tests::xyz_callback
 FN:48,conjure_oxide::solvers::minion::parse_var
 FN:161,conjure_oxide::solvers::minion::read_vars
 FN:105,conjure_oxide::solvers::minion::_try_add_var
@@ -1769,7 +1866,7 @@ FN:181,conjure_oxide::solvers::minion::_read_ref
 FN:129,conjure_oxide::solvers::minion::parse_expr
 FN:194,conjure_oxide::solvers::minion::read_const
 FN:23,<minion_rs::ast::Model as conjure_oxide::solvers::FromConjureModel>::from_conjure
-FN:279,conjure_oxide::solvers::minion::tests::add_int_with_range
+FN:285,conjure_oxide::solvers::minion::tests::add_int_with_range
 FN:35,conjure_oxide::solvers::minion::parse_vars
 FN:129,conjure_oxide::solvers::minion::parse_expr
 FN:60,conjure_oxide::solvers::minion::_parse_intdomain_var
@@ -1995,30 +2092,30 @@ DA:246,1
 DA:247,1
 DA:248,1
 DA:249,1
+DA:250,1
 DA:251,1
 DA:252,1
 DA:253,1
-DA:256,1
+DA:254,1
+DA:255,1
 DA:257,1
 DA:258,1
-DA:259,0
+DA:259,1
 DA:262,1
 DA:263,1
-DA:264,0
-DA:267,1
+DA:264,1
+DA:265,0
 DA:268,1
-DA:269,0
-DA:272,1
+DA:269,1
+DA:270,0
 DA:273,1
 DA:274,1
-DA:276,1
-DA:277,1
-DA:279,3
-DA:280,3
-DA:281,3
-DA:282,3
-DA:283,3
-DA:284,3
+DA:275,0
+DA:278,1
+DA:279,1
+DA:280,1
+DA:282,1
+DA:283,1
 DA:285,3
 DA:286,3
 DA:287,3
@@ -2030,16 +2127,22 @@ DA:292,3
 DA:293,3
 DA:294,3
 DA:295,3
-DA:296,0
-DA:297,0
-DA:298,0
-DA:299,0
+DA:296,3
+DA:297,3
+DA:298,3
+DA:299,3
 DA:300,3
 DA:301,3
-DA:302,3
-DA:303,3
-LF:220
-LH:194
+DA:302,0
+DA:303,0
+DA:304,0
+DA:305,0
+DA:306,3
+DA:307,3
+DA:308,3
+DA:309,3
+LF:226
+LH:200
 end_of_record
 SF:solvers/minion/src/error.rs
 FN:10,<minion_rs::error::MinionError as core::convert::From<anyhow::Error>>::from
@@ -2550,11 +2653,12 @@ end_of_record
 SF:crates/conjure_core/src/ast.rs
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
 FN:138,<i32 as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
 FN:18,<conjure_core::ast::Model>::new
 FN:35,<conjure_core::ast::Model>::get_constraints_vec
-FN:293,<conjure_core::ast::Expression>::is_constant
+FN:319,<conjure_core::ast::Expression>::is_constant
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FN:25,<conjure_core::ast::Model>::update_domain
 FN:53,<conjure_core::ast::Model>::add_constraint
@@ -2563,8 +2667,9 @@ FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>::{closure#0}
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
-FN:138,<i32 as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
+FN:138,<i32 as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>
@@ -2578,27 +2683,32 @@ FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Vi
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:123,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:214,<conjure_core::ast::Expression>::sub_expressions
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:123,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<i32> as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
-FN:321,<conjure_core::ast::Constant as core::fmt::Display>::fmt
+FN:344,<conjure_core::ast::Constant as core::fmt::Display>::fmt
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:246,<conjure_core::ast::Expression>::with_sub_expressions
-FN:307,conjure_core::ast::display_expressions::{closure#0}
+FN:330,conjure_core::ast::display_expressions::{closure#0}
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FN:10,<<conjure_core::ast::Model as serde::ser::Serialize>::serialize::__SerializeWith as serde::ser::Serialize>::serialize::<serde_json::value::ser::Serializer>
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
-FN:330,<conjure_core::ast::Expression as core::fmt::Display>::fmt
+FN:353,<conjure_core::ast::Expression as core::fmt::Display>::fmt
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<serde_json::de::MapKey<serde_json::read::StrRead>>
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
@@ -2611,20 +2721,23 @@ FN:35,<conjure_core::ast::Model>::get_constraints_vec
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:215,<conjure_core::ast::Expression>::sub_expressions::unwrap_flat_expression
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<serde_json::value::de::EnumDeserializer>
 FN:123,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FN:69,<conjure_core::ast::Model as core::default::Default>::default
 FN:214,<conjure_core::ast::Expression>::sub_expressions
 FN:31,<conjure_core::ast::Model>::add_variable
-FN:330,<conjure_core::ast::Expression as core::fmt::Display>::fmt
+FN:353,<conjure_core::ast::Expression as core::fmt::Display>::fmt
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:10,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::__DeserializeWith as serde::de::Deserialize>::deserialize::<_>
 FN:123,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<&mut serde_json::de::Deserializer<serde_json::read::StrRead>>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
-FN:293,<conjure_core::ast::Expression>::is_constant
+FN:319,<conjure_core::ast::Expression>::is_constant
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FN:25,<conjure_core::ast::Model>::update_domain
@@ -2643,19 +2756,26 @@ FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Fi
 FN:148,<bool as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<serde_json::de::MapAccess<serde_json::read::StrRead>>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
 FN:43,<conjure_core::ast::Model>::set_constraints
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
-FN:301,conjure_core::ast::display_expressions
+FN:324,conjure_core::ast::display_expressions
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<serde_json::de::UnitVariantAccess<serde_json::read::StrRead>>
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
@@ -2670,7 +2790,7 @@ FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Fiel
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
-FN:321,<conjure_core::ast::Constant as core::fmt::Display>::fmt
+FN:344,<conjure_core::ast::Constant as core::fmt::Display>::fmt
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:10,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::__DeserializeWith as serde::de::Deserialize>::deserialize::<&mut serde_json::de::Deserializer<serde_json::read::StrRead>>
@@ -2679,6 +2799,7 @@ FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize:
 FN:10,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::__DeserializeWith as serde::de::Deserialize>::deserialize::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FN:31,<conjure_core::ast::Model>::add_variable
@@ -2686,16 +2807,21 @@ FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Field
 FN:89,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<serde_json::de::MapAccess<serde_json::read::StrRead>>
 FN:123,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<_> as serde::de::Visitor>::expecting
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<serde_json::de::VariantAccess<serde_json::read::StrRead>>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:123,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<i32> as serde::de::Visitor>::visit_enum::<serde_json::de::VariantAccess<serde_json::read::StrRead>>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
-FN:307,conjure_core::ast::display_expressions::{closure#0}
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
+FN:330,conjure_core::ast::display_expressions::{closure#0}
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:129,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
 FN:123,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<_> as serde::de::Visitor>::visit_seq::<_>
@@ -2706,6 +2832,7 @@ FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Field
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<_>
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:123,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<_> as serde::de::Visitor>::visit_seq::<_>
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>
@@ -2729,6 +2856,7 @@ FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Fi
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FN:157,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FN:18,<conjure_core::ast::Model>::new
+FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FN:117,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>::{closure#0}
@@ -2757,7 +2885,7 @@ FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize:
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FN:215,<conjure_core::ast::Expression>::sub_expressions::unwrap_flat_expression
 FN:10,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
-FN:301,conjure_core::ast::display_expressions
+FN:324,conjure_core::ast::display_expressions
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FN:74,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
 FN:157,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
@@ -2795,6 +2923,7 @@ FN:10,<<conjure_core::ast::Model as serde::ser::Serialize>::serialize::__Seriali
 FN:43,<conjure_core::ast::Model>::set_constraints
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
 FNDA:1,<i32 as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
 FNDA:1,<conjure_core::ast::Model>::new
@@ -2808,8 +2937,9 @@ FNDA:1,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>::{closure#0}
 FNDA:1,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
 FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
-FNDA:0,<i32 as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
+FNDA:0,<i32 as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>
@@ -2822,17 +2952,21 @@ FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize:
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
 FNDA:0,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FNDA:0,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::<_>
-FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<conjure_core::ast::Expression>::sub_expressions
-FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:1,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<i32> as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FNDA:0,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
 FNDA:0,<conjure_core::ast::Constant as core::fmt::Display>::fmt
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<conjure_core::ast::Expression>::with_sub_expressions
 FNDA:0,conjure_core::ast::display_expressions::{closure#0}
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
@@ -2844,6 +2978,7 @@ FNDA:0,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::
 FNDA:1,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
 FNDA:1,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<serde_json::error::Error>
 FNDA:0,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:1,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<serde_json::de::MapKey<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
@@ -2856,6 +2991,7 @@ FNDA:1,<conjure_core::ast::Model>::get_constraints_vec
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FNDA:0,<conjure_core::ast::Expression>::sub_expressions::unwrap_flat_expression
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FNDA:1,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<serde_json::value::de::EnumDeserializer>
 FNDA:0,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
@@ -2864,9 +3000,11 @@ FNDA:1,<conjure_core::ast::Expression>::sub_expressions
 FNDA:1,<conjure_core::ast::Model>::add_variable
 FNDA:0,<conjure_core::ast::Expression as core::fmt::Display>::fmt
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::__DeserializeWith as serde::de::Deserialize>::deserialize::<_>
 FNDA:0,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
 FNDA:1,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<&mut serde_json::de::Deserializer<serde_json::read::StrRead>>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
 FNDA:0,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FNDA:0,<conjure_core::ast::Expression>::is_constant
@@ -2888,19 +3026,26 @@ FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Fi
 FNDA:1,<bool as core::convert::TryFrom<conjure_core::ast::Constant>>::try_from
 FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:1,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<serde_json::de::MapAccess<serde_json::read::StrRead>>
-FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
+FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_str::<_>
 FNDA:1,<conjure_core::ast::Model>::set_constraints
 FNDA:0,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,conjure_core::ast::display_expressions
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<serde_json::de::UnitVariantAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
@@ -2922,8 +3067,9 @@ FNDA:1,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Vi
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::__DeserializeWith as serde::de::Deserialize>::deserialize::<_>
-FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FNDA:0,<conjure_core::ast::Model>::add_variable
@@ -2931,16 +3077,21 @@ FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Fiel
 FNDA:1,<<conjure_core::ast::DecisionVariable as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<serde_json::de::MapAccess<serde_json::read::StrRead>>
 FNDA:0,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<_> as serde::de::Visitor>::expecting
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FNDA:1,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<serde_json::de::VariantAccess<serde_json::read::StrRead>>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:1,<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<i32> as serde::de::Visitor>::visit_enum::<serde_json::de::VariantAccess<serde_json::read::StrRead>>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,conjure_core::ast::display_expressions::{closure#0}
 FNDA:0,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FNDA:0,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<_>
 FNDA:0,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<_> as serde::de::Visitor>::visit_seq::<_>
@@ -2951,6 +3102,7 @@ FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Fiel
 FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_u64::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::<_>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<<conjure_core::ast::Range<_> as serde::de::Deserialize>::deserialize::__Visitor<_> as serde::de::Visitor>::visit_enum::__Visitor<_> as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>
@@ -2974,6 +3126,7 @@ FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Fi
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::expecting
 FNDA:0,<conjure_core::ast::Model>::new
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<_>
 FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::<_>::{closure#0}
@@ -2997,7 +3150,7 @@ FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Fiel
 FNDA:1,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::<serde_json::de::VariantAccess<serde_json::read::StrRead>>
 FNDA:0,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_seq::__DeserializeWith as serde::de::Deserialize>::deserialize::<_>
 FNDA:0,<<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_map::__DeserializeWith as serde::de::Deserialize>::deserialize::<_>
-FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Model as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::visit_bytes::<_>
 FNDA:1,<conjure_core::ast::Expression>::sub_expressions::unwrap_flat_expression
@@ -3024,7 +3177,7 @@ FNDA:0,<<conjure_core::ast::Constant as serde::de::Deserialize>::deserialize::__
 FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<_>
 FNDA:1,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__Field as serde::de::Deserialize>::deserialize::<&mut serde_json::de::Deserializer<serde_json::read::StrRead>>
 FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
-FNDA:1,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
+FNDA:0,<<<conjure_core::ast::Expression as serde::de::Deserialize>::deserialize::__Visitor as serde::de::Visitor>::visit_enum::__Visitor as serde::de::Visitor>::visit_seq::<serde_json::de::SeqAccess<serde_json::read::StrRead>>
 FNDA:0,<<conjure_core::ast::Name as serde::de::Deserialize>::deserialize::__FieldVisitor as serde::de::Visitor>::expecting
 FNDA:0,<conjure_core::ast::Model>::add_constraints
 FNDA:0,<<conjure_core::ast::Model as serde::ser::Serialize>::serialize::__SerializeWith as serde::ser::Serialize>::serialize::<_>
@@ -3038,8 +3191,8 @@ FNDA:0,<<conjure_core::ast::Domain as serde::de::Deserialize>::deserialize::__Fi
 FNDA:0,<conjure_core::ast::Model>::add_constraint
 FNDA:0,<<conjure_core::ast::Model as serde::ser::Serialize>::serialize::__SerializeWith as serde::ser::Serialize>::serialize::<_>
 FNDA:0,<conjure_core::ast::Model>::set_constraints
-FNF:245
-FNH:48
+FNF:270
+FNH:51
 BRF:0
 BRH:0
 DA:10,48
@@ -3087,7 +3240,7 @@ DA:65,36
 DA:69,0
 DA:70,0
 DA:71,0
-DA:74,98
+DA:74,106
 DA:81,0
 DA:82,0
 DA:83,0
@@ -3122,7 +3275,7 @@ DA:149,72
 DA:150,63
 DA:151,9
 DA:153,72
-DA:157,83
+DA:157,104
 DA:214,1656
 DA:215,1656
 DA:216,306
@@ -3157,16 +3310,23 @@ DA:247,72
 DA:248,0
 DA:249,0
 DA:250,0
-DA:251,0
 DA:252,0
 DA:253,0
-DA:254,63
-DA:256,9
+DA:254,0
+DA:256,0
+DA:257,0
 DA:259,0
-DA:262,0
-DA:265,0
-DA:268,0
+DA:260,0
+DA:262,63
+DA:263,63
+DA:265,9
+DA:266,9
+DA:267,9
+DA:268,9
+DA:269,9
+DA:270,0
 DA:271,0
+DA:272,0
 DA:273,0
 DA:274,0
 DA:275,0
@@ -3184,12 +3344,17 @@ DA:286,0
 DA:287,0
 DA:288,0
 DA:289,0
-DA:291,72
-DA:293,756
-DA:294,756
-DA:295,90
-DA:296,666
-DA:298,756
+DA:290,0
+DA:291,0
+DA:292,0
+DA:293,0
+DA:294,0
+DA:295,0
+DA:296,0
+DA:297,0
+DA:298,0
+DA:299,0
+DA:300,0
 DA:301,0
 DA:302,0
 DA:303,0
@@ -3200,47 +3365,89 @@ DA:307,0
 DA:308,0
 DA:309,0
 DA:310,0
+DA:311,0
 DA:312,0
 DA:313,0
 DA:314,0
 DA:315,0
-DA:316,0
-DA:318,0
-DA:321,0
-DA:322,0
-DA:323,0
+DA:317,72
+DA:319,756
+DA:320,756
+DA:321,756
 DA:324,0
+DA:325,0
 DA:326,0
+DA:327,0
+DA:328,0
+DA:329,0
 DA:330,0
 DA:331,0
 DA:332,0
 DA:333,0
-DA:334,0
 DA:335,0
 DA:336,0
 DA:337,0
 DA:338,0
 DA:339,0
-DA:340,0
 DA:341,0
-DA:342,0
-DA:343,0
 DA:344,0
 DA:345,0
 DA:346,0
-DA:348,0
+DA:347,0
 DA:349,0
-DA:351,0
-DA:352,0
 DA:353,0
 DA:354,0
 DA:355,0
 DA:356,0
 DA:357,0
+DA:358,0
 DA:359,0
 DA:361,0
-LF:197
-LH:92
+DA:362,0
+DA:364,0
+DA:365,0
+DA:367,0
+DA:368,0
+DA:370,0
+DA:371,0
+DA:373,0
+DA:374,0
+DA:376,0
+DA:377,0
+DA:379,0
+DA:380,0
+DA:382,0
+DA:383,0
+DA:385,0
+DA:386,0
+DA:388,0
+DA:389,0
+DA:390,0
+DA:391,0
+DA:392,0
+DA:393,0
+DA:394,0
+DA:395,0
+DA:397,0
+DA:398,0
+DA:399,0
+DA:400,0
+DA:401,0
+DA:402,0
+DA:403,0
+DA:404,0
+DA:406,0
+DA:407,0
+DA:408,0
+DA:409,0
+DA:410,0
+DA:411,0
+DA:412,0
+DA:413,0
+DA:415,0
+DA:417,0
+LF:251
+LH:95
 end_of_record
 SF:solvers/kissat/src/lib.rs
 FN:3,kissat_rs::test1
@@ -3499,9 +3706,9 @@ DA:151,220
 DA:159,100
 DA:160,100
 DA:161,100
-DA:165,260070
-DA:166,259970
-DA:167,259970
+DA:165,104820
+DA:166,104720
+DA:167,104720
 DA:168,100
 DA:169,100
 DA:170,100
@@ -3958,24 +4165,24 @@ FNF:3
 FNH:1
 BRF:0
 BRH:0
-DA:8,152
-DA:9,152
-DA:10,152
-DA:11,152
-DA:12,152
-DA:13,152
-DA:14,152
-DA:15,152
-DA:16,152
-DA:17,152
-DA:18,152
-DA:19,152
-DA:20,152
-DA:21,152
-DA:22,152
-DA:23,152
-DA:24,152
-DA:25,152
+DA:8,127
+DA:9,127
+DA:10,127
+DA:11,127
+DA:12,127
+DA:13,127
+DA:14,127
+DA:15,127
+DA:16,127
+DA:17,127
+DA:18,127
+DA:19,127
+DA:20,127
+DA:21,127
+DA:22,127
+DA:23,127
+DA:24,127
+DA:25,127
 LF:18
 LH:18
 end_of_record
@@ -4520,47 +4727,47 @@ LF:1
 LH:0
 end_of_record
 SF:conjure_oxide/tests/rewrite_tests.rs
-FN:758,rewrite_tests::eval_const_eq_int
-FN:274,rewrite_tests::rule_remove_double_negation
-FN:704,rewrite_tests::choose_rewrite
-FN:458,rewrite_tests::rule_distribute_not_over_and
-FN:532,rewrite_tests::rule_distribute_or_over_and
-FN:768,rewrite_tests::eval_const_eq_bool
-FN:187,rewrite_tests::reduce_solve_xyz
-FN:778,rewrite_tests::eval_const_eq_mixed
-FN:367,rewrite_tests::remove_trivial_and_or
-FN:108,rewrite_tests::rule_sum_constants
-FN:818,rewrite_tests::eval_const_or
-FN:40,rewrite_tests::evaluate_sum_of_constants
-FN:430,rewrite_tests::remove_constants_from_or_not_changed
-FN:571,rewrite_tests::rewrite_solve_xyz
-FN:86,rewrite_tests::simplify_expression
-FN:482,rewrite_tests::rule_distribute_not_over_or
-FN:721,rewrite_tests::eval_const_bool
-FN:412,rewrite_tests::rule_remove_constants_from_and
-FN:644,rewrite_tests::is_simple
-FN:714,rewrite_tests::eval_const_int
-FN:728,rewrite_tests::eval_const_and
-FN:128,rewrite_tests::rule_sum_mixed
-FN:315,rewrite_tests::rule_unwrap_nested_and
-FN:656,rewrite_tests::is_simple_iteration
-FN:682,rewrite_tests::apply_all_rules
-FN:519,rewrite_tests::rule_distribute_not_over_or_not_changed
-FN:738,rewrite_tests::eval_const_ref
-FN:745,rewrite_tests::eval_const_nested_ref
-FN:798,rewrite_tests::eval_const_sum_xyz
-FN:353,rewrite_tests::unwrap_nested_and_not_changed
-FN:291,rewrite_tests::rule_unwrap_nested_or
-FN:788,rewrite_tests::eval_const_sum_mixed
-FN:444,rewrite_tests::remove_constants_from_and_not_changed
-FN:174,rewrite_tests::callback
-FN:506,rewrite_tests::rule_distribute_not_over_and_not_changed
+FN:931,rewrite_tests::eval_const_eq_int
+FN:334,rewrite_tests::rule_remove_double_negation
+FN:868,rewrite_tests::choose_rewrite
+FN:557,rewrite_tests::rule_distribute_not_over_and
+FN:673,rewrite_tests::rule_distribute_or_over_and
+FN:942,rewrite_tests::eval_const_eq_bool
+FN:225,rewrite_tests::reduce_solve_xyz
+FN:953,rewrite_tests::eval_const_eq_mixed
+FN:454,rewrite_tests::remove_trivial_and_or
+FN:132,rewrite_tests::rule_sum_constants
+FN:1011,rewrite_tests::eval_const_or
+FN:46,rewrite_tests::evaluate_sum_of_constants
+FN:523,rewrite_tests::remove_constants_from_or_not_changed
+FN:727,rewrite_tests::rewrite_solve_xyz
+FN:103,rewrite_tests::simplify_expression
+FN:598,rewrite_tests::rule_distribute_not_over_or
+FN:885,rewrite_tests::eval_const_bool
+FN:502,rewrite_tests::rule_remove_constants_from_and
+FN:808,rewrite_tests::is_simple
+FN:878,rewrite_tests::eval_const_int
+FN:892,rewrite_tests::eval_const_and
+FN:155,rewrite_tests::rule_sum_mixed
+FN:387,rewrite_tests::rule_unwrap_nested_and
+FN:820,rewrite_tests::is_simple_iteration
+FN:846,rewrite_tests::apply_all_rules
+FN:656,rewrite_tests::rule_distribute_not_over_or_not_changed
+FN:905,rewrite_tests::eval_const_ref
+FN:912,rewrite_tests::eval_const_nested_ref
+FN:977,rewrite_tests::eval_const_sum_xyz
+FN:437,rewrite_tests::unwrap_nested_and_not_changed
+FN:354,rewrite_tests::rule_unwrap_nested_or
+FN:964,rewrite_tests::eval_const_sum_mixed
+FN:540,rewrite_tests::remove_constants_from_and_not_changed
+FN:212,rewrite_tests::callback
+FN:639,rewrite_tests::rule_distribute_not_over_and_not_changed
 FN:12,rewrite_tests::rules_present
 FN:18,rewrite_tests::sum_of_constants
-FN:59,rewrite_tests::recursive_sum_of_constants
-FN:149,rewrite_tests::rule_sum_geq
-FN:339,rewrite_tests::unwrap_nested_or_not_changed
-FN:394,rewrite_tests::rule_remove_constants_from_or
+FN:65,rewrite_tests::recursive_sum_of_constants
+FN:182,rewrite_tests::rule_sum_geq
+FN:420,rewrite_tests::unwrap_nested_or_not_changed
+FN:481,rewrite_tests::rule_remove_constants_from_or
 FNDA:1,rewrite_tests::eval_const_eq_int
 FNDA:1,rewrite_tests::rule_remove_double_negation
 FNDA:1,rewrite_tests::choose_rewrite
@@ -4624,30 +4831,30 @@ DA:28,1
 DA:29,1
 DA:30,1
 DA:31,1
-DA:32,0
+DA:32,1
+DA:33,1
+DA:34,1
 DA:35,1
-DA:36,0
+DA:36,1
 DA:37,1
-DA:38,1
-DA:40,4
-DA:41,4
-DA:42,4
-DA:43,4
-DA:44,12
-DA:45,8
-DA:46,8
-DA:47,8
-DA:48,8
-DA:49,2
-DA:52,2
-DA:54,0
-DA:56,4
-DA:59,1
-DA:60,1
-DA:61,1
-DA:62,1
-DA:63,1
-DA:64,1
+DA:38,0
+DA:41,1
+DA:42,0
+DA:43,1
+DA:44,1
+DA:46,4
+DA:47,4
+DA:48,4
+DA:49,4
+DA:50,12
+DA:51,8
+DA:52,8
+DA:53,8
+DA:54,8
+DA:55,2
+DA:58,2
+DA:60,0
+DA:62,4
 DA:65,1
 DA:66,1
 DA:67,1
@@ -4668,44 +4875,45 @@ DA:81,1
 DA:82,1
 DA:83,1
 DA:84,1
-DA:86,7
-DA:87,7
-DA:88,2
-DA:89,2
+DA:85,1
+DA:86,1
+DA:87,1
+DA:88,1
+DA:89,1
 DA:90,1
+DA:91,1
 DA:92,1
+DA:93,1
+DA:94,1
 DA:95,1
 DA:96,1
 DA:97,1
 DA:98,1
-DA:99,0
-DA:100,0
-DA:101,0
-DA:102,0
-DA:103,4
-DA:105,7
-DA:108,1
+DA:99,1
+DA:100,1
+DA:101,1
+DA:103,7
+DA:104,7
+DA:105,2
+DA:106,1
+DA:107,2
 DA:109,1
-DA:110,1
 DA:111,1
 DA:112,1
 DA:113,1
 DA:114,1
-DA:115,1
-DA:116,1
 DA:117,1
 DA:118,1
 DA:119,1
 DA:120,1
 DA:121,1
-DA:122,1
-DA:123,1
-DA:124,1
-DA:125,1
-DA:128,1
-DA:129,1
-DA:130,1
-DA:131,1
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:127,4
+DA:129,7
 DA:132,1
 DA:133,1
 DA:134,1
@@ -4721,12 +4929,12 @@ DA:143,1
 DA:144,1
 DA:145,1
 DA:146,1
+DA:147,1
+DA:148,1
 DA:149,1
 DA:150,1
 DA:151,1
 DA:152,1
-DA:153,1
-DA:154,1
 DA:155,1
 DA:156,1
 DA:157,1
@@ -4745,10 +4953,18 @@ DA:169,1
 DA:170,1
 DA:171,1
 DA:172,1
-DA:174,2
-DA:175,2
-DA:176,2
-DA:177,2
+DA:173,1
+DA:174,1
+DA:175,1
+DA:176,1
+DA:177,1
+DA:178,1
+DA:179,1
+DA:182,1
+DA:183,1
+DA:184,1
+DA:185,1
+DA:186,1
 DA:187,1
 DA:188,1
 DA:189,1
@@ -4769,26 +4985,20 @@ DA:203,1
 DA:204,1
 DA:205,1
 DA:206,1
+DA:207,1
+DA:208,1
 DA:209,1
 DA:210,1
-DA:211,1
-DA:212,1
-DA:213,1
-DA:214,1
-DA:215,1
-DA:216,1
-DA:217,1
-DA:218,1
-DA:219,1
-DA:220,1
-DA:221,1
-DA:222,1
-DA:223,1
-DA:224,1
+DA:212,2
+DA:213,2
+DA:214,2
+DA:215,2
 DA:225,1
 DA:226,1
 DA:227,1
 DA:228,1
+DA:229,1
+DA:230,1
 DA:231,1
 DA:232,1
 DA:233,1
@@ -4802,11 +5012,10 @@ DA:240,1
 DA:241,1
 DA:242,1
 DA:243,1
+DA:244,1
 DA:245,1
 DA:246,1
 DA:247,1
-DA:248,1
-DA:249,1
 DA:250,1
 DA:251,1
 DA:252,1
@@ -4829,9 +5038,9 @@ DA:268,1
 DA:269,1
 DA:270,1
 DA:271,1
+DA:272,1
+DA:273,1
 DA:274,1
-DA:275,1
-DA:276,1
 DA:277,1
 DA:278,1
 DA:279,1
@@ -4844,6 +5053,8 @@ DA:285,1
 DA:286,1
 DA:287,1
 DA:288,1
+DA:289,1
+DA:290,1
 DA:291,1
 DA:292,1
 DA:293,1
@@ -4857,7 +5068,6 @@ DA:300,1
 DA:301,1
 DA:302,1
 DA:303,1
-DA:304,1
 DA:305,1
 DA:306,1
 DA:307,1
@@ -4866,6 +5076,8 @@ DA:309,1
 DA:310,1
 DA:311,1
 DA:312,1
+DA:313,1
+DA:314,1
 DA:315,1
 DA:316,1
 DA:317,1
@@ -4883,11 +5095,11 @@ DA:328,1
 DA:329,1
 DA:330,1
 DA:331,1
-DA:332,1
-DA:333,1
 DA:334,1
 DA:335,1
 DA:336,1
+DA:337,1
+DA:338,1
 DA:339,1
 DA:340,1
 DA:341,1
@@ -4900,7 +5112,7 @@ DA:347,1
 DA:348,1
 DA:349,1
 DA:350,1
-DA:353,1
+DA:351,1
 DA:354,1
 DA:355,1
 DA:356,1
@@ -4912,6 +5124,8 @@ DA:361,1
 DA:362,1
 DA:363,1
 DA:364,1
+DA:365,1
+DA:366,1
 DA:367,1
 DA:368,1
 DA:369,1
@@ -4930,13 +5144,13 @@ DA:381,1
 DA:382,1
 DA:383,1
 DA:384,1
-DA:385,1
-DA:386,1
 DA:387,1
 DA:388,1
 DA:389,1
 DA:390,1
 DA:391,1
+DA:392,1
+DA:393,1
 DA:394,1
 DA:395,1
 DA:396,1
@@ -4953,14 +5167,14 @@ DA:406,1
 DA:407,1
 DA:408,1
 DA:409,1
+DA:410,1
+DA:411,1
 DA:412,1
 DA:413,1
 DA:414,1
 DA:415,1
 DA:416,1
 DA:417,1
-DA:418,1
-DA:419,1
 DA:420,1
 DA:421,1
 DA:422,1
@@ -4969,18 +5183,20 @@ DA:424,1
 DA:425,1
 DA:426,1
 DA:427,1
+DA:428,1
+DA:429,1
 DA:430,1
 DA:431,1
 DA:432,1
 DA:433,1
 DA:434,1
-DA:435,1
-DA:436,1
 DA:437,1
 DA:438,1
 DA:439,1
 DA:440,1
 DA:441,1
+DA:442,1
+DA:443,1
 DA:444,1
 DA:445,1
 DA:446,1
@@ -4989,10 +5205,10 @@ DA:448,1
 DA:449,1
 DA:450,1
 DA:451,1
-DA:452,1
-DA:453,1
 DA:454,1
 DA:455,1
+DA:456,1
+DA:457,1
 DA:458,1
 DA:459,1
 DA:460,1
@@ -5014,7 +5230,7 @@ DA:475,1
 DA:476,1
 DA:477,1
 DA:478,1
-DA:479,1
+DA:481,1
 DA:482,1
 DA:483,1
 DA:484,1
@@ -5033,10 +5249,10 @@ DA:496,1
 DA:497,1
 DA:498,1
 DA:499,1
-DA:500,1
-DA:501,1
 DA:502,1
 DA:503,1
+DA:504,1
+DA:505,1
 DA:506,1
 DA:507,1
 DA:508,1
@@ -5048,10 +5264,10 @@ DA:513,1
 DA:514,1
 DA:515,1
 DA:516,1
+DA:517,1
+DA:518,1
 DA:519,1
 DA:520,1
-DA:521,1
-DA:522,1
 DA:523,1
 DA:524,1
 DA:525,1
@@ -5059,14 +5275,14 @@ DA:526,1
 DA:527,1
 DA:528,1
 DA:529,1
+DA:530,1
+DA:531,1
 DA:532,1
 DA:533,1
 DA:534,1
 DA:535,1
 DA:536,1
 DA:537,1
-DA:538,1
-DA:539,1
 DA:540,1
 DA:541,1
 DA:542,1
@@ -5082,10 +5298,20 @@ DA:551,1
 DA:552,1
 DA:553,1
 DA:554,1
-DA:555,1
-DA:556,1
 DA:557,1
 DA:558,1
+DA:559,1
+DA:560,1
+DA:561,1
+DA:562,1
+DA:563,1
+DA:564,1
+DA:565,1
+DA:566,1
+DA:567,1
+DA:568,1
+DA:569,1
+DA:570,1
 DA:571,1
 DA:572,1
 DA:573,1
@@ -5111,12 +5337,12 @@ DA:592,1
 DA:593,1
 DA:594,1
 DA:595,1
-DA:596,1
-DA:597,1
 DA:598,1
 DA:599,1
 DA:600,1
 DA:601,1
+DA:602,1
+DA:603,1
 DA:604,1
 DA:605,1
 DA:606,1
@@ -5148,65 +5374,81 @@ DA:631,1
 DA:632,1
 DA:633,1
 DA:634,1
+DA:635,1
+DA:636,1
+DA:639,1
+DA:640,1
+DA:641,1
+DA:642,1
+DA:643,1
 DA:644,1
 DA:645,1
 DA:646,1
 DA:647,1
-DA:648,0
-DA:649,0
+DA:648,1
+DA:649,1
 DA:650,1
 DA:651,1
-DA:656,14
-DA:657,14
-DA:658,14
-DA:659,14
-DA:660,14
-DA:661,14
-DA:662,0
-DA:664,14
-DA:665,10
-DA:666,4
-DA:667,13
-DA:668,13
-DA:669,0
-DA:670,0
-DA:671,13
-DA:676,14
-DA:677,14
-DA:682,14
-DA:683,14
-DA:684,14
-DA:685,14
-DA:686,14
-DA:687,364
-DA:688,350
-DA:689,0
-DA:690,0
-DA:691,0
-DA:692,0
-DA:693,0
-DA:694,0
-DA:695,350
-DA:698,14
-DA:699,14
-DA:704,14
-DA:705,14
-DA:706,14
-DA:707,0
-DA:708,0
-DA:709,0
-DA:710,0
-DA:711,14
+DA:652,1
+DA:653,1
+DA:656,1
+DA:657,1
+DA:658,1
+DA:659,1
+DA:660,1
+DA:661,1
+DA:662,1
+DA:663,1
+DA:664,1
+DA:665,1
+DA:666,1
+DA:667,1
+DA:668,1
+DA:669,1
+DA:670,1
+DA:673,1
+DA:674,1
+DA:675,1
+DA:676,1
+DA:677,1
+DA:678,1
+DA:679,1
+DA:680,1
+DA:681,1
+DA:682,1
+DA:683,1
+DA:684,1
+DA:685,1
+DA:686,1
+DA:687,1
+DA:688,1
+DA:689,1
+DA:690,1
+DA:691,1
+DA:692,1
+DA:693,1
+DA:694,1
+DA:695,1
+DA:696,1
+DA:697,1
+DA:698,1
+DA:699,1
+DA:700,1
+DA:701,1
+DA:702,1
+DA:703,1
+DA:704,1
+DA:705,1
+DA:706,1
+DA:707,1
+DA:708,1
+DA:709,1
+DA:710,1
+DA:711,1
+DA:712,1
+DA:713,1
 DA:714,1
-DA:715,1
-DA:716,1
-DA:717,1
-DA:718,1
-DA:721,1
-DA:722,1
-DA:723,1
-DA:724,1
-DA:725,1
+DA:727,1
 DA:728,1
 DA:729,1
 DA:730,1
@@ -5215,11 +5457,15 @@ DA:732,1
 DA:733,1
 DA:734,1
 DA:735,1
+DA:736,1
+DA:737,1
 DA:738,1
 DA:739,1
 DA:740,1
 DA:741,1
 DA:742,1
+DA:743,1
+DA:744,1
 DA:745,1
 DA:746,1
 DA:747,1
@@ -5231,6 +5477,8 @@ DA:752,1
 DA:753,1
 DA:754,1
 DA:755,1
+DA:756,1
+DA:757,1
 DA:758,1
 DA:759,1
 DA:760,1
@@ -5247,6 +5495,8 @@ DA:772,1
 DA:773,1
 DA:774,1
 DA:775,1
+DA:776,1
+DA:777,1
 DA:778,1
 DA:779,1
 DA:780,1
@@ -5255,6 +5505,8 @@ DA:782,1
 DA:783,1
 DA:784,1
 DA:785,1
+DA:786,1
+DA:787,1
 DA:788,1
 DA:789,1
 DA:790,1
@@ -5263,34 +5515,184 @@ DA:792,1
 DA:793,1
 DA:794,1
 DA:795,1
+DA:796,1
+DA:797,1
 DA:798,1
-DA:799,1
-DA:800,1
-DA:801,1
-DA:802,1
-DA:803,1
-DA:804,1
-DA:805,1
-DA:806,1
-DA:807,1
 DA:808,1
 DA:809,1
 DA:810,1
 DA:811,1
-DA:812,1
-DA:813,1
+DA:812,0
+DA:813,0
 DA:814,1
 DA:815,1
-DA:818,1
-DA:819,1
-DA:820,1
-DA:821,1
-DA:822,1
-DA:823,1
-DA:824,1
-DA:825,1
-LF:683
-LH:661
+DA:820,14
+DA:821,14
+DA:822,14
+DA:823,14
+DA:824,14
+DA:825,14
+DA:826,0
+DA:828,14
+DA:829,10
+DA:830,4
+DA:831,13
+DA:832,13
+DA:833,0
+DA:834,0
+DA:835,13
+DA:840,14
+DA:841,14
+DA:846,14
+DA:847,14
+DA:848,14
+DA:849,14
+DA:850,14
+DA:851,364
+DA:852,350
+DA:853,0
+DA:854,0
+DA:855,0
+DA:856,0
+DA:857,0
+DA:858,0
+DA:859,350
+DA:862,14
+DA:863,14
+DA:868,14
+DA:869,14
+DA:870,14
+DA:871,0
+DA:872,0
+DA:873,0
+DA:874,0
+DA:875,14
+DA:878,1
+DA:879,1
+DA:880,1
+DA:881,1
+DA:882,1
+DA:885,1
+DA:886,1
+DA:887,1
+DA:888,1
+DA:889,1
+DA:892,1
+DA:893,1
+DA:894,1
+DA:895,1
+DA:896,1
+DA:897,1
+DA:898,1
+DA:899,1
+DA:900,1
+DA:901,1
+DA:902,1
+DA:905,1
+DA:906,1
+DA:907,1
+DA:908,1
+DA:909,1
+DA:912,1
+DA:913,1
+DA:914,1
+DA:915,1
+DA:916,1
+DA:917,1
+DA:918,1
+DA:919,1
+DA:920,1
+DA:921,1
+DA:922,1
+DA:923,1
+DA:924,1
+DA:925,1
+DA:926,1
+DA:927,1
+DA:928,1
+DA:931,1
+DA:932,1
+DA:933,1
+DA:934,1
+DA:935,1
+DA:936,1
+DA:937,1
+DA:938,1
+DA:939,1
+DA:942,1
+DA:943,1
+DA:944,1
+DA:945,1
+DA:946,1
+DA:947,1
+DA:948,1
+DA:949,1
+DA:950,1
+DA:953,1
+DA:954,1
+DA:955,1
+DA:956,1
+DA:957,1
+DA:958,1
+DA:959,1
+DA:960,1
+DA:961,1
+DA:964,1
+DA:965,1
+DA:966,1
+DA:967,1
+DA:968,1
+DA:969,1
+DA:970,1
+DA:971,1
+DA:972,1
+DA:973,1
+DA:974,1
+DA:977,1
+DA:978,1
+DA:979,1
+DA:980,1
+DA:981,1
+DA:982,1
+DA:983,1
+DA:984,1
+DA:985,1
+DA:986,1
+DA:987,1
+DA:988,1
+DA:989,1
+DA:990,1
+DA:991,1
+DA:992,1
+DA:993,1
+DA:994,1
+DA:995,1
+DA:996,1
+DA:997,1
+DA:998,1
+DA:999,1
+DA:1000,1
+DA:1001,1
+DA:1002,1
+DA:1003,1
+DA:1004,1
+DA:1005,1
+DA:1006,1
+DA:1007,1
+DA:1008,1
+DA:1011,1
+DA:1012,1
+DA:1013,1
+DA:1014,1
+DA:1015,1
+DA:1016,1
+DA:1017,1
+DA:1018,1
+DA:1019,1
+DA:1020,1
+DA:1021,1
+LF:878
+LH:855
 end_of_record
 SF:crates/uniplate/src/uniplate.rs
 FN:18,<_ as uniplate::uniplate::Uniplate>::children
@@ -5380,46 +5782,46 @@ FN:101,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUMEQ_TO_MINION::__typeche
 FN:22,conjure_oxide::rules::minion::sum_to_vector
 FN:58,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUM_LEQ_TO_SUMLEQ::__typecheck
 FN:10,conjure_oxide::rules::minion::is_nested_sum
-FN:157,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GEQ_TO_INEQ::__typecheck
+FN:162,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GEQ_TO_INEQ::__typecheck
 FN:42,conjure_oxide::rules::minion::flatten_sum_geq
 FN:59,conjure_oxide::rules::minion::sum_leq_to_sumleq
 FN:38,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_38_0
-FN:120,conjure_oxide::rules::minion::lt_to_ineq
+FN:123,conjure_oxide::rules::minion::lt_to_ineq
 FN:59,conjure_oxide::rules::minion::sum_leq_to_sumleq
 FN:75,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUM_EQ_TO_SUMEQ::__typecheck
-FN:120,conjure_oxide::rules::minion::lt_to_ineq
+FN:123,conjure_oxide::rules::minion::lt_to_ineq
 FN:76,conjure_oxide::rules::minion::sum_eq_to_sumeq
-FN:119,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LT_TO_INEQ::__typecheck
+FN:122,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LT_TO_INEQ::__typecheck
 FN:55,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_55_0
-FN:173,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_173_0
 FN:101,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUMEQ_TO_MINION::__typecheck
-FN:119,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LT_TO_INEQ::__typecheck
+FN:122,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LT_TO_INEQ::__typecheck
 FN:75,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUM_EQ_TO_SUMEQ::__typecheck
-FN:176,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LEQ_TO_INEQ::__typecheck
-FN:138,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GT_TO_INEQ::__typecheck
-FN:154,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_154_0
-FN:138,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GT_TO_INEQ::__typecheck
-FN:158,conjure_oxide::rules::minion::geq_to_ineq
+FN:182,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LEQ_TO_INEQ::__typecheck
+FN:142,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GT_TO_INEQ::__typecheck
+FN:142,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GT_TO_INEQ::__typecheck
+FN:163,conjure_oxide::rules::minion::geq_to_ineq
 FN:102,conjure_oxide::rules::minion::sumeq_to_minion
-FN:177,conjure_oxide::rules::minion::leq_to_ineq
-FN:135,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_135_0
-FN:139,conjure_oxide::rules::minion::gt_to_ineq
+FN:183,conjure_oxide::rules::minion::leq_to_ineq
+FN:119,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_119_0
+FN:143,conjure_oxide::rules::minion::gt_to_ineq
 FN:10,conjure_oxide::rules::minion::is_nested_sum
 FN:41,conjure_oxide::rules::minion::CONJURE_GEN_RULE_FLATTEN_SUM_GEQ::__typecheck
 FN:76,conjure_oxide::rules::minion::sum_eq_to_sumeq
-FN:177,conjure_oxide::rules::minion::leq_to_ineq
+FN:183,conjure_oxide::rules::minion::leq_to_ineq
 FN:55,rust_out::main
+FN:159,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_159_0
 FN:72,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_72_0
 FN:58,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUM_LEQ_TO_SUMLEQ::__typecheck
-FN:116,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_116_0
 FN:22,conjure_oxide::rules::minion::sum_to_vector
 FN:102,conjure_oxide::rules::minion::sumeq_to_minion
-FN:139,conjure_oxide::rules::minion::gt_to_ineq
+FN:143,conjure_oxide::rules::minion::gt_to_ineq
 FN:93,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_93_0
-FN:158,conjure_oxide::rules::minion::geq_to_ineq
-FN:157,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GEQ_TO_INEQ::__typecheck
+FN:163,conjure_oxide::rules::minion::geq_to_ineq
+FN:162,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GEQ_TO_INEQ::__typecheck
+FN:139,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_139_0
 FN:42,conjure_oxide::rules::minion::flatten_sum_geq
-FN:176,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LEQ_TO_INEQ::__typecheck
+FN:179,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_179_0
+FN:182,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LEQ_TO_INEQ::__typecheck
 FN:98,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_98_0
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_FLATTEN_SUM_GEQ::__typecheck
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUMEQ_TO_MINION::__typecheck
@@ -5437,34 +5839,34 @@ FNDA:0,conjure_oxide::rules::minion::lt_to_ineq
 FNDA:1,conjure_oxide::rules::minion::sum_eq_to_sumeq
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LT_TO_INEQ::__typecheck
 FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_55_0
-FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_173_0
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUMEQ_TO_MINION::__typecheck
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LT_TO_INEQ::__typecheck
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUM_EQ_TO_SUMEQ::__typecheck
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LEQ_TO_INEQ::__typecheck
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GT_TO_INEQ::__typecheck
-FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_154_0
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GT_TO_INEQ::__typecheck
 FNDA:1,conjure_oxide::rules::minion::geq_to_ineq
 FNDA:1,conjure_oxide::rules::minion::sumeq_to_minion
 FNDA:0,conjure_oxide::rules::minion::leq_to_ineq
-FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_135_0
+FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_119_0
 FNDA:1,conjure_oxide::rules::minion::gt_to_ineq
 FNDA:1,conjure_oxide::rules::minion::is_nested_sum
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_FLATTEN_SUM_GEQ::__typecheck
 FNDA:0,conjure_oxide::rules::minion::sum_eq_to_sumeq
 FNDA:1,conjure_oxide::rules::minion::leq_to_ineq
 FNDA:1,rust_out::main
+FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_159_0
 FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_72_0
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_SUM_LEQ_TO_SUMLEQ::__typecheck
-FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_116_0
 FNDA:0,conjure_oxide::rules::minion::sum_to_vector
 FNDA:0,conjure_oxide::rules::minion::sumeq_to_minion
 FNDA:0,conjure_oxide::rules::minion::gt_to_ineq
 FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_93_0
 FNDA:0,conjure_oxide::rules::minion::geq_to_ineq
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_GEQ_TO_INEQ::__typecheck
+FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_139_0
 FNDA:0,conjure_oxide::rules::minion::flatten_sum_geq
+FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_179_0
 FNDA:0,conjure_oxide::rules::minion::CONJURE_GEN_RULE_LEQ_TO_INEQ::__typecheck
 FNDA:1,rust_out::main::_doctest_main_conjure_oxide_src_rules_minion_rs_98_0
 FNF:46
@@ -5532,62 +5934,69 @@ DA:104,12
 DA:105,12
 DA:106,12
 DA:107,12
-DA:108,492
-DA:110,504
-DA:116,1
-DA:117,1
-DA:118,1
-DA:119,0
-DA:120,510
-DA:121,510
-DA:122,12
-DA:123,12
-DA:124,12
+DA:108,12
+DA:109,12
+DA:110,12
+DA:111,492
+DA:113,504
+DA:119,1
+DA:120,1
+DA:121,1
+DA:122,0
+DA:123,510
+DA:124,510
 DA:125,12
 DA:126,12
-DA:127,498
-DA:129,510
-DA:135,1
-DA:136,1
-DA:137,1
-DA:138,0
-DA:139,504
-DA:140,504
-DA:141,0
+DA:127,12
+DA:128,12
+DA:129,12
+DA:130,12
+DA:131,498
+DA:133,510
+DA:139,1
+DA:140,1
+DA:141,1
 DA:142,0
-DA:143,0
-DA:144,0
+DA:143,504
+DA:144,504
 DA:145,0
-DA:146,504
-DA:148,504
-DA:154,1
-DA:155,1
-DA:156,1
-DA:157,0
-DA:158,504
-DA:159,504
-DA:160,6
-DA:161,6
-DA:162,6
-DA:163,6
-DA:164,6
-DA:165,498
-DA:167,504
-DA:173,1
-DA:174,1
-DA:175,1
-DA:176,0
-DA:177,504
-DA:178,504
-DA:179,0
-DA:180,0
-DA:181,0
+DA:146,0
+DA:147,0
+DA:148,0
+DA:149,0
+DA:150,0
+DA:151,504
+DA:153,504
+DA:159,1
+DA:160,1
+DA:161,1
+DA:162,0
+DA:163,504
+DA:164,504
+DA:165,6
+DA:166,6
+DA:167,6
+DA:168,6
+DA:169,6
+DA:170,6
+DA:171,498
+DA:173,504
+DA:179,1
+DA:180,1
+DA:181,1
 DA:182,0
-DA:183,0
+DA:183,504
 DA:184,504
-DA:186,504
-LF:115
-LH:97
+DA:185,0
+DA:186,0
+DA:187,0
+DA:188,0
+DA:189,0
+DA:190,0
+DA:191,504
+DA:193,504
+LF:122
+LH:102
 end_of_record
 SF:crates/uniplate/src/lib.rs
 FN:51,<rust_out::AST as uniplate::uniplate::Uniplate>::uniplate::{closure#4}
