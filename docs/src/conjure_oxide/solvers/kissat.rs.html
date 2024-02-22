@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/solvers/kissat.rs`."><title>kissat.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (bb594538f 2024-02-20)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c37d3936c59ababd.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/solvers/kissat.rs`."><title>kissat.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (3406ada96 2024-02-21)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c37d3936c59ababd.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../conjure_oxide/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -638,6 +638,16 @@
 <a href="#636" id="636">636</a>
 <a href="#637" id="637">637</a>
 <a href="#638" id="638">638</a>
+<a href="#639" id="639">639</a>
+<a href="#640" id="640">640</a>
+<a href="#641" id="641">641</a>
+<a href="#642" id="642">642</a>
+<a href="#643" id="643">643</a>
+<a href="#644" id="644">644</a>
+<a href="#645" id="645">645</a>
+<a href="#646" id="646">646</a>
+<a href="#647" id="647">647</a>
+<a href="#648" id="648">648</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::{FromConjureModel, SolverError};
 <span class="kw">use </span><span class="kw">crate</span>::Solver;
 <span class="kw">use </span>conjure_core::metadata::Metadata;
@@ -651,7 +661,7 @@
 
 <span class="kw">const </span>SOLVER: Solver = Solver::KissSAT;
 
-<span class="kw">struct </span>CNF {
+<span class="kw">struct </span>CNFModel {
     <span class="kw">pub </span>clauses: Vec&lt;Vec&lt;i32&gt;&gt;,
     variables: HashMap&lt;ConjureName, i32&gt;,
     next_ind: i32,
@@ -680,9 +690,9 @@
     </span>NestedAnd(ConjureExpression),
 }
 
-<span class="kw">impl </span>CNF {
-    <span class="kw">pub fn </span>new() -&gt; CNF {
-        CNF {
+<span class="kw">impl </span>CNFModel {
+    <span class="kw">pub fn </span>new() -&gt; CNFModel {
+        CNFModel {
             clauses: Vec::new(),
             variables: HashMap::new(),
             next_ind: <span class="number">1</span>,
@@ -692,6 +702,7 @@
     <span class="doccomment">/**
      * Get all the Conjure variables in the CNF
      */
+    </span><span class="attr">#[allow(dead_code)] </span><span class="comment">// It will be used once we actually run kissat
     </span><span class="kw">pub fn </span>get_variables(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>ConjureName&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>ans: Vec&lt;<span class="kw-2">&amp;</span>ConjureName&gt; = Vec::new();
 
@@ -764,6 +775,7 @@
     <span class="doccomment">/**
      * Convert the CNF to a Conjure expression
      */
+    </span><span class="attr">#[allow(dead_code)] </span><span class="comment">// It will be used once we actually run kissat
     </span><span class="kw">pub fn </span>as_expression(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;ConjureExpression, CNFError&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>expr_clauses: Vec&lt;ConjureExpression&gt; = Vec::new();
 
@@ -825,8 +837,7 @@
     <span class="doccomment">/**
      * Convert the contents of a single Not() to CNF
      */
-    </span><span class="kw">fn </span>handle_not(<span class="kw-2">&amp;</span><span class="self">self</span>, expr_box: <span class="kw-2">&amp;</span>Box&lt;ConjureExpression&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;i32&gt;, CNFError&gt; {
-        <span class="kw">let </span>expr = expr_box.as_ref();
+    </span><span class="kw">fn </span>handle_not(<span class="kw-2">&amp;</span><span class="self">self</span>, expr: <span class="kw-2">&amp;</span>ConjureExpression) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;i32&gt;, CNFError&gt; {
         <span class="kw">match </span>expr {
             <span class="comment">// Expression inside the Not()
             </span>ConjureExpression::Reference(_metadata, name) =&gt; {
@@ -853,7 +864,7 @@
     }
 
     <span class="doccomment">/**
-     * Convert a single Reference, Not or Or into a clause of the CNF format
+     * Convert a single Reference, `Not` or `Or` into a clause of the CNF format
      */
     </span><span class="kw">fn </span>handle_flat_expression(<span class="kw-2">&amp;</span><span class="self">self</span>, expression: <span class="kw-2">&amp;</span>ConjureExpression) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;i32&gt;, CNFError&gt; {
         <span class="kw">match </span>expression {
@@ -899,17 +910,17 @@
  * Helper trait for checking if a variable is present in the CNF polymorphically (i32 or ConjureName)
  */
 </span><span class="kw">trait </span>HasVariable {
-    <span class="kw">fn </span>has_variable(<span class="self">self</span>, cnf: <span class="kw-2">&amp;</span>CNF) -&gt; bool;
+    <span class="kw">fn </span>has_variable(<span class="self">self</span>, cnf: <span class="kw-2">&amp;</span>CNFModel) -&gt; bool;
 }
 
 <span class="kw">impl </span>HasVariable <span class="kw">for </span>i32 {
-    <span class="kw">fn </span>has_variable(<span class="self">self</span>, cnf: <span class="kw-2">&amp;</span>CNF) -&gt; bool {
+    <span class="kw">fn </span>has_variable(<span class="self">self</span>, cnf: <span class="kw-2">&amp;</span>CNFModel) -&gt; bool {
         <span class="kw">return </span>cnf.get_name(<span class="self">self</span>).is_some();
     }
 }
 
 <span class="kw">impl </span>HasVariable <span class="kw">for </span><span class="kw-2">&amp;</span>ConjureName {
-    <span class="kw">fn </span>has_variable(<span class="self">self</span>, cnf: <span class="kw-2">&amp;</span>CNF) -&gt; bool {
+    <span class="kw">fn </span>has_variable(<span class="self">self</span>, cnf: <span class="kw-2">&amp;</span>CNFModel) -&gt; bool {
         cnf.get_index(<span class="self">self</span>).is_some()
     }
 }
@@ -917,19 +928,28 @@
 <span class="doccomment">/**
 * Expects Model to be in the Conjunctive Normal Form:
 * - All variables must be boolean
-* - Expressions must be Reference, Not(Reference), or Or(Reference1, Not(Reference2), ...)
+* - Expressions must be `Reference`, `Not(Reference)`, or `Or(Reference1, Not(Reference2), ...)`
 * - The top level And() may contain nested Or()s. Any other nested expressions are not allowed.
 */
-</span><span class="kw">impl </span>FromConjureModel <span class="kw">for </span>CNF {
+</span><span class="kw">impl </span>FromConjureModel <span class="kw">for </span>CNFModel {
     <span class="doccomment">/**
      * Convert a Conjure model to a CNF
      */
     </span><span class="kw">fn </span>from_conjure(conjure_model: ConjureModel) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SolverError&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>ans: CNF = CNF::new();
+        <span class="kw">let </span><span class="kw-2">mut </span>ans: CNFModel = CNFModel::new();
 
         <span class="kw">for </span>var <span class="kw">in </span>conjure_model.variables.keys() {
             <span class="comment">// Check that domain has the correct type
-            </span><span class="kw">let </span>decision_var = conjure_model.variables.get(var).unwrap();
+            </span><span class="kw">let </span>decision_var = <span class="kw">match </span>conjure_model.variables.get(var) {
+                <span class="prelude-val">None </span>=&gt; {
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(SolverError::InvalidInstance(
+                        SOLVER,
+                        <span class="macro">format!</span>(<span class="string">"variable {:?} not found"</span>, var),
+                    ));
+                }
+                <span class="prelude-val">Some</span>(var) =&gt; var,
+            };
+
             <span class="kw">if </span>decision_var.domain != ConjureDomain::BoolDomain {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(SolverError::NotSupported(
                     SOLVER,
@@ -962,9 +982,9 @@
     <span class="kw">use </span><span class="kw">crate</span>::ast::Expression::{And, Not, Or, Reference};
     <span class="kw">use </span><span class="kw">crate</span>::ast::{DecisionVariable, Model};
     <span class="kw">use </span><span class="kw">crate</span>::ast::{Expression, Name};
-    <span class="kw">use </span><span class="kw">crate</span>::solvers::kissat::CNF;
+    <span class="kw">use </span><span class="kw">crate</span>::solvers::kissat::CNFModel;
     <span class="kw">use </span><span class="kw">crate</span>::solvers::{FromConjureModel, SolverError};
-    <span class="kw">use </span><span class="kw">crate</span>::utils::{assert_eq_any_order, if_ok};
+    <span class="kw">use </span><span class="kw">crate</span>::utils::testing::assert_eq_any_order;
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_single_var() {
@@ -976,7 +996,7 @@
         model.add_variable(x.clone(), DecisionVariable { domain: BoolDomain });
         model.add_constraint(Reference(Metadata::new(), x.clone()));
 
-        <span class="kw">let </span>res: <span class="prelude-ty">Result</span>&lt;CNF, SolverError&gt; = CNF::from_conjure(model);
+        <span class="kw">let </span>res: <span class="prelude-ty">Result</span>&lt;CNFModel, SolverError&gt; = CNFModel::from_conjure(model);
         <span class="macro">assert!</span>(res.is_ok());
 
         <span class="kw">let </span>cnf = res.unwrap();
@@ -1001,12 +1021,12 @@
             Box::from(Reference(Metadata::new(), x.clone())),
         ));
 
-        <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
+        <span class="kw">let </span>cnf: CNFModel = CNFModel::from_conjure(model).unwrap();
         <span class="macro">assert_eq!</span>(cnf.get_index(<span class="kw-2">&amp;</span>x), <span class="prelude-val">Some</span>(<span class="number">1</span>));
         <span class="macro">assert_eq!</span>(cnf.clauses, <span class="macro">vec!</span>[<span class="macro">vec!</span>[-<span class="number">1</span>]]);
 
         <span class="macro">assert_eq!</span>(
-            if_ok(cnf.as_expression()),
+            cnf.as_expression().unwrap(),
             And(
                 Metadata::new(),
                 <span class="macro">vec!</span>[Or(
@@ -1040,14 +1060,14 @@
             ],
         ));
 
-        <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
+        <span class="kw">let </span>cnf: CNFModel = CNFModel::from_conjure(model).unwrap();
 
         <span class="kw">let </span>xi = cnf.get_index(<span class="kw-2">&amp;</span>x).unwrap();
         <span class="kw">let </span>yi = cnf.get_index(<span class="kw-2">&amp;</span>y).unwrap();
         assert_eq_any_order(<span class="kw-2">&amp;</span>cnf.clauses, <span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="macro">vec!</span>[xi, yi]]);
 
         <span class="macro">assert_eq!</span>(
-            if_ok(cnf.as_expression()),
+            cnf.as_expression().unwrap(),
             And(
                 Metadata::new(),
                 <span class="macro">vec!</span>[Or(
@@ -1084,14 +1104,14 @@
             ],
         ));
 
-        <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
+        <span class="kw">let </span>cnf: CNFModel = CNFModel::from_conjure(model).unwrap();
 
         <span class="kw">let </span>xi = cnf.get_index(<span class="kw-2">&amp;</span>x).unwrap();
         <span class="kw">let </span>yi = cnf.get_index(<span class="kw-2">&amp;</span>y).unwrap();
         assert_eq_any_order(<span class="kw-2">&amp;</span>cnf.clauses, <span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="macro">vec!</span>[xi, -yi]]);
 
         <span class="macro">assert_eq!</span>(
-            if_ok(cnf.as_expression()),
+            cnf.as_expression().unwrap(),
             And(
                 Metadata::new(),
                 <span class="macro">vec!</span>[Or(
@@ -1123,14 +1143,14 @@
         model.add_constraint(Reference(Metadata::new(), x.clone()));
         model.add_constraint(Reference(Metadata::new(), y.clone()));
 
-        <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
+        <span class="kw">let </span>cnf: CNFModel = CNFModel::from_conjure(model).unwrap();
 
         <span class="kw">let </span>xi = cnf.get_index(<span class="kw-2">&amp;</span>x).unwrap();
         <span class="kw">let </span>yi = cnf.get_index(<span class="kw-2">&amp;</span>y).unwrap();
         assert_eq_any_order(<span class="kw-2">&amp;</span>cnf.clauses, <span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="macro">vec!</span>[xi], <span class="macro">vec!</span>[yi]]);
 
         <span class="macro">assert_eq!</span>(
-            if_ok(cnf.as_expression()),
+            cnf.as_expression().unwrap(),
             And(
                 Metadata::new(),
                 <span class="macro">vec!</span>[
@@ -1161,14 +1181,14 @@
             ],
         ));
 
-        <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
+        <span class="kw">let </span>cnf: CNFModel = CNFModel::from_conjure(model).unwrap();
 
         <span class="kw">let </span>xi = cnf.get_index(<span class="kw-2">&amp;</span>x).unwrap();
         <span class="kw">let </span>yi = cnf.get_index(<span class="kw-2">&amp;</span>y).unwrap();
         assert_eq_any_order(<span class="kw-2">&amp;</span>cnf.clauses, <span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="macro">vec!</span>[xi], <span class="macro">vec!</span>[yi]]);
 
         <span class="macro">assert_eq!</span>(
-            if_ok(cnf.as_expression()),
+            cnf.as_expression().unwrap(),
             And(
                 Metadata::new(),
                 <span class="macro">vec!</span>[
@@ -1207,7 +1227,7 @@
             ],
         ));
 
-        <span class="kw">let </span>cnf: CNF = CNF::from_conjure(model).unwrap();
+        <span class="kw">let </span>cnf: CNFModel = CNFModel::from_conjure(model).unwrap();
 
         <span class="kw">let </span>xi = cnf.get_index(<span class="kw-2">&amp;</span>x).unwrap();
         <span class="kw">let </span>yi = cnf.get_index(<span class="kw-2">&amp;</span>y).unwrap();
@@ -1215,7 +1235,7 @@
         assert_eq_any_order(<span class="kw-2">&amp;</span>cnf.clauses, <span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="macro">vec!</span>[xi, yi, zi]]);
 
         <span class="macro">assert_eq!</span>(
-            if_ok(cnf.as_expression()),
+            cnf.as_expression().unwrap(),
             And(
                 Metadata::new(),
                 <span class="macro">vec!</span>[Or(
@@ -1250,7 +1270,7 @@
         model.add_constraint(Reference(Metadata::new(), x.clone()));
         model.add_constraint(Reference(Metadata::new(), y.clone()));
 
-        <span class="kw">let </span>cnf: <span class="prelude-ty">Result</span>&lt;CNF, SolverError&gt; = CNF::from_conjure(model);
+        <span class="kw">let </span>cnf: <span class="prelude-ty">Result</span>&lt;CNFModel, SolverError&gt; = CNFModel::from_conjure(model);
         <span class="macro">assert!</span>(cnf.is_err());
     }
 
@@ -1272,7 +1292,7 @@
             Box::from(Reference(Metadata::new(), y.clone())),
         ));
 
-        <span class="kw">let </span>cnf: <span class="prelude-ty">Result</span>&lt;CNF, SolverError&gt; = CNF::from_conjure(model);
+        <span class="kw">let </span>cnf: <span class="prelude-ty">Result</span>&lt;CNFModel, SolverError&gt; = CNFModel::from_conjure(model);
         <span class="macro">assert!</span>(cnf.is_err());
     }
 }

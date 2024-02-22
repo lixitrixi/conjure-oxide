@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/generate_custom.rs`."><title>generate_custom.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (bb594538f 2024-02-20)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c37d3936c59ababd.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/generate_custom.rs`."><title>generate_custom.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (3406ada96 2024-02-21)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c37d3936c59ababd.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../conjure_oxide/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -108,71 +108,16 @@
 <a href="#106" id="106">106</a>
 <a href="#107" id="107">107</a>
 <a href="#108" id="108">108</a>
-<a href="#109" id="109">109</a>
-<a href="#110" id="110">110</a>
-<a href="#111" id="111">111</a>
-<a href="#112" id="112">112</a>
-<a href="#113" id="113">113</a>
-<a href="#114" id="114">114</a>
-<a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a>
-<a href="#117" id="117">117</a>
-<a href="#118" id="118">118</a>
-<a href="#119" id="119">119</a>
-<a href="#120" id="120">120</a>
-<a href="#121" id="121">121</a>
-<a href="#122" id="122">122</a>
-<a href="#123" id="123">123</a>
-<a href="#124" id="124">124</a>
-<a href="#125" id="125">125</a>
-<a href="#126" id="126">126</a>
-<a href="#127" id="127">127</a>
-<a href="#128" id="128">128</a>
-<a href="#129" id="129">129</a>
-<a href="#130" id="130">130</a>
-<a href="#131" id="131">131</a>
-<a href="#132" id="132">132</a>
-<a href="#133" id="133">133</a>
-<a href="#134" id="134">134</a>
-<a href="#135" id="135">135</a>
-<a href="#136" id="136">136</a>
-<a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
-<a href="#144" id="144">144</a>
-<a href="#145" id="145">145</a>
-<a href="#146" id="146">146</a>
-<a href="#147" id="147">147</a>
-<a href="#148" id="148">148</a>
-<a href="#149" id="149">149</a>
-<a href="#150" id="150">150</a>
-<a href="#151" id="151">151</a>
-<a href="#152" id="152">152</a>
-<a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a>
-<a href="#155" id="155">155</a>
-<a href="#156" id="156">156</a>
-<a href="#157" id="157">157</a>
-<a href="#158" id="158">158</a>
-<a href="#159" id="159">159</a>
-<a href="#160" id="160">160</a>
 </pre></div><pre class="rust"><code><span class="comment">// generate_custom.rs with get_example_model function
 
 // dependencies
 </span><span class="kw">use </span><span class="kw">crate</span>::parse::model_from_json;
 <span class="kw">use </span>conjure_core::ast::Model;
-<span class="kw">use </span>std::env;
+
 <span class="kw">use </span>std::error::Error;
-<span class="kw">use </span>std::fs::{copy, read_to_string, File};
-<span class="kw">use </span>std::io::Write;
+
 <span class="kw">use </span>std::path::PathBuf;
 <span class="kw">use </span>walkdir::WalkDir;
-
-<span class="kw">use </span>serde_json::Value;
 
 <span class="doccomment">/// Searches recursively in `../tests/integration` folder for an `.essence` file matching the given filename,
 /// then uses conjure to process it into astjson, and returns the parsed model.
@@ -270,54 +215,5 @@
     </span><span class="kw">let </span>generated_model = model_from_json(<span class="kw-2">&amp;</span>astjson)<span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(generated_model)
-}
-
-<span class="doccomment">/// Recursively sorts the keys of all JSON objects within the provided JSON value.
-///
-/// serde_json will output JSON objects in an arbitrary key order.
-/// this is normally fine, except in our use case we wouldn't want to update the expected output again and again.
-/// so a consistent (sorted) ordering of the keys is desirable.
-</span><span class="kw">fn </span>sort_json_object(value: <span class="kw-2">&amp;</span>Value) -&gt; Value {
-    <span class="kw">match </span>value {
-        Value::Object(obj) =&gt; {
-            <span class="kw">let </span><span class="kw-2">mut </span>ordered: Vec&lt;(String, Value)&gt; = obj
-                .iter()
-                .map(|(k, v)| {
-                    <span class="kw">if </span>k == <span class="string">"variables" </span>{
-                        (k.clone(), sort_json_variables(v))
-                    } <span class="kw">else </span>{
-                        (k.clone(), sort_json_object(v))
-                    }
-                })
-                <span class="comment">// .map(|(k, v)| (k.clone(), sort_json_object(v)))
-                </span>.collect();
-            ordered.sort_by(|a, b| a.<span class="number">0</span>.cmp(<span class="kw-2">&amp;</span>b.<span class="number">0</span>));
-
-            Value::Object(ordered.into_iter().collect())
-        }
-        Value::Array(arr) =&gt; Value::Array(arr.iter().map(sort_json_object).collect()),
-        <span class="kw">_ </span>=&gt; value.clone(),
-    }
-}
-
-<span class="doccomment">/// Sort the "variables" field by name.
-/// We have to do this separately becasue that field is not a JSON object, instead it's an array of tuples.
-</span><span class="kw">fn </span>sort_json_variables(value: <span class="kw-2">&amp;</span>Value) -&gt; Value {
-    <span class="kw">match </span>value {
-        Value::Array(vars) =&gt; {
-            <span class="kw">let </span><span class="kw-2">mut </span>vars_sorted = vars.clone();
-            vars_sorted.sort_by(|a, b| {
-                <span class="kw">let </span>a_obj = <span class="kw-2">&amp;</span>a.as_array().unwrap()[<span class="number">0</span>];
-                <span class="kw">let </span>a_name: <span class="kw">crate</span>::ast::Name = serde_json::from_value(a_obj.clone()).unwrap();
-
-                <span class="kw">let </span>b_obj = <span class="kw-2">&amp;</span>b.as_array().unwrap()[<span class="number">0</span>];
-                <span class="kw">let </span>b_name: <span class="kw">crate</span>::ast::Name = serde_json::from_value(b_obj.clone()).unwrap();
-
-                a_name.cmp(<span class="kw-2">&amp;</span>b_name)
-            });
-            Value::Array(vars_sorted)
-        }
-        <span class="kw">_ </span>=&gt; value.clone(),
-    }
 }
 </code></pre></div></section></main></body></html>

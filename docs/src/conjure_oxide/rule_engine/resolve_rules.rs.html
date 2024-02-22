@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/rule_engine/resolve_rules.rs`."><title>resolve_rules.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (bb594538f 2024-02-20)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c37d3936c59ababd.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/rule_engine/resolve_rules.rs`."><title>resolve_rules.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (3406ada96 2024-02-21)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c37d3936c59ababd.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../conjure_oxide/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -150,6 +150,10 @@
 <a href="#148" id="148">148</a>
 <a href="#149" id="149">149</a>
 <a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::rule::Rule;
 <span class="kw">use </span>conjure_rules::get_rule_set_by_name;
 <span class="kw">use </span>conjure_rules::rule_set::RuleSet;
@@ -193,7 +197,8 @@
 </span><span class="kw">fn </span>resolve_dependencies(
     rule_set_name: <span class="kw-2">&amp;</span>str,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt;, ResolveRulesError&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>ans: HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; = HashSet::new();
+    <span class="attr">#[allow(clippy::mutable_key_type)] </span><span class="comment">// RuleSet is 'static so it's fine
+    </span><span class="kw">let </span><span class="kw-2">mut </span>ans: HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; = HashSet::new();
     <span class="kw">let </span>rule_set = get_rule_set(rule_set_name)<span class="question-mark">?</span>;
 
     ans.insert(rule_set);
@@ -203,7 +208,8 @@
     }
 
     <span class="kw">for </span>dep <span class="kw">in </span>rule_set.dependencies {
-        <span class="kw">let </span>new_dependencies = resolve_dependencies(dep)<span class="question-mark">?</span>;
+        <span class="attr">#[allow(clippy::mutable_key_type)] </span><span class="comment">// RuleSet is 'static so it's fine
+        </span><span class="kw">let </span>new_dependencies = resolve_dependencies(dep)<span class="question-mark">?</span>;
         ans.extend(new_dependencies);
     }
 
@@ -219,10 +225,12 @@
 </span><span class="kw">pub fn </span>resolve_rule_sets&lt;<span class="lifetime">'a</span>&gt;(
     rule_set_names: Vec&lt;<span class="kw-2">&amp;</span>str&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt;, ResolveRulesError&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>rs_set: HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; = HashSet::new();
+    <span class="attr">#[allow(clippy::mutable_key_type)] </span><span class="comment">// RuleSet is 'static so it's fine
+    </span><span class="kw">let </span><span class="kw-2">mut </span>rs_set: HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; = HashSet::new();
 
     <span class="kw">for </span>rule_set_name <span class="kw">in </span>rule_set_names {
-        <span class="kw">let </span>new_dependencies = resolve_dependencies(rule_set_name)<span class="question-mark">?</span>;
+        <span class="attr">#[allow(clippy::mutable_key_type)]
+        </span><span class="kw">let </span>new_dependencies = resolve_dependencies(rule_set_name)<span class="question-mark">?</span>;
         rs_set.extend(new_dependencies);
     }
 
