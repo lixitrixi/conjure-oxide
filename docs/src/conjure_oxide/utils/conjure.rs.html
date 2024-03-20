@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/utils/conjure.rs`."><title>conjure.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (7d3702e47 2024-03-06)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/utils/conjure.rs`."><title>conjure.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (a7e4de13c 2024-03-19)" data-channel="nightly" data-search-js="search-42d8da7a6b9792c2.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
             <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
     <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../conjure_oxide/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
@@ -96,68 +96,17 @@
 <a href="#94" id="94">94</a>
 <a href="#95" id="95">95</a>
 <a href="#96" id="96">96</a>
-<a href="#97" id="97">97</a>
-<a href="#98" id="98">98</a>
-<a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a>
-<a href="#101" id="101">101</a>
-<a href="#102" id="102">102</a>
-<a href="#103" id="103">103</a>
-<a href="#104" id="104">104</a>
-<a href="#105" id="105">105</a>
-<a href="#106" id="106">106</a>
-<a href="#107" id="107">107</a>
-<a href="#108" id="108">108</a>
-<a href="#109" id="109">109</a>
-<a href="#110" id="110">110</a>
-<a href="#111" id="111">111</a>
-<a href="#112" id="112">112</a>
-<a href="#113" id="113">113</a>
-<a href="#114" id="114">114</a>
-<a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a>
-<a href="#117" id="117">117</a>
-<a href="#118" id="118">118</a>
-<a href="#119" id="119">119</a>
-<a href="#120" id="120">120</a>
-<a href="#121" id="121">121</a>
-<a href="#122" id="122">122</a>
-<a href="#123" id="123">123</a>
-<a href="#124" id="124">124</a>
-<a href="#125" id="125">125</a>
-<a href="#126" id="126">126</a>
-<a href="#127" id="127">127</a>
-<a href="#128" id="128">128</a>
-<a href="#129" id="129">129</a>
-<a href="#130" id="130">130</a>
-<a href="#131" id="131">131</a>
-<a href="#132" id="132">132</a>
-<a href="#133" id="133">133</a>
-<a href="#134" id="134">134</a>
-<a href="#135" id="135">135</a>
-<a href="#136" id="136">136</a>
-<a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::parse::model_from_json;
-<span class="kw">use </span><span class="kw">crate</span>::solvers::minion::MinionModel;
-<span class="kw">use </span><span class="kw">crate</span>::solvers::FromConjureModel;
 <span class="kw">use </span><span class="kw">crate</span>::utils::json::sort_json_object;
 <span class="kw">use </span><span class="kw">crate</span>::Error <span class="kw">as </span>ParseErr;
-<span class="kw">use </span>conjure_core::ast::Model;
-<span class="kw">use </span>minion_rs::ast::{Constant, VarName};
-<span class="kw">use </span>minion_rs::run_minion;
+<span class="kw">use </span>conjure_core::ast::{Constant, Model, Name};
 <span class="kw">use </span>serde_json::{Map, Value <span class="kw">as </span>JsonValue};
 <span class="kw">use </span>std::collections::HashMap;
-<span class="kw">use </span>std::ops::Deref;
-<span class="kw">use </span>std::sync::{Condvar, Mutex};
+<span class="kw">use </span>std::sync::{Arc, Mutex};
 <span class="kw">use </span>thiserror::Error <span class="kw">as </span>ThisError;
 
-<span class="kw">static </span>ALL_SOLUTIONS: Mutex&lt;Vec&lt;HashMap&lt;VarName, Constant&gt;&gt;&gt; = Mutex::new(<span class="macro">vec!</span>[]);
-<span class="kw">static </span>LOCK: (Mutex&lt;bool&gt;, Condvar) = (Mutex::new(<span class="bool-val">false</span>), Condvar::new());
+<span class="kw">use </span><span class="kw">crate</span>::solver::adaptors::Minion;
+<span class="kw">use </span><span class="kw">crate</span>::solver::{Solver, SolverAdaptor};
 
 <span class="attr">#[derive(Debug, ThisError)]
 </span><span class="kw">pub enum </span>EssenceParseError {
@@ -205,77 +154,36 @@
     <span class="prelude-val">Ok</span>(parsed_model)
 }
 
-<span class="kw">pub fn </span>get_minion_solutions(
-    model: Model,
-) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;HashMap&lt;VarName, Constant&gt;&gt;, anyhow::Error&gt; {
-    <span class="kw">fn </span>callback(solutions: HashMap&lt;VarName, Constant&gt;) -&gt; bool {
-        <span class="kw">match </span>ALL_SOLUTIONS.lock() {
-            <span class="prelude-val">Ok</span>(<span class="kw-2">mut </span>guard) =&gt; {
-                guard.push(solutions);
-                <span class="bool-val">true
-            </span>}
-            <span class="prelude-val">Err</span>(e) =&gt; {
-                <span class="macro">eprintln!</span>(<span class="string">"Error getting lock on ALL_SOLUTIONS: {}"</span>, e);
-                <span class="bool-val">false
-            </span>}
-        }
-    }
+<span class="kw">pub fn </span>get_minion_solutions(model: Model) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;HashMap&lt;Name, Constant&gt;&gt;, anyhow::Error&gt; {
+    <span class="kw">let </span>solver = Solver::new(Minion::new());
 
     <span class="macro">println!</span>(<span class="string">"Building Minion model..."</span>);
-    <span class="kw">let </span>minion_model = MinionModel::from_conjure(model)<span class="question-mark">?</span>;
-
-    <span class="comment">// @niklasdewally would be able to explain this better
-    // We use a condvar to keep a lock on the ALL_SOLUTIONS mutex until it goes out of scope
-    // So, no other threads can mutate ALL_SOLUTIONS while we're running Minion, only our callback can
-    </span><span class="kw">let </span>(lock, condvar) = <span class="kw-2">&amp;</span>LOCK;
-    <span class="attr">#[allow(clippy::unwrap_used)] </span><span class="comment">// If the mutex is poisoned, we want to panic anyway
-    </span><span class="kw">let </span><span class="kw-2">mut </span>_lock_guard = condvar
-        .wait_while(lock.lock().unwrap(), |locked| <span class="kw-2">*</span>locked)
-        .unwrap();
-
-    <span class="kw-2">*</span>_lock_guard = <span class="bool-val">true</span>;
+    <span class="kw">let </span>solver = solver.load_model(model)<span class="question-mark">?</span>;
 
     <span class="macro">println!</span>(<span class="string">"Running Minion..."</span>);
-    <span class="kw">match </span>run_minion(minion_model, callback) {
-        <span class="prelude-val">Ok</span>(res) =&gt; res,
-        <span class="prelude-val">Err</span>(e) =&gt; {
-            <span class="macro">eprintln!</span>(<span class="string">"Error running Minion: {}"</span>, e);
-            <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">"Error running Minion: {}"</span>, e));
-        }
-    };
 
-    <span class="kw">let </span>ans = <span class="kw">match </span>ALL_SOLUTIONS.lock() {
-        <span class="prelude-val">Ok</span>(<span class="kw-2">mut </span>guard) =&gt; {
-            <span class="kw">let </span>ans = guard.deref().clone();
-            guard.clear(); <span class="comment">// Clear the solutions for the next test
-            </span>ans
-        }
-        <span class="prelude-val">Err</span>(e) =&gt; {
-            <span class="macro">eprintln!</span>(<span class="string">"Error getting lock on ALL_SOLUTIONS: {}"</span>, e);
-            <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                <span class="string">"Error getting lock on ALL_SOLUTIONS: {}"</span>,
-                e
-            ));
-        }
-    };
+    <span class="kw">let </span>all_solutions_ref = Arc::new(Mutex::&lt;Vec&lt;HashMap&lt;Name, Constant&gt;&gt;&gt;::new(<span class="macro">vec!</span>[]));
+    <span class="kw">let </span>all_solutions_ref_2 = all_solutions_ref.clone();
+    <span class="attr">#[allow(clippy::unwrap_used)]
+    </span>solver.solve(Box::new(<span class="kw">move </span>|sols| {
+        <span class="kw">let </span><span class="kw-2">mut </span>all_solutions = (<span class="kw-2">*</span>all_solutions_ref_2).lock().unwrap();
+        (<span class="kw-2">*</span>all_solutions).push(sols);
+        <span class="bool-val">true
+    </span>}))<span class="question-mark">?</span>;
 
-    <span class="comment">// Release the lock and wake the next waiting thread
-    </span><span class="kw-2">*</span>_lock_guard = <span class="bool-val">false</span>;
-    std::mem::drop(_lock_guard);
-    condvar.notify_one();
-
-    <span class="prelude-val">Ok</span>(ans)
+    <span class="attr">#[allow(clippy::unwrap_used)]
+    </span><span class="kw">let </span>sols = (<span class="kw-2">*</span>all_solutions_ref).lock().unwrap();
+    <span class="prelude-val">Ok</span>((<span class="kw-2">*</span>sols).clone())
 }
 
-<span class="kw">pub fn </span>minion_solutions_to_json(solutions: <span class="kw-2">&amp;</span>Vec&lt;HashMap&lt;VarName, Constant&gt;&gt;) -&gt; JsonValue {
+<span class="kw">pub fn </span>minion_solutions_to_json(solutions: <span class="kw-2">&amp;</span>Vec&lt;HashMap&lt;Name, Constant&gt;&gt;) -&gt; JsonValue {
     <span class="kw">let </span><span class="kw-2">mut </span>json_solutions = Vec::new();
     <span class="kw">for </span>solution <span class="kw">in </span>solutions {
         <span class="kw">let </span><span class="kw-2">mut </span>json_solution = Map::new();
         <span class="kw">for </span>(var_name, constant) <span class="kw">in </span>solution {
             <span class="kw">let </span>serialized_constant = <span class="kw">match </span>constant {
-                Constant::Integer(i) =&gt; JsonValue::Number((<span class="kw-2">*</span>i).into()),
+                Constant::Int(i) =&gt; JsonValue::Number((<span class="kw-2">*</span>i).into()),
                 Constant::Bool(b) =&gt; JsonValue::Bool(<span class="kw-2">*</span>b),
-                x =&gt; <span class="macro">unimplemented!</span>(<span class="string">"{:#?}"</span>, x),
             };
             json_solution.insert(var_name.to_string(), serialized_constant);
         }

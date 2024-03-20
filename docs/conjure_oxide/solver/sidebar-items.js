@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SearchComplete","SearchIncomplete","SearchStatus","SolverError"],"mod":["adaptors","model_modifier","states","stats"],"struct":["SolveSuccess","Solver"],"trait":["SolverAdaptor"],"type":["SolverCallback","SolverMutCallback"]};

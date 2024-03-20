@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["RewriteError"],"fn":["rewrite","rewrite_model"]};
+window.SIDEBAR_ITEMS = {"enum":["RewriteError"],"fn":["rewrite_model"]};
