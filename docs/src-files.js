@@ -5,6 +5,6 @@ var srcIndex = new Map(JSON.parse('[\
 ["conjure_rules",["",[],["lib.rs","rule_set.rs"]]],\
 ["enum_compatability_macro",["",[],["lib.rs"]]],\
 ["minion_rs",["",[],["ast.rs","error.rs","ffi.rs","lib.rs","run.rs","scoped_ptr.rs"]]],\
-["uniplate",["",[],["lib.rs","uniplate.rs"]]]\
+["uniplate",["",[["test_common",[],["mod.rs","paper.rs"]]],["biplate.rs","lib.rs","tree.rs","uniplate.rs"]]]\
 ]'));
 createSrcSidebar();
