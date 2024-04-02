@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["ResolveRulesError"],"fn":["get_rule_priorities","get_rules_vec","resolve_rule_sets","rule_cmp"]};

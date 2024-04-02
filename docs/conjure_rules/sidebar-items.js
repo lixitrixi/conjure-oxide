@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"attr":["register_rule"],"fn":["get_rule_by_name","get_rule_set_by_name","get_rule_sets","get_rules"],"macro":["register_rule_set"],"mod":["rule_set"]};
