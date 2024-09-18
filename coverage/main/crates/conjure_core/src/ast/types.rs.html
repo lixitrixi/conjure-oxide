@@ -2,12 +2,12 @@
 <html lang="en-us">
     <head><meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Grcov report - cnf.rs </title>
+        <title>Grcov report - types.rs </title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"></head>
     <body>
         <div class="container">
     <nav class="breadcrumb is-right" aria-label="breadcrumbs">
-        <ul><li><a href="../../../../index.html">top_level</a></li><li><a href="./index.html">crates&#x2F;conjure_core&#x2F;src&#x2F;rules</a></li><li class="is-active"><a href="#">cnf.rs</a></li>
+        <ul><li><a href="../../../../index.html">top_level</a></li><li><a href="./index.html">crates&#x2F;conjure_core&#x2F;src&#x2F;ast</a></li><li class="is-active"><a href="#">types.rs</a></li>
         </ul>
     </nav>
     <nav class="level">
@@ -23,7 +23,7 @@
         <div>
             <p class="heading">Functions</p>
             <p class="title has-text-danger">
-                <abbr title="0 / 6">0 %</abbr></p>
+                <abbr title="0 / 18">0 %</abbr></p>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;***********************************************************************************&#x2F;</pre>
+                <pre class="has-background-white py-0 px-2">use serde::{Deserialize, Serialize};</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -60,7 +60,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;*        This file contains rules for converting logic expressions to CNF         *&#x2F;</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -70,13 +70,13 @@
                 <a href="#3">3</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;***********************************************************************************&#x2F;</pre>
+                <pre class="has-background-danger-light py-0 px-2">#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -92,7 +92,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2"></pre>
+                <pre class="has-background-white py-0 px-2">pub enum ReturnType {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -108,7 +108,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">use conjure_core::ast::Expression as Expr;</pre>
+                <pre class="has-background-white py-0 px-2">    Int,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -124,7 +124,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">use conjure_core::rule_engine::{</pre>
+                <pre class="has-background-white py-0 px-2">    Bool,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -140,87 +140,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">    register_rule, register_rule_set, ApplicationError, ApplicationResult, Reduction,</pre>
-            </div>
-        </div><div class="columns p-0 m-0" role="row">
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered"
-                id="8"
-                role="cell">
-                <a href="#8">8</a>
-            </div>
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
-            </div>
-            <div class="column has-background-white p-0"
-                 role="cell">
-                <pre class="has-background-white py-0 px-2">};</pre>
-            </div>
-        </div><div class="columns p-0 m-0" role="row">
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered"
-                id="9"
-                role="cell">
-                <a href="#9">9</a>
-            </div>
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
-            </div>
-            <div class="column has-background-white p-0"
-                 role="cell">
-                <pre class="has-background-white py-0 px-2">use conjure_core::solver::SolverFamily;</pre>
-            </div>
-        </div><div class="columns p-0 m-0" role="row">
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered"
-                id="10"
-                role="cell">
-                <a href="#10">10</a>
-            </div>
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
-            </div>
-            <div class="column has-background-white p-0"
-                 role="cell">
-                <pre class="has-background-white py-0 px-2">use conjure_core::Model;</pre>
-            </div>
-        </div><div class="columns p-0 m-0" role="row">
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered"
-                id="11"
-                role="cell">
-                <a href="#11">11</a>
-            </div>
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
-            </div>
-            <div class="column has-background-white p-0"
-                 role="cell">
-                <pre class="has-background-white py-0 px-2"></pre>
-            </div>
-        </div><div class="columns p-0 m-0" role="row">
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered"
-                id="12"
-                role="cell">
-                <a href="#12">12</a>
-            </div>
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
-                
-            </div>
-            <div class="column has-background-danger-light p-0"
-                 role="cell">
-                <pre class="has-background-danger-light py-0 px-2">register_rule_set!(&quot;CNF&quot;, 100, (&quot;Base&quot;), (SolverFamily::SAT));</pre>
+                <pre class="has-background-white py-0 px-2">}</pre>
             </div>
         </div></div>
 </div>

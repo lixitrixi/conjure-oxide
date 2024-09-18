@@ -2,12 +2,12 @@
 <html lang="en-us">
     <head><meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Grcov report - json.rs </title>
+        <title>Grcov report - bubble.rs </title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"></head>
     <body>
         <div class="container">
     <nav class="breadcrumb is-right" aria-label="breadcrumbs">
-        <ul><li><a href="../../../index.html">top_level</a></li><li><a href="./index.html">conjure_oxide&#x2F;src&#x2F;utils</a></li><li class="is-active"><a href="#">json.rs</a></li>
+        <ul><li><a href="../../../../index.html">top_level</a></li><li><a href="./index.html">crates&#x2F;conjure_core&#x2F;src&#x2F;rules</a></li><li class="is-active"><a href="#">bubble.rs</a></li>
         </ul>
     </nav>
     <nav class="level">
@@ -15,7 +15,7 @@
         <div>
             <p class="heading">Lines</p>
             <p class="title has-text-danger">
-                <abbr title="0 / 52">0 %</abbr></p>
+                <abbr title="0 / 46">0 %</abbr></p>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
         <div>
             <p class="heading">Functions</p>
             <p class="title has-text-danger">
-                <abbr title="0 / 12">0 %</abbr></p>
+                <abbr title="0 / 30">0 %</abbr></p>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">use serde_json::Value;</pre>
+                <pre class="has-background-white py-0 px-2">use conjure_core::ast::{Expression, ReturnType};</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -60,7 +60,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2"></pre>
+                <pre class="has-background-white py-0 px-2">use conjure_core::metadata::Metadata;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -76,7 +76,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; Compare two JSON values.</pre>
+                <pre class="has-background-white py-0 px-2">use conjure_core::rule_engine::{</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -92,7 +92,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; If the values are String, Number, or Bool, they are compared directly.</pre>
+                <pre class="has-background-white py-0 px-2">    register_rule, register_rule_set, ApplicationError, ApplicationResult, Reduction,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -108,7 +108,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; If the values are arrays, they are compared element-wise.</pre>
+                <pre class="has-background-white py-0 px-2">};</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -124,7 +124,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; Otherwise, they are compared as strings.</pre>
+                <pre class="has-background-white py-0 px-2">use conjure_core::Model;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -134,13 +134,13 @@
                 <a href="#7">7</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">fn json_value_cmp(a: &amp;Value, b: &amp;Value) -&gt; std::cmp::Ordering {</pre>
+                <pre class="has-background-white py-0 px-2">use uniplate::biplate::Uniplate;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -150,13 +150,13 @@
                 <a href="#8">8</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">    match (a, b) {</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -172,7 +172,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        (Value::Null, Value::Null) =&gt; std::cmp::Ordering::Equal,</pre>
+                <pre class="has-background-danger-light py-0 px-2">register_rule_set!(&quot;Bubble&quot;, 254, (&quot;Base&quot;));</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -182,13 +182,13 @@
                 <a href="#10">10</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        (Value::Bool(a), Value::Bool(b)) =&gt; a.cmp(b),</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -198,13 +198,13 @@
                 <a href="#11">11</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        (Value::String(a), Value::String(b)) =&gt; a.cmp(b),</pre>
+                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F; Bubble reduction rules</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -214,13 +214,13 @@
                 <a href="#12">12</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        (Value::Number(a), Value::Number(b)) =&gt; {</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -230,13 +230,13 @@
                 <a href="#13">13</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            let af = a.as_f64().unwrap_or_default();</pre>
+                <pre class="has-background-white py-0 px-2">&#x2F;*</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -246,13 +246,13 @@
                 <a href="#14">14</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            let bf = b.as_f64().unwrap_or_default();</pre>
+                <pre class="has-background-white py-0 px-2">    Reduce bubbles with a boolean expression to a conjunction with their condition.</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -262,13 +262,13 @@
                 <a href="#15">15</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            af.total_cmp(&amp;bf)</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -284,7 +284,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">        }</pre>
+                <pre class="has-background-white py-0 px-2">    e.g. (a &#x2F; b = c) @ (b != 0) =&gt; (a &#x2F; b = c) &amp; (b != 0)</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -294,13 +294,13 @@
                 <a href="#17">17</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        (Value::Array(a), Value::Array(b)) =&gt; {</pre>
+                <pre class="has-background-white py-0 px-2">*&#x2F;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -316,7 +316,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            for (a, b) in a.iter().zip(b.iter()) {</pre>
+                <pre class="has-background-danger-light py-0 px-2">#[register_rule((&quot;Bubble&quot;, 100))]</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -332,7 +332,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                let cmp = json_value_cmp(a, b);</pre>
+                <pre class="has-background-danger-light py-0 px-2">fn expand_bubble(expr: &amp;Expression, _: &amp;Model) -&gt; ApplicationResult {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -348,7 +348,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                if cmp != std::cmp::Ordering::Equal {</pre>
+                <pre class="has-background-danger-light py-0 px-2">    match expr {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -364,7 +364,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                    return cmp;</pre>
+                <pre class="has-background-danger-light py-0 px-2">        Expression::Bubble(_, a, b) if a.return_type() == Some(ReturnType::Bool) =&gt; {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -380,7 +380,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                }</pre>
+                <pre class="has-background-danger-light py-0 px-2">            Ok(Reduction::pure(Expression::And(</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -390,13 +390,13 @@
                 <a href="#23">23</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">            }</pre>
+                <pre class="has-background-danger-light py-0 px-2">                Metadata::new(),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -412,7 +412,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            std::cmp::Ordering::Equal</pre>
+                <pre class="has-background-danger-light py-0 px-2">                vec![*a.clone(), *b.clone()],</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -420,6 +420,22 @@
                 id="25"
                 role="cell">
                 <a href="#25">25</a>
+            </div>
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
+                
+            </div>
+            <div class="column has-background-danger-light p-0"
+                 role="cell">
+                <pre class="has-background-danger-light py-0 px-2">            )))</pre>
+            </div>
+        </div><div class="columns p-0 m-0" role="row">
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered"
+                id="26"
+                role="cell">
+                <a href="#26">26</a>
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
@@ -433,9 +449,9 @@
         </div><div class="columns p-0 m-0" role="row">
             <div
                 class="column is-1 is-narrow p-0 has-text-centered"
-                id="26"
+                id="27"
                 role="cell">
-                <a href="#26">26</a>
+                <a href="#27">27</a>
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
@@ -444,14 +460,14 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        _ =&gt; a.to_string().cmp(&amp;b.to_string()),</pre>
+                <pre class="has-background-danger-light py-0 px-2">        _ =&gt; Err(ApplicationError::RuleNotApplicable),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
                 class="column is-1 is-narrow p-0 has-text-centered"
-                id="27"
+                id="28"
                 role="cell">
-                <a href="#27">27</a>
+                <a href="#28">28</a>
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
@@ -465,9 +481,9 @@
         </div><div class="columns p-0 m-0" role="row">
             <div
                 class="column is-1 is-narrow p-0 has-text-centered"
-                id="28"
+                id="29"
                 role="cell">
-                <a href="#28">28</a>
+                <a href="#29">29</a>
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
@@ -477,22 +493,6 @@
             <div class="column has-background-danger-light p-0"
                  role="cell">
                 <pre class="has-background-danger-light py-0 px-2">}</pre>
-            </div>
-        </div><div class="columns p-0 m-0" role="row">
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered"
-                id="29"
-                role="cell">
-                <a href="#29">29</a>
-            </div>
-            <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
-            </div>
-            <div class="column has-background-white p-0"
-                 role="cell">
-                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -508,7 +508,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; Sort the &quot;variables&quot; field by name.</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -524,7 +524,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; We have to do this separately because that field is not a JSON object, instead it&#x27;s an array of tuples.</pre>
+                <pre class="has-background-white py-0 px-2">&#x2F;*</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -534,13 +534,13 @@
                 <a href="#32">32</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">pub fn sort_json_variables(value: &amp;Value) -&gt; Value {</pre>
+                <pre class="has-background-white py-0 px-2">    Bring bubbles with a non-boolean expression higher up the tree.</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -550,13 +550,13 @@
                 <a href="#33">33</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">    match value {</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -566,13 +566,13 @@
                 <a href="#34">34</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        Value::Array(vars) =&gt; {</pre>
+                <pre class="has-background-white py-0 px-2">    E.g. ((a &#x2F; b) @ (b != 0)) = c =&gt; (a &#x2F; b = c) @ (b != 0)</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -582,13 +582,13 @@
                 <a href="#35">35</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            let mut vars_sorted = vars.clone();</pre>
+                <pre class="has-background-white py-0 px-2">*&#x2F;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -604,7 +604,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            vars_sorted.sort_by(json_value_cmp);</pre>
+                <pre class="has-background-danger-light py-0 px-2">#[register_rule((&quot;Bubble&quot;, 100))]</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -620,7 +620,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            Value::Array(vars_sorted)</pre>
+                <pre class="has-background-danger-light py-0 px-2">fn bubble_up(expr: &amp;Expression, _: &amp;Model) -&gt; ApplicationResult {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -630,13 +630,13 @@
                 <a href="#38">38</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">        }</pre>
+                <pre class="has-background-danger-light py-0 px-2">    let mut sub = expr.children();</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -652,7 +652,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        _ =&gt; value.clone(),</pre>
+                <pre class="has-background-danger-light py-0 px-2">    let mut bubbled_conditions = vec![];</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -662,13 +662,13 @@
                 <a href="#40">40</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">    }</pre>
+                <pre class="has-background-danger-light py-0 px-2">    for e in sub.iter_mut() {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -684,7 +684,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">}</pre>
+                <pre class="has-background-danger-light py-0 px-2">        if let Expression::Bubble(_, a, b) = e {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -694,13 +694,13 @@
                 <a href="#42">42</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2"></pre>
+                <pre class="has-background-danger-light py-0 px-2">            if a.return_type() != Some(ReturnType::Bool) {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -710,13 +710,13 @@
                 <a href="#43">43</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; Recursively sorts the keys of all JSON objects within the provided JSON value.</pre>
+                <pre class="has-background-danger-light py-0 px-2">                bubbled_conditions.push(*b.clone());</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -726,13 +726,13 @@
                 <a href="#44">44</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F;</pre>
+                <pre class="has-background-danger-light py-0 px-2">                *e = *a.clone();</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -742,13 +742,13 @@
                 <a href="#45">45</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; serde_json will output JSON objects in an arbitrary key order.</pre>
+                <pre class="has-background-danger-light py-0 px-2">            }</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -758,13 +758,13 @@
                 <a href="#46">46</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; this is normally fine, except in our use case we wouldn&#x27;t want to update the expected output again and again.</pre>
+                <pre class="has-background-danger-light py-0 px-2">        }</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -780,7 +780,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; so a consistent (sorted) ordering of the keys is desirable.</pre>
+                <pre class="has-background-white py-0 px-2">    }</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -796,7 +796,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">pub fn sort_json_object(value: &amp;Value, sort_arrays: bool) -&gt; Value {</pre>
+                <pre class="has-background-danger-light py-0 px-2">    if bubbled_conditions.is_empty() {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -812,7 +812,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">    match value {</pre>
+                <pre class="has-background-danger-light py-0 px-2">        return Err(ApplicationError::RuleNotApplicable);</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -828,7 +828,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        Value::Object(obj) =&gt; {</pre>
+                <pre class="has-background-danger-light py-0 px-2">    }</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -844,7 +844,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            let mut ordered: Vec&lt;(String, Value)&gt; = obj</pre>
+                <pre class="has-background-danger-light py-0 px-2">    return Ok(Reduction::pure(Expression::Bubble(</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -860,7 +860,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                .iter()</pre>
+                <pre class="has-background-danger-light py-0 px-2">        Metadata::new(),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -876,7 +876,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                .map(|(k, v)| {</pre>
+                <pre class="has-background-danger-light py-0 px-2">        Box::new(expr.with_children(sub)),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -892,7 +892,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                    if k == &quot;variables&quot; {</pre>
+                <pre class="has-background-danger-light py-0 px-2">        Box::new(Expression::And(Metadata::new(), bubbled_conditions)),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -908,7 +908,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                        (k.clone(), sort_json_variables(v))</pre>
+                <pre class="has-background-danger-light py-0 px-2">    )));</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -918,13 +918,13 @@
                 <a href="#56">56</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">                    } else {</pre>
+                <pre class="has-background-danger-light py-0 px-2">}</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -934,13 +934,13 @@
                 <a href="#57">57</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                        (k.clone(), sort_json_object(v, sort_arrays))</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -956,7 +956,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">                    }</pre>
+                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F; Bubble applications</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -966,13 +966,13 @@
                 <a href="#59">59</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                })</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -982,13 +982,13 @@
                 <a href="#60">60</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                .collect();</pre>
+                <pre class="has-background-white py-0 px-2">&#x2F;*</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -998,13 +998,13 @@
                 <a href="#61">61</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2"></pre>
+                <pre class="has-background-white py-0 px-2">    Convert an unsafe division to a safe division with a bubble condition.</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1014,13 +1014,13 @@
                 <a href="#62">62</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            ordered.sort_by(|a, b| a.0.cmp(&amp;b.0));</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1030,13 +1030,13 @@
                 <a href="#63">63</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            Value::Object(ordered.into_iter().collect())</pre>
+                <pre class="has-background-white py-0 px-2">    Division by zero is undefined and therefore not allowed, so we add a condition to check for it.</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1052,7 +1052,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">        }</pre>
+                <pre class="has-background-white py-0 px-2">    This condition is brought up the tree and expanded into a conjunction with the first boolean-type expression it is paired with.</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1062,13 +1062,13 @@
                 <a href="#65">65</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        Value::Array(arr) =&gt; {</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1078,13 +1078,13 @@
                 <a href="#66">66</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            let mut arr: Vec&lt;Value&gt; = arr</pre>
+                <pre class="has-background-white py-0 px-2">    E.g. a &#x2F; b =&gt; (a &#x2F; b) @ (b != 0)</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1094,13 +1094,13 @@
                 <a href="#67">67</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                .iter()</pre>
+                <pre class="has-background-white py-0 px-2"></pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1110,13 +1110,13 @@
                 <a href="#68">68</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
-                role="cell" aria-label="0">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
                 
             </div>
-            <div class="column has-background-danger-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                .map(|val| sort_json_object(val, sort_arrays))</pre>
+                <pre class="has-background-white py-0 px-2">*&#x2F;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1132,7 +1132,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                .collect();</pre>
+                <pre class="has-background-danger-light py-0 px-2">#[register_rule((&quot;Bubble&quot;, 100))]</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1148,7 +1148,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2"></pre>
+                <pre class="has-background-danger-light py-0 px-2">fn div_to_bubble(expr: &amp;Expression, _: &amp;Model) -&gt; ApplicationResult {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1164,7 +1164,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            if sort_arrays {</pre>
+                <pre class="has-background-danger-light py-0 px-2">    if let Expression::UnsafeDiv(_, a, b) = expr {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1180,7 +1180,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">                arr.sort_by(json_value_cmp);</pre>
+                <pre class="has-background-danger-light py-0 px-2">        return Ok(Reduction::pure(Expression::Bubble(</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1196,7 +1196,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            }</pre>
+                <pre class="has-background-danger-light py-0 px-2">            Metadata::new(),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1206,13 +1206,13 @@
                 <a href="#74">74</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2"></pre>
+                <pre class="has-background-danger-light py-0 px-2">            Box::new(Expression::SafeDiv(Metadata::new(), a.clone(), b.clone())),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1228,7 +1228,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            Value::Array(arr)</pre>
+                <pre class="has-background-danger-light py-0 px-2">            Box::new(Expression::Neq(</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1238,13 +1238,13 @@
                 <a href="#76">76</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">        }</pre>
+                <pre class="has-background-danger-light py-0 px-2">                Metadata::new(),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1260,7 +1260,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        _ =&gt; value.clone(),</pre>
+                <pre class="has-background-danger-light py-0 px-2">                b.clone(),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1270,13 +1270,13 @@
                 <a href="#78">78</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
                 
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">    }</pre>
+                <pre class="has-background-danger-light py-0 px-2">                Box::new(Expression::from(0)),</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1284,6 +1284,70 @@
                 id="79"
                 role="cell">
                 <a href="#79">79</a>
+            </div>
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
+                
+            </div>
+            <div class="column has-background-danger-light p-0"
+                 role="cell">
+                <pre class="has-background-danger-light py-0 px-2">            )),</pre>
+            </div>
+        </div><div class="columns p-0 m-0" role="row">
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered"
+                id="80"
+                role="cell">
+                <a href="#80">80</a>
+            </div>
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
+                
+            </div>
+            <div class="column has-background-danger-light p-0"
+                 role="cell">
+                <pre class="has-background-danger-light py-0 px-2">        )));</pre>
+            </div>
+        </div><div class="columns p-0 m-0" role="row">
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered"
+                id="81"
+                role="cell">
+                <a href="#81">81</a>
+            </div>
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
+                
+            </div>
+            <div class="column has-background-danger-light p-0"
+                 role="cell">
+                <pre class="has-background-danger-light py-0 px-2">    }</pre>
+            </div>
+        </div><div class="columns p-0 m-0" role="row">
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered"
+                id="82"
+                role="cell">
+                <a href="#82">82</a>
+            </div>
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
+                role="cell" aria-label="0">
+                
+            </div>
+            <div class="column has-background-danger-light p-0"
+                 role="cell">
+                <pre class="has-background-danger-light py-0 px-2">    return Err(ApplicationError::RuleNotApplicable);</pre>
+            </div>
+        </div><div class="columns p-0 m-0" role="row">
+            <div
+                class="column is-1 is-narrow p-0 has-text-centered"
+                id="83"
+                role="cell">
+                <a href="#83">83</a>
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-danger-light has-background-danger"
