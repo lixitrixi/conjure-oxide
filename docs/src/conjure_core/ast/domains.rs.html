@@ -1,6 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/domains.rs`."><title>domains.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9e1300b5663a8a03.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (8b2459c1f 2024-04-09)" data-channel="nightly" data-search-js="search-ffac13a0df2b1870.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-e32f0c247825364d.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c97aec732c613ca4.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-09095024cf37855e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../conjure_core/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/domains.rs`."><title>domains.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-405f8b29f52305f8.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (28e8f01c2 2024-09-17)" data-channel="nightly" data-search-js="search-0cfde64e8ad3a7fe.js" data-settings-js="settings-7e3bb6c46e92e77c.js" ><script src="../../../static.files/storage-29b1d5a9048d38fe.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-14659ec02b58af51.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-40f72c9259523cb3.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -82,10 +81,33 @@
 <a href="#80" id="80">80</a>
 <a href="#81" id="81">81</a>
 <a href="#82" id="82">82</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>serde::{Deserialize, Serialize};
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a></pre></div><pre class="rust"><code><span class="kw">use </span>serde::{Deserialize, Serialize};
+<span class="comment">// use std::iter::Ste
 
-<span class="attr">#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-</span><span class="kw">pub enum </span>Range&lt;A&gt; {
+</span><span class="attr">#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+</span><span class="kw">pub enum </span>Range&lt;A&gt;
+<span class="kw">where
+    </span>A: Ord,
+{
     Single(A),
     Bounded(A, A),
 }
@@ -97,70 +119,86 @@
 }
 
 <span class="kw">impl </span>Domain {
-    <span class="doccomment">/// Returns the minimum i32 value a variable of the domain can take, if it is an i32 domain.
-    </span><span class="kw">pub fn </span>min_i32(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
+    <span class="doccomment">/// Return a list of all possible i32 values in the domain if it is an IntDomain.
+    </span><span class="kw">pub fn </span>values_i32(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;i32&gt;&gt; {
         <span class="kw">match </span><span class="self">self </span>{
-            Domain::BoolDomain =&gt; <span class="prelude-val">Some</span>(<span class="number">0</span>),
-            Domain::IntDomain(ranges) =&gt; {
-                <span class="kw">if </span>ranges.is_empty() {
-                    <span class="kw">return </span><span class="prelude-val">None</span>;
-                }
-                <span class="kw">let </span><span class="kw-2">mut </span>min = i32::MAX;
-                <span class="kw">for </span>r <span class="kw">in </span>ranges {
-                    <span class="kw">match </span>r {
-                        Range::Single(i) =&gt; min = min.min(<span class="kw-2">*</span>i),
-                        Range::Bounded(i, <span class="kw">_</span>) =&gt; min = min.min(<span class="kw-2">*</span>i),
-                    }
-                }
-                <span class="prelude-val">Some</span>(min)
-            }
+            Domain::IntDomain(ranges) =&gt; <span class="prelude-val">Some</span>(
+                ranges
+                    .iter()
+                    .flat_map(|r| <span class="kw">match </span>r {
+                        Range::Single(i) =&gt; <span class="macro">vec!</span>[<span class="kw-2">*</span>i],
+                        Range::Bounded(i, j) =&gt; (<span class="kw-2">*</span>i..=<span class="kw-2">*</span>j).collect(),
+                    })
+                    .collect(),
+            ),
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         }
     }
 
-    <span class="doccomment">/// Returns the maximum i32 value a variable of the domain can take, if it is an i32 domain.
-    </span><span class="kw">pub fn </span>max_i32(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
-        <span class="kw">match </span><span class="self">self </span>{
-            Domain::BoolDomain =&gt; <span class="prelude-val">Some</span>(<span class="number">1</span>),
-            Domain::IntDomain(ranges) =&gt; {
-                <span class="kw">if </span>ranges.is_empty() {
-                    <span class="kw">return </span><span class="prelude-val">None</span>;
-                }
-                <span class="kw">let </span><span class="kw-2">mut </span>max = i32::MIN;
-                <span class="kw">for </span>r <span class="kw">in </span>ranges {
-                    <span class="kw">match </span>r {
-                        Range::Single(i) =&gt; max = max.max(<span class="kw-2">*</span>i),
-                        Range::Bounded(<span class="kw">_</span>, i) =&gt; max = max.max(<span class="kw-2">*</span>i),
-                    }
-                }
-                <span class="prelude-val">Some</span>(max)
+    <span class="doccomment">/// Return an unoptimised domain that is the result of applying a binary i32 operation to two domains.
+    ///
+    /// The given operator may return None if the operation is not defined for its arguments.
+    /// Undefined values will not be included in the resulting domain.
+    ///
+    /// Returns None if the domains are not valid for i32 operations.
+    </span><span class="kw">pub fn </span>apply_i32(<span class="kw-2">&amp;</span><span class="self">self</span>, op: <span class="kw">fn</span>(i32, i32) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt;, other: <span class="kw-2">&amp;</span>Domain) -&gt; <span class="prelude-ty">Option</span>&lt;Domain&gt; {
+        <span class="kw">if let </span>(<span class="prelude-val">Some</span>(vs1), <span class="prelude-val">Some</span>(vs2)) = (<span class="self">self</span>.values_i32(), other.values_i32()) {
+            <span class="comment">// TODO: (flm8) Optimise to use smarter, less brute-force methods
+            </span><span class="kw">let </span><span class="kw-2">mut </span>new_ranges = <span class="macro">vec!</span>[];
+            <span class="kw">for </span>(v1, v2) <span class="kw">in </span><span class="macro">itertools::iproduct!</span>(vs1, vs2) {
+                op(v1, v2).map(|v| new_ranges.push(Range::Single(v)));
             }
+            <span class="kw">return </span><span class="prelude-val">Some</span>(Domain::IntDomain(new_ranges));
+        }
+        <span class="prelude-val">None
+    </span>}
+}
+
+<span class="attr">#[cfg(test)]
+</span><span class="kw">mod </span>tests {
+    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_negative_product() {
+        <span class="kw">let </span>d1 = Domain::IntDomain(<span class="macro">vec!</span>[Range::Bounded(-<span class="number">2</span>, <span class="number">1</span>)]);
+        <span class="kw">let </span>d2 = Domain::IntDomain(<span class="macro">vec!</span>[Range::Bounded(-<span class="number">2</span>, <span class="number">1</span>)]);
+        <span class="kw">let </span>res = d1.apply_i32(|a, b| <span class="prelude-val">Some</span>(a * b), <span class="kw-2">&amp;</span>d2).unwrap();
+
+        <span class="kw">if let </span>Domain::IntDomain(ranges) = res {
+            <span class="macro">assert!</span>(!ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">4</span>)));
+            <span class="macro">assert!</span>(!ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">3</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">2</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">1</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">0</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">1</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">2</span>)));
+            <span class="macro">assert!</span>(!ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">3</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">4</span>)));
+        } <span class="kw">else </span>{
+            <span class="macro">panic!</span>();
         }
     }
 
-    <span class="doccomment">/// Returns the minimum and maximum integer values a variable of the domain can take, if it is an integer domain.
-    </span><span class="kw">pub fn </span>min_max_i32(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(i32, i32)&gt; {
-        <span class="kw">match </span><span class="self">self </span>{
-            Domain::BoolDomain =&gt; <span class="prelude-val">Some</span>((<span class="number">0</span>, <span class="number">1</span>)),
-            Domain::IntDomain(ranges) =&gt; {
-                <span class="kw">if </span>ranges.is_empty() {
-                    <span class="kw">return </span><span class="prelude-val">None</span>;
-                }
-                <span class="kw">let </span><span class="kw-2">mut </span>min = i32::MAX;
-                <span class="kw">let </span><span class="kw-2">mut </span>max = i32::MIN;
-                <span class="kw">for </span>r <span class="kw">in </span>ranges {
-                    <span class="kw">match </span>r {
-                        Range::Single(i) =&gt; {
-                            min = min.min(<span class="kw-2">*</span>i);
-                            max = max.max(<span class="kw-2">*</span>i);
-                        }
-                        Range::Bounded(i, j) =&gt; {
-                            min = min.min(<span class="kw-2">*</span>i);
-                            max = max.max(<span class="kw-2">*</span>j);
-                        }
-                    }
-                }
-                <span class="prelude-val">Some</span>((min, max))
-            }
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_negative_div() {
+        <span class="kw">let </span>d1 = Domain::IntDomain(<span class="macro">vec!</span>[Range::Bounded(-<span class="number">2</span>, <span class="number">1</span>)]);
+        <span class="kw">let </span>d2 = Domain::IntDomain(<span class="macro">vec!</span>[Range::Bounded(-<span class="number">2</span>, <span class="number">1</span>)]);
+        <span class="kw">let </span>res = d1
+            .apply_i32(|a, b| <span class="kw">if </span>b != <span class="number">0 </span>{ <span class="prelude-val">Some</span>(a / b) } <span class="kw">else </span>{ <span class="prelude-val">None </span>}, <span class="kw-2">&amp;</span>d2)
+            .unwrap();
+
+        <span class="kw">if let </span>Domain::IntDomain(ranges) = res {
+            <span class="macro">assert!</span>(!ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">4</span>)));
+            <span class="macro">assert!</span>(!ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">3</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">2</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(-<span class="number">1</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">0</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">1</span>)));
+            <span class="macro">assert!</span>(ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">2</span>)));
+            <span class="macro">assert!</span>(!ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">3</span>)));
+            <span class="macro">assert!</span>(!ranges.contains(<span class="kw-2">&amp;</span>Range::Single(<span class="number">4</span>)));
+        } <span class="kw">else </span>{
+            <span class="macro">panic!</span>();
         }
     }
 }

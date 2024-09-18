@@ -1,6 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/base.rs`."><title>base.rs - source</title><script> if (window.location.protocol !== "file:") document.write(`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2">`)</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9e1300b5663a8a03.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.79.0-nightly (8b2459c1f 2024-04-09)" data-channel="nightly" data-search-js="search-ffac13a0df2b1870.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-e32f0c247825364d.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c97aec732c613ca4.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-09095024cf37855e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../conjure_core/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/base.rs`."><title>base.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-405f8b29f52305f8.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (28e8f01c2 2024-09-17)" data-channel="nightly" data-search-js="search-0cfde64e8ad3a7fe.js" data-settings-js="settings-7e3bb6c46e92e77c.js" ><script src="../../../static.files/storage-29b1d5a9048d38fe.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-14659ec02b58af51.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-40f72c9259523cb3.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -524,7 +523,49 @@
 <a href="#522" id="522">522</a>
 <a href="#523" id="523">523</a>
 <a href="#524" id="524">524</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::ast::{
+<a href="#525" id="525">525</a>
+<a href="#526" id="526">526</a>
+<a href="#527" id="527">527</a>
+<a href="#528" id="528">528</a>
+<a href="#529" id="529">529</a>
+<a href="#530" id="530">530</a>
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
+<a href="#540" id="540">540</a>
+<a href="#541" id="541">541</a>
+<a href="#542" id="542">542</a>
+<a href="#543" id="543">543</a>
+<a href="#544" id="544">544</a>
+<a href="#545" id="545">545</a>
+<a href="#546" id="546">546</a>
+<a href="#547" id="547">547</a>
+<a href="#548" id="548">548</a>
+<a href="#549" id="549">549</a>
+<a href="#550" id="550">550</a>
+<a href="#551" id="551">551</a>
+<a href="#552" id="552">552</a>
+<a href="#553" id="553">553</a>
+<a href="#554" id="554">554</a>
+<a href="#555" id="555">555</a>
+<a href="#556" id="556">556</a>
+<a href="#557" id="557">557</a>
+<a href="#558" id="558">558</a>
+<a href="#559" id="559">559</a>
+<a href="#560" id="560">560</a>
+<a href="#561" id="561">561</a>
+<a href="#562" id="562">562</a>
+<a href="#563" id="563">563</a>
+<a href="#564" id="564">564</a>
+<a href="#565" id="565">565</a>
+<a href="#566" id="566">566</a>
+<a href="#567" id="567">567</a></pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::ast::{
     Constant <span class="kw">as </span>Const, DecisionVariable, Domain, Expression <span class="kw">as </span>Expr, Range, SymbolTable,
 };
 <span class="kw">use </span>conjure_core::metadata::Metadata;
@@ -532,7 +573,7 @@
     register_rule, register_rule_set, ApplicationError, ApplicationResult, Reduction,
 };
 <span class="kw">use </span>conjure_core::Model;
-<span class="kw">use </span>uniplate::uniplate::Uniplate;
+<span class="kw">use </span>uniplate::biplate::Uniplate;
 
 <span class="comment">/*****************************************************************************/
 /*        This file contains basic rules for simplifying expressions         */
@@ -581,7 +622,9 @@
         (lhs, rhs)
     }
 
-    <span class="kw">let </span>new_sub = remove_nothings(expr.children())<span class="question-mark">?</span>;
+    <span class="comment">// FIXME (niklasdewally): temporary conversion until I get the Uniplate APIs figured out
+    // Uniplate *should* support Vec&lt;&gt; not im::Vector
+    </span><span class="kw">let </span>new_sub = remove_nothings(expr.children().into_iter().collect())<span class="question-mark">?</span>;
 
     <span class="kw">match </span>expr {
         Expr::And(md, <span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(md.clone(), new_sub))),
@@ -698,7 +741,10 @@
             <span class="kw">if </span>!changed {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
             }
-            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Sum(metadata.clone(), new_exprs)))
+            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Sum(
+                metadata.clone_dirty(),
+                new_exprs,
+            )))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
     }
@@ -731,7 +777,7 @@
             <span class="kw">if </span>!changed {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
             }
-            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Or(metadata.clone(), new_exprs)))
+            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Or(metadata.clone_dirty(), new_exprs)))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
     }
@@ -764,7 +810,10 @@
             <span class="kw">if </span>!changed {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
             }
-            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(metadata.clone(), new_exprs)))
+            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(
+                metadata.clone_dirty(),
+                new_exprs,
+            )))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
     }
@@ -845,7 +894,7 @@
                         <span class="kw">if </span><span class="kw-2">*</span>val {
                             <span class="comment">// If we find a true, the whole expression is true
                             </span><span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Expr::Constant(
-                                metadata.clone(),
+                                metadata.clone_dirty(),
                                 Const::Bool(<span class="bool-val">true</span>),
                             )));
                         } <span class="kw">else </span>{
@@ -859,7 +908,7 @@
             <span class="kw">if </span>!changed {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
             }
-            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Or(metadata.clone(), new_exprs)))
+            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Or(metadata.clone_dirty(), new_exprs)))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
     }
@@ -884,7 +933,7 @@
                         <span class="kw">if </span>!<span class="kw-2">*</span>val {
                             <span class="comment">// If we find a false, the whole expression is false
                             </span><span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Expr::Constant(
-                                metadata.clone(),
+                                metadata.clone_dirty(),
                                 Const::Bool(<span class="bool-val">false</span>),
                             )));
                         } <span class="kw">else </span>{
@@ -898,7 +947,10 @@
             <span class="kw">if </span>!changed {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
             }
-            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(metadata.clone(), new_exprs)))
+            <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(
+                metadata.clone_dirty(),
+                new_exprs,
+            )))
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
     }
@@ -916,7 +968,7 @@
     <span class="kw">match </span>expr {
         Expr::Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
             Expr::Constant(metadata, Const::Bool(val)) =&gt; <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Constant(
-                metadata.clone(),
+                metadata.clone_dirty(),
                 Const::Bool(!val),
             ))),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
@@ -925,23 +977,7 @@
     }
 }
 
-<span class="comment">// /** Turn a Div into a SafeDiv and post a global constraint to avoid undefined. */
-// #[register_rule(("Base", 100))]
-// fn ensure_div(expr: &amp;Expr, _: &amp;Model) -&gt; ApplicationResult {
-//     match expr {
-//         Expr::Div(metadata, a, b) =&gt; Ok(Reduction::with_top(
-//             Expr::SafeDiv(metadata.clone(), a.clone(), b.clone()),
-//             Expr::Neq(
-//                 Metadata::new(),
-//                 b.clone(),
-//                 Box::new(Expr::Constant(Metadata::new(), Const::Int(0))),
-//             ),
-//         )),
-//         _ =&gt; Err(ApplicationError::RuleNotApplicable),
-//     }
-// }
-
-</span><span class="doccomment">/**
+<span class="doccomment">/**
  * Turn a Min into a new variable and post a global constraint to ensure the new variable is the minimum.
  * ```text
  * min([a, b]) ~&gt; c ; c &lt;= a &amp; c &lt;= b &amp; (c = a | c = b)
@@ -961,37 +997,23 @@
                     Box::new(Expr::Reference(Metadata::new(), new_name.clone())),
                     Box::new(e.clone()),
                 ));
-                disjunction.push(Expr::And(
-                    <span class="comment">// TODO: change to an Eq once we figure out how to apply them later
-                    </span>Metadata::new(),
-                    <span class="macro">vec!</span>[
-                        Expr::Leq(
-                            Metadata::new(),
-                            Box::new(Expr::Reference(Metadata::new(), new_name.clone())),
-                            Box::new(e.clone()),
-                        ),
-                        Expr::Geq(
-                            Metadata::new(),
-                            Box::new(Expr::Reference(Metadata::new(), new_name.clone())),
-                            Box::new(e.clone()),
-                        ),
-                    ],
+                disjunction.push(Expr::Eq(
+                    Metadata::new(),
+                    Box::new(Expr::Reference(Metadata::new(), new_name.clone())),
+                    Box::new(e.clone()),
                 ));
             }
             new_top.push(Expr::Or(Metadata::new(), disjunction));
 
             <span class="kw">let </span><span class="kw-2">mut </span>new_vars = SymbolTable::new();
-            <span class="kw">let </span>bound = expr
-                .bounds(<span class="kw-2">&amp;</span>mdl.variables)
-                .ok_or(ApplicationError::BoundError)<span class="question-mark">?</span>;
-            new_vars.insert(
-                new_name.clone(),
-                DecisionVariable::new(Domain::IntDomain(<span class="macro">vec!</span>[Range::Bounded(bound.<span class="number">0</span>, bound.<span class="number">1</span>)])),
-            );
+            <span class="kw">let </span>domain = expr
+                .domain_of(<span class="kw-2">&amp;</span>mdl.variables)
+                .ok_or(ApplicationError::DomainError)<span class="question-mark">?</span>;
+            new_vars.insert(new_name.clone(), DecisionVariable::new(domain));
 
             <span class="prelude-val">Ok</span>(Reduction::new(
                 Expr::Reference(Metadata::new(), new_name),
-                Expr::And(metadata.clone(), new_top),
+                Expr::And(metadata.clone_dirty(), new_top),
                 new_vars,
             ))
         }
@@ -1032,11 +1054,11 @@
                             <span class="comment">// ToDo: Cloning everything may be a bit inefficient - discuss
                             </span><span class="kw">let </span><span class="kw-2">mut </span>new_or_contents = rest.clone();
                             new_or_contents.push(e.clone());
-                            new_and_contents.push(Expr::Or(metadata.clone(), new_or_contents))
+                            new_and_contents.push(Expr::Or(metadata.clone_dirty(), new_or_contents))
                         }
 
                         <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(
-                            metadata.clone(),
+                            metadata.clone_dirty(),
                             new_and_contents,
                         )))
                     }
@@ -1044,6 +1066,68 @@
                 }
             }
             <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
+        },
+        <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
+    }
+}
+
+<span class="doccomment">/**
+* Distribute `not` over `and` (De Morgan's Law):
+
+* ```text
+* not(and(a, b)) = or(not a, not b)
+* ```
+ */
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
+</span><span class="kw">fn </span>distribute_not_over_and(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+    <span class="kw">match </span>expr {
+        Expr::Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+            Expr::And(metadata, exprs) =&gt; {
+                <span class="kw">if </span>exprs.len() == <span class="number">1 </span>{
+                    <span class="kw">let </span>single_expr = exprs[<span class="number">0</span>].clone();
+                    <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Expr::Not(
+                        Metadata::new(),
+                        Box::new(single_expr.clone()),
+                    )));
+                }
+                <span class="kw">let </span><span class="kw-2">mut </span>new_exprs = Vec::new();
+                <span class="kw">for </span>e <span class="kw">in </span>exprs {
+                    new_exprs.push(Expr::Not(metadata.clone(), Box::new(e.clone())));
+                }
+                <span class="prelude-val">Ok</span>(Reduction::pure(Expr::Or(metadata.clone(), new_exprs)))
+            }
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
+        },
+        <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
+    }
+}
+
+<span class="doccomment">/**
+* Distribute `not` over `or` (De Morgan's Law):
+
+* ```text
+* not(or(a, b)) = and(not a, not b)
+* ```
+ */
+</span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">100</span>))]
+</span><span class="kw">fn </span>distribute_not_over_or(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+    <span class="kw">match </span>expr {
+        Expr::Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
+            Expr::Or(metadata, exprs) =&gt; {
+                <span class="kw">if </span>exprs.len() == <span class="number">1 </span>{
+                    <span class="kw">let </span>single_expr = exprs[<span class="number">0</span>].clone();
+                    <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Expr::Not(
+                        Metadata::new(),
+                        Box::new(single_expr.clone()),
+                    )));
+                }
+                <span class="kw">let </span><span class="kw-2">mut </span>new_exprs = Vec::new();
+                <span class="kw">for </span>e <span class="kw">in </span>exprs {
+                    new_exprs.push(Expr::Not(metadata.clone(), Box::new(e.clone())));
+                }
+                <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(metadata.clone(), new_exprs)))
+            }
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
         },
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable),
     }

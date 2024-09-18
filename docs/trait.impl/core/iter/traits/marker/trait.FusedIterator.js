@@ -1,3 +1,9 @@
-(function() {var implementors = {
-"conjure_core":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/iter/traits/marker/trait.FusedIterator.html\" title=\"trait core::iter::traits::marker::FusedIterator\">FusedIterator</a> for <a class=\"struct\" href=\"conjure_core/solver/struct.SolverFamilyIter.html\" title=\"struct conjure_core::solver::SolverFamilyIter\">SolverFamilyIter</a>"]]
-};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
+(function() {
+    var implementors = Object.fromEntries([["conjure_core",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/iter/traits/marker/trait.FusedIterator.html\" title=\"trait core::iter::traits::marker::FusedIterator\">FusedIterator</a> for <a class=\"struct\" href=\"conjure_core/solver/struct.SolverFamilyIter.html\" title=\"struct conjure_core::solver::SolverFamilyIter\">SolverFamilyIter</a>"]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":57,"fragment_lengths":[373]}
