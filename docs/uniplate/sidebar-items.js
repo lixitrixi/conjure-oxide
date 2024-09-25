@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["Tree"],"mod":["biplate","uniplate"]};
+window.SIDEBAR_ITEMS = {"derive":["Uniplate"],"enum":["Tree"],"macro":["derive_iter","derive_unplateable","unreachable"],"mod":["biplate","impls"]};

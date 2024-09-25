@@ -1,86 +1,164 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A port of Haskell’s Uniplate in Rust."><title>uniplate - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-405f8b29f52305f8.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="uniplate" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (28e8f01c2 2024-09-17)" data-channel="nightly" data-search-js="search-0cfde64e8ad3a7fe.js" data-settings-js="settings-7e3bb6c46e92e77c.js" ><script src="../static.files/storage-29b1d5a9048d38fe.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-14659ec02b58af51.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-40f72c9259523cb3.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../uniplate/index.html">uniplate</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#examples" title="Examples">Examples</a><ul><li><a href="#a-calculator-input-language" title="A Calculator Input Language">A Calculator Input Language</a></li></ul></li><li><a href="#acknowledgements--related-work" title="Acknowledgements / Related Work">Acknowledgements / Related Work</a></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#enums" title="Enums">Enums</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">uniplate</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/uniplate/lib.rs.html#1-115">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A port of Haskell’s <a href="https://hackage.haskell.org/package/uniplate">Uniplate</a> in Rust.</p>
-<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2><h3 id="a-calculator-input-language"><a class="doc-anchor" href="#a-calculator-input-language">§</a>A Calculator Input Language</h3>
-<p>Consider the AST of a calculator input language:</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Uniplate provides simple and low-boilerplate ways to traverse and manipulate data structures. A port of Haskell’s Uniplate in Rust."><title>uniplate - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="uniplate" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../uniplate/index.html">uniplate</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#getting-started" title="Getting Started">Getting Started</a><ul><li><a href="#derive-macro" title="Derive Macro">Derive Macro</a></li><li><a href="#multi-type-traversals" title="Multi-type traversals">Multi-type traversals</a></li></ul></li><li><a href="#bibliography" title="Bibliography">Bibliography</a></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#macros" title="Macros">Macros</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#derives" title="Derive Macros">Derive Macros</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Crate <span>uniplate</span><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/uniplate/lib.rs.html#1-355">source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Uniplate provides simple and low-boilerplate ways to traverse and manipulate data structures.
+A port of Haskell’s <a href="https://hackage.haskell.org/package/uniplate">Uniplate</a> in Rust.</p>
+<h2 id="getting-started"><a class="doc-anchor" href="#getting-started">§</a>Getting Started</h2>
+<p><em>Adapted from (Mitchell and Runciman 2009)</em></p>
+<p>Consider the abstract syntax tree for a simple calculator language:</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">pub enum </span>AST {
-    Int(i32),
-    Add(Box&lt;AST&gt;,Box&lt;AST&gt;),
-    Sub(Box&lt;AST&gt;,Box&lt;AST&gt;),
-    Div(Box&lt;AST&gt;,Box&lt;AST&gt;),
-    Mul(Box&lt;AST&gt;,Box&lt;AST&gt;)
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">enum </span>Expr {
+    Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Sub(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Div(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Val(i32),
+    Var(String),
+    Neg(Box&lt;Expr&gt;),
 }</code></pre></div>
-<p>Using uniplate, one can implement a single function for this AST that can be used in a whole
-range of traversals.</p>
-<p>While this does not seem helpful in this toy example, the benefits amplify when the number of
-enum variants increase, and the different types contained in their fields increase.</p>
-<p>The below example implements <a href="uniplate/trait.Uniplate.html" title="trait uniplate::uniplate::Uniplate"><code>Uniplate</code></a> for this language AST, and uses uniplate methods to
-evaluate the encoded equation.</p>
+<p>Say we want to list all the used variable names inside a given expression:</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code> <span class="kw">use </span>uniplate::uniplate::{Uniplate, UniplateError};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>vars(expr: <span class="kw-2">&amp;</span>Expr) -&gt; Vec&lt;String&gt;{
+    <span class="kw">match </span>expr {
+        Add(a,b) =&gt; {
+            [vars(a),vars(b)].concat()
+        },
+        Sub(a,b) =&gt; {
+            [vars(a),vars(b)].concat()
+        },
+        Mul(a,b) =&gt; {
+            [vars(a),vars(b)].concat()
+        },
+        Div(a,b) =&gt; {
+            [vars(a),vars(b)].concat()
+        },
+        Val(a) =&gt; {
+            Vec::new()
+        },
+        Var(a) =&gt; {
+            <span class="macro">vec!</span>[a.clone()]
+        },
+        Neg(a) =&gt;{
+            vars(a)
+        }
+    }
+}</code></pre></div>
+<p>Functions like these are annoying to write: the first 4 constructors are basically identical,
+adding a new expression type requires a new line to be added to all match statement, and this
+code cannot be shared with similar functions (e.g. one that change all the variable names).</p>
+<p>With Uniplate, this boilerplate can be eliminated:</p>
 
- <span class="attr">#[derive(Clone,Eq,PartialEq,Debug)]
- </span><span class="kw">pub enum </span>AST {
-     Int(i32),
-     Add(Box&lt;AST&gt;,Box&lt;AST&gt;),
-     Sub(Box&lt;AST&gt;,Box&lt;AST&gt;),
-     Div(Box&lt;AST&gt;,Box&lt;AST&gt;),
-     Mul(Box&lt;AST&gt;,Box&lt;AST&gt;)
- }
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>uniplate::biplate::Biplate;
+<span class="kw">fn </span>vars(expr: <span class="kw-2">&amp;</span>Expr) -&gt; Vec&lt;String&gt;{
+    &lt;Expr <span class="kw">as </span>Biplate&lt;String&gt;&gt;::universe_bi(expr).into_iter().collect()
+}</code></pre></div>
+<p>The functionality of Uniplate comes from two main traits: <a href="biplate/trait.Uniplate.html" title="trait uniplate::biplate::Uniplate"><code>Uniplate</code></a> and
+<a href="biplate/trait.Biplate.html" title="trait uniplate::biplate::Biplate"><code>Biplate&lt;T&gt;</code></a>.</p>
+<ul>
+<li>The <a href="biplate/trait.Uniplate.html" title="trait uniplate::biplate::Uniplate"><code>Uniplate</code></a> of <code>Expr</code> operates over all nested <code>Expr</code>s.</li>
+<li>The <a href="biplate/trait.Biplate.html" title="trait uniplate::biplate::Biplate"><code>Biplate&lt;T&gt;</code></a> of <code>Expr</code> operates over all nested values of some given type <code>T</code> within the
+expression tree.</li>
+</ul>
+<p>These traits provide traversal operations (e.g. <a href="Uniplate::children"><code>children</code></a>) as well as
+functional programming constructs such as <a href="Uniplate::map"><code>map</code></a> and <a href="Uniplate::fold"><code>fold</code></a>.
+See the trait documentation for the full list of operations provided.</p>
+<p>The easiest way to use Uniplate is with the derive macro.</p>
+<h3 id="derive-macro"><a class="doc-anchor" href="#derive-macro">§</a>Derive Macro</h3>
+<p>When no arguments are provided, the macro derives a Uniplate instance:</p>
 
- <span class="comment">// In the future would be automatically derived.
- </span><span class="kw">impl </span>Uniplate <span class="kw">for </span>AST {
-     <span class="kw">fn </span>uniplate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Vec&lt;AST&gt;, Box&lt;<span class="kw">dyn </span>Fn(Vec&lt;AST&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;AST, UniplateError&gt; +<span class="lifetime">'_</span>&gt;) {
-         <span class="kw">let </span>context: Box&lt;<span class="kw">dyn </span>Fn(Vec&lt;AST&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;AST, UniplateError&gt;&gt; = <span class="kw">match </span><span class="self">self </span>{
-             AST::Int(i) =&gt;    Box::new(|<span class="kw">_</span>| <span class="prelude-val">Ok</span>(AST::Int(<span class="kw-2">*</span>i))),
-             AST::Add(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; Box::new(|exprs: Vec&lt;AST&gt;| <span class="prelude-val">Ok</span>(AST::Add(Box::new(exprs[<span class="number">0</span>].clone()),Box::new(exprs[<span class="number">1</span>].clone())))),
-             AST::Sub(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; Box::new(|exprs: Vec&lt;AST&gt;| <span class="prelude-val">Ok</span>(AST::Sub(Box::new(exprs[<span class="number">0</span>].clone()),Box::new(exprs[<span class="number">1</span>].clone())))),
-             AST::Div(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; Box::new(|exprs: Vec&lt;AST&gt;| <span class="prelude-val">Ok</span>(AST::Div(Box::new(exprs[<span class="number">0</span>].clone()),Box::new(exprs[<span class="number">1</span>].clone())))),
-             AST::Mul(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; Box::new(|exprs: Vec&lt;AST&gt;| <span class="prelude-val">Ok</span>(AST::Mul(Box::new(exprs[<span class="number">0</span>].clone()),Box::new(exprs[<span class="number">1</span>].clone()))))
-         };
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>uniplate::Uniplate;
+<span class="attr">#[derive(Clone,PartialEq,Eq,Debug,Uniplate)]
+</span><span class="kw">enum </span>Expr {
+    Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Sub(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Div(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Val(i32),
+    Var(String),
+    Neg(Box&lt;Expr&gt;),
+}</code></pre></div>
+<p>To derive Biplate instances, use the <code>#[biplate]</code> attribute:</p>
 
-         <span class="kw">let </span>children: Vec&lt;AST&gt; = <span class="kw">match </span><span class="self">self </span>{
-             AST::Add(a,b) =&gt; <span class="macro">vec!</span>[<span class="kw-2">*</span>a.clone(),<span class="kw-2">*</span>b.clone()],
-             AST::Sub(a,b) =&gt; <span class="macro">vec!</span>[<span class="kw-2">*</span>a.clone(),<span class="kw-2">*</span>b.clone()],
-             AST::Div(a,b) =&gt; <span class="macro">vec!</span>[<span class="kw-2">*</span>a.clone(),<span class="kw-2">*</span>b.clone()],
-             AST::Mul(a,b) =&gt; <span class="macro">vec!</span>[<span class="kw-2">*</span>a.clone(),<span class="kw-2">*</span>b.clone()],
-             <span class="kw">_ </span>=&gt; <span class="macro">vec!</span>[]
-         };
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>uniplate::Uniplate;
+<span class="attr">#[derive(Clone,PartialEq,Eq,Debug,Uniplate)]
+#[biplate(to=String)]
+#[biplate(to=i32)]
+</span><span class="kw">enum </span>Expr {
+    Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Sub(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Div(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Val(i32),
+    Var(String),
+    Neg(Box&lt;Expr&gt;),
+}</code></pre></div>
+<h3 id="multi-type-traversals"><a class="doc-anchor" href="#multi-type-traversals">§</a>Multi-type traversals</h3>
+<p>Lets expand our calculator language to include statements as well as expressions:</p>
 
-         (children,context)
-     }
- }
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">enum </span>Expr {
+    Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Sub(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Div(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Val(i32),
+    Var(String),
+    Neg(Box&lt;Expr&gt;),
+}
 
- <span class="kw">pub fn </span>my_rule(e: AST) -&gt; AST{
-     <span class="kw">match </span>e {
-         AST::Int(a) =&gt; AST::Int(a),
-         AST::Add(a,b) =&gt; {<span class="kw">match </span>(<span class="kw-2">&amp;*</span>a,<span class="kw-2">&amp;*</span>b) { (AST::Int(a), AST::Int(b)) =&gt; AST::Int(a+b), <span class="kw">_ </span>=&gt; AST::Add(a,b) }}
-         AST::Sub(a,b) =&gt; {<span class="kw">match </span>(<span class="kw-2">&amp;*</span>a,<span class="kw-2">&amp;*</span>b) { (AST::Int(a), AST::Int(b)) =&gt; AST::Int(a-b), <span class="kw">_ </span>=&gt; AST::Sub(a,b) }}
-         AST::Mul(a,b) =&gt; {<span class="kw">match </span>(<span class="kw-2">&amp;*</span>a,<span class="kw-2">&amp;*</span>b) { (AST::Int(a), AST::Int(b)) =&gt; AST::Int(a<span class="kw-2">*</span>b), <span class="kw">_ </span>=&gt; AST::Mul(a,b) }}
-         AST::Div(a,b) =&gt; {<span class="kw">match </span>(<span class="kw-2">&amp;*</span>a,<span class="kw-2">&amp;*</span>b) { (AST::Int(a), AST::Int(b)) =&gt; AST::Int(a/b), <span class="kw">_ </span>=&gt; AST::Div(a,b) }}
-     }
- }
- <span class="kw">pub fn </span>main() {
-     <span class="kw">let </span>ast = AST::Add(
-                 Box::new(AST::Int(<span class="number">1</span>)),
-                 Box::new(AST::Mul(
-                     Box::new(AST::Int(<span class="number">2</span>)),
-                     Box::new(AST::Div(
-                         Box::new(AST::Add(Box::new(AST::Int(<span class="number">1</span>)),Box::new(AST::Int(<span class="number">2</span>)))),
-                         Box::new(AST::Int(<span class="number">3</span>))
-                     )))));
+<span class="kw">enum </span>Stmt {
+    Assign(String, Expr),
+    Sequence(Vec&lt;Stmt&gt;),
+    If(Expr, Box&lt;Stmt&gt;, Box&lt;Stmt&gt;),
+    While(Expr, Box&lt;Stmt&gt;),
+}</code></pre></div>
+<p>When looking for <code>Strings</code> in a given <code>Stmt</code>, we may want to identify not only the strings
+directly contained within a <code>Stmt</code>, but also any strings contained inside an <code>Expr</code> inside a
+<code>Stmt</code>.</p>
+<p>For example:</p>
 
-     <span class="kw">let </span>new_ast = ast.transform(my_rule);
-     <span class="macro">assert!</span>(new_ast.is_ok());
-     <span class="macro">println!</span>(<span class="string">"{:?}"</span>,new_ast);
-     <span class="macro">assert_eq!</span>(new_ast.unwrap(), AST::Int(<span class="number">3</span>));
- }</code></pre></div>
-<p>….MORE DOCS TO COME….</p>
-<h2 id="acknowledgements--related-work"><a class="doc-anchor" href="#acknowledgements--related-work">§</a>Acknowledgements / Related Work</h2>
-<p><em>This crate implements programming constructs from the following Haskell libraries and
-papers:</em></p>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>uniplate::biplate::Biplate;
+
+<span class="kw">let </span>stmt = Assign(<span class="string">"x"</span>.into(), Add(Box::new(Var(<span class="string">"y"</span>.into())),Box::new(Val(<span class="number">10</span>))));
+<span class="kw">let </span>strings = &lt;Stmt <span class="kw">as </span>Biplate&lt;String&gt;&gt;::universe_bi(<span class="kw-2">&amp;</span>stmt);
+
+<span class="macro">assert!</span>(strings.contains(<span class="kw-2">&amp;</span><span class="string">"x"</span>.into()));
+
+<span class="comment">// Despite being inside an Expr::String, "y" is found by Biplate
+</span><span class="macro">assert!</span>(strings.contains(<span class="kw-2">&amp;</span><span class="string">"y"</span>.into()));
+
+<span class="macro">assert_eq!</span>(strings.len(), <span class="number">2</span>);</code></pre></div>
+<p>To do this, a list of types to “walk into” can be given as an argument to the Biplate
+declaration:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>uniplate::Uniplate;
+<span class="attr">#[derive(Clone,PartialEq,Eq,Debug,Uniplate)]
+#[uniplate()]
+#[biplate(to=String,walk_into=[Expr]</span>)]
+<span class="attr">#[biplate(to=Stmt)]
+</span><span class="kw">enum </span>Expr {
+    Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Sub(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Div(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Val(i32),
+    Var(String),
+    Neg(Box&lt;Expr&gt;),
+}
+
+<span class="comment">// Uniplate also supports walk_into.
+// In this case, it doesn't do much.
+</span><span class="attr">#[derive(Clone,PartialEq,Eq,Debug,Uniplate)]
+#[biplate(to=String, walk_into=[Expr]</span>)]
+<span class="attr">#[biplate(to=Expr,walk_into=[Expr]</span>)]
+<span class="attr">#[uniplate(walk_into=[Expr]</span>)]
+<span class="kw">enum </span>Stmt {
+    Assign(String, Expr),
+    Sequence(Vec&lt;Stmt&gt;),
+    If(Expr, Box&lt;Stmt&gt;, Box&lt;Stmt&gt;),
+    While(Expr, Box&lt;Stmt&gt;),
+}</code></pre></div>
+<h2 id="bibliography"><a class="doc-anchor" href="#bibliography">§</a>Bibliography</h2>
+<p>The techniques implemented in this crate originate from the following:</p>
 <ul>
 <li>
-<p><a href="https://hackage.haskell.org/package/uniplate">Uniplate</a>.</p>
+<p><a href="https://hackage.haskell.org/package/uniplate">The Uniplate Haskell Library</a>.</p>
 </li>
 <li>
 <p>Neil Mitchell and Colin Runciman. 2007. Uniform boilerplate and list processing. In
@@ -93,4 +171,4 @@ Computing Machinery, New York, NY, USA, 49–60. <a href="https://doi.org/10.114
 <a href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/0C058890B8A9B588F26E6D68CF0CE204/S0956796897002864a.pdf/zipper.pdf">(free copy)</a></p>
 </li>
 </ul>
-</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="biplate/index.html" title="mod uniplate::biplate">biplate</a></div></li><li><div class="item-name"><a class="mod" href="uniplate/index.html" title="mod uniplate::uniplate">uniplate</a></div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.Tree.html" title="enum uniplate::Tree">Tree</a></div></li></ul></section></div></main></body></html>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="biplate/index.html" title="mod uniplate::biplate">biplate</a></div></li><li><div class="item-name"><a class="mod" href="impls/index.html" title="mod uniplate::impls">impls</a></div><div class="desc docblock-short">Implementations of Uniplate and Biplate for common types</div></li></ul><h2 id="macros" class="section-header">Macros<a href="#macros" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="macro" href="macro.derive_iter.html" title="macro uniplate::derive_iter">derive_<wbr>iter</a></div></li><li><div class="item-name"><a class="macro" href="macro.derive_unplateable.html" title="macro uniplate::derive_unplateable">derive_<wbr>unplateable</a></div><div class="desc docblock-short">Generates a Biplate and Uniplate instance for an unplateable type.</div></li><li><div class="item-name"><a class="macro" href="macro.unreachable.html" title="macro uniplate::unreachable">unreachable</a></div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.Tree.html" title="enum uniplate::Tree">Tree</a></div></li></ul><h2 id="derives" class="section-header">Derive Macros<a href="#derives" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="derive" href="derive.Uniplate.html" title="derive uniplate::Uniplate">Uniplate</a></div></li></ul></section></div></main></body></html>

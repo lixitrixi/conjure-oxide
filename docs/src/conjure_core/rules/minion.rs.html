@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-405f8b29f52305f8.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (28e8f01c2 2024-09-17)" data-channel="nightly" data-search-js="search-0cfde64e8ad3a7fe.js" data-settings-js="settings-7e3bb6c46e92e77c.js" ><script src="../../../static.files/storage-29b1d5a9048d38fe.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-14659ec02b58af51.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-40f72c9259523cb3.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>minion.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -371,7 +371,23 @@
 <a href="#370" id="370">370</a>
 <a href="#371" id="371">371</a>
 <a href="#372" id="372">372</a>
-<a href="#373" id="373">373</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
 /*        Rules for translating to Minion-supported constraints         */
 /************************************************************************/
 
@@ -635,38 +651,47 @@
 */
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">101</span>))]
 </span><span class="kw">fn </span>flatten_safediv(expr: <span class="kw-2">&amp;</span>Expr, mdl: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
-    <span class="kw">if </span>expr.is_eq() || expr.is_leq() || expr.is_geq() || expr.is_neq() {
-        <span class="kw">let </span><span class="kw-2">mut </span>sub = expr.children();
-
-        <span class="kw">let </span><span class="kw-2">mut </span>new_vars = SymbolTable::new();
-        <span class="kw">let </span><span class="kw-2">mut </span>new_top = <span class="macro">vec!</span>[];
-
-        <span class="comment">// replace every safe div child with a reference to a new variable
-        </span><span class="kw">for </span>c <span class="kw">in </span>sub.iter_mut() {
-            <span class="kw">if let </span>Expr::SafeDiv(<span class="kw">_</span>, a, b) = c.clone() {
-                <span class="kw">let </span>new_name = mdl.gensym();
-                <span class="kw">let </span>domain = c
-                    .domain_of(<span class="kw-2">&amp;</span>mdl.variables)
-                    .ok_or(ApplicationError::DomainError)<span class="question-mark">?</span>;
-                new_vars.insert(new_name.clone(), DecisionVariable::new(domain));
-
-                new_top.push(Expr::DivEq(
-                    Metadata::new(),
-                    a.clone(),
-                    b.clone(),
-                    Box::new(Expr::Reference(Metadata::new(), new_name.clone())),
-                ));
-
-                <span class="kw-2">*</span>c = Expr::Reference(Metadata::new(), new_name.clone());
-            }
+    <span class="kw">use </span>Expr::<span class="kw-2">*</span>;
+    <span class="kw">match </span>expr {
+        Eq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
+        Leq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
+        Geq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
+        Neq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
+        <span class="kw">_ </span>=&gt; {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
         }
-        <span class="kw">if </span>!new_top.is_empty() {
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::new(
-                expr.with_children(sub),
-                Expr::And(Metadata::new(), new_top),
-                new_vars,
+    }
+
+    <span class="kw">let </span><span class="kw-2">mut </span>sub = expr.children();
+
+    <span class="kw">let </span><span class="kw-2">mut </span>new_vars = SymbolTable::new();
+    <span class="kw">let </span><span class="kw-2">mut </span>new_top = <span class="macro">vec!</span>[];
+
+    <span class="comment">// replace every safe div child with a reference to a new variable
+    </span><span class="kw">for </span>c <span class="kw">in </span>sub.iter_mut() {
+        <span class="kw">if let </span>Expr::SafeDiv(<span class="kw">_</span>, a, b) = c.clone() {
+            <span class="kw">let </span>new_name = mdl.gensym();
+            <span class="kw">let </span>domain = c
+                .domain_of(<span class="kw-2">&amp;</span>mdl.variables)
+                .ok_or(ApplicationError::DomainError)<span class="question-mark">?</span>;
+            new_vars.insert(new_name.clone(), DecisionVariable::new(domain));
+
+            new_top.push(Expr::DivEq(
+                Metadata::new(),
+                a.clone(),
+                b.clone(),
+                Box::new(Expr::Reference(Metadata::new(), new_name.clone())),
             ));
+
+            <span class="kw-2">*</span>c = Expr::Reference(Metadata::new(), new_name.clone());
         }
+    }
+    <span class="kw">if </span>!new_top.is_empty() {
+        <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::new(
+            expr.with_children(sub),
+            Expr::And(Metadata::new(), new_top),
+            new_vars,
+        ));
     }
     <span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable)
 }
@@ -676,9 +701,13 @@
     <span class="kw">match </span>expr {
         Expr::Eq(metadata, a, b) =&gt; {
             <span class="kw">if let </span>Expr::SafeDiv(<span class="kw">_</span>, x, y) = a.as_ref() {
-                <span class="kw">if </span>!(b.is_reference() || b.is_constant()) {
-                    <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
-                }
+                <span class="kw">match </span><span class="kw-2">**</span>b {
+                    Expr::Reference(<span class="kw">_</span>, <span class="kw">_</span>) | Expr::Constant(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
+                    <span class="kw">_ </span>=&gt; {
+                        <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
+                    }
+                };
+
                 <span class="prelude-val">Ok</span>(Reduction::pure(Expr::DivEq(
                     metadata.clone_dirty(),
                     x.clone(),
@@ -686,9 +715,12 @@
                     b.clone(),
                 )))
             } <span class="kw">else if let </span>Expr::SafeDiv(<span class="kw">_</span>, x, y) = b.as_ref() {
-                <span class="kw">if </span>!(a.is_reference() || a.is_constant()) {
-                    <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
-                }
+                <span class="kw">match </span><span class="kw-2">**</span>a {
+                    Expr::Reference(<span class="kw">_</span>, <span class="kw">_</span>) | Expr::Constant(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
+                    <span class="kw">_ </span>=&gt; {
+                        <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
+                    }
+                };
                 <span class="prelude-val">Ok</span>(Reduction::pure(Expr::DivEq(
                     metadata.clone_dirty(),
                     x.clone(),
