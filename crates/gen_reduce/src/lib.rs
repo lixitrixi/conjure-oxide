@@ -11,6 +11,8 @@
 //!
 //! Below is an example using a "calculator" language. The engine allows us to reduce the expression to a simplified form.
 //!
+//# TODO (Felix): choose a more concise example
+//!
 //! ```rust
 //! use gen_reduce::*;
 //! use uniplate::derive::Uniplate;
@@ -129,9 +131,9 @@
 //!     );
 //!
 //!     // Ordering is important here: we evaluate first (1), then reduce (2..6), then change form (7)
-//!     let rules = vec![Eval, AddZero, AddSame, MulOne, MulZero, DoubleNeg, Associativity];
+//!     let rules = [Eval, AddZero, AddSame, MulOne, MulZero, DoubleNeg, Associativity];
 //!
-//!     let (expr, _) = reduce(rules, expr, ());
+//!     let (expr, _) = reduce_with_rules(&rules, expr, ());
 //!     assert_eq!(expr, Mul(bx(Val(4)), bx(Var("x".to_string()))));
 //! }
 //!
@@ -152,5 +154,5 @@ mod reduce;
 mod rule;
 
 pub use commands::Commands;
-pub use reduce::reduce;
+pub use reduce::{reduce, reduce_with_rules};
 pub use rule::Rule;

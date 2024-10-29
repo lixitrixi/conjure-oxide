@@ -9,7 +9,7 @@ where
     MutMeta(fn(&mut M)),
 }
 
-/// A queue of commands to be applied after every successful rule application.
+/// A queue of commands (side effects) to be applied after every successful rule application.
 pub struct Commands<T, M>
 where
     T: Uniplate,
@@ -39,6 +39,11 @@ where
         self.commands.push_back(Command::MutMeta(f));
     }
 
+    /// Remove all commands in the queue.
+    pub fn clear(&mut self) {
+        self.commands.clear();
+    }
+
     /// Consume and apply the commands currently in the queue.
     pub(crate) fn apply(&mut self, mut tree: T, mut meta: M) -> (T, M) {
         while let Some(cmd) = self.commands.pop_front() {
@@ -48,10 +53,5 @@ where
             }
         }
         (tree, meta)
-    }
-
-    /// Remove all commands in the queue.
-    pub(crate) fn clear(&mut self) {
-        self.commands.clear();
     }
 }
