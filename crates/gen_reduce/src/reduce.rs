@@ -1,4 +1,4 @@
-use crate::{Commands, Error, Rule};
+use crate::{Commands, Rule};
 use uniplate::Uniplate;
 
 // TODO: (Felix) how to allow rewrite selection?
@@ -26,7 +26,7 @@ where
 {
     let commands = &mut Commands::new();
     loop {
-        match reduce_iteration(commands, &rules, &tree, &meta, 0) {
+        match reduce_iteration(commands, &rules, &tree, &meta) {
             Some(new_tree) => {
                 // Apply rule side-effects and set the current tree to the new one
                 (tree, meta) = commands.apply(new_tree, meta);
@@ -37,53 +37,28 @@ where
     (tree, meta)
 }
 
-pub fn reduce_iteration<T, M, R>(
+fn reduce_iteration<T, M, R>(
     commands: &mut Commands<T, M>,
     rules: &Vec<R>,
     subtree: &T,
     meta: &M,
-    mut ignore_depth: u32,
 ) -> Option<T>
 where
     T: Uniplate,
     R: Rule<T, M>,
 {
-    use Error::*;
-
-    if ignore_depth == 0 {
-        // Try to apply rules to the current node
-        for rule in rules {
-            match rule.apply(commands, subtree, meta) {
-                Ok(new_tree) => return Some(new_tree),
-                Err(err) => {
-                    commands.clear(); // Side effects are discarded
-                    match err {
-                        NotApplicable => continue,
-                        Ignore(d) => {
-                            ignore_depth = d + 1; // d == 0 -> ignore just this node
-                            break;
-                        }
-                        Prune => return None,
-                    }
-                }
-            }
+    // Try to apply rules to the current node
+    for rule in rules {
+        match rule.apply(commands, subtree, meta) {
+            Some(new_tree) => return Some(new_tree),
+            None => commands.clear(), // Side effects are discarded
         }
     }
 
     // Recursively apply rules to the children and return the updated subtree
     let mut children = subtree.children();
     for i in 0..children.len() {
-        if let Some(new_child) = reduce_iteration(
-            commands,
-            rules,
-            &children[i],
-            meta,
-            if ignore_depth > 0 {
-                ignore_depth - 1
-            } else {
-                0
-            },
-        ) {
+        if let Some(new_child) = reduce_iteration(commands, rules, &children[i], meta) {
             children[i] = new_child;
             return Some(subtree.with_children(children));
         }

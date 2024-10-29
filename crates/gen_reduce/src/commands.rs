@@ -39,7 +39,7 @@ where
         self.commands.push_back(Command::MutMeta(f));
     }
 
-    // Consumes and applies the commands currently in the queue.
+    /// Consume and apply the commands currently in the queue.
     pub(crate) fn apply(&mut self, mut tree: T, mut meta: M) -> (T, M) {
         while let Some(cmd) = self.commands.pop_front() {
             match cmd {
@@ -50,6 +50,7 @@ where
         (tree, meta)
     }
 
+    /// Remove all commands in the queue.
     pub(crate) fn clear(&mut self) {
         self.commands.clear();
     }

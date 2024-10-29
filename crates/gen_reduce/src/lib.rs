@@ -38,62 +38,62 @@
 //! }
 //!
 //! impl Rule<Expr, ()> for ReductionRule {
-//!     fn apply(&self, cmd: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Result<Expr, Error> {
+//!     fn apply(&self, cmd: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> {
 //!         use ReductionRule::*;
 //!         use Expr::*;
 //!
 //!         match self {
 //!             AddZero => match expr {
-//!                 Add(a, b) if matches!(a.as_ref(), Val(0)) => Ok(*b.clone()),
-//!                 Add(a, b) if matches!(b.as_ref(), Val(0)) => Ok(*a.clone()),
-//!                 _ => Err(Error::NotApplicable),
+//!                 Add(a, b) if matches!(a.as_ref(), Val(0)) => Some(*b.clone()),
+//!                 Add(a, b) if matches!(b.as_ref(), Val(0)) => Some(*a.clone()),
+//!                 _ => None,
 //!             },
 //!             AddSame => match expr {
-//!                 Add(a, b) if a == b => Ok(Mul(bx(Val(2)), a.clone())),
-//!                 _ => Err(Error::NotApplicable),
+//!                 Add(a, b) if a == b => Some(Mul(bx(Val(2)), a.clone())),
+//!                 _ => None,
 //!             },
 //!             MulOne => match expr {
-//!                 Mul(a, b) if matches!(a.as_ref(), Val(1)) => Ok(*b.clone()),
-//!                 Mul(a, b) if matches!(b.as_ref(), Val(1)) => Ok(*a.clone()),
-//!                 _ => Err(Error::NotApplicable),
+//!                 Mul(a, b) if matches!(a.as_ref(), Val(1)) => Some(*b.clone()),
+//!                 Mul(a, b) if matches!(b.as_ref(), Val(1)) => Some(*a.clone()),
+//!                 _ => None,
 //!             },
 //!             MulZero => match expr {
 //!                 Mul(a, b) if matches!(a.as_ref(), Val(0)) ||
-//!                     matches!(b.as_ref(), Val(0)) => Ok(Val(0)),
-//!                 _ => Err(Error::NotApplicable),
+//!                     matches!(b.as_ref(), Val(0)) => Some(Val(0)),
+//!                 _ => None,
 //!             },
 //!             DoubleNeg => match expr {
 //!                 Neg(a) => match a.as_ref() {
-//!                     Neg(b) => Ok(*b.clone()),
-//!                     _ => Err(Error::NotApplicable),
+//!                     Neg(b) => Some(*b.clone()),
+//!                     _ => None,
 //!                 },
-//!                 _ => Err(Error::NotApplicable),
+//!                 _ => None,
 //!             },
 //!             Eval => match expr {
 //!                 Add(a, b) => match (a.as_ref(), b.as_ref()) {
-//!                     (Val(x), Val(y)) => Ok(Val(x + y)),
-//!                     _ => Err(Error::NotApplicable),
+//!                     (Val(x), Val(y)) => Some(Val(x + y)),
+//!                     _ => None,
 //!                 },
 //!                 Mul(a, b) => match (a.as_ref(), b.as_ref()) {
-//!                     (Val(x), Val(y)) => Ok(Val(x * y)),
-//!                     _ => Err(Error::NotApplicable),
+//!                     (Val(x), Val(y)) => Some(Val(x * y)),
+//!                     _ => None,
 //!                 },
 //!                 Neg(a) => match a.as_ref() {
-//!                     Val(x) => Ok(Val(-x)),
-//!                     _ => Err(Error::NotApplicable),
+//!                     Val(x) => Some(Val(-x)),
+//!                     _ => None,
 //!                 },
-//!                 _ => Err(Error::NotApplicable),
+//!                 _ => None,
 //!             },
 //!            Associativity => match expr {
 //!                 Add(a, b) => match (a.as_ref(), b.as_ref()) {
-//!                     (x, Add(y, z)) => Ok(Add(bx(Add(a.clone(), y.clone())), z.clone())),
-//!                     _ => Err(Error::NotApplicable),
+//!                     (x, Add(y, z)) => Some(Add(bx(Add(a.clone(), y.clone())), z.clone())),
+//!                     _ => None,
 //!                 },
 //!                 Mul(a, b) => match (a.as_ref(), b.as_ref()) {
-//!                     (x, Mul(y, z)) => Ok(Mul(bx(Mul(a.clone(), y.clone())), z.clone())),
-//!                     _ => Err(Error::NotApplicable),
+//!                     (x, Mul(y, z)) => Some(Mul(bx(Mul(a.clone(), y.clone())), z.clone())),
+//!                     _ => None,
 //!                 },
-//!                 _ => Err(Error::NotApplicable),
+//!                 _ => None,
 //!             },
 //!         }
 //!     }
@@ -148,13 +148,11 @@
 //!
 
 mod commands;
-mod error;
 mod reduce;
 mod rule;
 
 pub use commands::Commands;
-pub use error::Error;
-pub use reduce::{reduce, reduce_iteration};
+pub use reduce::reduce;
 pub use rule::Rule;
 
 #[cfg(test)]
@@ -177,31 +175,31 @@ mod tests {
     }
 
     impl Rule<Expr, ()> for ReductionRule {
-        fn apply(&self, _: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Result<Expr, Error> {
+        fn apply(&self, _: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> {
             use Expr::*;
             use ReductionRule::*;
 
             match self {
                 AddZero => match expr {
-                    Add(a, b) if matches!(a.as_ref(), Val(0)) => Ok(*b.clone()),
-                    Add(a, b) if matches!(b.as_ref(), Val(0)) => Ok(*a.clone()),
-                    _ => Err(Error::NotApplicable),
+                    Add(a, b) if matches!(a.as_ref(), Val(0)) => Some(*b.clone()),
+                    Add(a, b) if matches!(b.as_ref(), Val(0)) => Some(*a.clone()),
+                    _ => None,
                 },
                 MulOne => match expr {
-                    Mul(a, b) if matches!(a.as_ref(), Val(1)) => Ok(*b.clone()),
-                    Mul(a, b) if matches!(b.as_ref(), Val(1)) => Ok(*a.clone()),
-                    _ => Err(Error::NotApplicable),
+                    Mul(a, b) if matches!(a.as_ref(), Val(1)) => Some(*b.clone()),
+                    Mul(a, b) if matches!(b.as_ref(), Val(1)) => Some(*a.clone()),
+                    _ => None,
                 },
                 Eval => match expr {
                     Add(a, b) => match (a.as_ref(), b.as_ref()) {
-                        (Val(x), Val(y)) => Ok(Val(x + y)),
-                        _ => Err(Error::NotApplicable),
+                        (Val(x), Val(y)) => Some(Val(x + y)),
+                        _ => None,
                     },
                     Mul(a, b) => match (a.as_ref(), b.as_ref()) {
-                        (Val(x), Val(y)) => Ok(Val(x * y)),
-                        _ => Err(Error::NotApplicable),
+                        (Val(x), Val(y)) => Some(Val(x * y)),
+                        _ => None,
                     },
-                    _ => Err(Error::NotApplicable),
+                    _ => None,
                 },
             }
         }
