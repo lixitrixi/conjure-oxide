@@ -1,4 +1,4 @@
-use gen_reduce::*;
+use gen_reduce::{helpers::select_first, *};
 use uniplate::derive::Uniplate;
 
 #[derive(Debug, Clone, PartialEq, Eq, Uniplate)]
@@ -49,28 +49,28 @@ impl Rule<Expr, ()> for ReductionRule {
 #[test]
 fn test_single_var() {
     let expr = Expr::Val(42);
-    let (expr, _) = reduce_with_rules(&[ReductionRule::Eval], expr, ());
+    let (expr, _) = reduce_with_rules(&[ReductionRule::Eval], select_first, expr, ());
     assert_eq!(expr, Expr::Val(42));
 }
 
 #[test]
 fn test_add_zero() {
     let expr = Expr::Add(Box::new(Expr::Val(0)), Box::new(Expr::Val(42)));
-    let (expr, _) = reduce_with_rules(&[ReductionRule::AddZero], expr, ());
+    let (expr, _) = reduce_with_rules(&[ReductionRule::AddZero], select_first, expr, ());
     assert_eq!(expr, Expr::Val(42));
 }
 
 #[test]
 fn test_mul_one() {
     let expr = Expr::Mul(Box::new(Expr::Val(1)), Box::new(Expr::Val(42)));
-    let (expr, _) = reduce_with_rules(&[ReductionRule::MulOne], expr, ());
+    let (expr, _) = reduce_with_rules(&[ReductionRule::MulOne], select_first, expr, ());
     assert_eq!(expr, Expr::Val(42));
 }
 
 #[test]
 fn test_eval() {
     let expr = Expr::Add(Box::new(Expr::Val(1)), Box::new(Expr::Val(2)));
-    let (expr, _) = reduce_with_rules(&[ReductionRule::Eval], expr, ());
+    let (expr, _) = reduce_with_rules(&[ReductionRule::Eval], select_first, expr, ());
     assert_eq!(expr, Expr::Val(3));
 }
 
@@ -80,6 +80,6 @@ fn test_eval_nested() {
         Box::new(Expr::Add(Box::new(Expr::Val(1)), Box::new(Expr::Val(2)))),
         Box::new(Expr::Val(3)),
     );
-    let (expr, _) = reduce_with_rules(&[ReductionRule::Eval], expr, ());
+    let (expr, _) = reduce_with_rules(&[ReductionRule::Eval], select_first, expr, ());
     assert_eq!(expr, Expr::Val(9));
 }

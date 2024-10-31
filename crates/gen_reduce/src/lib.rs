@@ -133,7 +133,7 @@
 //!     // Ordering is important here: we evaluate first (1), then reduce (2..6), then change form (7)
 //!     let rules = [Eval, AddZero, AddSame, MulOne, MulZero, DoubleNeg, Associativity];
 //!
-//!     let (expr, _) = reduce_with_rules(&rules, expr, ());
+//!     let (expr, _) = reduce_with_rules(&rules, helpers::select_first, expr, ());
 //!     assert_eq!(expr, Mul(bx(Val(4)), bx(Var("x".to_string()))));
 //! }
 //!
@@ -150,9 +150,12 @@
 //!
 
 mod commands;
+pub mod helpers;
 mod reduce;
+mod reduction;
 mod rule;
 
 pub use commands::Commands;
 pub use reduce::{reduce, reduce_with_rules};
+pub use reduction::Reduction;
 pub use rule::Rule;

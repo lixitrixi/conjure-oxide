@@ -1,84 +1,75 @@
-use crate::{Commands, Rule};
+use crate::{Commands, Reduction, Rule};
 use uniplate::Uniplate;
-
-// TODO: (Felix) how to allow rewrite selection?
-//               add a parameter F: `fn(Iterator<(R, T)>) -> Option<T>`? Vec instead?
 
 // TODO: (Felix) dirty/clean optimisation: replace tree with a custom tree structure,
 //               which contains the original tree and adds metadata fields?
 
-// TODO: (Felix) add logging and arbitrary error rule error (handled as not applicable, but logged)
+// TODO: (Felix) add logging via `log` crate; possibly need tree type to be Debug?
+//               could be a crate feature?
 
-/// Continuously apply rules to the tree until no more rules can be applied.
-///
-/// The tree is traversed top-down, left-to-right.
-/// At each node, rules are attempted in the order they are given.
-/// If any rule returns a new subtree, that subtree replaces the existing one.
-/// If no rules apply, the engine continues further down the tree.
-///
-/// The command pattern is used to encapsulate side-effects caused by rules.
-/// Commands are applied in order after the rule is successfully applied.
-/// If a rule fails (returns an `Err`), all commands added by that rule are discarded.
+// TODO: (Felix) add "control" rules; e.g. ignore a subtree to a certain depth
+//               test by ignoring everything once a metadata field is set? e.g. "reduce until contains X"
+
 pub fn reduce<T, M, F>(transform: F, mut tree: T, mut meta: M) -> (T, M)
 where
     T: Uniplate,
     F: Fn(&mut Commands<T, M>, &T, &M) -> Option<T>,
 {
-    let commands = &mut Commands::new();
-    loop {
-        match reduce_iteration(commands, &transform, &tree, &meta) {
-            Some(new_tree) => {
-                // Apply rule side-effects and set the current tree to the new one
-                (tree, meta) = commands.apply(new_tree, meta);
-            }
-            None => break,
-        }
+    // Apply the transformation to the tree until no more changes are made
+    while let Some(mut reduction) = reduce_iteration(&transform, &tree, &meta) {
+        // Apply rule side-effects and set the current tree to the new one
+        (tree, meta) = reduction.commands.apply(reduction.new_tree, meta);
     }
     (tree, meta)
 }
 
-fn reduce_iteration<T, M, F>(
-    commands: &mut Commands<T, M>,
-    transform: &F,
-    subtree: &T,
-    meta: &M,
-) -> Option<T>
+fn reduce_iteration<T, M, F>(transform: &F, subtree: &T, meta: &M) -> Option<Reduction<T, M>>
 where
     T: Uniplate,
     F: Fn(&mut Commands<T, M>, &T, &M) -> Option<T>,
 {
     // Try to apply the transformation to the current node
-    match transform(commands, subtree, meta) {
-        Some(new_tree) => return Some(new_tree),
-        None => commands.clear(), // Side effects are discarded
+    let reduction = Reduction::apply_transform(transform, subtree, meta);
+    if reduction.is_some() {
+        return reduction;
     }
 
-    // Recursively apply the transformation to the children and return the updated subtree
+    // Try to call the transformation on the children of the current node
+    // If successful, return the new subtree
     let mut children = subtree.children();
-    for i in 0..children.len() {
-        if let Some(new_child) = reduce_iteration(commands, transform, &children[i], meta) {
-            children[i] = new_child;
-            return Some(subtree.with_children(children));
+    for c in children.iter_mut() {
+        if let Some(reduction) = reduce_iteration(transform, c, meta) {
+            *c = reduction.new_tree;
+            return Some(Reduction {
+                new_tree: subtree.with_children(children),
+                ..reduction
+            });
         }
     }
 
     None
 }
 
-pub fn reduce_with_rules<T, M, R>(rules: &[R], tree: T, meta: M) -> (T, M)
+pub fn reduce_with_rules<T, M, R, S>(rules: &[R], select: S, tree: T, meta: M) -> (T, M)
 where
     T: Uniplate,
-    R: Rule<T, M>,
+    R: Rule<T, M> + 'static,
+    S: Fn(&T, &mut dyn Iterator<Item = (&R, Reduction<T, M>)>) -> Option<Reduction<T, M>>,
 {
     reduce(
         |commands, subtree, meta| {
-            for rule in rules {
-                if let Some(new_tree) = rule.apply(commands, subtree, meta) {
-                    return Some(new_tree);
-                }
-                commands.clear(); // Side effects are discarded
-            }
-            None
+            let selection = select(
+                subtree,
+                &mut rules.iter().filter_map(|rule| {
+                    Reduction::apply_transform(|c, t, m| rule.apply(c, t, m), subtree, meta)
+                        .map(|r| (rule, r))
+                }),
+            );
+            selection.map(|r| {
+                // Ensure commands used by the engine are the ones resulting from this reduction
+                *commands = r.commands;
+                r.new_tree
+            })
         },
         tree,
         meta,
