@@ -1,3 +1,5 @@
+//! These tests use a simple constant expression tree to demonstrate the use of the `gen_reduce` crate.
+
 use gen_reduce::{helpers::select_first, *};
 use uniplate::derive::Uniplate;
 
