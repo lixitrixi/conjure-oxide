@@ -1,13 +1,6 @@
 +-------------------------------------+------------+------------+------------+------------+
 | File                                | Documented | Percentage |   Examples | Percentage |
 +-------------------------------------+------------+------------+------------+------------+
-| crates/uniplate_derive/src/lib.rs   |          0 |       0.0% |          0 |       0.0% |
-+-------------------------------------+------------+------------+------------+------------+
-| Total                               |          0 |       0.0% |          0 |       0.0% |
-+-------------------------------------+------------+------------+------------+------------+
-+-------------------------------------+------------+------------+------------+------------+
-| File                                | Documented | Percentage |   Examples | Percentage |
-+-------------------------------------+------------+------------+------------+------------+
 | crates/conjure_macros/src/lib.rs    |          2 |      66.7% |          1 |      33.3% |
 +-------------------------------------+------------+------------+------------+------------+
 | Total                               |          2 |      66.7% |          1 |      33.3% |
@@ -22,16 +15,6 @@
 +-------------------------------------+------------+------------+------------+------------+
 | File                                | Documented | Percentage |   Examples | Percentage |
 +-------------------------------------+------------+------------+------------+------------+
-| crates/uniplate/src/biplate.rs      |          9 |      56.2% |          0 |       0.0% |
-| crates/uniplate/src/impls.rs        |          1 |     100.0% |          0 |       0.0% |
-| crates/uniplate/src/lib.rs          |          2 |      50.0% |          1 |     100.0% |
-| crates/uniplate/src/tree.rs         |          0 |       0.0% |          0 |       0.0% |
-+-------------------------------------+------------+------------+------------+------------+
-| Total                               |         12 |      48.0% |          1 |       5.6% |
-+-------------------------------------+------------+------------+------------+------------+
-+-------------------------------------+------------+------------+------------+------------+
-| File                                | Documented | Percentage |   Examples | Percentage |
-+-------------------------------------+------------+------------+------------+------------+
 | solvers/kissat/src/lib.rs           |          0 |       0.0% |          0 |       0.0% |
 +-------------------------------------+------------+------------+------------+------------+
 | Total                               |          0 |       0.0% |          0 |       0.0% |
@@ -39,39 +22,42 @@
 +-------------------------------------+------------+------------+------------+------------+
 | File                                | Documented | Percentage |   Examples | Percentage |
 +-------------------------------------+------------+------------+------------+------------+
-| solvers/minion/src/ast.rs           |         11 |      11.2% |          0 |       0.0% |
+| solvers/minion/src/ast.rs           |         11 |      11.0% |          0 |       0.0% |
 | solvers/minion/src/error.rs         |          8 |     100.0% |          0 |       0.0% |
 | solvers/minion/src/lib.rs           |          1 |     100.0% |          1 |     100.0% |
 | solvers/minion/src/run.rs           |          2 |     100.0% |          1 |     100.0% |
 | solvers/minion/src/wrappers.rs      |          1 |     100.0% |          0 |       0.0% |
 +-------------------------------------+------------+------------+------------+------------+
-| Total                               |         23 |      20.9% |          2 |      11.8% |
+| Total                               |         23 |      20.5% |          2 |      11.8% |
 +-------------------------------------+------------+------------+------------+------------+
 +-------------------------------------+------------+------------+------------+------------+
 | File                                | Documented | Percentage |   Examples | Percentage |
 +-------------------------------------+------------+------------+------------+------------+
-| ...onjure_core/src/ast/constants.rs |          0 |       0.0% |          0 |       0.0% |
 | .../conjure_core/src/ast/domains.rs |          0 |       0.0% |          0 |       0.0% |
-| ...jure_core/src/ast/expressions.rs |         23 |      95.8% |          0 |       0.0% |
+| ...jure_core/src/ast/expressions.rs |         23 |      92.0% |          0 |       0.0% |
+| ...s/conjure_core/src/ast/factor.rs |          1 |      33.3% |          0 |       0.0% |
+| ...conjure_core/src/ast/literals.rs |          1 |      33.3% |          0 |       0.0% |
 | crates/conjure_core/src/ast/mod.rs  |          0 |       0.0% |          0 |       0.0% |
 | ...ure_core/src/ast/symbol_table.rs |          0 |       0.0% |          0 |       0.0% |
 | ...es/conjure_core/src/ast/types.rs |          0 |       0.0% |          0 |       0.0% |
-| ...onjure_core/src/ast/variables.rs |          0 |       0.0% |          0 |       0.0% |
+| ...onjure_core/src/ast/variables.rs |          1 |      50.0% |          0 |       0.0% |
+| crates/conjure_core/src/bug.rs      |          1 |      50.0% |          1 |      50.0% |
 | crates/conjure_core/src/context.rs  |          0 |       0.0% |          0 |       0.0% |
 | crates/conjure_core/src/error.rs    |          1 |      14.3% |          0 |       0.0% |
 | crates/conjure_core/src/lib.rs      |          0 |       0.0% |          0 |       0.0% |
 | crates/conjure_core/src/metadata.rs |          0 |       0.0% |          0 |       0.0% |
-| crates/conjure_core/src/model.rs    |          1 |       6.2% |          0 |       0.0% |
+| crates/conjure_core/src/model.rs    |          2 |      12.5% |          0 |       0.0% |
 | ...core/src/parse/example_models.rs |          2 |     100.0% |          0 |       0.0% |
 | ...es/conjure_core/src/parse/mod.rs |          0 |       0.0% |          0 |       0.0% |
 | ...re_core/src/parse/parse_model.rs |          0 |       0.0% |          0 |       0.0% |
 | ...jure_core/src/rule_engine/mod.rs |          5 |      71.4% |          5 |      71.4% |
 | ...src/rule_engine/resolve_rules.rs |          3 |     100.0% |          0 |       0.0% |
-| ..._core/src/rule_engine/rewrite.rs |          1 |      33.3% |          0 |       0.0% |
-| ...ure_core/src/rule_engine/rule.rs |          3 |      25.0% |          0 |       0.0% |
+| ..._core/src/rule_engine/rewrite.rs |          2 |      66.7% |          0 |       0.0% |
+| ...ure_core/src/rule_engine/rule.rs |          3 |      25.0% |          1 |     100.0% |
 | ...core/src/rule_engine/rule_set.rs |          4 |     100.0% |          0 |       0.0% |
+| ...conjure_core/src/rules/checks.rs |          1 |      50.0% |          0 |       0.0% |
 | ...njure_core/src/rules/constant.rs |          1 |     100.0% |          0 |       0.0% |
-| ...es/conjure_core/src/rules/mod.rs |          0 |       0.0% |          0 |       0.0% |
+| ...es/conjure_core/src/rules/mod.rs |          1 |     100.0% |          0 |       0.0% |
 | ...re/src/solver/adaptors/kissat.rs |          1 |     100.0% |          0 |       0.0% |
 | ...re/src/solver/adaptors/minion.rs |          1 |     100.0% |          0 |       0.0% |
 | ..._core/src/solver/adaptors/mod.rs |          1 |     100.0% |          0 |       0.0% |
@@ -79,14 +65,15 @@
 | ...ore/src/solver/model_modifier.rs |          7 |      70.0% |          0 |       0.0% |
 | ...onjure_core/src/solver/states.rs |          7 |      63.6% |          0 |       0.0% |
 | ...es/conjure_core/src/stats/mod.rs |          0 |       0.0% |          0 |       0.0% |
-| ...core/src/stats/rewriter_stats.rs |          0 |       0.0% |          0 |       0.0% |
+| ...core/src/stats/rewriter_stats.rs |          1 |      20.0% |          0 |       0.0% |
 | ...e_core/src/stats/solver_stats.rs |          3 |      37.5% |          0 |       0.0% |
 +-------------------------------------+------------+------------+------------+------------+
-| Total                               |         78 |      38.0% |          6 |       7.7% |
+| Total                               |         87 |      40.8% |          8 |       9.6% |
 +-------------------------------------+------------+------------+------------+------------+
 +-------------------------------------+------------+------------+------------+------------+
 | File                                | Documented | Percentage |   Examples | Percentage |
 +-------------------------------------+------------+------------+------------+------------+
+| conjure_oxide/src/defaults.rs       |          1 |      50.0% |          0 |       0.0% |
 | conjure_oxide/src/find_conjure.rs   |          1 |      50.0% |          0 |       0.0% |
 | conjure_oxide/src/lib.rs            |          0 |       0.0% |          0 |       0.0% |
 | conjure_oxide/src/utils/conjure.rs  |          0 |       0.0% |          0 |       0.0% |
@@ -95,13 +82,5 @@
 | conjure_oxide/src/utils/mod.rs      |          0 |       0.0% |          0 |       0.0% |
 | conjure_oxide/src/utils/testing.rs  |          0 |       0.0% |          0 |       0.0% |
 +-------------------------------------+------------+------------+------------+------------+
-| Total                               |          3 |      12.0% |          0 |       0.0% |
-+-------------------------------------+------------+------------+------------+------------+
-+-------------------------------------+------------+------------+------------+------------+
-| File                                | Documented | Percentage |   Examples | Percentage |
-+-------------------------------------+------------+------------+------------+------------+
-| ...fb276a6f/out/chuffed_bindings.rs |          0 |       0.0% |          0 |       0.0% |
-| solvers/chuffed/src/lib.rs          |          0 |       0.0% |          0 |       0.0% |
-+-------------------------------------+------------+------------+------------+------------+
-| Total                               |          0 |       0.0% |          0 |       0.0% |
+| Total                               |          4 |      12.9% |          0 |       0.0% |
 +-------------------------------------+------------+------------+------------+------------+
