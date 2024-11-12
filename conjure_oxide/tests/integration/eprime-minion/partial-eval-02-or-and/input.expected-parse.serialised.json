@@ -1,0 +1,206 @@
+{
+  "constraints": {
+    "And": [
+      {
+        "clean": false,
+        "etype": null
+      },
+      [
+        {
+          "Or": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            [
+              {
+                "Or": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  [
+                    {
+                      "FactorE": [
+                        {
+                          "clean": false,
+                          "etype": null
+                        },
+                        {
+                          "Reference": {
+                            "UserName": "a"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "FactorE": [
+                        {
+                          "clean": false,
+                          "etype": null
+                        },
+                        {
+                          "Reference": {
+                            "UserName": "b"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              },
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Literal": {
+                      "Bool": false
+                    }
+                  }
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "Or": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            [
+              {
+                "AllDiff": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  [
+                    {
+                      "FactorE": [
+                        {
+                          "clean": false,
+                          "etype": null
+                        },
+                        {
+                          "Literal": {
+                            "Int": 1
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "FactorE": [
+                        {
+                          "clean": false,
+                          "etype": null
+                        },
+                        {
+                          "Literal": {
+                            "Int": 2
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "FactorE": [
+                        {
+                          "clean": false,
+                          "etype": null
+                        },
+                        {
+                          "Literal": {
+                            "Int": 3
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              },
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Literal": {
+                      "Bool": true
+                    }
+                  }
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "And": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            [
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Reference": {
+                      "UserName": "c"
+                    }
+                  }
+                ]
+              },
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Literal": {
+                      "Bool": true
+                    }
+                  }
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  },
+  "next_var": 0,
+  "variables": [
+    [
+      {
+        "UserName": "a"
+      },
+      {
+        "domain": "BoolDomain"
+      }
+    ],
+    [
+      {
+        "UserName": "b"
+      },
+      {
+        "domain": "BoolDomain"
+      }
+    ],
+    [
+      {
+        "UserName": "c"
+      },
+      {
+        "domain": "BoolDomain"
+      }
+    ]
+  ]
+}

@@ -8,16 +8,34 @@ use log::warn;
 use crate::rule_engine::{get_rule_set_by_name, get_rules, Rule};
 use crate::solver::SolverFamily;
 
-/// A set of rules with a name, priority, and dependencies.
+/// A structure representing a set of rules with a name, priority, and dependencies.
+///
+/// `RuleSet` is a way to group related rules together under a single name.
+/// You can think of it like a list of rules that belong to the same category.
+/// Each `RuleSet` can also have a number that tells it what order it should run in compared to other `RuleSet` instances.
+/// Additionally, a `RuleSet` can depend on other `RuleSet` instances, meaning it needs them to run first.
+///
+/// To make things efficient, `RuleSet` only figures out its rules and dependencies the first time they're needed,
+/// and then it remembers them so it doesn't have to do the work again.
+///
+/// # Fields
+/// - `name`: The name of the rule set.
+/// - `order`: A number that decides the order in which this `RuleSet` should be applied.
+/// If two `RuleSet` instances have the same rule but with different priorities,
+/// the one with the higher `order` number will be the one that is used.
+/// - `rules`: A lazily initialized map of rules to their priorities.
+/// - `dependency_rs_names`: The names of the rule sets that this rule set depends on.
+/// - `dependencies`: A lazily initialized set of `RuleSet` dependencies.
+/// - `solver_families`: The solver families that this rule set applies to.
 #[derive(Clone, Debug)]
 pub struct RuleSet<'a> {
     /// The name of the rule set.
     pub name: &'a str,
     /// Order of the RuleSet. Used to establish a consistent order of operations when resolving rules.
     /// If two RuleSets overlap (contain the same rule but with different priorities), the RuleSet with the higher order will be used as the source of truth.
-    pub order: u8,
+    pub order: u16,
     /// A map of rules to their priorities. This will be lazily initialized at runtime.
-    rules: OnceLock<HashMap<&'a Rule<'a>, u8>>,
+    rules: OnceLock<HashMap<&'a Rule<'a>, u16>>,
     /// The names of the rule sets that this rule set depends on.
     dependency_rs_names: &'a [&'a str],
     dependencies: OnceLock<HashSet<&'a RuleSet<'a>>>,
@@ -28,7 +46,7 @@ pub struct RuleSet<'a> {
 impl<'a> RuleSet<'a> {
     pub const fn new(
         name: &'a str,
-        order: u8,
+        order: u16,
         dependencies: &'a [&'a str],
         solver_families: &'a [SolverFamily],
     ) -> Self {
@@ -43,8 +61,8 @@ impl<'a> RuleSet<'a> {
     }
 
     /// Get the rules of this rule set, evaluating them lazily if necessary
-    /// Returns a `&HashMap<&Rule, u8>` where the key is the rule and the value is the priority of the rule.
-    pub fn get_rules(&self) -> &HashMap<&'a Rule<'a>, u8> {
+    /// Returns a `&HashMap<&Rule, u16>` where the key is the rule and the value is the priority of the rule.
+    pub fn get_rules(&self) -> &HashMap<&'a Rule<'a>, u16> {
         match self.rules.get() {
             None => {
                 let rules = self.resolve_rules();
@@ -86,12 +104,12 @@ impl<'a> RuleSet<'a> {
     }
 
     /// Resolve the rules of this rule set ("reverse the arrows")
-    fn resolve_rules(&self) -> HashMap<&'a Rule<'a>, u8> {
+    fn resolve_rules(&self) -> HashMap<&'a Rule<'a>, u16> {
         let mut rules = HashMap::new();
 
         for rule in get_rules() {
             let mut found = false;
-            let mut priority: u8 = 0;
+            let mut priority: u16 = 0;
 
             for (name, p) in rule.rule_sets {
                 if *name == self.name {
@@ -136,21 +154,21 @@ impl<'a> RuleSet<'a> {
     }
 }
 
-impl<'a> PartialEq for RuleSet<'a> {
+impl PartialEq for RuleSet<'_> {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name
     }
 }
 
-impl<'a> Eq for RuleSet<'a> {}
+impl Eq for RuleSet<'_> {}
 
-impl<'a> Hash for RuleSet<'a> {
+impl Hash for RuleSet<'_> {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         self.name.hash(state);
     }
 }
 
-impl<'a> Display for RuleSet<'a> {
+impl Display for RuleSet<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let n_rules = self.get_rules().len();
         let solver_families = self

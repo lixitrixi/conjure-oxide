@@ -16,9 +16,40 @@ pub enum ApplicationError {
     DomainError,
 }
 
-/// The result of applying a rule to an expression.
+/// Represents the result of applying a rule to an expression within a model.
 ///
-/// Contains an expression to replace the original, a top-level constraint to add to the top of the constraint AST, and an expansion to the model symbol table.
+/// A `Reduction` encapsulates the changes made to a model during a rule application.
+/// It includes a new expression to replace the original one, an optional top-level constraint
+/// to be added to the model, and any updates to the model's symbol table.
+///
+/// This struct allows for representing side-effects of rule applications, ensuring that
+/// all modifications, including symbol table expansions and additional constraints, are
+/// accounted for and can be applied to the model consistently.
+///
+/// # Fields
+/// - `new_expression`: The updated [`Expression`] that replaces the original one after applying the rule.
+/// - `new_top`: An additional top-level [`Expression`] constraint that should be added to the model. If no top-level
+///   constraint is needed, this field can be set to `Expression::Nothing`.
+/// - `symbols`: A [`SymbolTable`] containing any new symbol definitions or modifications to be added to the model's
+///   symbol table. If no symbols are modified, this field can be set to an empty symbol table.
+///
+/// # Usage
+/// A `Reduction` can be created using one of the provided constructors:
+/// - [`Reduction::new`]: Creates a reduction with a new expression, top-level constraint, and symbol modifications.
+/// - [`Reduction::pure`]: Creates a reduction with only a new expression and no side-effects on the symbol table or constraints.
+/// - [`Reduction::with_symbols`]: Creates a reduction with a new expression and symbol table modifications, but no top-level constraint.
+/// - [`Reduction::with_top`]: Creates a reduction with a new expression and a top-level constraint, but no symbol table modifications.
+///
+/// The `apply` method allows for applying the changes represented by the `Reduction` to a [`Model`].
+///
+/// # Example
+/// ```
+/// // Need to add an example
+/// ```
+///
+/// # See Also
+/// - [`ApplicationResult`]: Represents the result of applying a rule, which may either be a `Reduction` or an `ApplicationError`.
+/// - [`Model`]: The structure to which the `Reduction` changes are applied.
 #[non_exhaustive]
 #[derive(Clone, Debug)]
 pub struct Reduction {
@@ -44,7 +75,7 @@ impl Reduction {
     pub fn pure(new_expression: Expression) -> Self {
         Self {
             new_expression,
-            new_top: Expression::Nothing,
+            new_top: Expression::And(Metadata::new(), Vec::new()),
             symbols: SymbolTable::new(),
         }
     }
@@ -53,7 +84,7 @@ impl Reduction {
     pub fn with_symbols(new_expression: Expression, symbols: SymbolTable) -> Self {
         Self {
             new_expression,
-            new_top: Expression::Nothing,
+            new_top: Expression::And(Metadata::new(), Vec::new()),
             symbols,
         }
     }
@@ -70,21 +101,25 @@ impl Reduction {
     // Apply side-effects (e.g. symbol table updates
     pub fn apply(self, model: &mut Model) {
         model.variables.extend(self.symbols); // Add new assignments to the symbol table
-        if let Expression::Nothing = self.new_top {
-            model.constraints = self.new_expression.clone();
-        } else {
-            model.constraints = match self.new_expression {
-                Expression::And(metadata, mut exprs) => {
-                    // Avoid creating a nested conjunction
-                    exprs.push(self.new_top.clone());
-                    Expression::And(metadata.clone_dirty(), exprs)
-                }
-                _ => Expression::And(
-                    Metadata::new(),
-                    vec![self.new_expression.clone(), self.new_top],
-                ),
-            };
+                                              // TODO: (yb33) Remove it when we change constraints to a vector
+        if let Expression::And(_, exprs) = &self.new_top {
+            if exprs.is_empty() {
+                model.constraints = self.new_expression.clone();
+                return;
+            }
         }
+
+        model.constraints = match self.new_expression {
+            Expression::And(metadata, mut exprs) => {
+                // Avoid creating a nested conjunction
+                exprs.push(self.new_top.clone());
+                Expression::And(metadata.clone_dirty(), exprs)
+            }
+            _ => Expression::And(
+                Metadata::new(),
+                vec![self.new_expression.clone(), self.new_top],
+            ),
+        };
     }
 }
 
@@ -100,14 +135,14 @@ impl Reduction {
 pub struct Rule<'a> {
     pub name: &'a str,
     pub application: fn(&Expression, &Model) -> ApplicationResult,
-    pub rule_sets: &'a [(&'a str, u8)], // (name, priority). At runtime, we add the rule to rulesets
+    pub rule_sets: &'a [(&'a str, u16)], // (name, priority). At runtime, we add the rule to rulesets
 }
 
 impl<'a> Rule<'a> {
     pub const fn new(
         name: &'a str,
         application: fn(&Expression, &Model) -> ApplicationResult,
-        rule_sets: &'a [(&'static str, u8)],
+        rule_sets: &'a [(&'static str, u16)],
     ) -> Self {
         Self {
             name,
@@ -121,21 +156,21 @@ impl<'a> Rule<'a> {
     }
 }
 
-impl<'a> Display for Rule<'a> {
+impl Display for Rule<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.name)
     }
 }
 
-impl<'a> PartialEq for Rule<'a> {
+impl PartialEq for Rule<'_> {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name
     }
 }
 
-impl<'a> Eq for Rule<'a> {}
+impl Eq for Rule<'_> {}
 
-impl<'a> Hash for Rule<'a> {
+impl Hash for Rule<'_> {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         self.name.hash(state);
     }

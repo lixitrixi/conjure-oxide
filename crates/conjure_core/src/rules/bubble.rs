@@ -1,12 +1,15 @@
 use conjure_core::ast::{Expression, ReturnType};
 use conjure_core::metadata::Metadata;
 use conjure_core::rule_engine::{
-    register_rule, register_rule_set, ApplicationError, ApplicationResult, Reduction,
+    register_rule, register_rule_set, ApplicationError, ApplicationError::*, ApplicationResult,
+    Reduction,
 };
 use conjure_core::Model;
 use uniplate::Uniplate;
 
-register_rule_set!("Bubble", 254, ("Base"));
+use super::checks::is_all_constant;
+
+register_rule_set!("Bubble", 100, ("Base"));
 
 // Bubble reduction rules
 
@@ -15,7 +18,7 @@ register_rule_set!("Bubble", 254, ("Base"));
 
     e.g. (a / b = c) @ (b != 0) => (a / b = c) & (b != 0)
 */
-#[register_rule(("Bubble", 100))]
+#[register_rule(("Bubble", 8900))]
 fn expand_bubble(expr: &Expression, _: &Model) -> ApplicationResult {
     match expr {
         Expression::Bubble(_, a, b) if a.return_type() == Some(ReturnType::Bool) => {
@@ -33,7 +36,7 @@ fn expand_bubble(expr: &Expression, _: &Model) -> ApplicationResult {
 
     E.g. ((a / b) @ (b != 0)) = c => (a / b = c) @ (b != 0)
 */
-#[register_rule(("Bubble", 100))]
+#[register_rule(("Bubble", 8900))]
 fn bubble_up(expr: &Expression, _: &Model) -> ApplicationResult {
     let mut sub = expr.children();
     let mut bubbled_conditions = vec![];
@@ -48,11 +51,11 @@ fn bubble_up(expr: &Expression, _: &Model) -> ApplicationResult {
     if bubbled_conditions.is_empty() {
         return Err(ApplicationError::RuleNotApplicable);
     }
-    return Ok(Reduction::pure(Expression::Bubble(
+    Ok(Reduction::pure(Expression::Bubble(
         Metadata::new(),
         Box::new(expr.with_children(sub)),
         Box::new(Expression::And(Metadata::new(), bubbled_conditions)),
-    )));
+    )))
 }
 
 // Bubble applications
@@ -66,8 +69,11 @@ fn bubble_up(expr: &Expression, _: &Model) -> ApplicationResult {
     E.g. a / b => (a / b) @ (b != 0)
 
 */
-#[register_rule(("Bubble", 100))]
+#[register_rule(("Bubble", 6000))]
 fn div_to_bubble(expr: &Expression, _: &Model) -> ApplicationResult {
+    if is_all_constant(expr) {
+        return Err(RuleNotApplicable);
+    }
     if let Expression::UnsafeDiv(_, a, b) = expr {
         return Ok(Reduction::pure(Expression::Bubble(
             Metadata::new(),
@@ -79,5 +85,5 @@ fn div_to_bubble(expr: &Expression, _: &Model) -> ApplicationResult {
             )),
         )));
     }
-    return Err(ApplicationError::RuleNotApplicable);
+    Err(ApplicationError::RuleNotApplicable)
 }

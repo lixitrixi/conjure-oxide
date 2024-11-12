@@ -1,0 +1,105 @@
+{
+  "constraints": {
+    "SumGeq": [
+      {
+        "clean": false,
+        "etype": null
+      },
+      [
+        {
+          "FactorE": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            {
+              "Reference": {
+                "UserName": "x"
+              }
+            }
+          ]
+        },
+        {
+          "FactorE": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            {
+              "Reference": {
+                "UserName": "y"
+              }
+            }
+          ]
+        }
+      ],
+      {
+        "FactorE": [
+          {
+            "clean": false,
+            "etype": null
+          },
+          {
+            "Reference": {
+              "UserName": "z"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "next_var": 0,
+  "variables": [
+    [
+      {
+        "UserName": "x"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                3
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "UserName": "y"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                3
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "UserName": "z"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                5
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  ]
+}

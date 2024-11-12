@@ -2,6 +2,7 @@
 coverage
 info.json
 
+conjure_oxide_log.json
 conjure_oxide/tests/**/*.generated.*
 conjure_oxide/tests/**/*.generated-parse.*
 conjure_oxide/tests/**/*.generated-rewrite.*
@@ -174,3 +175,16 @@ fabric.properties
 .idea/inspectionProfiles
 .idea/.gitignore
 .idea/conjure-oxide.iml
+
+# savile row files
+*.eprime.solution
+*.eprime.infor
+*.eprime.minion
+*.eprime.solution
+*.eprime.solution.*
+*.eprime.info
+
+.MINION*
+
+*.solution
+conjure-output/

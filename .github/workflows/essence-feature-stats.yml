@@ -29,6 +29,7 @@ env:
 jobs:
   build:
     name: "tools/essence-feature-stats: Build the tool and clone EssenceCatalog repo"
+    timeout-minutes: 5
 
     runs-on: ubuntu-latest
 
@@ -63,7 +64,7 @@ jobs:
       - name: Add the .nojekyll file
         run: touch ./web/static/.nojekyll
         working-directory: ./tools/essence-feature-usage-stats
-        
+
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' # Run this step only on push events
         uses: JamesIves/github-pages-deploy-action@v4.4.3

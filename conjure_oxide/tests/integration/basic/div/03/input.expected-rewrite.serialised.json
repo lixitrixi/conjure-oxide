@@ -7,30 +7,47 @@
       },
       [
         {
-          "Eq": [
+          "DivEq": [
             {
               "clean": false,
               "etype": null
             },
             {
-              "Constant": [
+              "FactorE": [
                 {
                   "clean": false,
                   "etype": null
                 },
                 {
-                  "Int": 2
+                  "Literal": {
+                    "Int": 8
+                  }
                 }
               ]
             },
             {
-              "Reference": [
+              "FactorE": [
                 {
                   "clean": false,
                   "etype": null
                 },
                 {
-                  "MachineName": 0
+                  "Reference": {
+                    "UserName": "a"
+                  }
+                }
+              ]
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 2
+                  }
                 }
               ]
             }
@@ -43,65 +60,28 @@
               "etype": null
             },
             {
-              "Reference": [
+              "FactorE": [
                 {
                   "clean": false,
                   "etype": null
                 },
                 {
-                  "UserName": "a"
+                  "Reference": {
+                    "UserName": "a"
+                  }
                 }
               ]
             },
             {
-              "Constant": [
+              "FactorE": [
                 {
                   "clean": false,
                   "etype": null
                 },
                 {
-                  "Int": 0
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "DivEq": [
-            {
-              "clean": false,
-              "etype": null
-            },
-            {
-              "Constant": [
-                {
-                  "clean": false,
-                  "etype": null
-                },
-                {
-                  "Int": 8
-                }
-              ]
-            },
-            {
-              "Reference": [
-                {
-                  "clean": false,
-                  "etype": null
-                },
-                {
-                  "UserName": "a"
-                }
-              ]
-            },
-            {
-              "Reference": [
-                {
-                  "clean": false,
-                  "etype": null
-                },
-                {
-                  "MachineName": 0
+                  "Literal": {
+                    "Int": 0
+                  }
                 }
               ]
             }
@@ -112,23 +92,6 @@
   },
   "next_var": 1,
   "variables": [
-    [
-      {
-        "MachineName": 0
-      },
-      {
-        "domain": {
-          "IntDomain": [
-            {
-              "Bounded": [
-                0,
-                8
-              ]
-            }
-          ]
-        }
-      }
-    ],
     [
       {
         "UserName": "a"

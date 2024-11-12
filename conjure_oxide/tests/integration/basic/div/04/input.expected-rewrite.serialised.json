@@ -1,144 +1,118 @@
 {
   "constraints": {
-    "And": [
+    "Reify": [
       {
         "clean": false,
         "etype": null
       },
-      [
-        {
-          "Or": [
+      {
+        "And": [
+          {
+            "clean": false,
+            "etype": null
+          },
+          [
             {
-              "clean": false,
-              "etype": null
-            },
-            [
-              {
-                "Neq": [
-                  {
-                    "clean": false,
-                    "etype": null
-                  },
-                  {
-                    "Reference": [
-                      {
-                        "clean": false,
-                        "etype": null
-                      },
-                      {
-                        "UserName": "a"
+              "DivEq": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "FactorE": [
+                    {
+                      "clean": false,
+                      "etype": null
+                    },
+                    {
+                      "Reference": {
+                        "UserName": "b"
                       }
-                    ]
-                  },
-                  {
-                    "Reference": [
-                      {
-                        "clean": false,
-                        "etype": null
-                      },
-                      {
-                        "MachineName": 0
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "Eq": [
-                  {
-                    "clean": false,
-                    "etype": null
-                  },
-                  {
-                    "Reference": [
-                      {
-                        "clean": false,
-                        "etype": null
-                      },
-                      {
+                    }
+                  ]
+                },
+                {
+                  "FactorE": [
+                    {
+                      "clean": false,
+                      "etype": null
+                    },
+                    {
+                      "Reference": {
                         "UserName": "c"
                       }
-                    ]
-                  },
-                  {
-                    "Constant": [
-                      {
-                        "clean": false,
-                        "etype": null
-                      },
-                      {
+                    }
+                  ]
+                },
+                {
+                  "FactorE": [
+                    {
+                      "clean": false,
+                      "etype": null
+                    },
+                    {
+                      "Reference": {
+                        "UserName": "a"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Neq": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "FactorE": [
+                    {
+                      "clean": false,
+                      "etype": null
+                    },
+                    {
+                      "Reference": {
+                        "UserName": "c"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "FactorE": [
+                    {
+                      "clean": false,
+                      "etype": null
+                    },
+                    {
+                      "Literal": {
                         "Int": 0
                       }
-                    ]
-                  }
-                ]
-              }
-            ]
-          ]
-        },
-        {
-          "DivEq": [
-            {
-              "clean": false,
-              "etype": null
-            },
-            {
-              "Reference": [
-                {
-                  "clean": false,
-                  "etype": null
-                },
-                {
-                  "UserName": "b"
-                }
-              ]
-            },
-            {
-              "Reference": [
-                {
-                  "clean": false,
-                  "etype": null
-                },
-                {
-                  "UserName": "c"
-                }
-              ]
-            },
-            {
-              "Reference": [
-                {
-                  "clean": false,
-                  "etype": null
-                },
-                {
-                  "MachineName": 0
+                    }
+                  ]
                 }
               ]
             }
           ]
-        }
-      ]
+        ]
+      },
+      {
+        "FactorE": [
+          {
+            "clean": false,
+            "etype": null
+          },
+          {
+            "Literal": {
+              "Bool": false
+            }
+          }
+        ]
+      }
     ]
   },
   "next_var": 1,
   "variables": [
-    [
-      {
-        "MachineName": 0
-      },
-      {
-        "domain": {
-          "IntDomain": [
-            {
-              "Bounded": [
-                0,
-                3
-              ]
-            }
-          ]
-        }
-      }
-    ],
     [
       {
         "UserName": "a"

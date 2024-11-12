@@ -1,39 +1,37 @@
 use std::fmt::{Display, Formatter};
+use std::sync::Arc;
 
 use serde::{Deserialize, Serialize};
 
 use enum_compatability_macro::document_compatibility;
 use uniplate::derive::Uniplate;
-use uniplate::{Biplate, Uniplate};
+use uniplate::Biplate;
 
-use crate::ast::constants::Constant;
+use crate::ast::literals::Literal;
 use crate::ast::symbol_table::{Name, SymbolTable};
+use crate::ast::Factor;
 use crate::ast::ReturnType;
 use crate::metadata::Metadata;
 
 use super::{Domain, Range};
 
+/// Represents different types of expressions used to define rules and constraints in the model.
+///
+/// The `Expression` enum includes operations, constants, and variable references
+/// used to build rules and conditions for the model.
 #[document_compatibility]
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize, Uniplate)]
-#[uniplate(walk_into=[])]
-#[biplate(to=Constant)]
-#[non_exhaustive]
+#[uniplate(walk_into=[Factor])]
+#[biplate(to=Literal)]
+#[biplate(to=Metadata)]
+#[biplate(to=Factor)]
+#[biplate(to=Name)]
 pub enum Expression {
-    /**
-     * Represents an empty expression
-     * NB: we only expect this at the top level of a model (if there is no constraints)
-     */
-    Nothing,
-
     /// An expression representing "A is valid as long as B is true"
     /// Turns into a conjunction when it reaches a boolean context
     Bubble(Metadata, Box<Expression>, Box<Expression>),
 
-    #[compatible(Minion, JsonInput)]
-    Constant(Metadata, Constant),
-
-    #[compatible(Minion, JsonInput, SAT)]
-    Reference(Metadata, Name),
+    FactorE(Metadata, Factor),
 
     #[compatible(Minion, JsonInput)]
     Sum(Metadata, Vec<Expression>),
@@ -46,6 +44,9 @@ pub enum Expression {
     // Div(Metadata, Box<Expression>, Box<Expression>),
     #[compatible(JsonInput)]
     Min(Metadata, Vec<Expression>),
+
+    #[compatible(JsonInput)]
+    Max(Metadata, Vec<Expression>),
 
     #[compatible(JsonInput, SAT)]
     Not(Metadata, Box<Expression>),
@@ -105,10 +106,25 @@ pub enum Expression {
 
     #[compatible(Minion)]
     AllDiff(Metadata, Vec<Expression>),
+
+    /// w-literal(x,k) is SAT iff x == k, where x is a variable and k a constant.
+    ///
+    /// This is a low-level Minion constraint and you should (probably) use Eq instead. The main
+    /// use of w-literal is to convert boolean variables to constraints so that they can be used
+    /// inside watched-and and watched-or.
+    ///
+    /// See `rules::minion::boolean_literal_to_wliteral`.
+    ///
+    ///
+    #[compatible(Minion)]
+    WatchedLiteral(Metadata, Name, Literal),
+
+    #[compatible(Minion)]
+    Reify(Metadata, Box<Expression>, Box<Expression>),
 }
 
 fn expr_vec_to_domain_i32(
-    exprs: &Vec<Expression>,
+    exprs: &[Expression],
     op: fn(i32, i32) -> Option<i32>,
     vars: &SymbolTable,
 ) -> Option<Domain> {
@@ -149,14 +165,17 @@ impl Expression {
     /// Returns the possible values of the expression, recursing to leaf expressions
     pub fn domain_of(&self, vars: &SymbolTable) -> Option<Domain> {
         let ret = match self {
-            Expression::Reference(_, name) => Some(vars.get(name)?.domain.clone()),
-            Expression::Constant(_, Constant::Int(n)) => {
+            Expression::FactorE(_, Factor::Reference(name)) => Some(vars.get(name)?.domain.clone()),
+            Expression::FactorE(_, Factor::Literal(Literal::Int(n))) => {
                 Some(Domain::IntDomain(vec![Range::Single(*n)]))
             }
-            Expression::Constant(_, Constant::Bool(_)) => Some(Domain::BoolDomain),
+            Expression::FactorE(_, Factor::Literal(Literal::Bool(_))) => Some(Domain::BoolDomain),
             Expression::Sum(_, exprs) => expr_vec_to_domain_i32(exprs, |x, y| Some(x + y), vars),
             Expression::Min(_, exprs) => {
                 expr_vec_to_domain_i32(exprs, |x, y| Some(if x < y { x } else { y }), vars)
+            }
+            Expression::Max(_, exprs) => {
+                expr_vec_to_domain_i32(exprs, |x, y| Some(if x > y { x } else { y }), vars)
             }
             Expression::UnsafeDiv(_, a, b) | Expression::SafeDiv(_, a, b) => {
                 a.domain_of(vars)?.apply_i32(
@@ -178,23 +197,30 @@ impl Expression {
         }
     }
 
+    pub fn get_meta(&self) -> Metadata {
+        <Expression as Biplate<Metadata>>::children_bi(self)[0].clone()
+    }
+
+    pub fn set_meta(&self, meta: Metadata) {
+        <Expression as Biplate<Metadata>>::transform_bi(self, Arc::new(move |_| meta.clone()));
+    }
+
     pub fn can_be_undefined(&self) -> bool {
         // TODO: there will be more false cases but we are being conservative
         match self {
-            Expression::Reference(_, _) => false,
-            Expression::Constant(_, Constant::Bool(_)) => false,
-            Expression::Constant(_, Constant::Int(_)) => false,
+            Expression::FactorE(_, _) => false,
             _ => true,
         }
     }
 
     pub fn return_type(&self) -> Option<ReturnType> {
         match self {
-            Expression::Constant(_, Constant::Int(_)) => Some(ReturnType::Int),
-            Expression::Constant(_, Constant::Bool(_)) => Some(ReturnType::Bool),
-            Expression::Reference(_, _) => None,
+            Expression::FactorE(_, Factor::Literal(Literal::Int(_))) => Some(ReturnType::Int),
+            Expression::FactorE(_, Factor::Literal(Literal::Bool(_))) => Some(ReturnType::Bool),
+            Expression::FactorE(_, Factor::Reference(_)) => None,
             Expression::Sum(_, _) => Some(ReturnType::Int),
             Expression::Min(_, _) => Some(ReturnType::Int),
+            Expression::Max(_, _) => Some(ReturnType::Int),
             Expression::Not(_, _) => Some(ReturnType::Bool),
             Expression::Or(_, _) => Some(ReturnType::Bool),
             Expression::And(_, _) => Some(ReturnType::Bool),
@@ -213,100 +239,27 @@ impl Expression {
             Expression::Ineq(_, _, _, _) => Some(ReturnType::Bool),
             Expression::AllDiff(_, _) => Some(ReturnType::Bool),
             Expression::Bubble(_, _, _) => None, // TODO: (flm8) should this be a bool?
-            Expression::Nothing => None,
+            Expression::WatchedLiteral(_, _, _) => Some(ReturnType::Bool),
+            Expression::Reify(_, _, _) => Some(ReturnType::Bool),
         }
     }
 
     pub fn is_clean(&self) -> bool {
-        match self {
-            Expression::Nothing => true,
-            Expression::Constant(metadata, _) => metadata.clean,
-            Expression::Reference(metadata, _) => metadata.clean,
-            Expression::Sum(metadata, exprs) => metadata.clean,
-            Expression::Min(metadata, exprs) => metadata.clean,
-            Expression::Not(metadata, expr) => metadata.clean,
-            Expression::Or(metadata, exprs) => metadata.clean,
-            Expression::And(metadata, exprs) => metadata.clean,
-            Expression::Eq(metadata, box1, box2) => metadata.clean,
-            Expression::Neq(metadata, box1, box2) => metadata.clean,
-            Expression::Geq(metadata, box1, box2) => metadata.clean,
-            Expression::Leq(metadata, box1, box2) => metadata.clean,
-            Expression::Gt(metadata, box1, box2) => metadata.clean,
-            Expression::Lt(metadata, box1, box2) => metadata.clean,
-            Expression::SumGeq(metadata, box1, box2) => metadata.clean,
-            Expression::SumLeq(metadata, box1, box2) => metadata.clean,
-            Expression::Ineq(metadata, box1, box2, box3) => metadata.clean,
-            Expression::AllDiff(metadata, exprs) => metadata.clean,
-            Expression::SumEq(metadata, exprs, expr) => metadata.clean,
-            _ => false,
-        }
+        let metadata = self.get_meta();
+        metadata.clean
     }
 
     pub fn set_clean(&mut self, bool_value: bool) {
-        match self {
-            Expression::Nothing => {}
-            Expression::Constant(metadata, _) => metadata.clean = bool_value,
-            Expression::Reference(metadata, _) => metadata.clean = bool_value,
-            Expression::Sum(metadata, _) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Min(metadata, _) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Not(metadata, _) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Or(metadata, _) => {
-                metadata.clean = bool_value;
-            }
-            Expression::And(metadata, _) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Eq(metadata, box1, box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Neq(metadata, _box1, _box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Geq(metadata, _box1, _box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Leq(metadata, _box1, _box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Gt(metadata, _box1, _box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Lt(metadata, _box1, _box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::SumGeq(metadata, _box1, _box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::SumLeq(metadata, _box1, _box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Ineq(metadata, _box1, _box2, _box3) => {
-                metadata.clean = bool_value;
-            }
-            Expression::AllDiff(metadata, _exprs) => {
-                metadata.clean = bool_value;
-            }
-            Expression::SumEq(metadata, _exprs, _expr) => {
-                metadata.clean = bool_value;
-            }
-            Expression::Bubble(metadata, box1, box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::SafeDiv(metadata, box1, box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::UnsafeDiv(metadata, box1, box2) => {
-                metadata.clean = bool_value;
-            }
-            Expression::DivEq(metadata, box1, box2, box3) => {
-                metadata.clean = bool_value;
-            }
+        let mut metadata = self.get_meta();
+        metadata.clean = bool_value;
+        self.set_meta(metadata);
+    }
+
+    pub fn as_factor(&self) -> Option<Factor> {
+        if let Expression::FactorE(_m, f) = self {
+            Some(f.clone())
+        } else {
+            None
         }
     }
 }
@@ -332,34 +285,41 @@ fn display_expressions(expressions: &[Expression]) -> String {
 
 impl From<i32> for Expression {
     fn from(i: i32) -> Self {
-        Expression::Constant(Metadata::new(), Constant::Int(i))
+        Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Int(i)))
     }
 }
 
 impl From<bool> for Expression {
     fn from(b: bool) -> Self {
-        Expression::Constant(Metadata::new(), Constant::Bool(b))
+        Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Bool(b)))
     }
 }
 
+impl From<Factor> for Expression {
+    fn from(value: Factor) -> Self {
+        Expression::FactorE(Metadata::new(), value)
+    }
+}
 impl Display for Expression {
     // TODO: (flm8) this will change once we implement a parser (two-way conversion)
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match &self {
-            Expression::Constant(_, c) => match c {
-                Constant::Bool(b) => write!(f, "{}", b),
-                Constant::Int(i) => write!(f, "{}", i),
+            Expression::FactorE(_, Factor::Literal(c)) => match c {
+                Literal::Bool(b) => write!(f, "{}", b),
+                Literal::Int(i) => write!(f, "{}", i),
             },
-            Expression::Reference(_, name) => match name {
+            Expression::FactorE(_, Factor::Reference(name)) => match name {
                 Name::MachineName(n) => write!(f, "_{}", n),
                 Name::UserName(s) => write!(f, "{}", s),
             },
-            Expression::Nothing => write!(f, "Nothing"),
             Expression::Sum(_, expressions) => {
                 write!(f, "Sum({})", display_expressions(expressions))
             }
             Expression::Min(_, expressions) => {
                 write!(f, "Min({})", display_expressions(expressions))
+            }
+            Expression::Max(_, expressions) => {
+                write!(f, "Max({})", display_expressions(expressions))
             }
             Expression::Not(_, expr_box) => {
                 write!(f, "Not({})", expr_box.clone())
@@ -444,8 +404,8 @@ mod tests {
 
     #[test]
     fn test_domain_of_constant_sum() {
-        let c1 = Expression::Constant(Metadata::new(), Constant::Int(1));
-        let c2 = Expression::Constant(Metadata::new(), Constant::Int(2));
+        let c1 = Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Int(1)));
+        let c2 = Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Int(2)));
         let sum = Expression::Sum(Metadata::new(), vec![c1.clone(), c2.clone()]);
         assert_eq!(
             sum.domain_of(&SymbolTable::new()),
@@ -455,8 +415,8 @@ mod tests {
 
     #[test]
     fn test_domain_of_constant_invalid_type() {
-        let c1 = Expression::Constant(Metadata::new(), Constant::Int(1));
-        let c2 = Expression::Constant(Metadata::new(), Constant::Bool(true));
+        let c1 = Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Int(1)));
+        let c2 = Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Bool(true)));
         let sum = Expression::Sum(Metadata::new(), vec![c1.clone(), c2.clone()]);
         assert_eq!(sum.domain_of(&SymbolTable::new()), None);
     }
@@ -469,7 +429,8 @@ mod tests {
 
     #[test]
     fn test_domain_of_reference() {
-        let reference = Expression::Reference(Metadata::new(), Name::MachineName(0));
+        let reference =
+            Expression::FactorE(Metadata::new(), Factor::Reference(Name::MachineName(0)));
         let mut vars = SymbolTable::new();
         vars.insert(
             Name::MachineName(0),
@@ -483,13 +444,15 @@ mod tests {
 
     #[test]
     fn test_domain_of_reference_not_found() {
-        let reference = Expression::Reference(Metadata::new(), Name::MachineName(0));
+        let reference =
+            Expression::FactorE(Metadata::new(), Factor::Reference(Name::MachineName(0)));
         assert_eq!(reference.domain_of(&SymbolTable::new()), None);
     }
 
     #[test]
     fn test_domain_of_reference_sum_single() {
-        let reference = Expression::Reference(Metadata::new(), Name::MachineName(0));
+        let reference =
+            Expression::FactorE(Metadata::new(), Factor::Reference(Name::MachineName(0)));
         let mut vars = SymbolTable::new();
         vars.insert(
             Name::MachineName(0),
@@ -504,7 +467,8 @@ mod tests {
 
     #[test]
     fn test_domain_of_reference_sum_bounded() {
-        let reference = Expression::Reference(Metadata::new(), Name::MachineName(0));
+        let reference =
+            Expression::FactorE(Metadata::new(), Factor::Reference(Name::MachineName(0)));
         let mut vars = SymbolTable::new();
         vars.insert(
             Name::MachineName(0),

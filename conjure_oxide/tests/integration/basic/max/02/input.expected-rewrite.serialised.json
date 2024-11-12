@@ -1,0 +1,268 @@
+{
+  "constraints": {
+    "And": [
+      {
+        "clean": false,
+        "etype": null
+      },
+      [
+        {
+          "Ineq": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Reference": {
+                    "MachineName": 0
+                  }
+                }
+              ]
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 2
+                  }
+                }
+              ]
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Ineq": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 2
+                  }
+                }
+              ]
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Reference": {
+                    "MachineName": 0
+                  }
+                }
+              ]
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Ineq": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Reference": {
+                    "UserName": "a"
+                  }
+                }
+              ]
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Reference": {
+                    "MachineName": 0
+                  }
+                }
+              ]
+            },
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Or": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            [
+              {
+                "Eq": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "FactorE": [
+                      {
+                        "clean": false,
+                        "etype": null
+                      },
+                      {
+                        "Reference": {
+                          "MachineName": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "FactorE": [
+                      {
+                        "clean": false,
+                        "etype": null
+                      },
+                      {
+                        "Literal": {
+                          "Int": 2
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Eq": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "FactorE": [
+                      {
+                        "clean": false,
+                        "etype": null
+                      },
+                      {
+                        "Reference": {
+                          "MachineName": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "FactorE": [
+                      {
+                        "clean": false,
+                        "etype": null
+                      },
+                      {
+                        "Reference": {
+                          "UserName": "a"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  },
+  "next_var": 1,
+  "variables": [
+    [
+      {
+        "MachineName": 0
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                2,
+                3
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "UserName": "a"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                0,
+                3
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  ]
+}

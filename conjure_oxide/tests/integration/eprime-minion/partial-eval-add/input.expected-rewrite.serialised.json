@@ -1,0 +1,147 @@
+{
+  "constraints": {
+    "And": [
+      {
+        "clean": false,
+        "etype": null
+      },
+      [
+        {
+          "SumGeq": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            [
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Reference": {
+                      "UserName": "x"
+                    }
+                  }
+                ]
+              },
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Reference": {
+                      "UserName": "y"
+                    }
+                  }
+                ]
+              }
+            ],
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 65
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "SumLeq": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            [
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Reference": {
+                      "UserName": "x"
+                    }
+                  }
+                ]
+              },
+              {
+                "FactorE": [
+                  {
+                    "clean": false,
+                    "etype": null
+                  },
+                  {
+                    "Reference": {
+                      "UserName": "y"
+                    }
+                  }
+                ]
+              }
+            ],
+            {
+              "FactorE": [
+                {
+                  "clean": false,
+                  "etype": null
+                },
+                {
+                  "Literal": {
+                    "Int": 65
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "next_var": 0,
+  "variables": [
+    [
+      {
+        "UserName": "x"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                50
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "UserName": "y"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                50
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  ]
+}

@@ -10,6 +10,36 @@ use crate::ast::{DecisionVariable, Domain, Expression, Name, SymbolTable};
 use crate::context::Context;
 use crate::metadata::Metadata;
 
+/// Represents a computational model containing variables, constraints, and a shared context.
+///
+/// The `Model` struct holds a set of variables and constraints for manipulating and evaluating symbolic expressions.
+///
+/// # Fields
+/// - `variables`:
+///   - Type: `SymbolTable`
+///   - A table that links each variable's name to its corresponding `DecisionVariable`.
+///   - For example, the name `x` might be linked to a `DecisionVariable` that says `x` can only take values between 1 and 10.
+///
+/// - `constraints`:
+///   - Type: `Expression`
+///   - Represents the logical constraints applied to the model's variables.
+///   - Can be a single constraint or a combination of various expressions, such as logical operations (e.g., `AND`, `OR`),
+///     arithmetic operations (e.g., `SafeDiv`, `UnsafeDiv`), or specialized constraints like `SumEq`.
+///
+/// - `context`:
+///   - Type: `Arc<RwLock<Context<'static>>>`
+///   - A shared object that stores global settings and state for the model.
+///   - Can be safely read or changed by multiple parts of the program at the same time, making it good for multi-threaded use.
+///
+/// - `next_var`:
+///   - Type: `RefCell<i32>`
+///   - A counter used to create new, unique variable names.
+///   - Allows updating the counter inside the model without making the whole model mutable.
+///
+/// # Usage
+/// This struct is typically used to:
+/// - Define a set of variables and constraints for rule-based evaluation.
+/// - Have transformations, optimizations, and simplifications applied to it using a set of rules.
 #[serde_as]
 #[derive(Derivative, Clone, Debug, Serialize, Deserialize)]
 #[derivative(PartialEq, Eq)]
@@ -38,7 +68,11 @@ impl Model {
     }
 
     pub fn new_empty(context: Arc<RwLock<Context<'static>>>) -> Model {
-        Model::new(Default::default(), Expression::Nothing, context)
+        Model::new(
+            Default::default(),
+            Expression::And(Metadata::new(), Vec::new()),
+            context,
+        )
     }
     // Function to update a DecisionVariable based on its Name
     pub fn update_domain(&mut self, name: &Name, new_domain: Domain) {
@@ -59,14 +93,13 @@ impl Model {
     pub fn get_constraints_vec(&self) -> Vec<Expression> {
         match &self.constraints {
             Expression::And(_, constraints) => constraints.clone(),
-            Expression::Nothing => vec![],
             _ => vec![self.constraints.clone()],
         }
     }
 
     pub fn set_constraints(&mut self, constraints: Vec<Expression>) {
         if constraints.is_empty() {
-            self.constraints = Expression::Nothing;
+            self.constraints = Expression::And(Metadata::new(), Vec::new());
         } else if constraints.len() == 1 {
             self.constraints = constraints[0].clone();
         } else {

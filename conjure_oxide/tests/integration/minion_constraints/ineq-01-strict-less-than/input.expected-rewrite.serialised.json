@@ -1,0 +1,86 @@
+{
+  "constraints": {
+    "Ineq": [
+      {
+        "clean": false,
+        "etype": null
+      },
+      {
+        "FactorE": [
+          {
+            "clean": false,
+            "etype": null
+          },
+          {
+            "Reference": {
+              "UserName": "x"
+            }
+          }
+        ]
+      },
+      {
+        "FactorE": [
+          {
+            "clean": false,
+            "etype": null
+          },
+          {
+            "Reference": {
+              "UserName": "y"
+            }
+          }
+        ]
+      },
+      {
+        "FactorE": [
+          {
+            "clean": false,
+            "etype": null
+          },
+          {
+            "Literal": {
+              "Int": -1
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "next_var": 0,
+  "variables": [
+    [
+      {
+        "UserName": "x"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                4
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "UserName": "y"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                4
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  ]
+}

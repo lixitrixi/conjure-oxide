@@ -1,0 +1,58 @@
+{
+  "constraints": {
+    "SumLeq": [
+      {
+        "clean": false,
+        "etype": null
+      },
+      [
+        {
+          "FactorE": [
+            {
+              "clean": false,
+              "etype": null
+            },
+            {
+              "Reference": {
+                "UserName": "c"
+              }
+            }
+          ]
+        }
+      ],
+      {
+        "FactorE": [
+          {
+            "clean": false,
+            "etype": null
+          },
+          {
+            "Literal": {
+              "Int": 5
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "next_var": 1,
+  "variables": [
+    [
+      {
+        "UserName": "c"
+      },
+      {
+        "domain": {
+          "IntDomain": [
+            {
+              "Bounded": [
+                1,
+                7
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  ]
+}
