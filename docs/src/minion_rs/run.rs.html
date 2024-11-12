@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `solvers/minion/src/run.rs`."><title>run.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="minion_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">minion_rs/</div>run.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `solvers/minion/src/run.rs`."><title>run.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="minion_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">minion_rs/</div>run.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -763,7 +763,20 @@
 <a href="#762" id="762">762</a>
 <a href="#763" id="763">763</a>
 <a href="#764" id="764">764</a>
-<a href="#765" id="765">765</a></pre></div><pre class="rust"><code><span class="attr">#![allow(unreachable_patterns)]
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a></pre></div><pre class="rust"><code><span class="attr">#![allow(unreachable_patterns)]
 
 </span><span class="kw">use </span>std::{
     collections::HashMap,
@@ -775,7 +788,11 @@
 <span class="kw">use </span>anyhow::anyhow;
 
 <span class="kw">use </span><span class="kw">crate</span>::ffi::{<span class="self">self</span>};
-<span class="kw">use crate</span>::{ast::<span class="kw-2">*</span>, error::<span class="kw-2">*</span>, scoped_ptr::Scoped};
+<span class="kw">use crate</span>::{
+    ast::{Constant, Constraint, Model, Var, VarDomain, VarName},
+    error::{MinionError, RuntimeError},
+    scoped_ptr::Scoped,
+};
 
 <span class="doccomment">/// The callback function used to capture results from Minion as they are generated.
 ///
@@ -1137,6 +1154,8 @@
         Constraint::GacEq(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(ffi::ConstraintType_CT_GACEQ),
         Constraint::WatchLess(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(ffi::ConstraintType_CT_WATCHED_LESS),
         Constraint::WatchNeq(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(ffi::ConstraintType_CT_WATCHED_NEQ),
+        Constraint::True =&gt; <span class="prelude-val">Ok</span>(ffi::ConstraintType_CT_TRUE),
+        Constraint::False =&gt; <span class="prelude-val">Ok</span>(ffi::ConstraintType_CT_FALSE),
 
         <span class="attr">#[allow(unreachable_patterns)]
         </span>x =&gt; <span class="prelude-val">Err</span>(MinionError::NotImplemented(<span class="macro">format!</span>(
@@ -1327,8 +1346,12 @@
         //Constraint::WatchElementOne(_, _, _) =&gt; todo!(),
         //Constraint::WatchElementOneUndefZero(_, _, _) =&gt; todo!(),
         //Constraint::WatchElementUndefZero(_, _, _) =&gt; todo!(),
-        //Constraint::WLiteral(_, _) =&gt; todo!(),
-        //Constraint::WNotLiteral(_, _) =&gt; todo!(),
+        </span>Constraint::WLiteral(a, b) =&gt; {
+            read_var(i, r_constr, a)<span class="question-mark">?</span>;
+            read_constant(r_constr, b)<span class="question-mark">?</span>;
+            <span class="prelude-val">Ok</span>(())
+        }
+        <span class="comment">//Constraint::WNotLiteral(_, _) =&gt; todo!(),
         //Constraint::WInIntervalSet(_, _) =&gt; todo!(),
         //Constraint::WInRange(_, _) =&gt; todo!(),
         </span>Constraint::WInset(a, b) =&gt; {
@@ -1353,6 +1376,9 @@
             read_var(i, r_constr, b)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(())
         }
+
+        Constraint::True =&gt; <span class="prelude-val">Ok</span>(()),
+        Constraint::False =&gt; <span class="prelude-val">Ok</span>(()),
         <span class="attr">#[allow(unreachable_patterns)]
         </span>x =&gt; <span class="prelude-val">Err</span>(MinionError::NotImplemented(<span class="macro">format!</span>(<span class="string">"{:?}"</span>, x))),
     }

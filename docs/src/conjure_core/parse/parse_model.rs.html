@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/parse/parse_model.rs`."><title>parse_model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/parse/</div>parse_model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/parse/parse_model.rs`."><title>parse_model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/parse/</div>parse_model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -312,17 +312,110 @@
 <a href="#311" id="311">311</a>
 <a href="#312" id="312">312</a>
 <a href="#313" id="313">313</a>
-<a href="#314" id="314">314</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::sync::{Arc, RwLock};
 
 <span class="kw">use </span>serde_json::Value;
 <span class="kw">use </span>serde_json::Value <span class="kw">as </span>JsonValue;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::{Constant, DecisionVariable, Domain, Expression, Name, Range};
+<span class="kw">use </span><span class="kw">crate</span>::ast::{DecisionVariable, Domain, Expression, Factor, Literal, Name, Range};
+<span class="kw">use </span><span class="kw">crate</span>::bug;
 <span class="kw">use </span><span class="kw">crate</span>::context::Context;
 <span class="kw">use </span><span class="kw">crate</span>::error::{Error, <span class="prelude-ty">Result</span>};
 <span class="kw">use </span><span class="kw">crate</span>::metadata::Metadata;
 <span class="kw">use </span><span class="kw">crate</span>::Model;
+
+<span class="macro">macro_rules!</span> parser_trace {
+    ($(<span class="macro-nonterminal">$arg</span>:tt)+) =&gt; {
+        <span class="macro">log::trace!</span>(target:<span class="string">"jsonparser"</span>,$(<span class="macro-nonterminal">$arg</span>)+)
+    };
+}
+
+<span class="macro">macro_rules!</span> parser_debug {
+    ($(<span class="macro-nonterminal">$arg</span>:tt)+) =&gt; {
+        <span class="macro">log::debug!</span>(target:<span class="string">"jsonparser"</span>,$(<span class="macro-nonterminal">$arg</span>)+)
+    };
+}
 
 <span class="kw">pub fn </span>model_from_json(str: <span class="kw-2">&amp;</span>str, context: Arc&lt;RwLock&lt;Context&lt;<span class="lifetime">'static</span>&gt;&gt;&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Model&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>m = Model::new_empty(context);
@@ -348,9 +441,7 @@
             <span class="string">"SuchThat" </span>=&gt; {
                 <span class="kw">let </span>constraints_arr = <span class="kw">match </span>entry.<span class="number">1</span>.as_array() {
                     <span class="prelude-val">Some</span>(x) =&gt; x,
-                    <span class="prelude-val">None </span>=&gt; {
-                        <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Parse(<span class="string">"SuchThat is not a vector"</span>.to_owned()));
-                    }
+                    <span class="prelude-val">None </span>=&gt; <span class="macro">bug!</span>(<span class="string">"SuchThat is not a vector"</span>),
                 };
 
                 <span class="kw">let </span>constraints: Vec&lt;Expression&gt; =
@@ -358,7 +449,7 @@
                 m.add_constraints(constraints);
                 <span class="comment">// println!("Nb constraints {}", m.constraints.len());
             </span>}
-            otherwise =&gt; <span class="macro">panic!</span>(<span class="string">"Unhandled Statement {:#?}"</span>, otherwise),
+            otherwise =&gt; <span class="macro">bug!</span>(<span class="string">"Unhandled Statement {:#?}"</span>, otherwise),
         }
     }
 
@@ -389,8 +480,8 @@
         <span class="string">"DomainInt" </span>=&gt; <span class="prelude-val">Ok</span>(parse_int_domain(domain.<span class="number">1</span>)<span class="question-mark">?</span>),
         <span class="string">"DomainBool" </span>=&gt; <span class="prelude-val">Ok</span>(Domain::BoolDomain),
         <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(Error::Parse(
-            <span class="string">"FindOrGiven[2] is an unknown object"</span>.to_owned(),
-        )),
+            <span class="string">"FindOrGiven[2] is an unknown object"</span>.to_owned(), <span class="comment">// consider covered
+        </span>)),
     }<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>((name, DecisionVariable { domain }))
 }
@@ -521,6 +612,14 @@
             <span class="string">"MkOpMin"</span>,
             Box::new(Expression::Min) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
         ),
+        (
+            <span class="string">"MkOpMax"</span>,
+            Box::new(Expression::Max) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
+        ),
+        (
+            <span class="string">"MkOpAllDiff"</span>,
+            Box::new(Expression::AllDiff) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
+        ),
     ]
     .into_iter()
     .collect();
@@ -540,17 +639,21 @@
             Value::Object(vec_op) <span class="kw">if </span>vec_operator_names.any(|key| vec_op.contains_key(<span class="kw-2">*</span>key)) =&gt; {
                 parse_vec_op(vec_op, vec_operators)
             }
-            otherwise =&gt; <span class="macro">panic!</span>(<span class="string">"Unhandled Op {:#?}"</span>, otherwise),
+            otherwise =&gt; <span class="macro">bug!</span>(<span class="string">"Unhandled Op {:#?}"</span>, otherwise),
         },
         Value::Object(refe) <span class="kw">if </span>refe.contains_key(<span class="string">"Reference"</span>) =&gt; {
             <span class="kw">let </span>name = refe[<span class="string">"Reference"</span>].as_array()<span class="question-mark">?</span>[<span class="number">0</span>].as_object()<span class="question-mark">?</span>[<span class="string">"Name"</span>].as_str()<span class="question-mark">?</span>;
-            <span class="prelude-val">Some</span>(Expression::Reference(
+            <span class="prelude-val">Some</span>(Expression::FactorE(
                 Metadata::new(),
-                Name::UserName(name.to_string()),
+                Factor::Reference(Name::UserName(name.to_string())),
             ))
         }
         Value::Object(constant) <span class="kw">if </span>constant.contains_key(<span class="string">"Constant"</span>) =&gt; parse_constant(constant),
-        otherwise =&gt; <span class="macro">panic!</span>(<span class="string">"Unhandled Expression {:#?}"</span>, otherwise),
+        Value::Object(constant) <span class="kw">if </span>constant.contains_key(<span class="string">"ConstantInt"</span>) =&gt; parse_constant(constant),
+        Value::Object(constant) <span class="kw">if </span>constant.contains_key(<span class="string">"ConstantBool"</span>) =&gt; {
+            parse_constant(constant)
+        }
+        otherwise =&gt; <span class="macro">bug!</span>(<span class="string">"Unhandled Expression {:#?}"</span>, otherwise),
     }
 }
 
@@ -570,7 +673,7 @@
             <span class="kw">let </span>arg2 = parse_expression(<span class="kw-2">&amp;</span>bin_op_args[<span class="number">1</span>])<span class="question-mark">?</span>;
             <span class="prelude-val">Some</span>(constructor(Metadata::new(), Box::new(arg1), Box::new(arg2)))
         }
-        otherwise =&gt; <span class="macro">panic!</span>(<span class="string">"Unhandled parse_bin_op {:#?}"</span>, otherwise),
+        otherwise =&gt; <span class="macro">bug!</span>(<span class="string">"Unhandled parse_bin_op {:#?}"</span>, otherwise),
     }
 }
 
@@ -592,24 +695,46 @@
     <span class="kw">let </span>(key, value) = vec_op.into_iter().next()<span class="question-mark">?</span>;
     <span class="kw">let </span>constructor = vec_operators.get(key.as_str())<span class="question-mark">?</span>;
 
-    <span class="kw">let </span>args_parsed: Vec&lt;<span class="prelude-ty">Option</span>&lt;Expression&gt;&gt; = value[<span class="string">"AbstractLiteral"</span>][<span class="string">"AbsLitMatrix"</span>][<span class="number">1</span>]
-        .as_array()<span class="question-mark">?
-        </span>.iter()
-        .map(parse_expression)
-        .collect();
+    <span class="macro">parser_debug!</span>(<span class="string">"Trying to parse vec_op: {key} ..."</span>);
+
+    <span class="kw">let </span><span class="kw-2">mut </span>args_parsed: <span class="prelude-ty">Option</span>&lt;Vec&lt;<span class="prelude-ty">Option</span>&lt;Expression&gt;&gt;&gt; = <span class="prelude-val">None</span>;
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(abs_lit_matrix) = value.pointer(<span class="string">"/AbstractLiteral/AbsLitMatrix/1"</span>) {
+        <span class="macro">parser_trace!</span>(<span class="string">"... containing a matrix of literals"</span>);
+        args_parsed = abs_lit_matrix.as_array().map(|x| {
+            x.iter()
+                .map(parse_expression)
+                .collect::&lt;Vec&lt;<span class="prelude-ty">Option</span>&lt;Expression&gt;&gt;&gt;()
+        });
+    }
+    <span class="comment">// the input of this expression is constant - e.g. or([]), or([false]), min([2]), etc.
+    </span><span class="kw">else if let </span><span class="prelude-val">Some</span>(const_abs_lit_matrix) =
+        value.pointer(<span class="string">"/Constant/ConstantAbstract/AbsLitMatrix/1"</span>)
+    {
+        <span class="macro">parser_trace!</span>(<span class="string">"... containing a matrix of constants"</span>);
+        args_parsed = const_abs_lit_matrix.as_array().map(|x| {
+            x.iter()
+                .map(parse_expression)
+                .collect::&lt;Vec&lt;<span class="prelude-ty">Option</span>&lt;Expression&gt;&gt;&gt;()
+        });
+    }
+
+    <span class="kw">let </span>args_parsed = args_parsed<span class="question-mark">?</span>;
 
     <span class="kw">let </span>number_of_args = args_parsed.len();
+    <span class="macro">parser_debug!</span>(<span class="string">"... with {number_of_args} args {args_parsed:#?}"</span>);
+
     <span class="kw">let </span>valid_args: Vec&lt;Expression&gt; = args_parsed.into_iter().flatten().collect();
     <span class="kw">if </span>number_of_args != valid_args.len() {
         <span class="prelude-val">None
     </span>} <span class="kw">else </span>{
+        <span class="macro">parser_debug!</span>(<span class="string">"... success!"</span>);
         <span class="prelude-val">Some</span>(constructor(Metadata::new(), valid_args))
     }
 }
 
 <span class="kw">fn </span>parse_constant(constant: <span class="kw-2">&amp;</span>serde_json::Map&lt;String, Value&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Expression&gt; {
-    <span class="kw">match </span><span class="kw-2">&amp;</span>constant[<span class="string">"Constant"</span>] {
-        Value::Object(int) <span class="kw">if </span>int.contains_key(<span class="string">"ConstantInt"</span>) =&gt; {
+    <span class="kw">match </span><span class="kw-2">&amp;</span>constant.get(<span class="string">"Constant"</span>) {
+        <span class="prelude-val">Some</span>(Value::Object(int)) <span class="kw">if </span>int.contains_key(<span class="string">"ConstantInt"</span>) =&gt; {
             <span class="kw">let </span>int_32: i32 = <span class="kw">match </span>int[<span class="string">"ConstantInt"</span>].as_array()<span class="question-mark">?</span>[<span class="number">1</span>].as_i64()<span class="question-mark">?</span>.try_into() {
                 <span class="prelude-val">Ok</span>(x) =&gt; x,
                 <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
@@ -621,9 +746,44 @@
                 }
             };
 
-            <span class="prelude-val">Some</span>(Expression::Constant(Metadata::new(), Constant::Int(int_32)))
+            <span class="prelude-val">Some</span>(Expression::FactorE(
+                Metadata::new(),
+                Factor::Literal(Literal::Int(int_32)),
+            ))
         }
-        otherwise =&gt; <span class="macro">panic!</span>(<span class="string">"Unhandled parse_constant {:#?}"</span>, otherwise),
+
+        <span class="prelude-val">Some</span>(Value::Object(b)) <span class="kw">if </span>b.contains_key(<span class="string">"ConstantBool"</span>) =&gt; {
+            <span class="kw">let </span>b: bool = b[<span class="string">"ConstantBool"</span>].as_bool().unwrap();
+            <span class="prelude-val">Some</span>(Expression::FactorE(
+                Metadata::new(),
+                Factor::Literal(Literal::Bool(b)),
+            ))
+        }
+
+        <span class="comment">// sometimes (e.g. constant matrices) we can have a ConstantInt / Constant bool that is
+        // not wrapped in Constant
+        </span><span class="prelude-val">None </span>=&gt; {
+            <span class="kw">let </span>int_expr = constant[<span class="string">"ConstantInt"</span>]
+                .as_array()
+                .and_then(|x| x[<span class="number">1</span>].as_i64())
+                .and_then(|x| x.try_into().ok())
+                .map(|x| Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Int(x))));
+
+            <span class="kw">if let </span>e @ <span class="prelude-val">Some</span>(<span class="kw">_</span>) = int_expr {
+                <span class="kw">return </span>e;
+            }
+
+            <span class="kw">let </span>bool_expr = constant[<span class="string">"ConstantBool"</span>]
+                .as_bool()
+                .map(|x| Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Bool(x))));
+
+            <span class="kw">if let </span>e @ <span class="prelude-val">Some</span>(<span class="kw">_</span>) = bool_expr {
+                <span class="kw">return </span>e;
+            }
+
+            <span class="macro">bug!</span>(<span class="string">"Unhandled parse_constant {:#?}"</span>, constant);
+        }
+        otherwise =&gt; <span class="macro">bug!</span>(<span class="string">"Unhandled parse_constant {:#?}"</span>, otherwise),
     }
 }
 </code></pre></div></section></main></body></html>

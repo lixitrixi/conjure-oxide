@@ -1,8 +1,64 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Rewrites the model by applying the rules to all constraints."><title>rewrite_model in conjure_oxide::rule_engine - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../conjure_oxide/index.html">conjure_<wbr>oxide</a><span class="version">0.0.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">rewrite_<wbr>model</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#returns" title="Returns">Returns</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In conjure_<wbr>oxide::<wbr>rule_<wbr>engine</a></h2></div></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><span class="rustdoc-breadcrumbs"><a href="../index.html">conjure_oxide</a>::<wbr><a href="index.html">rule_engine</a></span><h1>Function <span class="fn">rewrite_model</span><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/conjure_core/rule_engine/rewrite.rs.html#61-64">source</a> </span></div><pre class="rust item-decl"><code>pub fn rewrite_model&lt;'a&gt;(
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Rewrites the given model by applying a set of rules to all its constraints."><title>rewrite_model in conjure_oxide::rule_engine - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../conjure_oxide/index.html">conjure_<wbr>oxide</a><span class="version">0.0.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">rewrite_<wbr>model</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#parameters" title="Parameters">Parameters</a></li><li><a href="#returns" title="Returns">Returns</a></li><li><a href="#side-effects" title="Side-Effects">Side-Effects</a></li><li><a href="#example" title="Example">Example</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li><li><a href="#panics" title="Panics">Panics</a></li><li><a href="#see-also" title="See Also">See Also</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In conjure_<wbr>oxide::<wbr>rule_<wbr>engine</a></h2></div></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><span class="rustdoc-breadcrumbs"><a href="../index.html">conjure_oxide</a>::<wbr><a href="index.html">rule_engine</a></span><h1>Function <span class="fn">rewrite_model</span><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/conjure_core/rule_engine/rewrite.rs.html#117-120">Source</a> </span></div><pre class="rust item-decl"><code>pub fn rewrite_model&lt;'a&gt;(
     model: &amp;<a class="struct" href="../struct.Model.html" title="struct conjure_oxide::Model">Model</a>,
     rule_sets: &amp;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;&amp;'a <a class="struct" href="../struct.RuleSet.html" title="struct conjure_oxide::RuleSet">RuleSet</a>&lt;'a&gt;&gt;,
-) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../struct.Model.html" title="struct conjure_oxide::Model">Model</a>, <a class="enum" href="enum.RewriteError.html" title="enum conjure_oxide::rule_engine::RewriteError">RewriteError</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Rewrites the model by applying the rules to all constraints.</p>
-<p>Any side-effects such as symbol table updates and top-level constraints are applied to the returned model.</p>
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../struct.Model.html" title="struct conjure_oxide::Model">Model</a>, <a class="enum" href="enum.RewriteError.html" title="enum conjure_oxide::rule_engine::RewriteError">RewriteError</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Rewrites the given model by applying a set of rules to all its constraints.</p>
+<p>This function iteratively applies transformations to the model’s constraints using the specified rule sets.
+It returns a modified version of the model with all applicable rules applied, ensuring that any side-effects
+such as updates to the symbol table and top-level constraints are properly reflected in the returned model.</p>
+<h2 id="parameters"><a class="doc-anchor" href="#parameters">§</a>Parameters</h2>
+<ul>
+<li><code>model</code>: A reference to the <a href="../struct.Model.html" title="struct conjure_oxide::Model"><code>Model</code></a> to be rewritten. The function will clone this model to produce a modified version.</li>
+<li><code>rule_sets</code>: A vector of references to <a href="../struct.RuleSet.html" title="struct conjure_oxide::RuleSet"><code>RuleSet</code></a>s that define the rules to be applied to the model’s constraints.
+Each <code>RuleSet</code> is expected to contain a collection of rules that can transform one or more constraints
+within the model. The lifetime parameter <code>'a</code> ensures that the rules’ references are valid for the
+duration of the function execution.</li>
+</ul>
 <h2 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h2>
-<p>A copy of the model after all, if any, possible rules are applied to its constraints.</p>
+<ul>
+<li><code>Ok(Model)</code>: If successful, it returns a modified copy of the <a href="../struct.Model.html" title="struct conjure_oxide::Model"><code>Model</code></a> after all applicable rules have been
+applied. This new model includes any side-effects such as updates to the symbol table or modifications
+to the constraints.</li>
+<li><code>Err(RewriteError)</code>: If an error occurs during rule application (e.g., invalid rules or failed constraints),
+it returns a <a href="enum.RewriteError.html" title="enum conjure_oxide::rule_engine::RewriteError"><code>RewriteError</code></a> with details about the failure.</li>
+</ul>
+<h2 id="side-effects"><a class="doc-anchor" href="#side-effects">§</a>Side-Effects</h2>
+<ul>
+<li>When the model is rewritten, related data structures such as the symbol table (which tracks variable names and types)
+or other top-level constraints may also be updated to reflect these changes. These updates are applied to the returned model,
+ensuring that all related components stay consistent and aligned with the changes made during the rewrite.</li>
+<li>The function collects statistics about the rewriting process, including the number of rule applications
+and the total runtime of the rewriter. These statistics are then stored in the model’s context for
+performance monitoring and analysis.</li>
+</ul>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<ul>
+<li>
+<p>Using <code>rewrite_model</code> with the Expression <code>a + min(x, y)</code></p>
+<p>Initial expression: a + min(x, y)
+A model containing the expression is created. The variables of the model are represented by a SymbolTable and contain a,x,y.
+The contraints of the initail model is the expression itself.</p>
+<p>After getting the rules by their priorities and getting additional statistics the while loop of single interations is executed.
+Details for this process can be found in [<code>rewrite_iteration</code>] documentation.</p>
+<p>The loop is exited only when no more rules can be applied, when rewrite_iteration returns None and [<code>while let Some(step) = None</code>] occurs</p>
+<p>Will result in side effects ((d&lt;=x ^ d&lt;=y) being the [<code>new_top</code>] and the model will now be a conjuction of that and (a+d)
+Rewritten expression: ((a + d) ^ (d&lt;=x ^ d&lt;=y))</p>
+</li>
+</ul>
+<h2 id="performance-considerations"><a class="doc-anchor" href="#performance-considerations">§</a>Performance Considerations</h2>
+<ul>
+<li>The function checks if optimizations are enabled before applying rules, which may affect the performance
+of the rewriting process.</li>
+<li>Depending on the size of the model and the number of rules, the rewriting process might take a significant
+amount of time. Use the statistics collected (<code>rewriter_run_time</code> and <code>rewriter_rule_application_attempts</code>)
+to monitor and optimize performance.</li>
+</ul>
+<h2 id="panics"><a class="doc-anchor" href="#panics">§</a>Panics</h2>
+<ul>
+<li>This function may panic if the model’s context is unavailable or if there is an issue with locking the context.</li>
+</ul>
+<h2 id="see-also"><a class="doc-anchor" href="#see-also">§</a>See Also</h2>
+<ul>
+<li><a href="fn.get_rule_priorities.html" title="fn conjure_oxide::rule_engine::get_rule_priorities"><code>get_rule_priorities</code></a>: Retrieves the priorities for the given rules.</li>
+<li>[<code>rewrite_iteration</code>]: Executes a single iteration of rewriting the model using the specified rules.</li>
+</ul>
 </div></details></section></div></main></body></html>

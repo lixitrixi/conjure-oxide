@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rewrite.rs`."><title>rewrite.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rewrite.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rewrite.rs`."><title>rewrite.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rewrite.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -179,13 +179,267 @@
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
 <a href="#180" id="180">180</a>
-<a href="#181" id="181">181</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::env;
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{HashMap, HashSet};
+<span class="kw">use </span>std::env;
 <span class="kw">use </span>std::fmt::Display;
 
 <span class="kw">use </span>thiserror::Error;
 
+<span class="kw">use </span><span class="kw">crate</span>::bug;
 <span class="kw">use </span><span class="kw">crate</span>::stats::RewriterStats;
-<span class="kw">use </span>uniplate::biplate::Uniplate;
+<span class="kw">use </span>uniplate::Uniplate;
 
 <span class="kw">use </span><span class="kw">crate</span>::rule_engine::{Reduction, Rule, RuleSet};
 <span class="kw">use crate</span>::{
@@ -202,7 +456,10 @@
     reduction: Reduction,
 }
 
-<span class="attr">#[derive(Debug, Error)]
+<span class="doccomment">/// Represents errors that can occur during the model rewriting process.
+///
+/// This enum captures errors that occur when trying to resolve or apply rules in the model.
+</span><span class="attr">#[derive(Debug, Error)]
 </span><span class="kw">pub enum </span>RewriteError {
     ResolveRulesError(ResolveError),
 }
@@ -233,12 +490,63 @@
     </span>}
 }
 
-<span class="doccomment">/// Rewrites the model by applying the rules to all constraints.
+<span class="doccomment">/// Rewrites the given model by applying a set of rules to all its constraints.
 ///
-/// Any side-effects such as symbol table updates and top-level constraints are applied to the returned model.
+/// This function iteratively applies transformations to the model's constraints using the specified rule sets.
+/// It returns a modified version of the model with all applicable rules applied, ensuring that any side-effects
+/// such as updates to the symbol table and top-level constraints are properly reflected in the returned model.
+///
+/// # Parameters
+/// - `model`: A reference to the [`Model`] to be rewritten. The function will clone this model to produce a modified version.
+/// - `rule_sets`: A vector of references to [`RuleSet`]s that define the rules to be applied to the model's constraints.
+///   Each `RuleSet` is expected to contain a collection of rules that can transform one or more constraints
+///   within the model. The lifetime parameter `'a` ensures that the rules' references are valid for the
+///   duration of the function execution.
 ///
 /// # Returns
-/// A copy of the model after all, if any, possible rules are applied to its constraints.
+/// - `Ok(Model)`: If successful, it returns a modified copy of the [`Model`] after all applicable rules have been
+///   applied. This new model includes any side-effects such as updates to the symbol table or modifications
+///   to the constraints.
+/// - `Err(RewriteError)`: If an error occurs during rule application (e.g., invalid rules or failed constraints),
+///   it returns a [`RewriteError`] with details about the failure.
+///
+/// # Side-Effects
+/// - When the model is rewritten, related data structures such as the symbol table (which tracks variable names and types)
+///   or other top-level constraints may also be updated to reflect these changes. These updates are applied to the returned model,
+///   ensuring that all related components stay consistent and aligned with the changes made during the rewrite.
+/// - The function collects statistics about the rewriting process, including the number of rule applications
+///   and the total runtime of the rewriter. These statistics are then stored in the model's context for
+///   performance monitoring and analysis.
+///
+/// # Example
+/// - Using `rewrite_model` with the Expression `a + min(x, y)`
+///
+///   Initial expression: a + min(x, y)
+///   A model containing the expression is created. The variables of the model are represented by a SymbolTable and contain a,x,y.
+///   The contraints of the initail model is the expression itself.
+///
+///   After getting the rules by their priorities and getting additional statistics the while loop of single interations is executed.
+///   Details for this process can be found in [`rewrite_iteration`] documentation.
+///
+///   The loop is exited only when no more rules can be applied, when rewrite_iteration returns None and [`while let Some(step) = None`] occurs
+///
+///
+///   Will result in side effects ((d&lt;=x ^ d&lt;=y) being the [`new_top`] and the model will now be a conjuction of that and (a+d)
+///   Rewritten expression: ((a + d) ^ (d&lt;=x ^ d&lt;=y))
+///
+/// # Performance Considerations
+/// - The function checks if optimizations are enabled before applying rules, which may affect the performance
+///   of the rewriting process.
+/// - Depending on the size of the model and the number of rules, the rewriting process might take a significant
+///   amount of time. Use the statistics collected (`rewriter_run_time` and `rewriter_rule_application_attempts`)
+///   to monitor and optimize performance.
+///
+/// # Panics
+/// - This function may panic if the model's context is unavailable or if there is an issue with locking the context.
+///
+/// # See Also
+/// - [`get_rule_priorities`]: Retrieves the priorities for the given rules.
+/// - [`rewrite_iteration`]: Executes a single iteration of rewriting the model using the specified rules.
 </span><span class="kw">pub fn </span>rewrite_model&lt;<span class="lifetime">'a</span>&gt;(
     model: <span class="kw-2">&amp;</span>Model,
     rule_sets: <span class="kw-2">&amp;</span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;&gt;,
@@ -258,7 +566,8 @@
 
     <span class="kw">let </span>start = std::time::Instant::now();
 
-    <span class="kw">while let </span><span class="prelude-val">Some</span>(step) = rewrite_iteration(
+    <span class="comment">//the while loop is exited when None is returned implying the sub-expression is clean
+    </span><span class="kw">while let </span><span class="prelude-val">Some</span>(step) = rewrite_iteration(
         <span class="kw-2">&amp;</span>new_model.constraints,
         <span class="kw-2">&amp;</span>new_model,
         <span class="kw-2">&amp;</span>rules,
@@ -272,9 +581,65 @@
     <span class="prelude-val">Ok</span>(new_model)
 }
 
-<span class="doccomment">/// # Returns
-/// - Some(&lt;new_expression&gt;) after applying the first applicable rule to `expr` or a sub-expression.
-/// - None if no rule is applicable to the expression or any sub-expression.
+<span class="doccomment">/// Attempts to apply a set of rules to the given expression and its sub-expressions in the model.
+///
+/// This function recursively traverses the provided expression, applying any applicable rules from the given set.
+/// If a rule is successfully applied to the expression or any of its sub-expressions, it returns a `Reduction`
+/// containing the new expression, modified top-level constraints, and any changes to symbols. If no rules can be
+/// applied at any level, it returns `None`.
+///
+/// # Parameters
+/// - `expression`: A reference to the [`Expression`] to be rewritten. This is the main expression that the function
+///   attempts to modify using the given rules.
+/// - `model`: A reference to the [`Model`] that provides context and additional constraints for evaluating the rules.
+/// - `rules`: A vector of references to [`Rule`]s that define the transformations to apply to the expression.
+/// - `apply_optimizations`: A boolean flag that indicates whether optimization checks should be applied during the rewriting process.
+///   If `true`, the function skips already "clean" (fully optimized or processed) expressions and marks them accordingly
+///   to avoid redundant work.
+/// - `stats`: A mutable reference to [`RewriterStats`] to collect statistics about the rule application process, such as
+///   the number of rules applied and the time taken for each iteration.
+///
+/// # Returns
+/// - `Some(&lt;Reduction&gt;)`: A [`Reduction`] containing the new expression and any associated modifications if a rule was applied
+///   to `expr` or one of its sub-expressions.
+/// - `None`: If no rule is applicable to the expression or any of its sub-expressions.
+///
+/// # Side-Effects
+/// - If `apply_optimizations` is enabled, the function will skip "clean" expressions and mark successfully rewritten
+///   expressions as "dirty". This is done to avoid unnecessary recomputation of expressions that have already been
+///   optimized or processed.
+///
+/// # Example
+/// - Recursively applying [`rewrite_iteration`]  to [`a + min(x, y)`]
+///
+///   Initially [`if apply_optimizations &amp;&amp; expression.is_clean()`] is not true yet since intially our expression is dirty.
+///
+///   [`apply_results`] returns a null vector since no rules can be applied at the top level.
+///   After calling function [`children`] on the expression a vector of sub-expression [`[a, min(x, y)]`] is returned.
+///
+///   The function iterates through the vector of the children from the top expression and calls itself.
+///
+///   [rewrite_iteration] on on the child [`a`] returns None, but on [`min(x, y)`] returns a [`Reduction`] object [`red`].
+///   In this case, a rule (min simplification) can apply:
+///   - d is added to the SymbolTable and the variables field is updated in the model. new_top is the side effects: (d&lt;=x ^ d&lt;=y)
+///   - [`red = Reduction::new(new_expression = d, new_top, symbols)`];
+///   - [`sub[1] = red.new_expression`] - Updates the second element in the vector of sub-expressions from [`min(x, y)`] to [`d`]
+///
+///   Since a child expression [`min(x, y)`] was rewritten to d, the parent expression [`a + min(x, y)`] is updated with the new child [`a+d`].
+///   New [`Reduction`] is returned containing the modifications
+///
+///   The condition [`Some(step) = Some(new reduction)`] in the while loop in [`rewrite_model`] is met -&gt; side effects are applied.
+///
+///   No more rules in our example can apply to the modified model -&gt; mark all the children as clean and return a pure [`Reduction`].
+///   [`return Some(Reduction::pure(expression))`]
+///
+///   On the last execution of rewrite_iteration condition [`apply_optimizations &amp;&amp; expression.is_clean()`] is met, [`None`] is returned.
+///
+///
+/// # Notes
+/// - This function works recursively, meaning it traverses all sub-expressions within the given `expression` to find the
+///   first rule that can be applied. If a rule is applied, it immediately returns the modified expression and stops
+///   further traversal for that branch.
 </span><span class="kw">fn </span>rewrite_iteration&lt;<span class="lifetime">'a</span>&gt;(
     expression: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Expression,
     model: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Model,
@@ -291,7 +656,7 @@
     </span><span class="kw">let </span><span class="kw-2">mut </span>expression = expression.clone();
 
     <span class="kw">let </span>rule_results = apply_all_rules(<span class="kw-2">&amp;</span>expression, model, rules, stats);
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(new) = choose_rewrite(<span class="kw-2">&amp;</span>rule_results) {
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(new) = choose_rewrite(<span class="kw-2">&amp;</span>rule_results, <span class="kw-2">&amp;</span>expression) {
         <span class="comment">// If a rule is applied, mark the expression as dirty
         </span><span class="kw">return </span><span class="prelude-val">Some</span>(new);
     }
@@ -313,9 +678,53 @@
     <span class="prelude-val">None
 </span>}
 
-<span class="doccomment">/// # Returns
-/// - A list of RuleResults after applying all rules to `expression`.
-/// - An empty list if no rules are applicable.
+<span class="doccomment">/// Applies all the given rules to a specific expression within the model.
+///
+/// This function iterates through the provided rules and attempts to apply each rule to the given `expression`.
+/// If a rule is successfully applied, it creates a [`RuleResult`] containing the original rule and the resulting
+/// [`Reduction`]. The statistics (`stats`) are updated to reflect the number of rule application attempts and successful
+/// applications.
+///
+/// The function does not modify the provided `expression` directly. Instead, it collects all applicable rule results
+/// into a vector, which can then be used for further processing or selection (e.g., with [`choose_rewrite`]).
+///
+/// # Parameters
+/// - `expression`: A reference to the [`Expression`] that will be evaluated against the given rules. This is the main
+///   target for rule transformations and is expected to remain unchanged during the function execution.
+/// - `model`: A reference to the [`Model`] that provides context for rule evaluation, such as constraints and symbols.
+///   Rules may depend on information in the model to determine if they can be applied.
+/// - `rules`: A vector of references to [`Rule`]s that define the transformations to be applied to the expression.
+///   Each rule is applied independently, and all applicable rules are collected.
+/// - `stats`: A mutable reference to [`RewriterStats`] used to track statistics about rule application, such as
+///   the number of attempts and successful applications.
+///
+/// # Returns
+/// - A `Vec&lt;RuleResult&gt;` containing all rule applications that were successful. Each element in the vector represents
+///   a rule that was applied to the given `expression` along with the resulting transformation.
+/// - An empty vector if no rules were applicable to the expression.
+///
+/// # Side-Effects
+/// - The function updates the provided `stats` with the number of rule application attempts and successful applications.
+/// - Debug or trace logging may be performed to track which rules were applicable or not for a given expression.
+///
+/// # Example
+///
+/// let applicable_rules = apply_all_rules(&amp;expr, &amp;model, &amp;rules, &amp;mut stats);
+/// if !applicable_rules.is_empty() {
+///     for result in applicable_rules {
+///         println!("Rule applied: {:?}", result.rule);
+///     }
+/// }
+///
+///
+/// # Notes
+/// - This function does not modify the input `expression` or `model` directly. The returned `RuleResult` vector
+///   provides information about successful transformations, allowing the caller to decide how to process them.
+/// - The function performs independent rule applications. If rules have dependencies or should be applied in a
+///   specific order, consider handling that logic outside of this function.
+///
+/// # See Also
+/// - [`choose_rewrite`]: Chooses a single reduction from the rule results provided by `apply_all_rules`.
 </span><span class="kw">fn </span>apply_all_rules&lt;<span class="lifetime">'a</span>&gt;(
     expression: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Expression,
     model: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Model,
@@ -326,7 +735,13 @@
     <span class="kw">for </span>rule <span class="kw">in </span>rules {
         <span class="kw">match </span>rule.apply(expression, model) {
             <span class="prelude-val">Ok</span>(red) =&gt; {
-                <span class="macro">log::trace!</span>(target: <span class="string">"file"</span>, <span class="string">"Rule applicable: {:?}, to Expression: {:?}, resulting in: {:?}"</span>, rule, expression, red.new_expression);
+                <span class="macro">log::info!</span>(
+                    <span class="string">"Rule applicable: {} ({:?}), to expression: {}, resulting in: {}"</span>,
+                    rule.name,
+                    rule.rule_sets,
+                    expression,
+                    red.new_expression
+                );
                 stats.rewriter_rule_application_attempts =
                     <span class="prelude-val">Some</span>(stats.rewriter_rule_application_attempts.unwrap() + <span class="number">1</span>);
                 stats.rewriter_rule_applications =
@@ -340,7 +755,12 @@
                 });
             }
             <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
-                <span class="macro">log::trace!</span>(target: <span class="string">"file"</span>, <span class="string">"Rule attempted but not applied: {:?}, to Expression: {:?}"</span>, rule, expression);
+                <span class="macro">log::trace!</span>(
+                    <span class="string">"Rule attempted but not applied: {} ({:?}), to expression: {}"</span>,
+                    rule.name,
+                    rule.rule_sets,
+                    expression
+                );
                 stats.rewriter_rule_application_attempts =
                     <span class="prelude-val">Some</span>(stats.rewriter_rule_application_attempts.unwrap() + <span class="number">1</span>);
                 <span class="kw">continue</span>;
@@ -350,14 +770,98 @@
     results
 }
 
-<span class="doccomment">/// # Returns
-/// - Some(&lt;reduction&gt;) after applying the first rule in `results`.
-/// - None if `results` is empty.
-</span><span class="kw">fn </span>choose_rewrite(results: <span class="kw-2">&amp;</span>[RuleResult]) -&gt; <span class="prelude-ty">Option</span>&lt;Reduction&gt; {
+<span class="doccomment">/// Chooses the first applicable rule result from a list of rule applications.
+///
+/// This function selects a reduction from the provided `RuleResult` list, prioritizing the first rule
+/// that successfully transforms the expression. This strategy can be modified in the future to incorporate
+/// more complex selection criteria, such as prioritizing rules based on cost, complexity, or other heuristic metrics.
+///
+/// The function also checks the priorities of all the applicable rules and detects if there are multiple rules of the same proirity
+///
+/// # Parameters
+/// - `results`: A slice of [`RuleResult`] containing potential rule applications to be considered. Each element
+///   represents a rule that was successfully applied to the expression, along with the resulting transformation.
+/// -  `initial_expression`: [`Expression`] before the rule tranformation.
+///
+/// # Returns
+/// - `Some(&lt;Reduction&gt;)`: Returns a [`Reduction`] representing the first rule's application if there is at least one
+///   rule that produced a successful transformation.
+/// - `None`: If no rule applications are available in the `results` slice (i.e., it is empty), it returns `None`.
+///
+/// # Example
+///
+/// let rule_results = vec![rule1_result, rule2_result];
+/// if let Some(reduction) = choose_rewrite(&amp;rule_results) {
+/// Process the chosen reduction
+/// }
+///
+</span><span class="kw">fn </span>choose_rewrite&lt;<span class="lifetime">'a</span>&gt;(
+    results: <span class="kw-2">&amp;</span>[RuleResult],
+    initial_expression: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Expression,
+) -&gt; <span class="prelude-ty">Option</span>&lt;Reduction&gt; {
+    <span class="comment">//in the case where multiple rules are applicable
+    </span><span class="kw">if </span>results.len() &gt; <span class="number">1 </span>{
+        <span class="kw">let </span>expr = results[<span class="number">0</span>].reduction.new_expression.clone();
+        <span class="kw">let </span>rules: Vec&lt;<span class="kw">_</span>&gt; = results.iter().map(|result| <span class="kw-2">&amp;</span>result.rule).collect();
+
+        check_priority(rules.clone(), <span class="kw-2">&amp;</span>initial_expression, <span class="kw-2">&amp;</span>expr);
+    }
+
     <span class="kw">if </span>results.is_empty() {
         <span class="kw">return </span><span class="prelude-val">None</span>;
     }
     <span class="comment">// Return the first result for now
     </span><span class="prelude-val">Some</span>(results[<span class="number">0</span>].reduction.clone())
+}
+
+<span class="doccomment">/// Function filters all the applicable rules based on their priority.
+/// In the case where there are multiple rules of the same prioriy, a bug! is thrown listing all those duplicates.
+/// Otherwise, if there are multiple rules applicable but they all have different priorities, a warning message is dispalyed.
+///
+/// # Parameters
+/// - `rules`: a vector of [`Rule`] containing all the applicable rules and their metadata for a specific expression.
+/// - `initial_expression`: [`Expression`] before rule the tranformation.
+/// - `new_expr`: [`Expression`] after the rule transformation.
+///
+</span><span class="kw">fn </span>check_priority&lt;<span class="lifetime">'a</span>&gt;(
+    rules: Vec&lt;&amp;&amp;Rule&lt;<span class="lifetime">'_</span>&gt;&gt;,
+    initial_expr: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Expression,
+    new_expr: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Expression,
+) {
+    <span class="comment">//getting the rule sets from the applicable rules
+    </span><span class="kw">let </span>rule_sets: Vec&lt;<span class="kw">_</span>&gt; = rules.iter().map(|rule| <span class="kw-2">&amp;</span>rule.rule_sets).collect();
+
+    <span class="comment">//a map with keys being rule priorities and their values neing all the rules of that priority found in the rule_sets
+    </span><span class="kw">let </span><span class="kw-2">mut </span>rules_by_priorities: HashMap&lt;u16, Vec&lt;<span class="kw-2">&amp;</span>str&gt;&gt; = HashMap::new();
+
+    <span class="comment">//iterates over each rule_set and groups by the rule priority
+    </span><span class="kw">for </span>rule_set <span class="kw">in </span><span class="kw-2">&amp;</span>rule_sets {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>((name, priority)) = rule_set.get(<span class="number">0</span>) {
+            rules_by_priorities
+                .entry(<span class="kw-2">*</span>priority)
+                .or_insert(Vec::new())
+                .push(<span class="kw-2">*</span>name);
+        }
+    }
+
+    <span class="comment">//filters the map, retaining only entries where there is more than 1 rule of the same priority
+    </span><span class="kw">let </span>duplicate_rules: HashMap&lt;u16, Vec&lt;<span class="kw-2">&amp;</span>str&gt;&gt; = rules_by_priorities
+        .into_iter()
+        .filter(|(<span class="kw">_</span>, group)| group.len() &gt; <span class="number">1</span>)
+        .collect();
+
+    <span class="kw">if </span>!duplicate_rules.is_empty() {
+        <span class="comment">//accumulates all duplicates into a formatted message
+        </span><span class="kw">let </span><span class="kw-2">mut </span>message = String::from(<span class="macro">format!</span>(<span class="string">"Found multiple rules of the same priority applicable to to expression: {:?} \n resulting in expression: {:?}"</span>, initial_expr, new_expr));
+        <span class="kw">for </span>(priority, rules) <span class="kw">in </span><span class="kw-2">&amp;</span>duplicate_rules {
+            message.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"Priority {:?} \n Rules: {:?}"</span>, priority, rules));
+        }
+        <span class="macro">bug!</span>(<span class="string">"{}"</span>, message);
+
+    <span class="comment">//no duplicate rules of the same priorities were found in the set of applicable rules
+    </span>} <span class="kw">else </span>{
+        <span class="macro">log::warn!</span>(<span class="string">"Multiple rules of different priorities are applicable to expression {:?} \n resulting in expression: {:?}
+        \n Rules{:?}"</span>, initial_expr, new_expr, rules)
+    }
 }
 </code></pre></div></section></main></body></html>

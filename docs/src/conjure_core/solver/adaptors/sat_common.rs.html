@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/solver/adaptors/sat_common.rs`."><title>sat_common.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/solver/adaptors/</div>sat_common.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/solver/adaptors/sat_common.rs`."><title>sat_common.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../../static.files/storage-59e33391.js"></script><script defer src="../../../../static.files/src-script-56102188.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/solver/adaptors/</div>sat_common.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -322,7 +322,11 @@
 <a href="#321" id="321">321</a>
 <a href="#322" id="322">322</a>
 <a href="#323" id="323">323</a>
-<a href="#324" id="324">324</a></pre></div><pre class="rust"><code><span class="doccomment">//! Common code for SAT adaptors.
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a></pre></div><pre class="rust"><code><span class="doccomment">//! Common code for SAT adaptors.
 //! Primarily, this is CNF related code.
 
 </span><span class="kw">use </span>std::collections::HashMap;
@@ -407,7 +411,7 @@
 
     <span class="doccomment">/// Gets the index of a Conjure variable.
     </span><span class="kw">pub fn </span>get_index(<span class="kw-2">&amp;</span><span class="self">self</span>, var: <span class="kw-2">&amp;</span>conjure_ast::Name) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
-        <span class="kw">return </span><span class="self">self</span>.variables.get(var).copied();
+        <span class="self">self</span>.variables.get(var).copied()
     }
 
     <span class="doccomment">/// Gets a Conjure variable by index.
@@ -483,13 +487,15 @@
                 <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(CNFError::ClauseIndexNotFound(<span class="kw-2">*</span>idx)),
                 <span class="prelude-val">Some</span>(name) =&gt; {
                     <span class="kw">if </span><span class="kw-2">*</span>idx &gt; <span class="number">0 </span>{
-                        ans.push(conjure_ast::Expression::Reference(
+                        ans.push(conjure_ast::Expression::FactorE(
                             Metadata::new(),
-                            name.clone(),
+                            conjure_ast::Factor::Reference(name.clone()),
                         ));
                     } <span class="kw">else </span>{
-                        <span class="kw">let </span>expression: conjure_ast::Expression =
-                            conjure_ast::Expression::Reference(Metadata::new(), name.clone());
+                        <span class="kw">let </span>expression: conjure_ast::Expression = conjure_ast::Expression::FactorE(
+                            Metadata::new(),
+                            conjure_ast::Factor::Reference(name.clone()),
+                        );
                         ans.push(conjure_ast::Expression::Not(
                             Metadata::new(),
                             Box::from(expression),
@@ -529,7 +535,7 @@
     </span><span class="kw">fn </span>handle_not(<span class="kw-2">&amp;</span><span class="self">self</span>, expr: <span class="kw-2">&amp;</span>conjure_ast::Expression) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;i32&gt;, CNFError&gt; {
         <span class="kw">match </span>expr {
             <span class="comment">// Expression inside the Not()
-            </span>conjure_ast::Expression::Reference(_metadata, name) =&gt; {
+            </span>conjure_ast::Expression::FactorE(_metadata, conjure_ast::Factor::Reference(name)) =&gt; {
                 <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[-<span class="self">self</span>.get_reference_index(name)<span class="question-mark">?</span>])
             }
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(CNFError::UnexpectedExpressionInsideNot(expr.clone())),
@@ -560,7 +566,9 @@
         expression: <span class="kw-2">&amp;</span>conjure_ast::Expression,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;i32&gt;, CNFError&gt; {
         <span class="kw">match </span>expression {
-            conjure_ast::Expression::Reference(_metadata, name) =&gt; <span class="self">self</span>.handle_reference(name),
+            conjure_ast::Expression::FactorE(_metadata, conjure_ast::Factor::Reference(name)) =&gt; {
+                <span class="self">self</span>.handle_reference(name)
+            }
             conjure_ast::Expression::Not(_metadata, var_box) =&gt; <span class="self">self</span>.handle_not(var_box),
             conjure_ast::Expression::Or(_metadata, expressions) =&gt; <span class="self">self</span>.handle_or(expressions),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(CNFError::UnexpectedExpression(expression.clone())),
@@ -637,7 +645,7 @@
 
 <span class="kw">impl </span>HasVariable <span class="kw">for </span>i32 {
     <span class="kw">fn </span>has_variable(<span class="self">self</span>, cnf: <span class="kw-2">&amp;</span>CNFModel) -&gt; bool {
-        <span class="kw">return </span>cnf.get_name(<span class="self">self</span>).is_some();
+        cnf.get_name(<span class="self">self</span>).is_some()
     }
 }
 

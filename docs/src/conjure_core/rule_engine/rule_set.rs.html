@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rule_set.rs`."><title>rule_set.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rule_set.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rule_set.rs`."><title>rule_set.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rule_set.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -171,7 +171,25 @@
 <a href="#170" id="170">170</a>
 <a href="#171" id="171">171</a>
 <a href="#172" id="172">172</a>
-<a href="#173" id="173">173</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{HashMap, HashSet};
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{HashMap, HashSet};
 <span class="kw">use </span>std::fmt::{Display, Formatter};
 <span class="kw">use </span>std::hash::Hash;
 <span class="kw">use </span>std::sync::OnceLock;
@@ -181,16 +199,34 @@
 <span class="kw">use </span><span class="kw">crate</span>::rule_engine::{get_rule_set_by_name, get_rules, Rule};
 <span class="kw">use </span><span class="kw">crate</span>::solver::SolverFamily;
 
-<span class="doccomment">/// A set of rules with a name, priority, and dependencies.
+<span class="doccomment">/// A structure representing a set of rules with a name, priority, and dependencies.
+///
+/// `RuleSet` is a way to group related rules together under a single name.
+/// You can think of it like a list of rules that belong to the same category.
+/// Each `RuleSet` can also have a number that tells it what order it should run in compared to other `RuleSet` instances.
+/// Additionally, a `RuleSet` can depend on other `RuleSet` instances, meaning it needs them to run first.
+///
+/// To make things efficient, `RuleSet` only figures out its rules and dependencies the first time they're needed,
+/// and then it remembers them so it doesn't have to do the work again.
+///
+/// # Fields
+/// - `name`: The name of the rule set.
+/// - `order`: A number that decides the order in which this `RuleSet` should be applied.
+/// If two `RuleSet` instances have the same rule but with different priorities,
+/// the one with the higher `order` number will be the one that is used.
+/// - `rules`: A lazily initialized map of rules to their priorities.
+/// - `dependency_rs_names`: The names of the rule sets that this rule set depends on.
+/// - `dependencies`: A lazily initialized set of `RuleSet` dependencies.
+/// - `solver_families`: The solver families that this rule set applies to.
 </span><span class="attr">#[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>RuleSet&lt;<span class="lifetime">'a</span>&gt; {
     <span class="doccomment">/// The name of the rule set.
     </span><span class="kw">pub </span>name: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
     <span class="doccomment">/// Order of the RuleSet. Used to establish a consistent order of operations when resolving rules.
     /// If two RuleSets overlap (contain the same rule but with different priorities), the RuleSet with the higher order will be used as the source of truth.
-    </span><span class="kw">pub </span>order: u8,
+    </span><span class="kw">pub </span>order: u16,
     <span class="doccomment">/// A map of rules to their priorities. This will be lazily initialized at runtime.
-    </span>rules: OnceLock&lt;HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u8&gt;&gt;,
+    </span>rules: OnceLock&lt;HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u16&gt;&gt;,
     <span class="doccomment">/// The names of the rule sets that this rule set depends on.
     </span>dependency_rs_names: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>[<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str],
     dependencies: OnceLock&lt;HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;&gt;&gt;,
@@ -201,7 +237,7 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; RuleSet&lt;<span class="lifetime">'a</span>&gt; {
     <span class="kw">pub const fn </span>new(
         name: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
-        order: u8,
+        order: u16,
         dependencies: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>[<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str],
         solver_families: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>[SolverFamily],
     ) -&gt; <span class="self">Self </span>{
@@ -216,8 +252,8 @@
     }
 
     <span class="doccomment">/// Get the rules of this rule set, evaluating them lazily if necessary
-    /// Returns a `&amp;HashMap&lt;&amp;Rule, u8&gt;` where the key is the rule and the value is the priority of the rule.
-    </span><span class="kw">pub fn </span>get_rules(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u8&gt; {
+    /// Returns a `&amp;HashMap&lt;&amp;Rule, u16&gt;` where the key is the rule and the value is the priority of the rule.
+    </span><span class="kw">pub fn </span>get_rules(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u16&gt; {
         <span class="kw">match </span><span class="self">self</span>.rules.get() {
             <span class="prelude-val">None </span>=&gt; {
                 <span class="kw">let </span>rules = <span class="self">self</span>.resolve_rules();
@@ -259,12 +295,12 @@
     }
 
     <span class="doccomment">/// Resolve the rules of this rule set ("reverse the arrows")
-    </span><span class="kw">fn </span>resolve_rules(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u8&gt; {
+    </span><span class="kw">fn </span>resolve_rules(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u16&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>rules = HashMap::new();
 
         <span class="kw">for </span>rule <span class="kw">in </span>get_rules() {
             <span class="kw">let </span><span class="kw-2">mut </span>found = <span class="bool-val">false</span>;
-            <span class="kw">let </span><span class="kw-2">mut </span>priority: u8 = <span class="number">0</span>;
+            <span class="kw">let </span><span class="kw-2">mut </span>priority: u16 = <span class="number">0</span>;
 
             <span class="kw">for </span>(name, p) <span class="kw">in </span>rule.rule_sets {
                 <span class="kw">if </span><span class="kw-2">*</span>name == <span class="self">self</span>.name {
@@ -309,21 +345,21 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; PartialEq <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'a</span>&gt; {
+<span class="kw">impl </span>PartialEq <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'_</span>&gt; {
     <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="self">self</span>.name == other.name
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Eq <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'a</span>&gt; {}
+<span class="kw">impl </span>Eq <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'_</span>&gt; {}
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Hash <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'a</span>&gt; {
+<span class="kw">impl </span>Hash <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'_</span>&gt; {
     <span class="kw">fn </span>hash&lt;H: std::hash::Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
         <span class="self">self</span>.name.hash(state);
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Display <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'a</span>&gt; {
+<span class="kw">impl </span>Display <span class="kw">for </span>RuleSet&lt;<span class="lifetime">'_</span>&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
         <span class="kw">let </span>n_rules = <span class="self">self</span>.get_rules().len();
         <span class="kw">let </span>solver_families = <span class="self">self

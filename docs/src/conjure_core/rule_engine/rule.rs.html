@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rule.rs`."><title>rule.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rule.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rule.rs`."><title>rule.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rule.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -140,7 +140,42 @@
 <a href="#139" id="139">139</a>
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{<span class="self">self</span>, Display, Formatter};
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{<span class="self">self</span>, Display, Formatter};
 <span class="kw">use </span>std::hash::Hash;
 
 <span class="kw">use </span>thiserror::Error;
@@ -158,9 +193,40 @@
     </span>DomainError,
 }
 
-<span class="doccomment">/// The result of applying a rule to an expression.
+<span class="doccomment">/// Represents the result of applying a rule to an expression within a model.
 ///
-/// Contains an expression to replace the original, a top-level constraint to add to the top of the constraint AST, and an expansion to the model symbol table.
+/// A `Reduction` encapsulates the changes made to a model during a rule application.
+/// It includes a new expression to replace the original one, an optional top-level constraint
+/// to be added to the model, and any updates to the model's symbol table.
+///
+/// This struct allows for representing side-effects of rule applications, ensuring that
+/// all modifications, including symbol table expansions and additional constraints, are
+/// accounted for and can be applied to the model consistently.
+///
+/// # Fields
+/// - `new_expression`: The updated [`Expression`] that replaces the original one after applying the rule.
+/// - `new_top`: An additional top-level [`Expression`] constraint that should be added to the model. If no top-level
+///   constraint is needed, this field can be set to `Expression::Nothing`.
+/// - `symbols`: A [`SymbolTable`] containing any new symbol definitions or modifications to be added to the model's
+///   symbol table. If no symbols are modified, this field can be set to an empty symbol table.
+///
+/// # Usage
+/// A `Reduction` can be created using one of the provided constructors:
+/// - [`Reduction::new`]: Creates a reduction with a new expression, top-level constraint, and symbol modifications.
+/// - [`Reduction::pure`]: Creates a reduction with only a new expression and no side-effects on the symbol table or constraints.
+/// - [`Reduction::with_symbols`]: Creates a reduction with a new expression and symbol table modifications, but no top-level constraint.
+/// - [`Reduction::with_top`]: Creates a reduction with a new expression and a top-level constraint, but no symbol table modifications.
+///
+/// The `apply` method allows for applying the changes represented by the `Reduction` to a [`Model`].
+///
+/// # Example
+/// ```
+/// // Need to add an example
+/// ```
+///
+/// # See Also
+/// - [`ApplicationResult`]: Represents the result of applying a rule, which may either be a `Reduction` or an `ApplicationError`.
+/// - [`Model`]: The structure to which the `Reduction` changes are applied.
 </span><span class="attr">#[non_exhaustive]
 #[derive(Clone, Debug)]
 </span><span class="kw">pub struct </span>Reduction {
@@ -186,7 +252,7 @@
     </span><span class="kw">pub fn </span>pure(new_expression: Expression) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             new_expression,
-            new_top: Expression::Nothing,
+            new_top: Expression::And(Metadata::new(), Vec::new()),
             symbols: SymbolTable::new(),
         }
     }
@@ -195,7 +261,7 @@
     </span><span class="kw">pub fn </span>with_symbols(new_expression: Expression, symbols: SymbolTable) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             new_expression,
-            new_top: Expression::Nothing,
+            new_top: Expression::And(Metadata::new(), Vec::new()),
             symbols,
         }
     }
@@ -212,21 +278,25 @@
     <span class="comment">// Apply side-effects (e.g. symbol table updates
     </span><span class="kw">pub fn </span>apply(<span class="self">self</span>, model: <span class="kw-2">&amp;mut </span>Model) {
         model.variables.extend(<span class="self">self</span>.symbols); <span class="comment">// Add new assignments to the symbol table
-        </span><span class="kw">if let </span>Expression::Nothing = <span class="self">self</span>.new_top {
-            model.constraints = <span class="self">self</span>.new_expression.clone();
-        } <span class="kw">else </span>{
-            model.constraints = <span class="kw">match </span><span class="self">self</span>.new_expression {
-                Expression::And(metadata, <span class="kw-2">mut </span>exprs) =&gt; {
-                    <span class="comment">// Avoid creating a nested conjunction
-                    </span>exprs.push(<span class="self">self</span>.new_top.clone());
-                    Expression::And(metadata.clone_dirty(), exprs)
-                }
-                <span class="kw">_ </span>=&gt; Expression::And(
-                    Metadata::new(),
-                    <span class="macro">vec!</span>[<span class="self">self</span>.new_expression.clone(), <span class="self">self</span>.new_top],
-                ),
-            };
+                                              // TODO: (yb33) Remove it when we change constraints to a vector
+        </span><span class="kw">if let </span>Expression::And(<span class="kw">_</span>, exprs) = <span class="kw-2">&amp;</span><span class="self">self</span>.new_top {
+            <span class="kw">if </span>exprs.is_empty() {
+                model.constraints = <span class="self">self</span>.new_expression.clone();
+                <span class="kw">return</span>;
+            }
         }
+
+        model.constraints = <span class="kw">match </span><span class="self">self</span>.new_expression {
+            Expression::And(metadata, <span class="kw-2">mut </span>exprs) =&gt; {
+                <span class="comment">// Avoid creating a nested conjunction
+                </span>exprs.push(<span class="self">self</span>.new_top.clone());
+                Expression::And(metadata.clone_dirty(), exprs)
+            }
+            <span class="kw">_ </span>=&gt; Expression::And(
+                Metadata::new(),
+                <span class="macro">vec!</span>[<span class="self">self</span>.new_expression.clone(), <span class="self">self</span>.new_top],
+            ),
+        };
     }
 }
 
@@ -242,14 +312,14 @@
 </span><span class="kw">pub struct </span>Rule&lt;<span class="lifetime">'a</span>&gt; {
     <span class="kw">pub </span>name: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
     <span class="kw">pub </span>application: <span class="kw">fn</span>(<span class="kw-2">&amp;</span>Expression, <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult,
-    <span class="kw">pub </span>rule_sets: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>[(<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str, u8)], <span class="comment">// (name, priority). At runtime, we add the rule to rulesets
+    <span class="kw">pub </span>rule_sets: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>[(<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str, u16)], <span class="comment">// (name, priority). At runtime, we add the rule to rulesets
 </span>}
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Rule&lt;<span class="lifetime">'a</span>&gt; {
     <span class="kw">pub const fn </span>new(
         name: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
         application: <span class="kw">fn</span>(<span class="kw-2">&amp;</span>Expression, <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult,
-        rule_sets: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>[(<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str, u8)],
+        rule_sets: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>[(<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str, u16)],
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             name,
@@ -263,21 +333,21 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Display <span class="kw">for </span>Rule&lt;<span class="lifetime">'a</span>&gt; {
+<span class="kw">impl </span>Display <span class="kw">for </span>Rule&lt;<span class="lifetime">'_</span>&gt; {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
         <span class="macro">write!</span>(f, <span class="string">"{}"</span>, <span class="self">self</span>.name)
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; PartialEq <span class="kw">for </span>Rule&lt;<span class="lifetime">'a</span>&gt; {
+<span class="kw">impl </span>PartialEq <span class="kw">for </span>Rule&lt;<span class="lifetime">'_</span>&gt; {
     <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
         <span class="self">self</span>.name == other.name
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Eq <span class="kw">for </span>Rule&lt;<span class="lifetime">'a</span>&gt; {}
+<span class="kw">impl </span>Eq <span class="kw">for </span>Rule&lt;<span class="lifetime">'_</span>&gt; {}
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Hash <span class="kw">for </span>Rule&lt;<span class="lifetime">'a</span>&gt; {
+<span class="kw">impl </span>Hash <span class="kw">for </span>Rule&lt;<span class="lifetime">'_</span>&gt; {
     <span class="kw">fn </span>hash&lt;H: std::hash::Hasher&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span>H) {
         <span class="self">self</span>.name.hash(state);
     }

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"externcrate":["conjure_core"],"mod":["ast","context","error","metadata","model","parse","rule_engine","rules","solver","stats"]};
+window.SIDEBAR_ITEMS = {"externcrate":["conjure_core"],"macro":["bug"],"mod":["ast","bug","context","error","metadata","model","parse","rule_engine","rules","solver","stats"]};

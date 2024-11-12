@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/solver/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (363ae4188 2024-09-24)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/solver/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/solver/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/solver/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -428,7 +428,15 @@
 <a href="#427" id="427">427</a>
 <a href="#428" id="428">428</a>
 <a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a></pre></div><pre class="rust"><code><span class="doccomment">//! A high-level API for interacting with constraints solvers.
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a></pre></div><pre class="rust"><code><span class="doccomment">//! A high-level API for interacting with constraints solvers.
 //!
 //! This module provides a consistent, solver-independent API for interacting with constraints
 //! solvers. It also provides incremental solving support, and the returning of run stats from
@@ -495,6 +503,14 @@
 //! assert_eq!(*counter,2);
 //! ```
 //!
+//! # The Solver callback function
+//!
+//! The callback function given to `solve` is called whenever a solution is found by the solver.
+//!
+//! Its return value can be used to control how many solutions the solver finds:
+//!
+//! * If the callback function returns `true`, solver execution continues.
+//! * If the callback function returns `false`, the solver is terminated.
 //!
 
 </span><span class="comment">// # Implementing Solver interfaces
@@ -528,13 +544,13 @@
 <span class="kw">use </span>strum_macros::{Display, EnumIter, EnumString};
 <span class="kw">use </span>thiserror::Error;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::{Constant, Name};
+<span class="kw">use </span><span class="kw">crate</span>::ast::{Literal, Name};
 <span class="kw">use </span><span class="kw">crate</span>::context::Context;
 <span class="kw">use </span><span class="kw">crate</span>::stats::SolverStats;
 <span class="kw">use </span><span class="kw">crate</span>::Model;
 
 <span class="kw">use </span><span class="self">self</span>::model_modifier::ModelModifier;
-<span class="kw">use </span><span class="self">self</span>::states::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="self">self</span>::states::{ExecutionSuccess, Init, ModelLoaded, SolverState};
 
 <span class="kw">pub mod </span>adaptors;
 <span class="kw">pub mod </span>model_modifier;
@@ -566,9 +582,9 @@
 <span class="doccomment">/// The type for user-defined callbacks for use with [Solver].
 ///
 /// Note that this enforces thread safety
-</span><span class="kw">pub type </span>SolverCallback = Box&lt;<span class="kw">dyn </span>Fn(HashMap&lt;Name, Constant&gt;) -&gt; bool + Send&gt;;
+</span><span class="kw">pub type </span>SolverCallback = Box&lt;<span class="kw">dyn </span>Fn(HashMap&lt;Name, Literal&gt;) -&gt; bool + Send&gt;;
 <span class="kw">pub type </span>SolverMutCallback =
-    Box&lt;<span class="kw">dyn </span>Fn(HashMap&lt;Name, Constant&gt;, Box&lt;<span class="kw">dyn </span>ModelModifier&gt;) -&gt; bool + Send&gt;;
+    Box&lt;<span class="kw">dyn </span>Fn(HashMap&lt;Name, Literal&gt;, Box&lt;<span class="kw">dyn </span>ModelModifier&gt;) -&gt; bool + Send&gt;;
 
 <span class="doccomment">/// A common interface for calling underlying solver APIs inside a [`Solver`].
 ///
