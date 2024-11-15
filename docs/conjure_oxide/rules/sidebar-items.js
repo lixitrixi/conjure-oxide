@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["eval_constant"],"mod":["checks"]};
+window.SIDEBAR_ITEMS = {"fn":["eval_constant"]};

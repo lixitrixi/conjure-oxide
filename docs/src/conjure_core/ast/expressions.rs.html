@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/expressions.rs`."><title>expressions.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>expressions.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/expressions.rs`."><title>expressions.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>expressions.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -481,7 +481,14 @@
 <a href="#480" id="480">480</a>
 <a href="#481" id="481">481</a>
 <a href="#482" id="482">482</a>
-<a href="#483" id="483">483</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
+<a href="#483" id="483">483</a>
+<a href="#484" id="484">484</a>
+<a href="#485" id="485">485</a>
+<a href="#486" id="486">486</a>
+<a href="#487" id="487">487</a>
+<a href="#488" id="488">488</a>
+<a href="#489" id="489">489</a>
+<a href="#490" id="490">490</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
 <span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span>serde::{Deserialize, Serialize};
@@ -604,6 +611,12 @@
 
     <span class="attr">#[compatible(Minion)]
     </span>Reify(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
+
+    <span class="doccomment">/// Declaration of an auxiliary variable.
+    ///
+    /// As with Savile Row, we semantically distinguish this from `Eq`.
+    </span><span class="attr">#[compatible(Minion)]
+    </span>AuxDeclaration(Metadata, Name, Box&lt;Expression&gt;),
 }
 
 <span class="kw">fn </span>expr_vec_to_domain_i32(
@@ -724,6 +737,7 @@
             Expression::Bubble(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>, <span class="comment">// TODO: (flm8) should this be a bool?
             </span>Expression::WatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Reify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::AuxDeclaration(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
         }
     }
 
@@ -787,14 +801,7 @@
     <span class="comment">// TODO: (flm8) this will change once we implement a parser (two-way conversion)
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self </span>{
-            Expression::FactorE(<span class="kw">_</span>, Factor::Literal(c)) =&gt; <span class="kw">match </span>c {
-                Literal::Bool(b) =&gt; <span class="macro">write!</span>(f, <span class="string">"{}"</span>, b),
-                Literal::Int(i) =&gt; <span class="macro">write!</span>(f, <span class="string">"{}"</span>, i),
-            },
-            Expression::FactorE(<span class="kw">_</span>, Factor::Reference(name)) =&gt; <span class="kw">match </span>name {
-                Name::MachineName(n) =&gt; <span class="macro">write!</span>(f, <span class="string">"_{}"</span>, n),
-                Name::UserName(s) =&gt; <span class="macro">write!</span>(f, <span class="string">"{}"</span>, s),
-            },
+            Expression::FactorE(<span class="kw">_</span>, factor) =&gt; factor.fmt(f),
             Expression::Sum(<span class="kw">_</span>, expressions) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"Sum({})"</span>, display_expressions(expressions))
             }
@@ -873,8 +880,15 @@
                     box3.clone()
                 )
             }
-            <span class="attr">#[allow(unreachable_patterns)]
-            </span>other =&gt; <span class="macro">todo!</span>(<span class="string">"Implement display for {:?}"</span>, other),
+            Expression::WatchedLiteral(<span class="kw">_</span>, x, l) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"WatchedLiteral({},{})"</span>, x, l)
+            }
+            Expression::Reify(<span class="kw">_</span>, box1, box2) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"Reify({}, {})"</span>, box1.clone(), box2.clone())
+            }
+            Expression::AuxDeclaration(<span class="kw">_</span>, n, e) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"{} =aux {}"</span>, n, e.clone())
+            }
         }
     }
 }

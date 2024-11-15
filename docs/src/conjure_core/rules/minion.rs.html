@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (81eef2d36 2024-11-11)" data-channel="nightly" data-search-js="search-853ef39b.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>minion.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>minion.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -524,9 +524,7 @@
 <a href="#523" id="523">523</a>
 <a href="#524" id="524">524</a>
 <a href="#525" id="525">525</a>
-<a href="#526" id="526">526</a>
-<a href="#527" id="527">527</a>
-<a href="#528" id="528">528</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
+<a href="#526" id="526">526</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
 /*        Rules for translating to Minion-supported constraints         */
 /************************************************************************/
 
@@ -542,6 +540,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::Model;
 <span class="kw">use </span>uniplate::Uniplate;
 <span class="kw">use </span>ApplicationError::RuleNotApplicable;
+
+<span class="kw">use </span><span class="kw">super</span>::utils::to_aux_var;
 
 <span class="macro">register_rule_set!</span>(<span class="string">"Minion"</span>, <span class="number">100</span>, (<span class="string">"Base"</span>), (SolverFamily::Minion));
 
@@ -822,6 +822,7 @@
 */
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
 </span><span class="kw">fn </span>flatten_safediv(expr: <span class="kw-2">&amp;</span>Expr, mdl: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+    <span class="kw">let </span><span class="kw-2">mut </span>mdl = mdl.clone();
     <span class="kw">match </span>expr {
         Eq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
         Leq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; {}
@@ -834,28 +835,23 @@
 
     <span class="kw">let </span><span class="kw-2">mut </span>sub = expr.children();
 
-    <span class="kw">let </span><span class="kw-2">mut </span>new_vars = SymbolTable::new();
     <span class="kw">let </span><span class="kw-2">mut </span>new_top = <span class="macro">vec!</span>[];
 
     <span class="comment">// replace every safe div child with a reference to a new variable
     </span><span class="kw">let </span><span class="kw-2">mut </span>num_changed = <span class="number">0</span>;
     <span class="kw">for </span>c <span class="kw">in </span>sub.iter_mut() {
         <span class="kw">if let </span>SafeDiv(<span class="kw">_</span>, a, b) = c.clone() {
-            num_changed += <span class="number">1</span>;
-            <span class="kw">let </span>new_name = mdl.gensym();
-            <span class="kw">let </span>domain = c
-                .domain_of(<span class="kw-2">&amp;</span>mdl.variables)
-                .ok_or(ApplicationError::DomainError)<span class="question-mark">?</span>;
-            new_vars.insert(new_name.clone(), DecisionVariable::new(domain));
-
-            new_top.push(DivEq(
-                Metadata::new(),
-                a.clone(),
-                b.clone(),
-                Box::new(FactorE(Metadata::new(), Reference(new_name.clone()))),
-            ));
-
-            <span class="kw-2">*</span>c = FactorE(Metadata::new(), Reference(new_name.clone()));
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(c, <span class="kw-2">&amp;</span>mdl) {
+                num_changed += <span class="number">1</span>;
+                mdl = aux_var_info.model();
+                new_top.push(DivEq(
+                    Metadata::new(),
+                    a.clone(),
+                    b.clone(),
+                    Box::new(aux_var_info.as_expr()),
+                ));
+                <span class="kw-2">*</span>c = aux_var_info.as_expr();
+            }
         }
     }
 
@@ -868,7 +864,7 @@
         <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::new(
             expr.with_children(sub),
             And(Metadata::new(), new_top),
-            new_vars,
+            mdl.variables,
         ));
     }
     <span class="prelude-val">Err</span>(RuleNotApplicable)
