@@ -15,6 +15,18 @@
 +-------------------------------------+------------+------------+------------+------------+
 | File                                | Documented | Percentage |   Examples | Percentage |
 +-------------------------------------+------------+------------+------------+------------+
+| crates/tree_morph/src/commands.rs   |          1 |     100.0% |          0 |       0.0% |
+| crates/tree_morph/src/helpers.rs    |          0 |       0.0% |          0 |       0.0% |
+| crates/tree_morph/src/lib.rs        |          1 |     100.0% |          1 |     100.0% |
+| crates/tree_morph/src/reduce.rs     |          2 |     100.0% |          0 |       0.0% |
+| crates/tree_morph/src/reduction.rs  |          0 |       0.0% |          0 |       0.0% |
+| crates/tree_morph/src/rule.rs       |          0 |       0.0% |          0 |       0.0% |
++-------------------------------------+------------+------------+------------+------------+
+| Total                               |          4 |      40.0% |          1 |      33.3% |
++-------------------------------------+------------+------------+------------+------------+
++-------------------------------------+------------+------------+------------+------------+
+| File                                | Documented | Percentage |   Examples | Percentage |
++-------------------------------------+------------+------------+------------+------------+
 | solvers/kissat/src/lib.rs           |          0 |       0.0% |          0 |       0.0% |
 +-------------------------------------+------------+------------+------------+------------+
 | Total                               |          0 |       0.0% |          0 |       0.0% |
@@ -34,7 +46,7 @@
 | File                                | Documented | Percentage |   Examples | Percentage |
 +-------------------------------------+------------+------------+------------+------------+
 | .../conjure_core/src/ast/domains.rs |          0 |       0.0% |          0 |       0.0% |
-| ...jure_core/src/ast/expressions.rs |         23 |      92.0% |          0 |       0.0% |
+| ...jure_core/src/ast/expressions.rs |         24 |      92.3% |          0 |       0.0% |
 | ...s/conjure_core/src/ast/factor.rs |          1 |      33.3% |          0 |       0.0% |
 | ...conjure_core/src/ast/literals.rs |          1 |      33.3% |          0 |       0.0% |
 | crates/conjure_core/src/ast/mod.rs  |          0 |       0.0% |          0 |       0.0% |
@@ -55,7 +67,6 @@
 | ..._core/src/rule_engine/rewrite.rs |          2 |      66.7% |          0 |       0.0% |
 | ...ure_core/src/rule_engine/rule.rs |          3 |      25.0% |          1 |     100.0% |
 | ...core/src/rule_engine/rule_set.rs |          4 |     100.0% |          0 |       0.0% |
-| ...conjure_core/src/rules/checks.rs |          1 |      50.0% |          0 |       0.0% |
 | ...njure_core/src/rules/constant.rs |          1 |     100.0% |          0 |       0.0% |
 | ...es/conjure_core/src/rules/mod.rs |          1 |     100.0% |          0 |       0.0% |
 | ...re/src/solver/adaptors/kissat.rs |          1 |     100.0% |          0 |       0.0% |
@@ -68,7 +79,7 @@
 | ...core/src/stats/rewriter_stats.rs |          1 |      20.0% |          0 |       0.0% |
 | ...e_core/src/stats/solver_stats.rs |          3 |      37.5% |          0 |       0.0% |
 +-------------------------------------+------------+------------+------------+------------+
-| Total                               |         87 |      40.8% |          8 |       9.6% |
+| Total                               |         87 |      41.0% |          8 |       9.9% |
 +-------------------------------------+------------+------------+------------+------------+
 +-------------------------------------+------------+------------+------------+------------+
 | File                                | Documented | Percentage |   Examples | Percentage |

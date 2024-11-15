@@ -2,12 +2,12 @@
 <html lang="en-us">
     <head><meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Grcov report - checks.rs </title>
+        <title>Grcov report - helpers.rs </title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"></head>
     <body>
         <div class="container">
     <nav class="breadcrumb is-right" aria-label="breadcrumbs">
-        <ul><li><a href="../../../../index.html">top_level</a></li><li><a href="./index.html">crates&#x2F;conjure_core&#x2F;src&#x2F;rules</a></li><li class="is-active"><a href="#">checks.rs</a></li>
+        <ul><li><a href="../../../index.html">top_level</a></li><li><a href="./index.html">crates&#x2F;tree_morph&#x2F;src</a></li><li class="is-active"><a href="#">helpers.rs</a></li>
         </ul>
     </nav>
     <nav class="level">
@@ -15,7 +15,7 @@
         <div>
             <p class="heading">Lines</p>
             <p class="title has-text-success">
-                <abbr title="7 / 7">100 %</abbr></p>
+                <abbr title="10 / 10">100 %</abbr></p>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
         <div>
             <p class="heading">Functions</p>
             <p class="title has-text-danger">
-                <abbr title="1 / 2">50 %</abbr></p>
+                <abbr title="4 / 6">66.67 %</abbr></p>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">use uniplate::Biplate;</pre>
+                <pre class="has-background-white py-0 px-2">use uniplate::Uniplate;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -76,7 +76,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">use crate::ast::{Expression, Factor};</pre>
+                <pre class="has-background-white py-0 px-2">use crate::{Reduction, Rule};</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -102,13 +102,13 @@
                 <a href="#5">5</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
+                class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
+                role="cell" aria-label="37">
+                37
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F;&#x2F; True iff the entire AST is constants.</pre>
+                <pre class="has-background-success-light py-0 px-2">pub fn select_first&lt;T, M, R&gt;(</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -119,12 +119,12 @@
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
-                role="cell" aria-label="77640">
-                77640
+                role="cell" aria-label="37">
+                37
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">pub fn is_all_constant(expression: &amp;Expression) -&gt; bool {</pre>
+                <pre class="has-background-success-light py-0 px-2">    _: &amp;T,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -135,12 +135,12 @@
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
-                role="cell" aria-label="77970">
-                77970
+                role="cell" aria-label="37">
+                37
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">    for factor in &lt;Expression as Biplate&lt;Factor&gt;&gt;::universe_bi(expression) {</pre>
+                <pre class="has-background-success-light py-0 px-2">    rs: &amp;mut dyn Iterator&lt;Item = (&amp;R, Reduction&lt;T, M&gt;)&gt;,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -151,12 +151,12 @@
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
-                role="cell" aria-label="77970">
-                77970
+                role="cell" aria-label="37">
+                37
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">        match factor {</pre>
+                <pre class="has-background-success-light py-0 px-2">) -&gt; Option&lt;Reduction&lt;T, M&gt;&gt;</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -167,12 +167,12 @@
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
-                role="cell" aria-label="16665">
-                16665
+                role="cell" aria-label="37">
+                37
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">            Factor::Literal(_) =&gt; {}</pre>
+                <pre class="has-background-success-light py-0 px-2">where</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -182,13 +182,13 @@
                 <a href="#10">10</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
+                class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
+                role="cell" aria-label="37">
+                37
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">            Factor::Reference(_) =&gt; {</pre>
+                <pre class="has-background-success-light py-0 px-2">    T: Uniplate,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -199,12 +199,12 @@
             </div>
             <div
                 class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
-                role="cell" aria-label="61305">
-                61305
+                role="cell" aria-label="37">
+                37
             </div>
             <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">                return false;</pre>
+                <pre class="has-background-success-light py-0 px-2">    R: Rule&lt;T, M&gt;,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -214,13 +214,13 @@
                 <a href="#12">12</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
+                class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
+                role="cell" aria-label="37">
+                37
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">            }</pre>
+                <pre class="has-background-success-light py-0 px-2">{</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -230,13 +230,13 @@
                 <a href="#13">13</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
+                class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
+                role="cell" aria-label="37">
+                37
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">        }</pre>
+                <pre class="has-background-success-light py-0 px-2">    rs.next().map(|(_, r)| r)</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -246,13 +246,13 @@
                 <a href="#14">14</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
-                role="cell" aria-label="no coverage">
-                
+                class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
+                role="cell" aria-label="37">
+                37
             </div>
-            <div class="column has-background-white p-0"
+            <div class="column has-background-success-light p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">    }</pre>
+                <pre class="has-background-success-light py-0 px-2">}</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -278,13 +278,13 @@
                 <a href="#16">16</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
-                role="cell" aria-label="16335">
-                16335
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
+                
             </div>
-            <div class="column has-background-success-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">    true</pre>
+                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F; TODO: Add more selection strategies (e.g. random, smallest subtree, ask the user for input, etc.)</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -294,19 +294,19 @@
                 <a href="#17">17</a>
             </div>
             <div
-                class="column is-1 is-narrow p-0 has-text-centered has-text-success-light has-background-success"
-                role="cell" aria-label="77640">
-                77640
+                class="column is-1 is-narrow p-0 has-text-centered has-text-white has-background-white"
+                role="cell" aria-label="no coverage">
+                
             </div>
-            <div class="column has-background-success-light p-0"
+            <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-success-light py-0 px-2">}</pre>
+                <pre class="has-background-white py-0 px-2">&#x2F;&#x2F; The engine will also have to use a new function which only calls a selector function if there is &gt;1 result</pre>
             </div>
         </div></div>
 </div>
         <footer class="footer">
             <div class="content has-text-centered">
-                <p class="heading">Date: 2024-11-12 12:47</p>
+                <p class="heading">Date: 2024-11-15 23:58</p>
             </div>
         </footer>
     </body>
