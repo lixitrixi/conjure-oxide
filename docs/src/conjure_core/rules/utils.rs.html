@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/utils.rs`."><title>utils.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>utils.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/utils.rs`."><title>utils.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>utils.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -114,24 +114,31 @@
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
 <a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a></pre></div><pre class="rust"><code><span class="kw">use </span>uniplate::{Biplate, Uniplate};
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a></pre></div><pre class="rust"><code><span class="kw">use </span>tracing::instrument;
+<span class="kw">use </span>uniplate::{Biplate, Uniplate};
 
 <span class="kw">use crate</span>::{
-    ast::{DecisionVariable, Domain, Expression <span class="kw">as </span>Expr, Factor, Name},
-    bug,
+    ast::{Atom, DecisionVariable, Domain, Expression <span class="kw">as </span>Expr, Name},
     metadata::Metadata,
     Model,
 };
 
-<span class="doccomment">/// True iff `expr` is a `Factor`.
-</span><span class="kw">pub fn </span>is_factor(expr: <span class="kw-2">&amp;</span>Expr) -&gt; bool {
-    <span class="macro">matches!</span>(expr, Expr::FactorE(<span class="kw">_</span>, <span class="kw">_</span>))
+<span class="doccomment">/// True iff `expr` is an `Atom`.
+</span><span class="kw">pub fn </span>is_atom(expr: <span class="kw-2">&amp;</span>Expr) -&gt; bool {
+    <span class="macro">matches!</span>(expr, Expr::Atomic(<span class="kw">_</span>, <span class="kw">_</span>))
 }
 
-<span class="doccomment">/// True if `expr` is flat; i.e. it only contains factors.
+<span class="doccomment">/// True if `expr` is flat; i.e. it only contains atoms.
 </span><span class="kw">pub fn </span>is_flat(expr: <span class="kw-2">&amp;</span>Expr) -&gt; bool {
     <span class="kw">for </span>e <span class="kw">in </span>expr.children() {
-        <span class="kw">if </span>!is_factor(<span class="kw-2">&amp;</span>e) {
+        <span class="kw">if </span>!is_atom(<span class="kw-2">&amp;</span>e) {
             <span class="kw">return </span><span class="bool-val">false</span>;
         }
     }
@@ -140,10 +147,10 @@
 
 <span class="doccomment">/// True if the entire AST is constants.
 </span><span class="kw">pub fn </span>is_all_constant(expression: <span class="kw-2">&amp;</span>Expr) -&gt; bool {
-    <span class="kw">for </span>factor <span class="kw">in </span>&lt;Expr <span class="kw">as </span>Biplate&lt;Factor&gt;&gt;::universe_bi(expression) {
-        <span class="kw">match </span>factor {
-            Factor::Literal(<span class="kw">_</span>) =&gt; {}
-            Factor::Reference(<span class="kw">_</span>) =&gt; {
+    <span class="kw">for </span>atom <span class="kw">in </span>&lt;Expr <span class="kw">as </span>Biplate&lt;Atom&gt;&gt;::universe_bi(expression) {
+        <span class="kw">match </span>atom {
+            Atom::Literal(<span class="kw">_</span>) =&gt; {}
+            Atom::Reference(<span class="kw">_</span>) =&gt; {
                 <span class="kw">return </span><span class="bool-val">false</span>;
             }
         }
@@ -156,7 +163,7 @@
 ///
 /// # Returns
 ///
-/// * `None` if `Expr` is a `Factor`, or `Expr` does not have a domain (for example, if it is a `Bubble`).
+/// * `None` if `Expr` is a `Atom`, or `Expr` does not have a domain (for example, if it is a `Bubble`).
 ///
 /// * `Some(ToAuxVarOutput)` if successful, containing:
 ///     
@@ -164,19 +171,25 @@
 ///     + A new top level expression, containing the declaration of the auxiliary variable.
 ///     + A reference to the auxiliary variable to replace the existing expression with.
 ///
+</span><span class="attr">#[instrument]
 </span><span class="kw">pub fn </span>to_aux_var(expr: <span class="kw-2">&amp;</span>Expr, m: <span class="kw-2">&amp;</span>Model) -&gt; <span class="prelude-ty">Option</span>&lt;ToAuxVarOutput&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>m = m.clone();
 
-    <span class="comment">// No need to put a factor in an aux_var
-    </span><span class="kw">if </span>is_factor(expr) {
+    <span class="comment">// No need to put an atom in an aux_var
+    </span><span class="kw">if </span>is_atom(expr) {
+        <span class="kw">return </span><span class="prelude-val">None</span>;
+    }
+
+    <span class="comment">// Anything that should be bubbled, bubble
+    </span><span class="kw">if </span>!expr.is_safe() {
         <span class="kw">return </span><span class="prelude-val">None</span>;
     }
 
     <span class="kw">let </span>name = m.gensym();
 
     <span class="kw">let </span><span class="prelude-val">Some</span>(domain) = expr.domain_of(<span class="kw-2">&amp;</span>m.variables) <span class="kw">else </span>{
-        <span class="comment">//bug!("rules::utils::to_aux_var: could not find domain of {expr}");
-        </span><span class="kw">return </span><span class="prelude-val">None</span>;
+        <span class="macro">tracing::trace!</span>(<span class="string">"could not find domain of {}"</span>, expr);
+        <span class="kw">return </span><span class="prelude-val">None</span>;
     };
 
     m.add_variable(name.clone(), DecisionVariable::new(domain.clone()));
@@ -194,22 +207,23 @@
 </span><span class="kw">pub struct </span>ToAuxVarOutput {
     aux_name: Name,
     aux_decl: Expr,
-    aux_domain: Domain,
+    <span class="attr">#[allow(dead_code)] </span><span class="comment">// TODO: aux_domain should be used soon, try removing this pragma
+    </span>aux_domain: Domain,
     new_model: Model,
     _unconstructable: (),
 }
 
 <span class="kw">impl </span>ToAuxVarOutput {
-    <span class="doccomment">/// Returns the new auxiliary variable as a `Factor`.
-    </span><span class="kw">pub fn </span>as_factor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Factor {
-        Factor::Reference(<span class="self">self</span>.aux_name())
+    <span class="doccomment">/// Returns the new auxiliary variable as an `Atom`.
+    </span><span class="kw">pub fn </span>as_atom(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Atom {
+        Atom::Reference(<span class="self">self</span>.aux_name())
     }
 
     <span class="doccomment">/// Returns the new auxiliary variable as an `Expression`.
     ///
     /// This expression will have default `Metadata`.
     </span><span class="kw">pub fn </span>as_expr(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Expr {
-        Expr::FactorE(Metadata::new(), <span class="self">self</span>.as_factor())
+        Expr::Atomic(Metadata::new(), <span class="self">self</span>.as_atom())
     }
 
     <span class="doccomment">/// Returns the top level `Expression` to add to the model.

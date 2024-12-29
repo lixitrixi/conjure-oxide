@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/partial_eval.rs`."><title>partial_eval.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>partial_eval.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/partial_eval.rs`."><title>partial_eval.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>partial_eval.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -291,15 +291,14 @@
 <a href="#290" id="290">290</a>
 <a href="#291" id="291">291</a>
 <a href="#292" id="292">292</a>
-<a href="#293" id="293">293</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
 
 <span class="kw">use </span>conjure_macros::register_rule;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::{Expression <span class="kw">as </span>Expr, Factor, Literal::<span class="kw-2">*</span>};
+<span class="kw">use </span><span class="kw">crate</span>::ast::{Atom, Expression <span class="kw">as </span>Expr, Literal::<span class="kw-2">*</span>};
 <span class="kw">use </span><span class="kw">crate</span>::rule_engine::{ApplicationResult, Reduction};
 <span class="kw">use </span><span class="kw">crate</span>::Model;
-
-<span class="kw">use </span><span class="kw">super</span>::utils::ToAuxVarOutput;
 
 <span class="attr">#[register_rule((<span class="string">"Base"</span>,<span class="number">9000</span>))]
 </span><span class="kw">fn </span>partial_evaluator(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
@@ -311,13 +310,13 @@
     // This is why we always check whether we found a constant or not.
     </span><span class="kw">match </span>expr.clone() {
         Bubble(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
-        FactorE(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+        Atomic(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
         Sum(m, vec) =&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>acc = <span class="number">0</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>n_consts = <span class="number">0</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = expr {
                     acc += x;
                     n_consts += <span class="number">1</span>;
                 } <span class="kw">else </span>{
@@ -325,7 +324,7 @@
                 }
             }
             <span class="kw">if </span>acc != <span class="number">0 </span>{
-                new_vec.push(Expr::FactorE(Default::default(), Factor::Literal(Int(acc))));
+                new_vec.push(Expr::Atomic(Default::default(), Atom::Literal(Int(acc))));
             }
 
             <span class="kw">if </span>n_consts &lt;= <span class="number">1 </span>{
@@ -334,12 +333,13 @@
                 <span class="prelude-val">Ok</span>(Reduction::pure(Sum(m, new_vec)))
             }
         }
+
         Min(m, vec) =&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>acc: <span class="prelude-ty">Option</span>&lt;i32&gt; = <span class="prelude-val">None</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>n_consts = <span class="number">0</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = expr {
                     n_consts += <span class="number">1</span>;
                     acc = <span class="kw">match </span>acc {
                         <span class="prelude-val">Some</span>(i) =&gt; {
@@ -357,7 +357,7 @@
             }
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>(i) = acc {
-                new_vec.push(Expr::FactorE(Default::default(), Factor::Literal(Int(i))));
+                new_vec.push(Expr::Atomic(Default::default(), Atom::Literal(Int(i))));
             }
 
             <span class="kw">if </span>n_consts &lt;= <span class="number">1 </span>{
@@ -371,7 +371,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>n_consts = <span class="number">0</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = expr {
                     n_consts += <span class="number">1</span>;
                     acc = <span class="kw">match </span>acc {
                         <span class="prelude-val">Some</span>(i) =&gt; {
@@ -389,7 +389,7 @@
             }
 
             <span class="kw">if let </span><span class="prelude-val">Some</span>(i) = acc {
-                new_vec.push(Expr::FactorE(Default::default(), Factor::Literal(Int(i))));
+                new_vec.push(Expr::Atomic(Default::default(), Atom::Literal(Int(i))));
             }
 
             <span class="kw">if </span>n_consts &lt;= <span class="number">1 </span>{
@@ -403,12 +403,12 @@
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">let </span><span class="kw-2">mut </span>has_const: bool = <span class="bool-val">false</span>;
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Bool(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Bool(x))) = expr {
                     has_const = <span class="bool-val">true</span>;
                     <span class="kw">if </span>x {
-                        <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(FactorE(
+                        <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Atomic(
                             Default::default(),
-                            Factor::Literal(Bool(<span class="bool-val">true</span>)),
+                            Atom::Literal(Bool(<span class="bool-val">true</span>)),
                         )));
                     }
                 } <span class="kw">else </span>{
@@ -426,12 +426,12 @@
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">let </span><span class="kw-2">mut </span>has_const: bool = <span class="bool-val">false</span>;
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Bool(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Bool(x))) = expr {
                     has_const = <span class="bool-val">true</span>;
                     <span class="kw">if </span>!x {
-                        <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(FactorE(
+                        <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Atomic(
                             Default::default(),
-                            Factor::Literal(Bool(<span class="bool-val">false</span>)),
+                            Atom::Literal(Bool(<span class="bool-val">false</span>)),
                         )));
                     }
                 } <span class="kw">else </span>{
@@ -458,7 +458,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">let </span><span class="kw-2">mut </span>n_consts = <span class="number">0</span>;
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = expr {
                     n_consts += <span class="number">1</span>;
                     acc += x;
                 } <span class="kw">else </span>{
@@ -466,20 +466,20 @@
                 }
             }
 
-            <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = <span class="kw-2">*</span>eq {
+            <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = <span class="kw-2">*</span>eq {
                 <span class="kw">if </span>acc != <span class="number">0 </span>{
                     <span class="comment">// when rhs is a constant, move lhs constants to rhs
                     </span><span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(SumEq(
                         m,
                         new_vec,
-                        Box::new(Expr::FactorE(
+                        Box::new(Expr::Atomic(
                             Default::default(),
-                            Factor::Literal(Int(x - acc)),
+                            Atom::Literal(Int(x - acc)),
                         )),
                     )));
                 }
             } <span class="kw">else if </span>acc != <span class="number">0 </span>{
-                new_vec.push(Expr::FactorE(Default::default(), Factor::Literal(Int(acc))));
+                new_vec.push(Expr::Atomic(Default::default(), Atom::Literal(Int(acc))));
             }
 
             <span class="kw">if </span>n_consts &lt;= <span class="number">1 </span>{
@@ -493,7 +493,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">let </span><span class="kw-2">mut </span>n_consts = <span class="number">0</span>;
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = expr {
                     n_consts += <span class="number">1</span>;
                     acc += x;
                 } <span class="kw">else </span>{
@@ -501,20 +501,20 @@
                 }
             }
 
-            <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = <span class="kw-2">*</span>geq {
+            <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = <span class="kw-2">*</span>geq {
                 <span class="kw">if </span>acc != <span class="number">0 </span>{
                     <span class="comment">// when rhs is a constant, move lhs constants to rhs
                     </span><span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(SumGeq(
                         m,
                         new_vec,
-                        Box::new(Expr::FactorE(
+                        Box::new(Expr::Atomic(
                             Default::default(),
-                            Factor::Literal(Int(x - acc)),
+                            Atom::Literal(Int(x - acc)),
                         )),
                     )));
                 }
             } <span class="kw">else if </span>acc != <span class="number">0 </span>{
-                new_vec.push(Expr::FactorE(Default::default(), Factor::Literal(Int(acc))));
+                new_vec.push(Expr::Atomic(Default::default(), Atom::Literal(Int(acc))));
             }
 
             <span class="kw">if </span>n_consts &lt;= <span class="number">1 </span>{
@@ -528,7 +528,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>new_vec: Vec&lt;Expr&gt; = Vec::new();
             <span class="kw">let </span><span class="kw-2">mut </span>n_consts = <span class="number">0</span>;
             <span class="kw">for </span>expr <span class="kw">in </span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = expr {
                     n_consts += <span class="number">1</span>;
                     acc += x;
                 } <span class="kw">else </span>{
@@ -536,20 +536,20 @@
                 }
             }
 
-            <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = <span class="kw-2">*</span>leq {
+            <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = <span class="kw-2">*</span>leq {
                 <span class="comment">// when rhs is a constant, move lhs constants to rhs
                 </span><span class="kw">if </span>acc != <span class="number">0 </span>{
                     <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(SumLeq(
                         m,
                         new_vec,
-                        Box::new(Expr::FactorE(
+                        Box::new(Expr::Atomic(
                             Default::default(),
-                            Factor::Literal(Int(x - acc)),
+                            Atom::Literal(Int(x - acc)),
                         )),
                     )));
                 }
             } <span class="kw">else if </span>acc != <span class="number">0 </span>{
-                new_vec.push(Expr::FactorE(Default::default(), Factor::Literal(Int(acc))));
+                new_vec.push(Expr::Atomic(Default::default(), Atom::Literal(Int(acc))));
             }
 
             <span class="kw">if </span>n_consts &lt;= <span class="number">1 </span>{
@@ -558,19 +558,16 @@
                 <span class="prelude-val">Ok</span>(Reduction::pure(SumLeq(m, new_vec, leq)))
             }
         }
-        DivEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+        DivEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
         Ineq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
         AllDiff(m, vec) =&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>consts: HashSet&lt;i32&gt; = HashSet::new();
 
             <span class="comment">// check for duplicate constant values which would fail the constraint
             </span><span class="kw">for </span>expr <span class="kw">in </span><span class="kw-2">&amp;</span>vec {
-                <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(Int(x))) = expr {
+                <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(Int(x))) = expr {
                     <span class="kw">if </span>!consts.insert(<span class="kw-2">*</span>x) {
-                        <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Expr::FactorE(
-                            m,
-                            Factor::Literal(Bool(<span class="bool-val">false</span>)),
-                        )));
+                        <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Expr::Atomic(m, Atom::Literal(Bool(<span class="bool-val">false</span>)))));
                     }
                 }
             }
@@ -578,10 +575,15 @@
             <span class="comment">// nothing has changed
             </span><span class="prelude-val">Err</span>(RuleNotApplicable)
         }
-
+        Neg(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
         WatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
         Reify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
         AuxDeclaration(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+        UnsafeMod(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+        SafeMod(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+        ModuloEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+        Minus(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+        MinusEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
     }
 }
 </code></pre></div></section></main></body></html>

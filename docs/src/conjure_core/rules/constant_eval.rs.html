@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/constant.rs`."><title>constant.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>constant.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/constant_eval.rs`."><title>constant_eval.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>constant_eval.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -172,23 +172,100 @@
 <a href="#171" id="171">171</a>
 <a href="#172" id="172">172</a>
 <a href="#173" id="173">173</a>
-<a href="#174" id="174">174</a></pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::ast::{Expression <span class="kw">as </span>Expr, Factor, Literal <span class="kw">as </span>Lit};
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
+
+<span class="kw">use </span>conjure_core::ast::{Atom, Expression <span class="kw">as </span>Expr, Literal <span class="kw">as </span>Lit};
 <span class="kw">use </span>conjure_core::metadata::Metadata;
 <span class="kw">use </span>conjure_core::rule_engine::{
     register_rule, register_rule_set, ApplicationError, ApplicationResult, Reduction,
 };
 <span class="kw">use </span>conjure_core::Model;
-<span class="kw">use </span>tracing::warn;
 
 <span class="macro">register_rule_set!</span>(<span class="string">"Constant"</span>, <span class="number">100</span>, ());
 
 <span class="attr">#[register_rule((<span class="string">"Constant"</span>, <span class="number">9001</span>))]
 </span><span class="kw">fn </span>apply_eval_constant(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
-    <span class="kw">if let </span>Expr::FactorE(<span class="kw">_</span>, Factor::Literal(<span class="kw">_</span>)) = expr {
+    <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(<span class="kw">_</span>)) = expr {
         <span class="kw">return </span><span class="prelude-val">Err</span>(ApplicationError::RuleNotApplicable);
     }
     eval_constant(expr)
-        .map(|c| Reduction::pure(Expr::FactorE(Metadata::new(), Factor::Literal(c))))
+        .map(|c| Reduction::pure(Expr::Atomic(Metadata::new(), Atom::Literal(c))))
         .ok_or(ApplicationError::RuleNotApplicable)
 }
 
@@ -198,8 +275,8 @@
 /// `Some(Const)` if the expression can be simplified to a constant
 </span><span class="kw">pub fn </span>eval_constant(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;Lit&gt; {
     <span class="kw">match </span>expr {
-        Expr::FactorE(<span class="kw">_</span>, Factor::Literal(c)) =&gt; <span class="prelude-val">Some</span>(c.clone()),
-        Expr::FactorE(<span class="kw">_</span>, Factor::Reference(c)) =&gt; <span class="prelude-val">None</span>,
+        Expr::Atomic(<span class="kw">_</span>, Atom::Literal(c)) =&gt; <span class="prelude-val">Some</span>(c.clone()),
+        Expr::Atomic(<span class="kw">_</span>, Atom::Reference(_c)) =&gt; <span class="prelude-val">None</span>,
         Expr::Eq(<span class="kw">_</span>, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a == b, a, b)
             .or_else(|| bin_op::&lt;bool, bool&gt;(|a, b| a == b, a, b))
             .map(Lit::Bool),
@@ -226,9 +303,7 @@
         Expr::SumLeq(<span class="kw">_</span>, exprs, a) =&gt; {
             flat_op::&lt;i32, bool&gt;(|e, a| e.iter().sum::&lt;i32&gt;() &lt;= a, exprs, a).map(Lit::Bool)
         }
-        <span class="comment">// Expr::Div(_, a, b) =&gt; bin_op::&lt;i32, i32&gt;(|a, b| a / b, a, b).map(Lit::Int),
-        // Expr::SafeDiv(_, a, b) =&gt; bin_op::&lt;i32, i32&gt;(|a, b| a / b, a, b).map(Lit::Int),
-        </span>Expr::Min(<span class="kw">_</span>, exprs) =&gt; {
+        Expr::Min(<span class="kw">_</span>, exprs) =&gt; {
             opt_vec_op::&lt;i32, i32&gt;(|e| e.iter().min().copied(), exprs).map(Lit::Int)
         }
         Expr::Max(<span class="kw">_</span>, exprs) =&gt; {
@@ -238,19 +313,88 @@
             <span class="kw">if </span>unwrap_expr::&lt;i32&gt;(b)<span class="question-mark">? </span>== <span class="number">0 </span>{
                 <span class="kw">return </span><span class="prelude-val">None</span>;
             }
-            bin_op::&lt;i32, i32&gt;(|a, b| a / b, a, b).map(Lit::Int)
+            bin_op::&lt;i32, i32&gt;(|a, b| ((a <span class="kw">as </span>f32) / (b <span class="kw">as </span>f32)).floor() <span class="kw">as </span>i32, a, b).map(Lit::Int)
         }
-        Expr::DivEq(<span class="kw">_</span>, a, b, c) =&gt; {
-            tern_op::&lt;i32, bool&gt;(|a, b, c| a == b * c, a, b, c).map(Lit::Bool)
+        Expr::UnsafeMod(<span class="kw">_</span>, a, b) | Expr::SafeMod(<span class="kw">_</span>, a, b) =&gt; {
+            <span class="kw">if </span>unwrap_expr::&lt;i32&gt;(b)<span class="question-mark">? </span>== <span class="number">0 </span>{
+                <span class="kw">return </span><span class="prelude-val">None</span>;
+            }
+            bin_op::&lt;i32, i32&gt;(|a, b| a - b * (a <span class="kw">as </span>f32 / b <span class="kw">as </span>f32).floor() <span class="kw">as </span>i32, a, b)
+                .map(Lit::Int)
+        }
+        Expr::DivEqUndefZero(<span class="kw">_</span>, a, b, c) =&gt; {
+            <span class="comment">// div always rounds down
+            </span><span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(a)<span class="question-mark">?</span>;
+            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(b)<span class="question-mark">?</span>;
+            <span class="kw">let </span>c = unwrap_atom::&lt;i32&gt;(c)<span class="question-mark">?</span>;
+
+            <span class="kw">if </span>b == <span class="number">0 </span>{
+                <span class="kw">return </span><span class="prelude-val">None</span>;
+            }
+
+            <span class="kw">let </span>a = a <span class="kw">as </span>f32;
+            <span class="kw">let </span>b = b <span class="kw">as </span>f32;
+            <span class="kw">let </span>div: i32 = (a / b).floor() <span class="kw">as </span>i32;
+            <span class="prelude-val">Some</span>(Lit::Bool(div == c))
         }
         Expr::Bubble(<span class="kw">_</span>, a, b) =&gt; bin_op::&lt;bool, bool&gt;(|a, b| a &amp;&amp; b, a, b).map(Lit::Bool),
 
         Expr::Reify(<span class="kw">_</span>, a, b) =&gt; bin_op::&lt;bool, bool&gt;(|a, b| a == b, a, b).map(Lit::Bool),
-        <span class="kw">_ </span>=&gt; {
-            <span class="macro">warn!</span>(%expr,<span class="string">"Unimplemented constant eval"</span>);
-            <span class="prelude-val">None
-        </span>}
-    }
+        Expr::SumEq(<span class="kw">_</span>, exprs, a) =&gt; {
+            flat_op::&lt;i32, bool&gt;(|e, a| e.iter().sum::&lt;i32&gt;() == a, exprs, a).map(Lit::Bool)
+        }
+        Expr::ModuloEqUndefZero(<span class="kw">_</span>, a, b, c) =&gt; {
+            <span class="comment">// From Savile Row. Same semantics as division.
+            //
+            //   a - (b * floor(a/b))
+            //
+            // We don't use % as it has the same semantics as /. We don't use / as we want to round
+            // down instead, not towards zero.
+            </span><span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(a)<span class="question-mark">?</span>;
+            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(b)<span class="question-mark">?</span>;
+            <span class="kw">let </span>c = unwrap_atom::&lt;i32&gt;(c)<span class="question-mark">?</span>;
+
+            <span class="kw">if </span>b == <span class="number">0 </span>{
+                <span class="kw">return </span><span class="prelude-val">None</span>;
+            }
+
+            <span class="kw">let </span>modulo = a - b * (a <span class="kw">as </span>f32 / b <span class="kw">as </span>f32).floor() <span class="kw">as </span>i32;
+            <span class="prelude-val">Some</span>(Lit::Bool(modulo == c))
+        }
+        Expr::AllDiff(<span class="kw">_</span>, es) =&gt; {
+            <span class="kw">let </span><span class="kw-2">mut </span>lits: HashSet&lt;Lit&gt; = HashSet::new();
+            <span class="kw">for </span>expr <span class="kw">in </span>es {
+                <span class="kw">let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Literal(x)) = expr <span class="kw">else </span>{
+                    <span class="kw">return </span><span class="prelude-val">None</span>;
+                };
+                <span class="kw">if </span>lits.contains(x) {
+                    <span class="kw">return </span><span class="prelude-val">Some</span>(Lit::Bool(<span class="bool-val">false</span>));
+                } <span class="kw">else </span>{
+                    lits.insert(x.clone());
+                }
+            }
+            <span class="prelude-val">Some</span>(Lit::Bool(<span class="bool-val">true</span>))
+        }
+        Expr::WatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+        Expr::AuxDeclaration(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+        Expr::Neg(<span class="kw">_</span>, a) =&gt; {
+            <span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(<span class="kw-2">&amp;</span>a.as_atom()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+            <span class="prelude-val">Some</span>(Lit::Int(-a))
+        }
+        Expr::Minus(<span class="kw">_</span>, a, b) =&gt; {
+            <span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(<span class="kw-2">&amp;</span>a.as_atom()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(<span class="kw-2">&amp;</span>b.as_atom()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+            <span class="prelude-val">Some</span>(Lit::Int(a - b))
+        }
+        Expr::MinusEq(<span class="kw">_</span>, a, b) =&gt; {
+            <span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(a)<span class="question-mark">?</span>;
+            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(b)<span class="question-mark">?</span>;
+            <span class="prelude-val">Some</span>(Lit::Bool(a == -b))
+        } <span class="comment">// _ =&gt; {
+          //     warn!(%expr,"Unimplemented constant eval");
+          //     None
+          // }
+    </span>}
 }
 
 <span class="kw">fn </span>un_op&lt;T, A&gt;(f: <span class="kw">fn</span>(T) -&gt; A, a: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;A&gt;
@@ -310,40 +454,48 @@
     TryInto::&lt;T&gt;::try_into(c).ok()
 }
 
+<span class="kw">fn </span>unwrap_atom&lt;T: TryFrom&lt;Lit&gt;&gt;(atom: <span class="kw-2">&amp;</span>Atom) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
+    <span class="kw">let </span>Atom::Literal(c) = atom <span class="kw">else </span>{
+        <span class="kw">return </span><span class="prelude-val">None</span>;
+    };
+    TryInto::&lt;T&gt;::try_into(c.clone()).ok()
+}
+
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="kw">use </span>conjure_core::ast::{Expression, Factor, Literal};
+    <span class="kw">use </span><span class="kw">crate</span>::rules::eval_constant;
+    <span class="kw">use </span>conjure_core::ast::{Atom, Expression, Literal};
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>div_by_zero() {
         <span class="kw">let </span>expr = Expression::UnsafeDiv(
             Default::default(),
-            Box::new(Expression::FactorE(
+            Box::new(Expression::Atomic(
                 Default::default(),
-                Factor::Literal(Literal::Int(<span class="number">1</span>)),
+                Atom::Literal(Literal::Int(<span class="number">1</span>)),
             )),
-            Box::new(Expression::FactorE(
+            Box::new(Expression::Atomic(
                 Default::default(),
-                Factor::Literal(Literal::Int(<span class="number">0</span>)),
+                Atom::Literal(Literal::Int(<span class="number">0</span>)),
             )),
         );
-        <span class="macro">assert_eq!</span>(<span class="kw">super</span>::eval_constant(<span class="kw-2">&amp;</span>expr), <span class="prelude-val">None</span>);
+        <span class="macro">assert_eq!</span>(eval_constant(<span class="kw-2">&amp;</span>expr), <span class="prelude-val">None</span>);
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>safediv_by_zero() {
         <span class="kw">let </span>expr = Expression::SafeDiv(
             Default::default(),
-            Box::new(Expression::FactorE(
+            Box::new(Expression::Atomic(
                 Default::default(),
-                Factor::Literal(Literal::Int(<span class="number">1</span>)),
+                Atom::Literal(Literal::Int(<span class="number">1</span>)),
             )),
-            Box::new(Expression::FactorE(
+            Box::new(Expression::Atomic(
                 Default::default(),
-                Factor::Literal(Literal::Int(<span class="number">0</span>)),
+                Atom::Literal(Literal::Int(<span class="number">0</span>)),
             )),
         );
-        <span class="macro">assert_eq!</span>(<span class="kw">super</span>::eval_constant(<span class="kw-2">&amp;</span>expr), <span class="prelude-val">None</span>);
+        <span class="macro">assert_eq!</span>(eval_constant(<span class="kw-2">&amp;</span>expr), <span class="prelude-val">None</span>);
     }
 }
 </code></pre></div></section></main></body></html>

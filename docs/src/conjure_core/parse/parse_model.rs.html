@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/parse/parse_model.rs`."><title>parse_model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/parse/</div>parse_model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/parse/parse_model.rs`."><title>parse_model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/parse/</div>parse_model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -392,13 +392,70 @@
 <a href="#391" id="391">391</a>
 <a href="#392" id="392">392</a>
 <a href="#393" id="393">393</a>
-<a href="#394" id="394">394</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::sync::{Arc, RwLock};
 
 <span class="kw">use </span>serde_json::Value;
 <span class="kw">use </span>serde_json::Value <span class="kw">as </span>JsonValue;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::{DecisionVariable, Domain, Expression, Factor, Literal, Name, Range};
+<span class="kw">use </span><span class="kw">crate</span>::ast::{Atom, DecisionVariable, Domain, Expression, Literal, Name, Range};
 <span class="kw">use </span><span class="kw">crate</span>::bug;
 <span class="kw">use </span><span class="kw">crate</span>::context::Context;
 <span class="kw">use </span><span class="kw">crate</span>::error::{Error, <span class="prelude-ty">Result</span>};
@@ -512,27 +569,18 @@
                     .ok_or(Error::Parse(<span class="string">"RangeBounded is not an array"</span>.to_owned()))<span class="question-mark">?</span>;
                 <span class="kw">let </span><span class="kw-2">mut </span>nums = Vec::new();
                 <span class="kw">for </span>item <span class="kw">in </span>arr.iter() {
-                    <span class="kw">let </span>num = item[<span class="string">"Constant"</span>][<span class="string">"ConstantInt"</span>][<span class="number">1</span>]
-                        .as_i64()
-                        .ok_or(Error::Parse(
-                            <span class="string">"Could not parse int domain constant"</span>.to_owned(),
-                        ))<span class="question-mark">?</span>;
-                    <span class="kw">let </span>num32 = i32::try_from(num).map_err(|<span class="kw">_</span>| {
-                        Error::Parse(<span class="string">"Could not parse int domain constant"</span>.to_owned())
-                    })<span class="question-mark">?</span>;
-                    nums.push(num32);
+                    <span class="kw">let </span>num = parse_domain_value_int(item).ok_or(Error::Parse(
+                        <span class="string">"Could not parse int domain constant"</span>.to_owned(),
+                    ))<span class="question-mark">?</span>;
+                    nums.push(num);
                 }
                 ranges.push(Range::Bounded(nums[<span class="number">0</span>], nums[<span class="number">1</span>]));
             }
             <span class="string">"RangeSingle" </span>=&gt; {
-                <span class="kw">let </span>num = <span class="kw-2">&amp;</span>range.<span class="number">1</span>[<span class="string">"Constant"</span>][<span class="string">"ConstantInt"</span>][<span class="number">1</span>]
-                    .as_i64()
-                    .ok_or(Error::Parse(
-                        <span class="string">"Could not parse int domain constant"</span>.to_owned(),
-                    ))<span class="question-mark">?</span>;
-                <span class="kw">let </span>num32 = i32::try_from(<span class="kw-2">*</span>num)
-                    .map_err(|<span class="kw">_</span>| Error::Parse(<span class="string">"Could not parse int domain constant"</span>.to_owned()))<span class="question-mark">?</span>;
-                ranges.push(Range::Single(num32));
+                <span class="kw">let </span>num = parse_domain_value_int(range.<span class="number">1</span>).ok_or(Error::Parse(
+                    <span class="string">"Could not parse int domain constant"</span>.to_owned(),
+                ))<span class="question-mark">?</span>;
+                ranges.push(Range::Single(num));
             }
             <span class="kw">_ </span>=&gt; {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(Error::Parse(
@@ -542,6 +590,58 @@
         }
     }
     <span class="prelude-val">Ok</span>(Domain::IntDomain(ranges))
+}
+
+<span class="doccomment">/// Parses a (possibly) integer value inside the range of a domain
+///
+/// 1. (positive number) Constant/ConstantInt/1
+///
+/// 2. (negative number) Op/MkOpNegate/Constant/ConstantInt/1
+///
+/// Unlike `parse_constant` this handles the negation operator. `parse_constant` expects the
+/// negation to already have been handled as an expression; however, here we do not expect domain
+/// values to be part of larger expressions, only negated.
+///
+</span><span class="kw">fn </span>parse_domain_value_int(obj: <span class="kw-2">&amp;</span>JsonValue) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
+    <span class="macro">parser_trace!</span>(<span class="string">"trying to parse domain value: {}"</span>, obj);
+
+    <span class="kw">fn </span>try_parse_positive_int(obj: <span class="kw-2">&amp;</span>JsonValue) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
+        <span class="macro">parser_trace!</span>(<span class="string">".. trying as a positive domain value: {}"</span>, obj);
+        <span class="comment">// Positive number: Constant/ConstantInt/1
+
+        </span><span class="kw">let </span>leaf_node = obj.pointer(<span class="string">"/Constant/ConstantInt/1"</span>)<span class="question-mark">?</span>;
+
+        <span class="kw">match </span>leaf_node.as_i64()<span class="question-mark">?</span>.try_into() {
+            <span class="prelude-val">Ok</span>(x) =&gt; {
+                <span class="macro">parser_trace!</span>(<span class="string">".. success!"</span>);
+                <span class="prelude-val">Some</span>(x)
+            }
+            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
+                <span class="macro">println!</span>(
+                    <span class="string">"Could not convert integer constant to i32: {:#?}"</span>,
+                    leaf_node
+                );
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
+
+    <span class="kw">fn </span>try_parse_negative_int(obj: <span class="kw-2">&amp;</span>JsonValue) -&gt; <span class="prelude-ty">Option</span>&lt;i32&gt; {
+        <span class="comment">// Negative number: Op/MkOpNegate/Constant/ConstantInt/1
+
+        // Unwrap negation operator, giving us a Constant/ConstantInt/1
+        //
+        // This is just a positive constant, so try to parse it as such
+
+        </span><span class="macro">parser_trace!</span>(<span class="string">".. trying as a negative domain value: {}"</span>, obj);
+        <span class="kw">let </span>inner_constant_node = obj.pointer(<span class="string">"/Op/MkOpNegate"</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>inner_num = try_parse_positive_int(inner_constant_node)<span class="question-mark">?</span>;
+
+        <span class="macro">parser_trace!</span>(<span class="string">".. success!"</span>);
+        <span class="prelude-val">Some</span>(-inner_num)
+    }
+
+    try_parse_positive_int(obj).or_else(|| try_parse_negative_int(obj))
 }
 
 <span class="comment">// this needs an explicit type signature to force the closures to have the same type
@@ -587,14 +687,28 @@
             <span class="string">"MkOpDiv"</span>,
             Box::new(Expression::UnsafeDiv) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
         ),
+        (
+            <span class="string">"MkOpMod"</span>,
+            Box::new(Expression::UnsafeMod) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
+        ),
+        (
+            <span class="string">"MkOpMinus"</span>,
+            Box::new(Expression::Minus) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
+        ),
     ]
     .into_iter()
     .collect();
 
-    <span class="kw">let </span>unary_operators: HashMap&lt;<span class="kw-2">&amp;</span>str, UnaryOp&gt; = [(
-        <span class="string">"MkOpNot"</span>,
-        Box::new(Expression::Not) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
-    )]
+    <span class="kw">let </span>unary_operators: HashMap&lt;<span class="kw-2">&amp;</span>str, UnaryOp&gt; = [
+        (
+            <span class="string">"MkOpNot"</span>,
+            Box::new(Expression::Not) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
+        ),
+        (
+            <span class="string">"MkOpNegate"</span>,
+            Box::new(Expression::Neg) <span class="kw">as </span>Box&lt;<span class="kw">dyn </span>Fn(<span class="kw">_</span>, <span class="kw">_</span>) -&gt; <span class="kw">_</span>&gt;,
+        ),
+    ]
     .into_iter()
     .collect();
 
@@ -643,9 +757,9 @@
         },
         Value::Object(refe) <span class="kw">if </span>refe.contains_key(<span class="string">"Reference"</span>) =&gt; {
             <span class="kw">let </span>name = refe[<span class="string">"Reference"</span>].as_array()<span class="question-mark">?</span>[<span class="number">0</span>].as_object()<span class="question-mark">?</span>[<span class="string">"Name"</span>].as_str()<span class="question-mark">?</span>;
-            <span class="prelude-val">Some</span>(Expression::FactorE(
+            <span class="prelude-val">Some</span>(Expression::Atomic(
                 Metadata::new(),
-                Factor::Reference(Name::UserName(name.to_string())),
+                Atom::Reference(Name::UserName(name.to_string())),
             ))
         }
         Value::Object(constant) <span class="kw">if </span>constant.contains_key(<span class="string">"Constant"</span>) =&gt; parse_constant(constant),
@@ -746,17 +860,17 @@
                 }
             };
 
-            <span class="prelude-val">Some</span>(Expression::FactorE(
+            <span class="prelude-val">Some</span>(Expression::Atomic(
                 Metadata::new(),
-                Factor::Literal(Literal::Int(int_32)),
+                Atom::Literal(Literal::Int(int_32)),
             ))
         }
 
         <span class="prelude-val">Some</span>(Value::Object(b)) <span class="kw">if </span>b.contains_key(<span class="string">"ConstantBool"</span>) =&gt; {
-            <span class="kw">let </span>b: bool = b[<span class="string">"ConstantBool"</span>].as_bool().unwrap();
-            <span class="prelude-val">Some</span>(Expression::FactorE(
+            <span class="kw">let </span>b: bool = b[<span class="string">"ConstantBool"</span>].as_bool()<span class="question-mark">?</span>;
+            <span class="prelude-val">Some</span>(Expression::Atomic(
                 Metadata::new(),
-                Factor::Literal(Literal::Bool(b)),
+                Atom::Literal(Literal::Bool(b)),
             ))
         }
 
@@ -767,7 +881,7 @@
                 .as_array()
                 .and_then(|x| x[<span class="number">1</span>].as_i64())
                 .and_then(|x| x.try_into().ok())
-                .map(|x| Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Int(x))));
+                .map(|x| Expression::Atomic(Metadata::new(), Atom::Literal(Literal::Int(x))));
 
             <span class="kw">if let </span>e @ <span class="prelude-val">Some</span>(<span class="kw">_</span>) = int_expr {
                 <span class="kw">return </span>e;
@@ -775,7 +889,7 @@
 
             <span class="kw">let </span>bool_expr = constant[<span class="string">"ConstantBool"</span>]
                 .as_bool()
-                .map(|x| Expression::FactorE(Metadata::new(), Factor::Literal(Literal::Bool(x))));
+                .map(|x| Expression::Atomic(Metadata::new(), Atom::Literal(Literal::Bool(x))));
 
             <span class="kw">if let </span>e @ <span class="prelude-val">Some</span>(<span class="kw">_</span>) = bool_expr {
                 <span class="kw">return </span>e;

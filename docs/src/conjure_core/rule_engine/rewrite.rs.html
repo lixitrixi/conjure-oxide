@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rewrite.rs`."><title>rewrite.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rewrite.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rewrite.rs`."><title>rewrite.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rewrite.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -418,25 +418,10 @@
 <a href="#417" id="417">417</a>
 <a href="#418" id="418">418</a>
 <a href="#419" id="419">419</a>
-<a href="#420" id="420">420</a>
-<a href="#421" id="421">421</a>
-<a href="#422" id="422">422</a>
-<a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{HashMap, HashSet};
+<a href="#420" id="420">420</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::env;
-<span class="kw">use </span>std::fmt::Display;
 
-<span class="kw">use </span>thiserror::Error;
-
+<span class="kw">use </span><span class="kw">crate</span>::ast::ReturnType;
 <span class="kw">use </span><span class="kw">crate</span>::bug;
 <span class="kw">use </span><span class="kw">crate</span>::stats::RewriterStats;
 <span class="kw">use </span>uniplate::Uniplate;
@@ -444,39 +429,11 @@
 <span class="kw">use </span><span class="kw">crate</span>::rule_engine::{Reduction, Rule, RuleSet};
 <span class="kw">use crate</span>::{
     ast::Expression,
-    rule_engine::resolve_rules::{
-        get_rule_priorities, get_rules_vec, ResolveRulesError <span class="kw">as </span>ResolveError,
-    },
+    rule_engine::resolve_rules::{get_rule_priorities, get_rules_vec},
     Model,
 };
 
-<span class="attr">#[derive(Debug)]
-</span><span class="kw">struct </span>RuleResult&lt;<span class="lifetime">'a</span>&gt; {
-    rule: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;,
-    reduction: Reduction,
-}
-
-<span class="doccomment">/// Represents errors that can occur during the model rewriting process.
-///
-/// This enum captures errors that occur when trying to resolve or apply rules in the model.
-</span><span class="attr">#[derive(Debug, Error)]
-</span><span class="kw">pub enum </span>RewriteError {
-    ResolveRulesError(ResolveError),
-}
-
-<span class="kw">impl </span>Display <span class="kw">for </span>RewriteError {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
-        <span class="kw">match </span><span class="self">self </span>{
-            RewriteError::ResolveRulesError(e) =&gt; <span class="macro">write!</span>(f, <span class="string">"Error resolving rules: {}"</span>, e),
-        }
-    }
-}
-
-<span class="kw">impl </span>From&lt;ResolveError&gt; <span class="kw">for </span>RewriteError {
-    <span class="kw">fn </span>from(error: ResolveError) -&gt; <span class="self">Self </span>{
-        RewriteError::ResolveRulesError(error)
-    }
-}
+<span class="kw">use </span><span class="kw">super</span>::rewriter_common::{log_rule_application, RewriteError, RuleResult};
 
 <span class="doccomment">/// Checks if the OPTIMIZATIONS environment variable is set to "1".
 ///
@@ -567,18 +524,40 @@
     <span class="kw">let </span>start = std::time::Instant::now();
 
     <span class="comment">//the while loop is exited when None is returned implying the sub-expression is clean
-    </span><span class="kw">while let </span><span class="prelude-val">Some</span>(step) = rewrite_iteration(
-        <span class="kw-2">&amp;</span>new_model.constraints,
-        <span class="kw-2">&amp;</span>new_model,
-        <span class="kw-2">&amp;</span>rules,
-        apply_optimizations,
-        <span class="kw-2">&amp;mut </span>stats,
-    ) {
-        step.apply(<span class="kw-2">&amp;mut </span>new_model); <span class="comment">// Apply side-effects (e.g. symbol table updates)
-    </span>}
+    </span><span class="kw">let </span><span class="kw-2">mut </span>i: usize = <span class="number">0</span>;
+    <span class="kw">while </span>i &lt; new_model.constraints.len() {
+        <span class="kw">while let </span><span class="prelude-val">Some</span>(step) = rewrite_iteration(
+            <span class="kw-2">&amp;</span>new_model.constraints[i],
+            <span class="kw-2">&amp;</span>new_model,
+            <span class="kw-2">&amp;</span>rules,
+            apply_optimizations,
+            <span class="kw-2">&amp;mut </span>stats,
+        ) {
+            <span class="macro">debug_assert!</span>(is_vec_bool(<span class="kw-2">&amp;</span>step.new_top)); <span class="comment">// All new_top expressions should be boolean
+            </span>new_model.constraints[i] = step.new_expression.clone();
+            step.apply(<span class="kw-2">&amp;mut </span>new_model); <span class="comment">// Apply side-effects (e.g., symbol table updates)
+        </span>}
+
+        <span class="comment">// If new constraints are added, continue processing them in the next iterations.
+        </span>i += <span class="number">1</span>;
+    }
+
     stats.rewriter_run_time = <span class="prelude-val">Some</span>(start.elapsed());
     model.context.write().unwrap().stats.add_rewriter_run(stats);
     <span class="prelude-val">Ok</span>(new_model)
+}
+
+<span class="doccomment">/// Checks if all expressions in `Vec&lt;Expr&gt;` are booleans. This needs to be true so
+/// the vector could be conjuncted to the model.
+/// # Returns
+///
+/// - true: all expressions are booleans (so can be conjuncted).
+///
+/// - false: not all expressions are booleans.
+</span><span class="kw">fn </span>is_vec_bool(exprs: <span class="kw-2">&amp;</span>[Expression]) -&gt; bool {
+    exprs
+        .iter()
+        .all(|expr| expr.return_type() == <span class="prelude-val">Some</span>(ReturnType::Bool))
 }
 
 <span class="doccomment">/// Attempts to apply a set of rules to the given expression and its sub-expressions in the model.
@@ -656,9 +635,10 @@
     </span><span class="kw">let </span><span class="kw-2">mut </span>expression = expression.clone();
 
     <span class="kw">let </span>rule_results = apply_all_rules(<span class="kw-2">&amp;</span>expression, model, rules, stats);
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(new) = choose_rewrite(<span class="kw-2">&amp;</span>rule_results, <span class="kw-2">&amp;</span>expression) {
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(result) = choose_rewrite(<span class="kw-2">&amp;</span>rule_results, <span class="kw-2">&amp;</span>expression) {
         <span class="comment">// If a rule is applied, mark the expression as dirty
-        </span><span class="kw">return </span><span class="prelude-val">Some</span>(new);
+        </span>log_rule_application(<span class="kw-2">&amp;</span>result, <span class="kw-2">&amp;</span>expression);
+        <span class="kw">return </span><span class="prelude-val">Some</span>(result.reduction);
     }
 
     <span class="kw">let </span><span class="kw-2">mut </span>sub = expression.children();
@@ -735,13 +715,6 @@
     <span class="kw">for </span>rule <span class="kw">in </span>rules {
         <span class="kw">match </span>rule.apply(expression, model) {
             <span class="prelude-val">Ok</span>(red) =&gt; {
-                <span class="macro">log::info!</span>(
-                    <span class="string">"Rule applicable: {} ({:?}), to expression: {}, resulting in: {}"</span>,
-                    rule.name,
-                    rule.rule_sets,
-                    expression,
-                    red.new_expression
-                );
                 stats.rewriter_rule_application_attempts =
                     <span class="prelude-val">Some</span>(stats.rewriter_rule_application_attempts.unwrap() + <span class="number">1</span>);
                 stats.rewriter_rule_applications =
@@ -796,22 +769,23 @@
 /// }
 ///
 </span><span class="kw">fn </span>choose_rewrite&lt;<span class="lifetime">'a</span>&gt;(
-    results: <span class="kw-2">&amp;</span>[RuleResult],
-    initial_expression: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Expression,
-) -&gt; <span class="prelude-ty">Option</span>&lt;Reduction&gt; {
+    results: <span class="kw-2">&amp;</span>[RuleResult&lt;<span class="lifetime">'a</span>&gt;],
+    initial_expression: <span class="kw-2">&amp;</span>Expression,
+) -&gt; <span class="prelude-ty">Option</span>&lt;RuleResult&lt;<span class="lifetime">'a</span>&gt;&gt; {
     <span class="comment">//in the case where multiple rules are applicable
     </span><span class="kw">if </span>results.len() &gt; <span class="number">1 </span>{
         <span class="kw">let </span>expr = results[<span class="number">0</span>].reduction.new_expression.clone();
         <span class="kw">let </span>rules: Vec&lt;<span class="kw">_</span>&gt; = results.iter().map(|result| <span class="kw-2">&amp;</span>result.rule).collect();
 
-        check_priority(rules.clone(), <span class="kw-2">&amp;</span>initial_expression, <span class="kw-2">&amp;</span>expr);
+        check_priority(rules.clone(), initial_expression, <span class="kw-2">&amp;</span>expr);
     }
 
     <span class="kw">if </span>results.is_empty() {
         <span class="kw">return </span><span class="prelude-val">None</span>;
     }
+
     <span class="comment">// Return the first result for now
-    </span><span class="prelude-val">Some</span>(results[<span class="number">0</span>].reduction.clone())
+    </span><span class="prelude-val">Some</span>(results[<span class="number">0</span>].clone())
 }
 
 <span class="doccomment">/// Function filters all the applicable rules based on their priority.
@@ -836,10 +810,10 @@
 
     <span class="comment">//iterates over each rule_set and groups by the rule priority
     </span><span class="kw">for </span>rule_set <span class="kw">in </span><span class="kw-2">&amp;</span>rule_sets {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>((name, priority)) = rule_set.get(<span class="number">0</span>) {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>((name, priority)) = rule_set.first() {
             rules_by_priorities
                 .entry(<span class="kw-2">*</span>priority)
-                .or_insert(Vec::new())
+                .or_default()
                 .push(<span class="kw-2">*</span>name);
         }
     }
@@ -852,7 +826,7 @@
 
     <span class="kw">if </span>!duplicate_rules.is_empty() {
         <span class="comment">//accumulates all duplicates into a formatted message
-        </span><span class="kw">let </span><span class="kw-2">mut </span>message = String::from(<span class="macro">format!</span>(<span class="string">"Found multiple rules of the same priority applicable to to expression: {:?} \n resulting in expression: {:?}"</span>, initial_expr, new_expr));
+        </span><span class="kw">let </span><span class="kw-2">mut </span>message = <span class="macro">format!</span>(<span class="string">"Found multiple rules of the same priority applicable to to expression: {} \n resulting in expression: {}"</span>, initial_expr, new_expr);
         <span class="kw">for </span>(priority, rules) <span class="kw">in </span><span class="kw-2">&amp;</span>duplicate_rules {
             message.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"Priority {:?} \n Rules: {:?}"</span>, priority, rules));
         }
@@ -860,7 +834,7 @@
 
     <span class="comment">//no duplicate rules of the same priorities were found in the set of applicable rules
     </span>} <span class="kw">else </span>{
-        <span class="macro">log::warn!</span>(<span class="string">"Multiple rules of different priorities are applicable to expression {:?} \n resulting in expression: {:?}
+        <span class="macro">log::warn!</span>(<span class="string">"Multiple rules of different priorities are applicable to expression {} \n resulting in expression: {}
         \n Rules{:?}"</span>, initial_expr, new_expr, rules)
     }
 }

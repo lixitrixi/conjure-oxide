@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["Domain","Expression","Factor","Literal","Name","Range"],"mod":["types"],"struct":["DecisionVariable"],"type":["SymbolTable"]};
+window.SIDEBAR_ITEMS = {"enum":["Atom","Domain","Expression","Literal","Name","Range"],"mod":["pretty","types"],"struct":["DecisionVariable"],"type":["SymbolTable"]};

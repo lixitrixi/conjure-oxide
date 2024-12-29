@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/model.rs`."><title>model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0-nightly (90ab8eaed 2024-11-14)" data-channel="nightly" data-search-js="search-6851d9ab.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/</div>model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/model.rs`."><title>model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/</div>model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -132,7 +132,22 @@
 <a href="#131" id="131">131</a>
 <a href="#132" id="132">132</a>
 <a href="#133" id="133">133</a>
-<a href="#134" id="134">134</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::cell::RefCell;
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::cell::RefCell;
+<span class="kw">use </span>std::collections::HashSet;
 <span class="kw">use </span>std::fmt::Debug;
 <span class="kw">use </span>std::sync::{Arc, RwLock};
 
@@ -142,7 +157,6 @@
 
 <span class="kw">use </span><span class="kw">crate</span>::ast::{DecisionVariable, Domain, Expression, Name, SymbolTable};
 <span class="kw">use </span><span class="kw">crate</span>::context::Context;
-<span class="kw">use </span><span class="kw">crate</span>::metadata::Metadata;
 
 <span class="doccomment">/// Represents a computational model containing variables, constraints, and a shared context.
 ///
@@ -155,7 +169,7 @@
 ///   - For example, the name `x` might be linked to a `DecisionVariable` that says `x` can only take values between 1 and 10.
 ///
 /// - `constraints`:
-///   - Type: `Expression`
+///   - Type: `Vec&lt;Expression&gt;`
 ///   - Represents the logical constraints applied to the model's variables.
 ///   - Can be a single constraint or a combination of various expressions, such as logical operations (e.g., `AND`, `OR`),
 ///     arithmetic operations (e.g., `SafeDiv`, `UnsafeDiv`), or specialized constraints like `SumEq`.
@@ -180,7 +194,7 @@
 </span><span class="kw">pub struct </span>Model {
     <span class="attr">#[serde_as(<span class="kw">as </span>= <span class="string">"Vec&lt;(_, _)&gt;"</span>)]
     </span><span class="kw">pub </span>variables: SymbolTable,
-    <span class="kw">pub </span>constraints: Expression,
+    <span class="kw">pub </span>constraints: Vec&lt;Expression&gt;,
     <span class="attr">#[serde(skip)]
     #[derivative(PartialEq = <span class="string">"ignore"</span>)]
     </span><span class="kw">pub </span>context: Arc&lt;RwLock&lt;Context&lt;<span class="lifetime">'static</span>&gt;&gt;&gt;,
@@ -190,7 +204,7 @@
 <span class="kw">impl </span>Model {
     <span class="kw">pub fn </span>new(
         variables: SymbolTable,
-        constraints: Expression,
+        constraints: Vec&lt;Expression&gt;,
         context: Arc&lt;RwLock&lt;Context&lt;<span class="lifetime">'static</span>&gt;&gt;&gt;,
     ) -&gt; Model {
         Model {
@@ -202,11 +216,7 @@
     }
 
     <span class="kw">pub fn </span>new_empty(context: Arc&lt;RwLock&lt;Context&lt;<span class="lifetime">'static</span>&gt;&gt;&gt;) -&gt; Model {
-        Model::new(
-            Default::default(),
-            Expression::And(Metadata::new(), Vec::new()),
-            context,
-        )
+        Model::new(Default::default(), Vec::new(), context)
     }
     <span class="comment">// Function to update a DecisionVariable based on its Name
     </span><span class="kw">pub fn </span>update_domain(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>Name, new_domain: Domain) {
@@ -225,19 +235,14 @@
     }
 
     <span class="kw">pub fn </span>get_constraints_vec(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Expression&gt; {
-        <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.constraints {
-            Expression::And(<span class="kw">_</span>, constraints) =&gt; constraints.clone(),
-            <span class="kw">_ </span>=&gt; <span class="macro">vec!</span>[<span class="self">self</span>.constraints.clone()],
-        }
+        <span class="self">self</span>.constraints.clone()
     }
 
     <span class="kw">pub fn </span>set_constraints(<span class="kw-2">&amp;mut </span><span class="self">self</span>, constraints: Vec&lt;Expression&gt;) {
         <span class="kw">if </span>constraints.is_empty() {
-            <span class="self">self</span>.constraints = Expression::And(Metadata::new(), Vec::new());
-        } <span class="kw">else if </span>constraints.len() == <span class="number">1 </span>{
-            <span class="self">self</span>.constraints = constraints[<span class="number">0</span>].clone();
+            <span class="self">self</span>.constraints = Vec::new();
         } <span class="kw">else </span>{
-            <span class="self">self</span>.constraints = Expression::And(Metadata::new(), constraints);
+            <span class="self">self</span>.constraints = constraints;
         }
     }
 
@@ -265,5 +270,28 @@
         <span class="kw-2">*</span>(<span class="self">self</span>.next_var.borrow_mut()) += <span class="number">1</span>;
         Name::MachineName(num) <span class="comment">// incremented when inserted
     </span>}
+
+    <span class="doccomment">/// Extends the models symbol table with the given symbol table, updating the gensym counter if
+    /// necessary.
+    ///
+    </span><span class="kw">pub fn </span>extend_sym_table(<span class="kw-2">&amp;mut </span><span class="self">self</span>, symbol_table: SymbolTable) {
+        <span class="kw">if </span>symbol_table.keys().len() &gt; <span class="self">self</span>.variables.keys().len() {
+            <span class="kw">let </span>new_vars = symbol_table.keys().collect::&lt;HashSet&lt;<span class="kw">_</span>&gt;&gt;();
+            <span class="kw">let </span>old_vars = <span class="self">self</span>.variables.keys().collect::&lt;HashSet&lt;<span class="kw">_</span>&gt;&gt;();
+
+            <span class="kw">for </span>added_var <span class="kw">in </span>new_vars.difference(<span class="kw-2">&amp;</span>old_vars) {
+                <span class="kw">let </span><span class="kw-2">mut </span>next_var = <span class="self">self</span>.next_var.borrow_mut();
+                <span class="kw">match </span><span class="kw-2">*</span>added_var {
+                    Name::UserName(<span class="kw">_</span>) =&gt; {}
+                    Name::MachineName(m) =&gt; {
+                        <span class="kw">if </span><span class="kw-2">*</span>m &gt;= <span class="kw-2">*</span>next_var {
+                            <span class="kw-2">*</span>next_var = <span class="kw-2">*</span>m + <span class="number">1</span>;
+                        }
+                    }
+                }
+            }
+        }
+        <span class="self">self</span>.variables.extend(symbol_table);
+    }
 }
 </code></pre></div></section></main></body></html>
