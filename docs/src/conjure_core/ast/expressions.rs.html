@@ -717,7 +717,45 @@
 <a href="#716" id="716">716</a>
 <a href="#717" id="717">717</a>
 <a href="#718" id="718">718</a>
-<a href="#719" id="719">719</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
+<a href="#737" id="737">737</a>
+<a href="#738" id="738">738</a>
+<a href="#739" id="739">739</a>
+<a href="#740" id="740">740</a>
+<a href="#741" id="741">741</a>
+<a href="#742" id="742">742</a>
+<a href="#743" id="743">743</a>
+<a href="#744" id="744">744</a>
+<a href="#745" id="745">745</a>
+<a href="#746" id="746">746</a>
+<a href="#747" id="747">747</a>
+<a href="#748" id="748">748</a>
+<a href="#749" id="749">749</a>
+<a href="#750" id="750">750</a>
+<a href="#751" id="751">751</a>
+<a href="#752" id="752">752</a>
+<a href="#753" id="753">753</a>
+<a href="#754" id="754">754</a>
+<a href="#755" id="755">755</a>
+<a href="#756" id="756">756</a>
+<a href="#757" id="757">757</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
 <span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span>serde::{Deserialize, Serialize};
@@ -753,6 +791,10 @@
     </span>Bubble(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
 
     Atomic(Metadata, Atom),
+
+    <span class="doccomment">/// `|x|` - absolute value of `x`
+    </span><span class="attr">#[compatible(JsonInput)]
+    </span>Abs(Metadata, Box&lt;Expression&gt;),
 
     <span class="attr">#[compatible(JsonInput)]
     </span>Sum(Metadata, Vec&lt;Expression&gt;),
@@ -819,6 +861,16 @@
     /// This is a parser-level construct, and is immediately normalised to `Sum([a,-b])`.
     </span><span class="attr">#[compatible(JsonInput)]
     </span>Minus(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
+
+    <span class="doccomment">/// Ensures that x=|y| i.e. x is the absolute value of y.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#abs)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>FlatAbsEq(Metadata, Atom, Atom),
 
     <span class="doccomment">/// Ensures that sum(vec) &gt;= x.
     ///
@@ -1007,12 +1059,28 @@
                 expr_vec_to_domain_i32(exprs, |x, y| <span class="prelude-val">Some</span>(<span class="kw">if </span>x &gt; y { x } <span class="kw">else </span>{ y }), vars)
             }
             Expression::UnsafeDiv(<span class="kw">_</span>, a, b) =&gt; a.domain_of(vars)<span class="question-mark">?</span>.apply_i32(
-                |x, y| <span class="kw">if </span>y != <span class="number">0 </span>{ <span class="prelude-val">Some</span>(x / y) } <span class="kw">else </span>{ <span class="prelude-val">None </span>},
+                <span class="comment">// rust integer division is truncating; however, we want to always round down,
+                // including for negative numbers.
+                </span>|x, y| {
+                    <span class="kw">if </span>y != <span class="number">0 </span>{
+                        <span class="prelude-val">Some</span>((x <span class="kw">as </span>f32 / y <span class="kw">as </span>f32).floor() <span class="kw">as </span>i32)
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">None
+                    </span>}
+                },
                 <span class="kw-2">&amp;</span>b.domain_of(vars)<span class="question-mark">?</span>,
             ),
             Expression::SafeDiv(<span class="kw">_</span>, a, b) =&gt; {
-                <span class="kw">let </span>domain = a.domain_of(vars)<span class="question-mark">?</span>.apply_i32(
-                    |x, y| <span class="kw">if </span>y != <span class="number">0 </span>{ <span class="prelude-val">Some</span>(x / y) } <span class="kw">else </span>{ <span class="prelude-val">None </span>},
+                <span class="comment">// rust integer division is truncating; however, we want to always round down
+                // including for negative numbers.
+                </span><span class="kw">let </span>domain = a.domain_of(vars)<span class="question-mark">?</span>.apply_i32(
+                    |x, y| {
+                        <span class="kw">if </span>y != <span class="number">0 </span>{
+                            <span class="prelude-val">Some</span>((x <span class="kw">as </span>f32 / y <span class="kw">as </span>f32).floor() <span class="kw">as </span>i32)
+                        } <span class="kw">else </span>{
+                            <span class="prelude-val">None
+                        </span>}
+                    },
                     <span class="kw-2">&amp;</span>b.domain_of(vars)<span class="question-mark">?</span>,
                 );
 
@@ -1059,6 +1127,7 @@
             Expression::Leq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Gt(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Lt(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatAbsEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::FlatSumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::FlatSumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::MinionDivEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
@@ -1089,9 +1158,10 @@
             Expression::FlatProductEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::FlatWeightedSumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::FlatWeightedSumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            <span class="comment">// #[allow(unreachable_patterns)]
-            // _ =&gt; bug!("Cannot calculate domain of {:?}", self),
-        </span>};
+            Expression::Abs(<span class="kw">_</span>, a) =&gt; a
+                .domain_of(vars)<span class="question-mark">?
+                </span>.apply_i32(|a, <span class="kw">_</span>| <span class="prelude-val">Some</span>(a.abs()), <span class="kw-2">&amp;</span>a.domain_of(vars)<span class="question-mark">?</span>),
+        };
         <span class="kw">match </span>ret {
             <span class="comment">// TODO: (flm8) the Minion bindings currently only support single ranges for domains, so we use the min/max bounds
             // Once they support a full domain as we define it, we can remove this conversion
@@ -1135,6 +1205,7 @@
             Expression::Atomic(<span class="kw">_</span>, Atom::Literal(Literal::Int(<span class="kw">_</span>))) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Atomic(<span class="kw">_</span>, Atom::Literal(Literal::Bool(<span class="kw">_</span>))) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Atomic(<span class="kw">_</span>, Atom::Reference(<span class="kw">_</span>)) =&gt; <span class="prelude-val">None</span>,
+            Expression::Abs(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Sum(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Product(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Min(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
@@ -1164,6 +1235,7 @@
             Expression::MinionModuloEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Neg(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Minus(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
+            Expression::FlatAbsEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::FlatMinusEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::FlatProductEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::FlatWeightedSumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
@@ -1216,6 +1288,7 @@
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self </span>{
             Expression::Atomic(<span class="kw">_</span>, atom) =&gt; atom.fmt(f),
+            Expression::Abs(<span class="kw">_</span>, a) =&gt; <span class="macro">write!</span>(f, <span class="string">"|{}|"</span>, a),
             Expression::Sum(<span class="kw">_</span>, expressions) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"Sum({})"</span>, pretty_vec(expressions))
             }
@@ -1319,6 +1392,9 @@
             }
             Expression::Minus(<span class="kw">_</span>, a, b) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"({} - {})"</span>, a.clone(), b.clone())
+            }
+            Expression::FlatAbsEq(<span class="kw">_</span>, a, b) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"AbsEq({},{})"</span>, a.clone(), b.clone())
             }
             Expression::FlatMinusEq(<span class="kw">_</span>, a, b) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"MinusEq({},{})"</span>, a.clone(), b.clone())

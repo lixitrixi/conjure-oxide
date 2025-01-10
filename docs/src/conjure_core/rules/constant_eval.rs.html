@@ -305,7 +305,14 @@
 <a href="#304" id="304">304</a>
 <a href="#305" id="305">305</a>
 <a href="#306" id="306">306</a>
-<a href="#307" id="307">307</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
 
 <span class="kw">use </span>conjure_core::ast::{Atom, Expression <span class="kw">as </span>Expr, Literal <span class="kw">as </span>Lit};
 <span class="kw">use </span>conjure_core::metadata::Metadata;
@@ -335,6 +342,7 @@
     <span class="kw">match </span>expr {
         Expr::Atomic(<span class="kw">_</span>, Atom::Literal(c)) =&gt; <span class="prelude-val">Some</span>(c.clone()),
         Expr::Atomic(<span class="kw">_</span>, Atom::Reference(_c)) =&gt; <span class="prelude-val">None</span>,
+        Expr::Abs(<span class="kw">_</span>, e) =&gt; un_op::&lt;i32, i32&gt;(|a| a.abs(), e).map(Lit::Int),
         Expr::Eq(<span class="kw">_</span>, a, b) =&gt; bin_op::&lt;i32, bool&gt;(|a, b| a == b, a, b)
             .or_else(|| bin_op::&lt;bool, bool&gt;(|a, b| a == b, a, b))
             .map(Lit::Bool),
@@ -512,6 +520,12 @@
             <span class="kw">let </span>sum: i32 = <span class="macro">izip!</span>(cs, vs).fold(<span class="number">0</span>, |acc, (c, v)| acc + (c * v));
 
             <span class="prelude-val">Some</span>(Lit::Bool(sum &gt;= total))
+        }
+        Expr::FlatAbsEq(<span class="kw">_</span>, x, y) =&gt; {
+            <span class="kw">let </span>x: i32 = x.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>y: i32 = y.try_into().ok()<span class="question-mark">?</span>;
+
+            <span class="prelude-val">Some</span>(Lit::Bool(x == y.abs()))
         }
     }
 }

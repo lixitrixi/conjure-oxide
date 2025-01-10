@@ -298,7 +298,10 @@
 <a href="#297" id="297">297</a>
 <a href="#298" id="298">298</a>
 <a href="#299" id="299">299</a>
-<a href="#300" id="300">300</a></pre></div><pre class="rust"><code><span class="doccomment">//! Parse / `load_model` step of running Minion.
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a></pre></div><pre class="rust"><code><span class="doccomment">//! Parse / `load_model` step of running Minion.
 
 </span><span class="kw">use </span>minion_ast::Model <span class="kw">as </span>MinionModel;
 <span class="kw">use </span>minion_rs::ast <span class="kw">as </span>minion_ast;
@@ -534,6 +537,9 @@
                 parse_atoms(vars)<span class="question-mark">?</span>,
                 parse_atom(total)<span class="question-mark">?</span>,
             ))
+        }
+        conjure_ast::Expression::FlatAbsEq(_metadata, x, y) =&gt; {
+            <span class="prelude-val">Ok</span>(minion_ast::Constraint::Abs(parse_atom(x)<span class="question-mark">?</span>, parse_atom(y)<span class="question-mark">?</span>))
         }
         x =&gt; <span class="prelude-val">Err</span>(ModelFeatureNotSupported(<span class="macro">format!</span>(<span class="string">"{:?}"</span>, x))),
     }

@@ -779,7 +779,11 @@
 <a href="#778" id="778">778</a>
 <a href="#779" id="779">779</a>
 <a href="#780" id="780">780</a>
-<a href="#781" id="781">781</a></pre></div><pre class="rust"><code><span class="attr">#![allow(unreachable_patterns)]
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a></pre></div><pre class="rust"><code><span class="attr">#![allow(unreachable_patterns)]
 
 </span><span class="kw">use </span>std::{
     collections::HashMap,
@@ -1363,8 +1367,12 @@
         }
         <span class="comment">//Constraint::WNotInRange(_, _) =&gt; todo!(),
         //Constraint::WNotInset(_, _) =&gt; todo!(),
-        //Constraint::Abs(_, _) =&gt; todo!(),
-        </span>Constraint::DisEq(a, b) =&gt; {
+        </span>Constraint::Abs(a, b) =&gt; {
+            read_var(i, r_constr, a)<span class="question-mark">?</span>;
+            read_var(i, r_constr, b)<span class="question-mark">?</span>;
+            <span class="prelude-val">Ok</span>(())
+        }
+        Constraint::DisEq(a, b) =&gt; {
             read_var(i, r_constr, a)<span class="question-mark">?</span>;
             read_var(i, r_constr, b)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(())
