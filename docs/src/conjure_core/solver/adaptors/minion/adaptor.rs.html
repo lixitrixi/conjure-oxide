@@ -213,6 +213,7 @@
         .unwrap();
 
     <span class="kw">let </span><span class="kw-2">mut </span>conjure_solutions: HashMap&lt;conjure_ast::Name, conjure_ast::Literal&gt; = HashMap::new();
+    <span class="kw">let </span>machine_name_re = Regex::new(<span class="string">r"__conjure_machine_name_([0-9]+)"</span>).unwrap();
     <span class="kw">for </span>(minion_name, minion_const) <span class="kw">in </span>solutions.into_iter() {
         <span class="kw">let </span>conjure_const = <span class="kw">match </span>minion_const {
             minion_ast::Constant::Bool(x) =&gt; conjure_ast::Literal::Bool(x),
@@ -220,7 +221,6 @@
             <span class="kw">_ </span>=&gt; <span class="macro">todo!</span>(),
         };
 
-        <span class="kw">let </span>machine_name_re = Regex::new(<span class="string">r"__conjure_machine_name_([0-9]+)"</span>).unwrap();
         <span class="kw">let </span>conjure_name = <span class="kw">if let </span><span class="prelude-val">Some</span>(caps) = machine_name_re.captures(<span class="kw-2">&amp;</span>minion_name) {
             conjure_ast::Name::MachineName(caps[<span class="number">1</span>].parse::&lt;i32&gt;().unwrap())
         } <span class="kw">else </span>{

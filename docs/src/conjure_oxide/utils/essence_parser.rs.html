@@ -327,8 +327,7 @@
 <a href="#326" id="326">326</a>
 <a href="#327" id="327">327</a>
 <a href="#328" id="328">328</a>
-<a href="#329" id="329">329</a>
-<a href="#330" id="330">330</a></pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::legacy_numeric_constants)]
+<a href="#329" id="329">329</a></pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::legacy_numeric_constants)]
 </span><span class="kw">use </span>conjure_core::error::Error;
 <span class="kw">use </span>std::fs;
 <span class="kw">use </span>std::sync::{Arc, RwLock};
@@ -343,8 +342,7 @@
 <span class="kw">use </span>conjure_core::context::Context;
 <span class="kw">use </span>conjure_core::metadata::Metadata;
 <span class="kw">use </span>conjure_core::Model;
-<span class="kw">use </span>std::collections::BTreeSet;
-<span class="kw">use </span>std::collections::HashMap;
+<span class="kw">use </span>std::collections::{BTreeMap, BTreeSet};
 
 <span class="kw">pub fn </span>parse_essence_file_native(
     path: <span class="kw-2">&amp;</span>str,
@@ -402,7 +400,7 @@
 <span class="kw">fn </span>parse_find_statement(
     find_statement_list: Node,
     source_code: <span class="kw-2">&amp;</span>str,
-) -&gt; HashMap&lt;Name, DecisionVariable&gt; {
+) -&gt; BTreeMap&lt;Name, DecisionVariable&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>symbol_table = SymbolTable::new();
 
     <span class="kw">for </span>find_statement <span class="kw">in </span>named_children(<span class="kw-2">&amp;</span>find_statement_list) {
