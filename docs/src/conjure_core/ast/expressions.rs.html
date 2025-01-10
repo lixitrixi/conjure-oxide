@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/expressions.rs`."><title>expressions.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>expressions.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/expressions.rs`."><title>expressions.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (824759493 2025-01-09)" data-channel="nightly" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>expressions.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -637,7 +637,87 @@
 <a href="#636" id="636">636</a>
 <a href="#637" id="637">637</a>
 <a href="#638" id="638">638</a>
-<a href="#639" id="639">639</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
+<a href="#639" id="639">639</a>
+<a href="#640" id="640">640</a>
+<a href="#641" id="641">641</a>
+<a href="#642" id="642">642</a>
+<a href="#643" id="643">643</a>
+<a href="#644" id="644">644</a>
+<a href="#645" id="645">645</a>
+<a href="#646" id="646">646</a>
+<a href="#647" id="647">647</a>
+<a href="#648" id="648">648</a>
+<a href="#649" id="649">649</a>
+<a href="#650" id="650">650</a>
+<a href="#651" id="651">651</a>
+<a href="#652" id="652">652</a>
+<a href="#653" id="653">653</a>
+<a href="#654" id="654">654</a>
+<a href="#655" id="655">655</a>
+<a href="#656" id="656">656</a>
+<a href="#657" id="657">657</a>
+<a href="#658" id="658">658</a>
+<a href="#659" id="659">659</a>
+<a href="#660" id="660">660</a>
+<a href="#661" id="661">661</a>
+<a href="#662" id="662">662</a>
+<a href="#663" id="663">663</a>
+<a href="#664" id="664">664</a>
+<a href="#665" id="665">665</a>
+<a href="#666" id="666">666</a>
+<a href="#667" id="667">667</a>
+<a href="#668" id="668">668</a>
+<a href="#669" id="669">669</a>
+<a href="#670" id="670">670</a>
+<a href="#671" id="671">671</a>
+<a href="#672" id="672">672</a>
+<a href="#673" id="673">673</a>
+<a href="#674" id="674">674</a>
+<a href="#675" id="675">675</a>
+<a href="#676" id="676">676</a>
+<a href="#677" id="677">677</a>
+<a href="#678" id="678">678</a>
+<a href="#679" id="679">679</a>
+<a href="#680" id="680">680</a>
+<a href="#681" id="681">681</a>
+<a href="#682" id="682">682</a>
+<a href="#683" id="683">683</a>
+<a href="#684" id="684">684</a>
+<a href="#685" id="685">685</a>
+<a href="#686" id="686">686</a>
+<a href="#687" id="687">687</a>
+<a href="#688" id="688">688</a>
+<a href="#689" id="689">689</a>
+<a href="#690" id="690">690</a>
+<a href="#691" id="691">691</a>
+<a href="#692" id="692">692</a>
+<a href="#693" id="693">693</a>
+<a href="#694" id="694">694</a>
+<a href="#695" id="695">695</a>
+<a href="#696" id="696">696</a>
+<a href="#697" id="697">697</a>
+<a href="#698" id="698">698</a>
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
+<a href="#704" id="704">704</a>
+<a href="#705" id="705">705</a>
+<a href="#706" id="706">706</a>
+<a href="#707" id="707">707</a>
+<a href="#708" id="708">708</a>
+<a href="#709" id="709">709</a>
+<a href="#710" id="710">710</a>
+<a href="#711" id="711">711</a>
+<a href="#712" id="712">712</a>
+<a href="#713" id="713">713</a>
+<a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
 <span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span>serde::{Deserialize, Serialize};
@@ -647,6 +727,7 @@
 <span class="kw">use </span>uniplate::{Biplate, Uniplate <span class="kw">as _</span>};
 
 <span class="kw">use </span><span class="kw">crate</span>::ast::literals::Literal;
+<span class="kw">use </span><span class="kw">crate</span>::ast::pretty::pretty_vec;
 <span class="kw">use </span><span class="kw">crate</span>::ast::symbol_table::{Name, SymbolTable};
 <span class="kw">use </span><span class="kw">crate</span>::ast::Atom;
 <span class="kw">use </span><span class="kw">crate</span>::ast::ReturnType;
@@ -673,16 +754,13 @@
 
     Atomic(Metadata, Atom),
 
-    <span class="attr">#[compatible(Minion, JsonInput)]
+    <span class="attr">#[compatible(JsonInput)]
     </span>Sum(Metadata, Vec&lt;Expression&gt;),
 
-    <span class="comment">// /// Division after preventing division by zero, usually with a top-level constraint
-    // #[compatible(Minion)]
-    // SafeDiv(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
-    // /// Division with a possibly undefined value (division by 0)
-    // #[compatible(Minion, JsonInput)]
-    // Div(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
-    </span><span class="attr">#[compatible(JsonInput)]
+    <span class="attr">#[compatible(JsonInput)]
+    </span>Product(Metadata, Vec&lt;Expression&gt;),
+
+    <span class="attr">#[compatible(JsonInput)]
     </span>Min(Metadata, Vec&lt;Expression&gt;),
 
     <span class="attr">#[compatible(JsonInput)]
@@ -733,67 +811,142 @@
     </span><span class="attr">#[compatible(JsonInput)]
     </span>Neg(Metadata, Box&lt;Expression&gt;),
 
-    <span class="doccomment">/// Binary subtraction operator
-    ///
-    /// This mainly exists for ease of parsing, and is immediately normalised to `Sum([a,-b])`.
-    </span><span class="attr">#[compatible(JsonInput)]
-    </span>Minus(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
-    <span class="comment">/* Flattened SumEq.
-     *
-     * Note: this is an intermediary step that's used in the process of converting from conjure model to minion.
-     * This is NOT a valid expression in either Essence or minion.
-     *
-     * ToDo: This is a stop gap solution. Eventually it may be better to have multiple constraints instead? (gs248)
-     */
-    </span>SumEq(Metadata, Vec&lt;Expression&gt;, Box&lt;Expression&gt;),
-
-    <span class="comment">// Flattened Constraints
-    </span><span class="attr">#[compatible(Minion)]
-    </span>SumGeq(Metadata, Vec&lt;Expression&gt;, Box&lt;Expression&gt;),
-
-    <span class="attr">#[compatible(Minion)]
-    </span>SumLeq(Metadata, Vec&lt;Expression&gt;, Box&lt;Expression&gt;),
-
-    <span class="doccomment">/// `a / b = c`
-    </span><span class="attr">#[compatible(Minion)]
-    </span>DivEqUndefZero(Metadata, Atom, Atom, Atom),
-
-    <span class="doccomment">/// `a % b = c`
-    </span><span class="attr">#[compatible(Minion)]
-    </span>ModuloEqUndefZero(Metadata, Atom, Atom, Atom),
-
-    <span class="attr">#[compatible(Minion)]
-    </span>Ineq(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
-
-    <span class="attr">#[compatible(Minion)]
+    <span class="attr">#[compatible(JsonInput)]
     </span>AllDiff(Metadata, Vec&lt;Expression&gt;),
 
-    <span class="doccomment">/// w-literal(x,k) is SAT iff x == k, where x is a variable and k a constant.
+    <span class="doccomment">/// Binary subtraction operator
     ///
-    /// This is a low-level Minion constraint and you should (probably) use Eq instead. The main
-    /// use of w-literal is to convert boolean variables to constraints so that they can be used
-    /// inside watched-and and watched-or.
-    ///
-    /// See `rules::minion::boolean_literal_to_wliteral`.
-    ///
-    ///
-    </span><span class="attr">#[compatible(Minion)]
-    </span>WatchedLiteral(Metadata, Name, Literal),
+    /// This is a parser-level construct, and is immediately normalised to `Sum([a,-b])`.
+    </span><span class="attr">#[compatible(JsonInput)]
+    </span>Minus(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
 
-    <span class="attr">#[compatible(Minion)]
-    </span>Reify(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
+    <span class="doccomment">/// Ensures that sum(vec) &gt;= x.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#sumgeq)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>FlatSumGeq(Metadata, Vec&lt;Atom&gt;, Atom),
+
+    <span class="doccomment">/// Ensures that sum(vec) &lt;= x.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#sumleq)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>FlatSumLeq(Metadata, Vec&lt;Atom&gt;, Atom),
+
+    <span class="doccomment">/// `ineq(x,y,k)` ensures that x &lt;= y + k.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#ineq)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>FlatIneq(Metadata, Atom, Atom, Literal),
+
+    <span class="doccomment">/// `w-literal(x,k)` ensures that x == k, where x is a variable and k a constant.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// This is a low-level Minion constraint and you should probably use Eq instead. The main use
+    /// of w-literal is to convert boolean variables to constraints so that they can be used inside
+    /// watched-and and watched-or.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#minuseq)
+    /// + `rules::minion::boolean_literal_to_wliteral`.
+    </span><span class="attr">#[compatible(Minion)]
+    </span>FlatWatchedLiteral(Metadata, Name, Literal),
+
+    <span class="doccomment">/// `weightedsumleq(cs,xs,total)` ensures that cs.xs &lt;= total, where cs.xs is the scalar dot
+    /// product of cs and xs.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// Represents a weighted sum of the form `ax + by + cz + ...`
+    ///
+    /// # See also
+    ///
+    /// + [Minion
+    /// documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#weightedsumleq)
+    </span>FlatWeightedSumLeq(Metadata, Vec&lt;Literal&gt;, Vec&lt;Atom&gt;, Atom),
+
+    <span class="doccomment">/// `weightedsumgeq(cs,xs,total)` ensures that cs.xs &gt;= total, where cs.xs is the scalar dot
+    /// product of cs and xs.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// Represents a weighted sum of the form `ax + by + cz + ...`
+    ///
+    /// # See also
+    ///
+    /// + [Minion
+    /// documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#weightedsumleq)
+    </span>FlatWeightedSumGeq(Metadata, Vec&lt;Literal&gt;, Vec&lt;Atom&gt;, Atom),
+
+    <span class="doccomment">/// Ensures that x =-y, where x and y are atoms.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#minuseq)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>FlatMinusEq(Metadata, Atom, Atom),
+
+    <span class="doccomment">/// Ensures that x*y=z.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#product)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>FlatProductEq(Metadata, Atom, Atom, Atom),
+
+    <span class="doccomment">/// Ensures that floor(x/y)=z. Always true when y=0.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#div_undefzero)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>MinionDivEqUndefZero(Metadata, Atom, Atom, Atom),
+
+    <span class="doccomment">/// Ensures that x%y=z. Always true when y=0.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    /// + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#mod_undefzero)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>MinionModuloEqUndefZero(Metadata, Atom, Atom, Atom),
+
+    <span class="doccomment">/// `reify(constraint,r)` ensures that r=1 iff `constraint` is satisfied, where r is a 0/1
+    /// variable.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    ///  + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#reify)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>MinionReify(Metadata, Box&lt;Expression&gt;, Atom),
 
     <span class="doccomment">/// Declaration of an auxiliary variable.
     ///
     /// As with Savile Row, we semantically distinguish this from `Eq`.
     </span><span class="attr">#[compatible(Minion)]
     </span>AuxDeclaration(Metadata, Name, Box&lt;Expression&gt;),
-
-    <span class="doccomment">/// `x =-y`, where x and y are atoms.
-    ///
-    /// Low-level Minion constraint.
-    </span><span class="attr">#[compatible(Minion)]
-    </span>MinusEq(Metadata, Atom, Atom),
 }
 
 <span class="kw">fn </span>expr_vec_to_domain_i32(
@@ -844,6 +997,9 @@
             }
             Expression::Atomic(<span class="kw">_</span>, Atom::Literal(Literal::Bool(<span class="kw">_</span>))) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Sum(<span class="kw">_</span>, exprs) =&gt; expr_vec_to_domain_i32(exprs, |x, y| <span class="prelude-val">Some</span>(x + y), vars),
+            Expression::Product(<span class="kw">_</span>, exprs) =&gt; {
+                expr_vec_to_domain_i32(exprs, |x, y| <span class="prelude-val">Some</span>(x * y), vars)
+            }
             Expression::Min(<span class="kw">_</span>, exprs) =&gt; {
                 expr_vec_to_domain_i32(exprs, |x, y| <span class="prelude-val">Some</span>(<span class="kw">if </span>x &lt; y { x } <span class="kw">else </span>{ y }), vars)
             }
@@ -903,15 +1059,14 @@
             Expression::Leq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Gt(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Lt(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::SumEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::SumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::SumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::DivEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::ModuloEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::Ineq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatSumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatSumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::MinionDivEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::MinionModuloEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatIneq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::AllDiff(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::WatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
-            Expression::Reify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatWatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::MinionReify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Neg(<span class="kw">_</span>, x) =&gt; {
                 <span class="kw">let </span><span class="prelude-val">Some</span>(Domain::IntDomain(<span class="kw-2">mut </span>ranges)) = x.domain_of(vars) <span class="kw">else </span>{
                     <span class="kw">return </span><span class="prelude-val">None</span>;
@@ -930,7 +1085,10 @@
                 .domain_of(vars)<span class="question-mark">?
                 </span>.apply_i32(|x, y| <span class="prelude-val">Some</span>(x - y), <span class="kw-2">&amp;</span>b.domain_of(vars)<span class="question-mark">?</span>),
 
-            Expression::MinusEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatMinusEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatProductEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatWeightedSumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::FlatWeightedSumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             <span class="comment">// #[allow(unreachable_patterns)]
             // _ =&gt; bug!("Cannot calculate domain of {:?}", self),
         </span>};
@@ -978,6 +1136,7 @@
             Expression::Atomic(<span class="kw">_</span>, Atom::Literal(Literal::Bool(<span class="kw">_</span>))) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Atomic(<span class="kw">_</span>, Atom::Reference(<span class="kw">_</span>)) =&gt; <span class="prelude-val">None</span>,
             Expression::Sum(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
+            Expression::Product(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Min(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Max(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Not(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
@@ -991,22 +1150,24 @@
             Expression::Lt(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::SafeDiv(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::UnsafeDiv(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
-            Expression::SumEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
-            Expression::SumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
-            Expression::SumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
-            Expression::DivEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
-            Expression::Ineq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::FlatSumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::FlatSumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::MinionDivEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::FlatIneq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::AllDiff(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Bubble(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>, <span class="comment">// TODO: (flm8) should this be a bool?
-            </span>Expression::WatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
-            Expression::Reify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            </span>Expression::FlatWatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::MinionReify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::AuxDeclaration(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::UnsafeMod(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::SafeMod(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
-            Expression::ModuloEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::MinionModuloEqUndefZero(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Neg(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Minus(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
-            Expression::MinusEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::FlatMinusEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::FlatProductEq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::FlatWeightedSumLeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::FlatWeightedSumGeq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
         }
     }
 
@@ -1021,41 +1182,17 @@
         <span class="self">self</span>.set_meta(metadata);
     }
 
-    <span class="kw">pub fn </span>as_atom(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Atom&gt; {
-        <span class="kw">if let </span>Expression::Atomic(_m, f) = <span class="self">self </span>{
-            <span class="prelude-val">Some</span>(f.clone())
-        } <span class="kw">else </span>{
-            <span class="prelude-val">None
-        </span>}
-    }
-
     <span class="doccomment">/// True if the expression is an associative and commutative operator
     </span><span class="kw">pub fn </span>is_associative_commutative_operator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="macro">matches!</span>(
             <span class="self">self</span>,
-            Expression::Sum(<span class="kw">_</span>, <span class="kw">_</span>) | Expression::Or(<span class="kw">_</span>, <span class="kw">_</span>) | Expression::And(<span class="kw">_</span>, <span class="kw">_</span>)
+            Expression::Sum(<span class="kw">_</span>, <span class="kw">_</span>)
+                | Expression::Or(<span class="kw">_</span>, <span class="kw">_</span>)
+                | Expression::And(<span class="kw">_</span>, <span class="kw">_</span>)
+                | Expression::Product(<span class="kw">_</span>, <span class="kw">_</span>)
         )
     }
 }
-
-<span class="kw">fn </span>display_expressions(expressions: <span class="kw-2">&amp;</span>[Expression]) -&gt; String {
-    <span class="comment">// if expressions.len() &lt;= 3 {
-    </span><span class="macro">format!</span>(
-        <span class="string">"[{}]"</span>,
-        expressions
-            .iter()
-            .map(|e| e.to_string())
-            .collect::&lt;Vec&lt;String&gt;&gt;()
-            .join(<span class="string">", "</span>)
-    )
-    <span class="comment">// } else {
-    //     format!(
-    //         "[{}..{}]",
-    //         expressions[0],
-    //         expressions[expressions.len() - 1]
-    //     )
-    // }
-</span>}
 
 <span class="kw">impl </span>From&lt;i32&gt; <span class="kw">for </span>Expression {
     <span class="kw">fn </span>from(i: i32) -&gt; <span class="self">Self </span>{
@@ -1080,22 +1217,25 @@
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self </span>{
             Expression::Atomic(<span class="kw">_</span>, atom) =&gt; atom.fmt(f),
             Expression::Sum(<span class="kw">_</span>, expressions) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"Sum({})"</span>, display_expressions(expressions))
+                <span class="macro">write!</span>(f, <span class="string">"Sum({})"</span>, pretty_vec(expressions))
+            }
+            Expression::Product(<span class="kw">_</span>, expressions) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"Product({})"</span>, pretty_vec(expressions))
             }
             Expression::Min(<span class="kw">_</span>, expressions) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"Min({})"</span>, display_expressions(expressions))
+                <span class="macro">write!</span>(f, <span class="string">"Min({})"</span>, pretty_vec(expressions))
             }
             Expression::Max(<span class="kw">_</span>, expressions) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"Max({})"</span>, display_expressions(expressions))
+                <span class="macro">write!</span>(f, <span class="string">"Max({})"</span>, pretty_vec(expressions))
             }
             Expression::Not(<span class="kw">_</span>, expr_box) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"Not({})"</span>, expr_box.clone())
             }
             Expression::Or(<span class="kw">_</span>, expressions) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"Or({})"</span>, display_expressions(expressions))
+                <span class="macro">write!</span>(f, <span class="string">"Or({})"</span>, pretty_vec(expressions))
             }
             Expression::And(<span class="kw">_</span>, expressions) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"And({})"</span>, display_expressions(expressions))
+                <span class="macro">write!</span>(f, <span class="string">"And({})"</span>, pretty_vec(expressions))
             }
             Expression::Eq(<span class="kw">_</span>, box1, box2) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"({} = {})"</span>, box1.clone(), box2.clone())
@@ -1115,21 +1255,13 @@
             Expression::Lt(<span class="kw">_</span>, box1, box2) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"({} &lt; {})"</span>, box1.clone(), box2.clone())
             }
-            Expression::SumEq(<span class="kw">_</span>, expressions, expr_box) =&gt; {
-                <span class="macro">write!</span>(
-                    f,
-                    <span class="string">"SumEq({}, {})"</span>,
-                    display_expressions(expressions),
-                    expr_box.clone()
-                )
+            Expression::FlatSumGeq(<span class="kw">_</span>, box1, box2) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"SumGeq({}, {})"</span>, pretty_vec(box1), box2.clone())
             }
-            Expression::SumGeq(<span class="kw">_</span>, box1, box2) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"SumGeq({}, {})"</span>, display_expressions(box1), box2.clone())
+            Expression::FlatSumLeq(<span class="kw">_</span>, box1, box2) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"SumLeq({}, {})"</span>, pretty_vec(box1), box2.clone())
             }
-            Expression::SumLeq(<span class="kw">_</span>, box1, box2) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"SumLeq({}, {})"</span>, display_expressions(box1), box2.clone())
-            }
-            Expression::Ineq(<span class="kw">_</span>, box1, box2, box3) =&gt; <span class="macro">write!</span>(
+            Expression::FlatIneq(<span class="kw">_</span>, box1, box2, box3) =&gt; <span class="macro">write!</span>(
                 f,
                 <span class="string">"Ineq({}, {}, {})"</span>,
                 box1.clone(),
@@ -1137,7 +1269,7 @@
                 box3.clone()
             ),
             Expression::AllDiff(<span class="kw">_</span>, expressions) =&gt; {
-                <span class="macro">write!</span>(f, <span class="string">"AllDiff({})"</span>, display_expressions(expressions))
+                <span class="macro">write!</span>(f, <span class="string">"AllDiff({})"</span>, pretty_vec(expressions))
             }
             Expression::Bubble(<span class="kw">_</span>, box1, box2) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"{{{} @ {}}}"</span>, box1.clone(), box2.clone())
@@ -1148,7 +1280,7 @@
             Expression::UnsafeDiv(<span class="kw">_</span>, box1, box2) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"UnsafeDiv({}, {})"</span>, box1.clone(), box2.clone())
             }
-            Expression::DivEqUndefZero(<span class="kw">_</span>, box1, box2, box3) =&gt; {
+            Expression::MinionDivEqUndefZero(<span class="kw">_</span>, box1, box2, box3) =&gt; {
                 <span class="macro">write!</span>(
                     f,
                     <span class="string">"DivEq({}, {}, {})"</span>,
@@ -1157,7 +1289,7 @@
                     box3.clone()
                 )
             }
-            Expression::ModuloEqUndefZero(<span class="kw">_</span>, box1, box2, box3) =&gt; {
+            Expression::MinionModuloEqUndefZero(<span class="kw">_</span>, box1, box2, box3) =&gt; {
                 <span class="macro">write!</span>(
                     f,
                     <span class="string">"ModEq({}, {}, {})"</span>,
@@ -1167,10 +1299,10 @@
                 )
             }
 
-            Expression::WatchedLiteral(<span class="kw">_</span>, x, l) =&gt; {
+            Expression::FlatWatchedLiteral(<span class="kw">_</span>, x, l) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"WatchedLiteral({},{})"</span>, x, l)
             }
-            Expression::Reify(<span class="kw">_</span>, box1, box2) =&gt; {
+            Expression::MinionReify(<span class="kw">_</span>, box1, box2) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"Reify({}, {})"</span>, box1.clone(), box2.clone())
             }
             Expression::AuxDeclaration(<span class="kw">_</span>, n, e) =&gt; {
@@ -1188,8 +1320,36 @@
             Expression::Minus(<span class="kw">_</span>, a, b) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"({} - {})"</span>, a.clone(), b.clone())
             }
-            Expression::MinusEq(<span class="kw">_</span>, a, b) =&gt; {
+            Expression::FlatMinusEq(<span class="kw">_</span>, a, b) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"MinusEq({},{})"</span>, a.clone(), b.clone())
+            }
+            Expression::FlatProductEq(<span class="kw">_</span>, a, b, c) =&gt; {
+                <span class="macro">write!</span>(
+                    f,
+                    <span class="string">"FlatProductEq({},{},{})"</span>,
+                    a.clone(),
+                    b.clone(),
+                    c.clone()
+                )
+            }
+            Expression::FlatWeightedSumLeq(<span class="kw">_</span>, cs, vs, total) =&gt; {
+                <span class="macro">write!</span>(
+                    f,
+                    <span class="string">"FlatWeightedSumLeq({},{},{})"</span>,
+                    pretty_vec(cs),
+                    pretty_vec(vs),
+                    total.clone()
+                )
+            }
+
+            Expression::FlatWeightedSumGeq(<span class="kw">_</span>, cs, vs, total) =&gt; {
+                <span class="macro">write!</span>(
+                    f,
+                    <span class="string">"FlatWeightedSumGeq({},{},{})"</span>,
+                    pretty_vec(cs),
+                    pretty_vec(vs),
+                    total.clone()
+                )
             }
         }
     }

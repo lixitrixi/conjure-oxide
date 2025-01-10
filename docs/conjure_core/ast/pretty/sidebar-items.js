@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["pretty_expressions_as_conjunction","pretty_expressions_as_top_level","pretty_vec"]};
+window.SIDEBAR_ITEMS = {"fn":["pretty_expressions_as_conjunction","pretty_expressions_as_top_level","pretty_variable_declaration","pretty_vec"]};

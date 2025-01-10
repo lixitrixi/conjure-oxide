@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rule.rs`."><title>rule.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rule.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rule.rs`."><title>rule.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (824759493 2025-01-09)" data-channel="nightly" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rule.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -156,12 +156,46 @@
 <a href="#155" id="155">155</a>
 <a href="#156" id="156">156</a>
 <a href="#157" id="157">157</a>
-<a href="#158" id="158">158</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{<span class="self">self</span>, Display, Formatter};
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::BTreeSet;
+<span class="kw">use </span>std::fmt::{<span class="self">self</span>, Display, Formatter};
 <span class="kw">use </span>std::hash::Hash;
 
 <span class="kw">use </span>thiserror::Error;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::{Expression, SymbolTable};
+<span class="kw">use </span><span class="kw">crate</span>::ast::{DecisionVariable, Expression, Name, SymbolTable};
 <span class="kw">use </span><span class="kw">crate</span>::model::Model;
 
 <span class="attr">#[derive(Debug, Error)]
@@ -255,10 +289,42 @@
         }
     }
 
-    <span class="comment">// Apply side-effects (e.g. symbol table updates)
+    <span class="doccomment">/// Applies side-effects (e.g. symbol table updates)
     </span><span class="kw">pub fn </span>apply(<span class="self">self</span>, model: <span class="kw-2">&amp;mut </span>Model) {
         model.extend_sym_table(<span class="self">self</span>.symbols); <span class="comment">// Add new assignments to the symbol table
         </span>model.constraints.extend(<span class="self">self</span>.new_top.clone());
+    }
+
+    <span class="doccomment">/// Gets symbols added by this reduction
+    </span><span class="kw">pub fn </span>added_symbols(<span class="kw-2">&amp;</span><span class="self">self</span>, initial_symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; BTreeSet&lt;Name&gt; {
+        <span class="kw">let </span>initial_symbols_set: BTreeSet&lt;Name&gt; = initial_symbols.keys().cloned().collect();
+        <span class="kw">let </span>new_symbols_set: BTreeSet&lt;Name&gt; = <span class="self">self</span>.symbols.keys().cloned().collect();
+
+        new_symbols_set
+            .difference(<span class="kw-2">&amp;</span>initial_symbols_set)
+            .cloned()
+            .collect()
+    }
+
+    <span class="doccomment">/// Gets symbols changed by this reduction
+    ///
+    /// Returns a list of tuples of (name, domain before reduction, domain after reduction)
+    </span><span class="kw">pub fn </span>changed_symbols(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        initial_symbols: <span class="kw-2">&amp;</span>SymbolTable,
+    ) -&gt; Vec&lt;(Name, DecisionVariable, DecisionVariable)&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>changes: Vec&lt;(Name, DecisionVariable, DecisionVariable)&gt; = <span class="macro">vec!</span>[];
+
+        <span class="kw">for </span>(var_name, initial_value) <span class="kw">in </span>initial_symbols {
+            <span class="kw">let </span><span class="prelude-val">Some</span>(new_value) = <span class="self">self</span>.symbols.get(var_name) <span class="kw">else </span>{
+                <span class="kw">continue</span>;
+            };
+
+            <span class="kw">if </span>new_value != initial_value {
+                changes.push((var_name.clone(), initial_value.clone(), new_value.clone()));
+            }
+        }
+        changes
     }
 }
 

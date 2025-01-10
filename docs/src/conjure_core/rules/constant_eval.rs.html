@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/constant_eval.rs`."><title>constant_eval.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.85.0-nightly (8742e0556 2024-12-28)" data-channel="nightly" data-search-js="search-036cda7a.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>constant_eval.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/constant_eval.rs`."><title>constant_eval.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (824759493 2025-01-09)" data-channel="nightly" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>constant_eval.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -248,7 +248,64 @@
 <a href="#247" id="247">247</a>
 <a href="#248" id="248">248</a>
 <a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
 
 <span class="kw">use </span>conjure_core::ast::{Atom, Expression <span class="kw">as </span>Expr, Literal <span class="kw">as </span>Lit};
 <span class="kw">use </span>conjure_core::metadata::Metadata;
@@ -256,6 +313,7 @@
     register_rule, register_rule_set, ApplicationError, ApplicationResult, Reduction,
 };
 <span class="kw">use </span>conjure_core::Model;
+<span class="kw">use </span>itertools::izip;
 
 <span class="macro">register_rule_set!</span>(<span class="string">"Constant"</span>, <span class="number">100</span>, ());
 
@@ -292,16 +350,33 @@
         Expr::Or(<span class="kw">_</span>, exprs) =&gt; vec_op::&lt;bool, bool&gt;(|e| e.iter().any(|<span class="kw-2">&amp;</span>e| e), exprs).map(Lit::Bool),
 
         Expr::Sum(<span class="kw">_</span>, exprs) =&gt; vec_op::&lt;i32, i32&gt;(|e| e.iter().sum(), exprs).map(Lit::Int),
+        Expr::Product(<span class="kw">_</span>, exprs) =&gt; vec_op::&lt;i32, i32&gt;(|e| e.iter().product(), exprs).map(Lit::Int),
 
-        Expr::Ineq(<span class="kw">_</span>, a, b, c) =&gt; {
-            tern_op::&lt;i32, bool&gt;(|a, b, c| a &lt;= (b + c), a, b, c).map(Lit::Bool)
+        Expr::FlatIneq(<span class="kw">_</span>, a, b, c) =&gt; {
+            <span class="kw">let </span>a: i32 = a.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>b: i32 = b.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>c: i32 = c.try_into().ok()<span class="question-mark">?</span>;
+
+            <span class="prelude-val">Some</span>(Lit::Bool(a &lt;= b + c))
         }
 
-        Expr::SumGeq(<span class="kw">_</span>, exprs, a) =&gt; {
-            flat_op::&lt;i32, bool&gt;(|e, a| e.iter().sum::&lt;i32&gt;() &gt;= a, exprs, a).map(Lit::Bool)
+        Expr::FlatSumGeq(<span class="kw">_</span>, exprs, a) =&gt; {
+            <span class="kw">let </span>sum = exprs.iter().try_fold(<span class="number">0</span>, |acc, atom: <span class="kw-2">&amp;</span>Atom| {
+                <span class="kw">let </span>n: i32 = atom.try_into().ok()<span class="question-mark">?</span>;
+                <span class="kw">let </span>acc = acc + n;
+                <span class="prelude-val">Some</span>(acc)
+            })<span class="question-mark">?</span>;
+
+            <span class="prelude-val">Some</span>(Lit::Bool(sum &gt;= a.try_into().ok()<span class="question-mark">?</span>))
         }
-        Expr::SumLeq(<span class="kw">_</span>, exprs, a) =&gt; {
-            flat_op::&lt;i32, bool&gt;(|e, a| e.iter().sum::&lt;i32&gt;() &lt;= a, exprs, a).map(Lit::Bool)
+        Expr::FlatSumLeq(<span class="kw">_</span>, exprs, a) =&gt; {
+            <span class="kw">let </span>sum = exprs.iter().try_fold(<span class="number">0</span>, |acc, atom: <span class="kw-2">&amp;</span>Atom| {
+                <span class="kw">let </span>n: i32 = atom.try_into().ok()<span class="question-mark">?</span>;
+                <span class="kw">let </span>acc = acc + n;
+                <span class="prelude-val">Some</span>(acc)
+            })<span class="question-mark">?</span>;
+
+            <span class="prelude-val">Some</span>(Lit::Bool(sum &gt;= a.try_into().ok()<span class="question-mark">?</span>))
         }
         Expr::Min(<span class="kw">_</span>, exprs) =&gt; {
             opt_vec_op::&lt;i32, i32&gt;(|e| e.iter().min().copied(), exprs).map(Lit::Int)
@@ -322,11 +397,11 @@
             bin_op::&lt;i32, i32&gt;(|a, b| a - b * (a <span class="kw">as </span>f32 / b <span class="kw">as </span>f32).floor() <span class="kw">as </span>i32, a, b)
                 .map(Lit::Int)
         }
-        Expr::DivEqUndefZero(<span class="kw">_</span>, a, b, c) =&gt; {
+        Expr::MinionDivEqUndefZero(<span class="kw">_</span>, a, b, c) =&gt; {
             <span class="comment">// div always rounds down
-            </span><span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(a)<span class="question-mark">?</span>;
-            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(b)<span class="question-mark">?</span>;
-            <span class="kw">let </span>c = unwrap_atom::&lt;i32&gt;(c)<span class="question-mark">?</span>;
+            </span><span class="kw">let </span>a: i32 = a.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>b: i32 = b.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>c: i32 = c.try_into().ok()<span class="question-mark">?</span>;
 
             <span class="kw">if </span>b == <span class="number">0 </span>{
                 <span class="kw">return </span><span class="prelude-val">None</span>;
@@ -339,20 +414,25 @@
         }
         Expr::Bubble(<span class="kw">_</span>, a, b) =&gt; bin_op::&lt;bool, bool&gt;(|a, b| a &amp;&amp; b, a, b).map(Lit::Bool),
 
-        Expr::Reify(<span class="kw">_</span>, a, b) =&gt; bin_op::&lt;bool, bool&gt;(|a, b| a == b, a, b).map(Lit::Bool),
-        Expr::SumEq(<span class="kw">_</span>, exprs, a) =&gt; {
-            flat_op::&lt;i32, bool&gt;(|e, a| e.iter().sum::&lt;i32&gt;() == a, exprs, a).map(Lit::Bool)
+        Expr::MinionReify(<span class="kw">_</span>, a, b) =&gt; {
+            <span class="kw">let </span>result = eval_constant(a)<span class="question-mark">?</span>;
+
+            <span class="kw">let </span>result: bool = result.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>b: bool = b.try_into().ok()<span class="question-mark">?</span>;
+
+            <span class="prelude-val">Some</span>(Lit::Bool(b == result))
         }
-        Expr::ModuloEqUndefZero(<span class="kw">_</span>, a, b, c) =&gt; {
+        Expr::MinionModuloEqUndefZero(<span class="kw">_</span>, a, b, c) =&gt; {
             <span class="comment">// From Savile Row. Same semantics as division.
             //
             //   a - (b * floor(a/b))
             //
             // We don't use % as it has the same semantics as /. We don't use / as we want to round
             // down instead, not towards zero.
-            </span><span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(a)<span class="question-mark">?</span>;
-            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(b)<span class="question-mark">?</span>;
-            <span class="kw">let </span>c = unwrap_atom::&lt;i32&gt;(c)<span class="question-mark">?</span>;
+
+            </span><span class="kw">let </span>a: i32 = a.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>b: i32 = b.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>c: i32 = c.try_into().ok()<span class="question-mark">?</span>;
 
             <span class="kw">if </span>b == <span class="number">0 </span>{
                 <span class="kw">return </span><span class="prelude-val">None</span>;
@@ -375,26 +455,65 @@
             }
             <span class="prelude-val">Some</span>(Lit::Bool(<span class="bool-val">true</span>))
         }
-        Expr::WatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+        Expr::FlatWatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
         Expr::AuxDeclaration(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
         Expr::Neg(<span class="kw">_</span>, a) =&gt; {
-            <span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(<span class="kw-2">&amp;</span>a.as_atom()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+            <span class="kw">let </span>a: <span class="kw-2">&amp;</span>Atom = a.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>a: i32 = a.try_into().ok()<span class="question-mark">?</span>;
             <span class="prelude-val">Some</span>(Lit::Int(-a))
         }
         Expr::Minus(<span class="kw">_</span>, a, b) =&gt; {
-            <span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(<span class="kw-2">&amp;</span>a.as_atom()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
-            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(<span class="kw-2">&amp;</span>b.as_atom()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+            <span class="kw">let </span>a: <span class="kw-2">&amp;</span>Atom = a.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>a: i32 = a.try_into().ok()<span class="question-mark">?</span>;
+
+            <span class="kw">let </span>b: <span class="kw-2">&amp;</span>Atom = b.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>b: i32 = b.try_into().ok()<span class="question-mark">?</span>;
+
             <span class="prelude-val">Some</span>(Lit::Int(a - b))
         }
-        Expr::MinusEq(<span class="kw">_</span>, a, b) =&gt; {
-            <span class="kw">let </span>a = unwrap_atom::&lt;i32&gt;(a)<span class="question-mark">?</span>;
-            <span class="kw">let </span>b = unwrap_atom::&lt;i32&gt;(b)<span class="question-mark">?</span>;
+        Expr::FlatMinusEq(<span class="kw">_</span>, a, b) =&gt; {
+            <span class="kw">let </span>a: i32 = a.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>b: i32 = b.try_into().ok()<span class="question-mark">?</span>;
             <span class="prelude-val">Some</span>(Lit::Bool(a == -b))
-        } <span class="comment">// _ =&gt; {
-          //     warn!(%expr,"Unimplemented constant eval");
-          //     None
-          // }
-    </span>}
+        }
+        Expr::FlatProductEq(<span class="kw">_</span>, a, b, c) =&gt; {
+            <span class="kw">let </span>a: i32 = a.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>b: i32 = b.try_into().ok()<span class="question-mark">?</span>;
+            <span class="kw">let </span>c: i32 = c.try_into().ok()<span class="question-mark">?</span>;
+            <span class="prelude-val">Some</span>(Lit::Bool(a * b == c))
+        }
+        Expr::FlatWeightedSumLeq(<span class="kw">_</span>, cs, vs, total) =&gt; {
+            <span class="kw">let </span>cs: Vec&lt;i32&gt; = cs
+                .iter()
+                .map(|x| TryInto::&lt;i32&gt;::try_into(x).ok())
+                .collect::&lt;<span class="prelude-ty">Option</span>&lt;Vec&lt;i32&gt;&gt;&gt;()<span class="question-mark">?</span>;
+            <span class="kw">let </span>vs: Vec&lt;i32&gt; = vs
+                .iter()
+                .map(|x| TryInto::&lt;i32&gt;::try_into(x).ok())
+                .collect::&lt;<span class="prelude-ty">Option</span>&lt;Vec&lt;i32&gt;&gt;&gt;()<span class="question-mark">?</span>;
+            <span class="kw">let </span>total: i32 = total.try_into().ok()<span class="question-mark">?</span>;
+
+            <span class="kw">let </span>sum: i32 = <span class="macro">izip!</span>(cs, vs).fold(<span class="number">0</span>, |acc, (c, v)| acc + (c * v));
+
+            <span class="prelude-val">Some</span>(Lit::Bool(sum &lt;= total))
+        }
+
+        Expr::FlatWeightedSumGeq(<span class="kw">_</span>, cs, vs, total) =&gt; {
+            <span class="kw">let </span>cs: Vec&lt;i32&gt; = cs
+                .iter()
+                .map(|x| TryInto::&lt;i32&gt;::try_into(x).ok())
+                .collect::&lt;<span class="prelude-ty">Option</span>&lt;Vec&lt;i32&gt;&gt;&gt;()<span class="question-mark">?</span>;
+            <span class="kw">let </span>vs: Vec&lt;i32&gt; = vs
+                .iter()
+                .map(|x| TryInto::&lt;i32&gt;::try_into(x).ok())
+                .collect::&lt;<span class="prelude-ty">Option</span>&lt;Vec&lt;i32&gt;&gt;&gt;()<span class="question-mark">?</span>;
+            <span class="kw">let </span>total: i32 = total.try_into().ok()<span class="question-mark">?</span>;
+
+            <span class="kw">let </span>sum: i32 = <span class="macro">izip!</span>(cs, vs).fold(<span class="number">0</span>, |acc, (c, v)| acc + (c * v));
+
+            <span class="prelude-val">Some</span>(Lit::Bool(sum &gt;= total))
+        }
+    }
 }
 
 <span class="kw">fn </span>un_op&lt;T, A&gt;(f: <span class="kw">fn</span>(T) -&gt; A, a: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;A&gt;
@@ -414,7 +533,8 @@
     <span class="prelude-val">Some</span>(f(a, b))
 }
 
-<span class="kw">fn </span>tern_op&lt;T, A&gt;(f: <span class="kw">fn</span>(T, T, T) -&gt; A, a: <span class="kw-2">&amp;</span>Expr, b: <span class="kw-2">&amp;</span>Expr, c: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;A&gt;
+<span class="attr">#[allow(dead_code)]
+</span><span class="kw">fn </span>tern_op&lt;T, A&gt;(f: <span class="kw">fn</span>(T, T, T) -&gt; A, a: <span class="kw-2">&amp;</span>Expr, b: <span class="kw-2">&amp;</span>Expr, c: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;A&gt;
 <span class="kw">where
     </span>T: TryFrom&lt;Lit&gt;,
 {
@@ -440,7 +560,8 @@
     f(a)
 }
 
-<span class="kw">fn </span>flat_op&lt;T, A&gt;(f: <span class="kw">fn</span>(Vec&lt;T&gt;, T) -&gt; A, a: <span class="kw-2">&amp;</span>[Expr], b: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;A&gt;
+<span class="attr">#[allow(dead_code)]
+</span><span class="kw">fn </span>flat_op&lt;T, A&gt;(f: <span class="kw">fn</span>(Vec&lt;T&gt;, T) -&gt; A, a: <span class="kw-2">&amp;</span>[Expr], b: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;A&gt;
 <span class="kw">where
     </span>T: TryFrom&lt;Lit&gt;,
 {
@@ -452,13 +573,6 @@
 <span class="kw">fn </span>unwrap_expr&lt;T: TryFrom&lt;Lit&gt;&gt;(expr: <span class="kw-2">&amp;</span>Expr) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
     <span class="kw">let </span>c = eval_constant(expr)<span class="question-mark">?</span>;
     TryInto::&lt;T&gt;::try_into(c).ok()
-}
-
-<span class="kw">fn </span>unwrap_atom&lt;T: TryFrom&lt;Lit&gt;&gt;(atom: <span class="kw-2">&amp;</span>Atom) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
-    <span class="kw">let </span>Atom::Literal(c) = atom <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">None</span>;
-    };
-    TryInto::&lt;T&gt;::try_into(c.clone()).ok()
 }
 
 <span class="attr">#[cfg(test)]
