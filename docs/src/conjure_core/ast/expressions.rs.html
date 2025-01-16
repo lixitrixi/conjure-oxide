@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/expressions.rs`."><title>expressions.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-46132b98.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (eb54a5083 2025-01-11)" data-channel="nightly" data-search-js="search-75f5ac3e.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>expressions.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/expressions.rs`."><title>expressions.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c579a84d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (419b3e2d3 2025-01-15)" data-channel="nightly" data-search-js="search-1429c0ba.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>expressions.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -755,7 +755,32 @@
 <a href="#754" id="754">754</a>
 <a href="#755" id="755">755</a>
 <a href="#756" id="756">756</a>
-<a href="#757" id="757">757</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
+<a href="#757" id="757">757</a>
+<a href="#758" id="758">758</a>
+<a href="#759" id="759">759</a>
+<a href="#760" id="760">760</a>
+<a href="#761" id="761">761</a>
+<a href="#762" id="762">762</a>
+<a href="#763" id="763">763</a>
+<a href="#764" id="764">764</a>
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a>
+<a href="#779" id="779">779</a>
+<a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::{Display, Formatter};
 <span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span>serde::{Deserialize, Serialize};
@@ -816,6 +841,10 @@
 
     <span class="attr">#[compatible(JsonInput, SAT)]
     </span>And(Metadata, Vec&lt;Expression&gt;),
+
+    <span class="doccomment">/// Ensures that `a-&gt;b` (material implication).
+    </span><span class="attr">#[compatible(JsonInput)]
+    </span>Imply(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
 
     <span class="attr">#[compatible(JsonInput)]
     </span>Eq(Metadata, Box&lt;Expression&gt;, Box&lt;Expression&gt;),
@@ -994,6 +1023,17 @@
     </span><span class="attr">#[compatible(Minion)]
     </span>MinionReify(Metadata, Box&lt;Expression&gt;, Atom),
 
+    <span class="doccomment">/// `reifyimply(constraint,r)` ensures that `r-&gt;constraint`, where r is a 0/1 variable.
+    /// variable.
+    ///
+    /// Low-level Minion constraint.
+    ///
+    /// # See also
+    ///
+    ///  + [Minion documentation](https://minion-solver.readthedocs.io/en/stable/usage/constraints.html#reifyimply)
+    </span><span class="attr">#[compatible(Minion)]
+    </span>MinionReifyImply(Metadata, Box&lt;Expression&gt;, Atom),
+
     <span class="doccomment">/// Declaration of an auxiliary variable.
     ///
     /// As with Savile Row, we semantically distinguish this from `Eq`.
@@ -1121,6 +1161,7 @@
             Expression::And(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Not(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Or(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::Imply(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Eq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Neq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Geq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
@@ -1136,6 +1177,7 @@
             Expression::AllDiff(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::FlatWatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::MinionReify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
+            Expression::MinionReifyImply(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(Domain::BoolDomain),
             Expression::Neg(<span class="kw">_</span>, x) =&gt; {
                 <span class="kw">let </span><span class="prelude-val">Some</span>(Domain::IntDomain(<span class="kw-2">mut </span>ranges)) = x.domain_of(vars) <span class="kw">else </span>{
                     <span class="kw">return </span><span class="prelude-val">None</span>;
@@ -1212,6 +1254,7 @@
             Expression::Max(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::Not(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Or(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::Imply(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::And(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Eq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::Neq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
@@ -1229,6 +1272,7 @@
             Expression::Bubble(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>, <span class="comment">// TODO: (flm8) should this be a bool?
             </span>Expression::FlatWatchedLiteral(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::MinionReify(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
+            Expression::MinionReifyImply(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::AuxDeclaration(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Bool),
             Expression::UnsafeMod(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
             Expression::SafeMod(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(ReturnType::Int),
@@ -1310,6 +1354,9 @@
             Expression::And(<span class="kw">_</span>, expressions) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"And({})"</span>, pretty_vec(expressions))
             }
+            Expression::Imply(<span class="kw">_</span>, box1, box2) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"({}) -&gt; ({})"</span>, box1, box2)
+            }
             Expression::Eq(<span class="kw">_</span>, box1, box2) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"({} = {})"</span>, box1.clone(), box2.clone())
             }
@@ -1377,6 +1424,9 @@
             }
             Expression::MinionReify(<span class="kw">_</span>, box1, box2) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"Reify({}, {})"</span>, box1.clone(), box2.clone())
+            }
+            Expression::MinionReifyImply(<span class="kw">_</span>, box1, box2) =&gt; {
+                <span class="macro">write!</span>(f, <span class="string">"ReifyImply({}, {})"</span>, box1.clone(), box2.clone())
             }
             Expression::AuxDeclaration(<span class="kw">_</span>, n, e) =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">"{} =aux {}"</span>, n, e.clone())
