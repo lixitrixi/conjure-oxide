@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/utils/testing.rs`."><title>testing.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c579a84d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (99db2737c 2025-01-16)" data-channel="nightly" data-search-js="search-1429c0ba.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_oxide/utils/</div>testing.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/utils/testing.rs`."><title>testing.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_oxide/utils/</div>testing.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -253,7 +253,34 @@
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
 <a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{BTreeMap, HashMap, HashSet};
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{BTreeMap, HashMap, HashSet};
 <span class="kw">use </span>std::fmt::Debug;
 
 <span class="kw">use </span>std::fs::File;
@@ -446,35 +473,15 @@
     test_name: <span class="kw-2">&amp;</span>str,
     prefix: <span class="kw-2">&amp;</span>str,
     accept: bool,
-) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;String&gt;, std::io::Error&gt; {
+) -&gt; <span class="prelude-ty">Result</span>&lt;JsonValue, anyhow::Error&gt; {
     <span class="kw">let </span>filename = <span class="macro">format!</span>(<span class="string">"{path}/{test_name}-{prefix}-rule-trace.json"</span>);
-    <span class="kw">let </span><span class="kw-2">mut </span>rules_trace: Vec&lt;String&gt; = read_to_string(<span class="kw-2">&amp;</span>filename)
-        .unwrap()
-        .lines()
-        .map(String::from)
-        .collect();
 
-    <span class="comment">//only count the number of rule in generated file (assumming the expected version already has that line and it is correct)
-    </span><span class="kw">if </span>prefix == <span class="string">"generated" </span>{
-        <span class="kw">let </span>rule_count = rules_trace.len();
-
-        <span class="kw">let </span>count_message = <span class="macro">json!</span>({
-            <span class="string">"message"</span>: <span class="string">" Number of rules applied"</span>,
-            <span class="string">"count"</span>: rule_count
-        });
-
-        <span class="comment">// Append the count message to the vector
-        </span><span class="kw">let </span>count_message_string = serde_json::to_string(<span class="kw-2">&amp;</span>count_message)<span class="question-mark">?</span>;
-        rules_trace.push(count_message_string.clone());
-
-        <span class="comment">// Write the updated rules trace back to the file
-        </span><span class="kw">let </span><span class="kw-2">mut </span>file = OpenOptions::new()
-            .write(<span class="bool-val">true</span>)
-            .truncate(<span class="bool-val">true</span>) <span class="comment">// Overwrite the file with updated content
-            </span>.open(<span class="kw-2">&amp;</span>filename)<span class="question-mark">?</span>;
-
-        <span class="macro">writeln!</span>(file, <span class="string">"{}"</span>, rules_trace.join(<span class="string">"\n"</span>))<span class="question-mark">?</span>;
-    }
+    <span class="kw">let </span>rule_traces = <span class="kw">if </span>prefix == <span class="string">"generated" </span>{
+        count_and_sort_rules(<span class="kw-2">&amp;</span>filename)<span class="question-mark">?
+    </span>} <span class="kw">else </span>{
+        <span class="kw">let </span>file_contents = std::fs::read_to_string(filename)<span class="question-mark">?</span>;
+        serde_json::from_str(<span class="kw-2">&amp;</span>file_contents)<span class="question-mark">?
+    </span>};
 
     <span class="kw">if </span>accept {
         std::fs::copy(
@@ -483,7 +490,54 @@
         )<span class="question-mark">?</span>;
     }
 
-    <span class="prelude-val">Ok</span>(rules_trace)
+    <span class="prelude-val">Ok</span>(rule_traces)
+}
+
+<span class="kw">pub fn </span>count_and_sort_rules(filename: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;JsonValue, anyhow::Error&gt; {
+    <span class="kw">let </span>file_contents = read_to_string(filename)<span class="question-mark">?</span>;
+
+    <span class="kw">let </span>sorted_json_rules = <span class="kw">if </span>file_contents.trim().is_empty() {
+        <span class="kw">let </span>rule_count_message = <span class="macro">json!</span>({
+            <span class="string">"Number of rules applied"</span>: <span class="number">0</span>,
+        });
+        rule_count_message
+    } <span class="kw">else </span>{
+        <span class="kw">let </span>rule_count = file_contents.lines().count();
+        <span class="kw">let </span><span class="kw-2">mut </span>sorted_json_rules = sort_json_rules(<span class="kw-2">&amp;</span>file_contents)<span class="question-mark">?</span>;
+
+        <span class="kw">let </span>rule_count_message = <span class="macro">json!</span>({
+            <span class="string">"Number of rules applied"</span>: rule_count,
+        });
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(array) = sorted_json_rules.as_array_mut() {
+            array.push(rule_count_message);
+        } <span class="kw">else </span>{
+            <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">"Expected JSON array"</span>));
+        }
+        sort_json_object(<span class="kw-2">&amp;</span>sorted_json_rules, <span class="bool-val">false</span>)
+    };
+
+    <span class="kw">let </span>generated_sorted_json_rules = serde_json::to_string_pretty(<span class="kw-2">&amp;</span>sorted_json_rules)<span class="question-mark">?</span>;
+
+    <span class="kw">let </span><span class="kw-2">mut </span>file = OpenOptions::new()
+        .write(<span class="bool-val">true</span>)
+        .truncate(<span class="bool-val">true</span>)
+        .open(filename)<span class="question-mark">?</span>;
+
+    file.write_all(generated_sorted_json_rules.as_bytes())<span class="question-mark">?</span>;
+
+    <span class="prelude-val">Ok</span>(sorted_json_rules)
+}
+
+<span class="kw">fn </span>sort_json_rules(json_rule_traces: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;JsonValue, anyhow::Error&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>sorted_rule_traces = Vec::new();
+
+    <span class="kw">for </span>line <span class="kw">in </span>json_rule_traces.lines() {
+        <span class="kw">let </span>pretty_json = sort_json_object(<span class="kw-2">&amp;</span>serde_json::from_str(line)<span class="question-mark">?</span>, <span class="bool-val">true</span>);
+        sorted_rule_traces.push(pretty_json);
+    }
+
+    <span class="prelude-val">Ok</span>(JsonValue::Array(sorted_rule_traces))
 }
 
 <span class="kw">pub fn </span>read_human_rule_trace(

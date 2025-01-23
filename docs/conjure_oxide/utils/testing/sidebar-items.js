@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["assert_eq_any_order","minion_solutions_from_json","read_human_rule_trace","read_minion_solutions_json","read_model_json","read_rule_trace","save_minion_solutions_json","save_model_json","save_stats_json","serialise_model"]};
+window.SIDEBAR_ITEMS = {"fn":["assert_eq_any_order","count_and_sort_rules","minion_solutions_from_json","read_human_rule_trace","read_minion_solutions_json","read_model_json","read_rule_trace","save_minion_solutions_json","save_model_json","save_stats_json","serialise_model"]};

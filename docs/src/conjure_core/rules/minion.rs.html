@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c579a84d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (99db2737c 2025-01-16)" data-channel="nightly" data-search-js="search-1429c0ba.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>minion.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>minion.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -984,7 +984,15 @@
 <a href="#983" id="983">983</a>
 <a href="#984" id="984">984</a>
 <a href="#985" id="985">985</a>
-<a href="#986" id="986">986</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
+<a href="#986" id="986">986</a>
+<a href="#987" id="987">987</a>
+<a href="#988" id="988">988</a>
+<a href="#989" id="989">989</a>
+<a href="#990" id="990">990</a>
+<a href="#991" id="991">991</a>
+<a href="#992" id="992">992</a>
+<a href="#993" id="993">993</a>
+<a href="#994" id="994">994</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
 /*        Rules for translating to Minion-supported constraints         */
 /************************************************************************/
 
@@ -1003,7 +1011,7 @@
 <span class="kw">use </span>uniplate::Uniplate;
 <span class="kw">use </span>ApplicationError::<span class="kw-2">*</span>;
 
-<span class="kw">use </span><span class="kw">super</span>::utils::{expressions_to_atoms, is_flat, to_aux_var};
+<span class="kw">use </span><span class="kw">super</span>::utils::{is_flat, to_aux_var};
 
 <span class="macro">register_rule_set!</span>(<span class="string">"Minion"</span>, <span class="number">100</span>, (<span class="string">"Base"</span>), (SolverFamily::Minion));
 
@@ -1103,36 +1111,16 @@
     ))
 }
 
-<span class="doccomment">/// Introduces `FlatWeightedSumLeq` / `FlatWeightedSumGeq` constraints.
+<span class="doccomment">/// Introduces `FlatWeightedSumLeq`, `FlatWeightedSumGeq`, `FlatSumLeq`, FlatSumGeq` constraints.
+///
+/// If the input is a weighted sum, the weighted sum constraints are used, otherwise the standard
+/// sum constraints are used.
 ///
 /// # Details
 /// This rule is a bit unusual compared to other introduction rules in that
 /// it does its own flattening.
 ///
-/// For example, introduce_sumleq only accepts sums of atoms and relies on
-/// the generic flattening rules (flatten_binop / flatten_vecop) to run
-/// before it flattens the sum.
-///
-/// ```text
-/// a + (b*c) + (d*e) &lt;= 10
-///   ~~&gt; flatten_vecop
-/// a + __0 + __1 &lt;= 10
-///
-/// with new top level constraints
-///
-/// __0 =aux b*c
-/// __1 =aux d*e
-///
-/// ---
-///
-/// a + __0 + __1 &lt;= 10
-///   ~~&gt; introduce_sumleq
-/// flat_sumleq([a,__0,__1],10)
-///
-/// ...
-/// ```
-///
-/// However, weighted sums are expressed as sums of products, which are not
+/// Weighted sums are expressed as sums of products, which are not
 /// flat. Flattening a weighted sum generically makes it indistinguishable
 /// from a sum:
 ///
@@ -1148,9 +1136,7 @@
 /// __2 =aux 3*c
 /// ```
 ///
-/// Therefore, introduce_weightedsumleq_sumgeq does its own flattening, and
-/// has a higher priority than flatten_vecop to prevent weighted sums being
-/// generically flattened.
+/// Therefore, introduce_weightedsumleq_sumgeq does its own flattening.
 ///
 /// Having custom flattening semantics means that we can make more things
 /// weighted sums.
@@ -1179,23 +1165,100 @@
 /// 3. Weighted atom: `c*a ~&gt; (c,a)`
 /// 4. Weighted non-atom: `c*e ~&gt; (c,__0)` with new constraint` __0 =aux e`
 /// 5. Weighted product: `c*e*f ~&gt; (c,__0)` with new constraint `__0 =aux (e*f)`
-</span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4500</span>))]
+/// 6. Negated atom: `-x ~&gt; (-1,x)`
+/// 7. Negated expression: `-e ~&gt; (-1,__0)` with new constraint `__0 = e`
+///
+/// Cases 6 and 7 could potentially be a normalising rule `-e ~&gt; -1*e`. However, I think that we
+/// should only turn negations into a product when they are inside a sum, not all the time.
+</span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4600</span>))]
 </span><span class="kw">fn </span>introduce_weighted_sumleq_sumgeq(expr: <span class="kw-2">&amp;</span>Expr, model: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
-    <span class="comment">// assume sum on lhs of leq/geq, as in introduce_sumleq
-    // is_leq is true if leq, false if geq
-    </span><span class="kw">let </span>(sum_expr, total, is_leq) = <span class="kw">match </span>expr.clone() {
-        Expr::Leq(<span class="kw">_</span>, sum_expr, total) =&gt; (<span class="kw-2">*</span>sum_expr, <span class="kw-2">*</span>total, <span class="bool-val">true</span>),
-        Expr::Geq(<span class="kw">_</span>, sum_expr, total) =&gt; (<span class="kw-2">*</span>sum_expr, <span class="kw-2">*</span>total, <span class="bool-val">false</span>),
-        <span class="kw">_ </span>=&gt; {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
+    <span class="comment">// Keep track of which type of (in)equality was in the input, and use this to decide what
+    // constraints to make at the end
+
+    // We handle Eq directly in this rule instead of letting it be decomposed to &lt;= and &gt;=
+    // elsewhere, as this caused cyclic rule application:
+    //
+    // ```
+    // 2*a + b = c
+    //
+    //   ~~&gt; sumeq_to_inequalities
+    //
+    // 2*a + b &lt;=c /\ 2*a + b &gt;= c
+    //
+    // --
+    //
+    // 2*a + b &lt;= c
+    //
+    //   ~~&gt; flatten_generic
+    // __1 &lt;=c
+    //
+    // with new top level constraint
+    //
+    // 2*a + b =aux __1
+    //
+    // --
+    //
+    // 2*a + b =aux __1
+    //
+    //   ~~&gt; sumeq_to_inequalities
+    //
+    // LOOP!
+    // ```
+    </span><span class="kw">enum </span>EqualityKind {
+        Eq,
+        Leq,
+        Geq,
+    }
+
+    <span class="comment">// Given the LHS, RHS, and the type of inequality, return the sum, total, and new inequality.
+    //
+    // The inequality returned is the one that puts the sum is on the left hand side and the total
+    // on the right hand side.
+    //
+    // For example, `1 &lt;= a + b` will result in ([a,b],1,Geq).
+    </span><span class="kw">fn </span>match_sum_total(
+        a: Expr,
+        b: Expr,
+        equality_kind: EqualityKind,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;(Vec&lt;Expr&gt;, Atom, EqualityKind), ApplicationError&gt; {
+        <span class="kw">match </span>(a, b, equality_kind) {
+            (Expr::Sum(<span class="kw">_</span>, sum_terms), Expr::Atomic(<span class="kw">_</span>, total), EqualityKind::Leq) =&gt; {
+                <span class="prelude-val">Ok</span>((sum_terms, total, EqualityKind::Leq))
+            }
+            (Expr::Atomic(<span class="kw">_</span>, total), Expr::Sum(<span class="kw">_</span>, sum_terms), EqualityKind::Leq) =&gt; {
+                <span class="prelude-val">Ok</span>((sum_terms, total, EqualityKind::Geq))
+            }
+            (Expr::Sum(<span class="kw">_</span>, sum_terms), Expr::Atomic(<span class="kw">_</span>, total), EqualityKind::Geq) =&gt; {
+                <span class="prelude-val">Ok</span>((sum_terms, total, EqualityKind::Geq))
+            }
+            (Expr::Atomic(<span class="kw">_</span>, total), Expr::Sum(<span class="kw">_</span>, sum_terms), EqualityKind::Geq) =&gt; {
+                <span class="prelude-val">Ok</span>((sum_terms, total, EqualityKind::Leq))
+            }
+            (Expr::Sum(<span class="kw">_</span>, sum_terms), Expr::Atomic(<span class="kw">_</span>, total), EqualityKind::Eq) =&gt; {
+                <span class="prelude-val">Ok</span>((sum_terms, total, EqualityKind::Eq))
+            }
+            (Expr::Atomic(<span class="kw">_</span>, total), Expr::Sum(<span class="kw">_</span>, sum_terms), EqualityKind::Eq) =&gt; {
+                <span class="prelude-val">Ok</span>((sum_terms, total, EqualityKind::Eq))
+            }
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
         }
-    };
+    }
 
-    <span class="kw">let </span>total: Atom = total.try_into().or(<span class="prelude-val">Err</span>(RuleNotApplicable))<span class="question-mark">?</span>;
+    <span class="kw">let </span>(sum_exprs, total, equality_kind) = <span class="kw">match </span>expr.clone() {
+        Expr::Leq(<span class="kw">_</span>, a, b) =&gt; <span class="prelude-val">Ok</span>(match_sum_total(<span class="kw-2">*</span>a, <span class="kw-2">*</span>b, EqualityKind::Leq)<span class="question-mark">?</span>),
+        Expr::Geq(<span class="kw">_</span>, a, b) =&gt; <span class="prelude-val">Ok</span>(match_sum_total(<span class="kw-2">*</span>a, <span class="kw-2">*</span>b, EqualityKind::Geq)<span class="question-mark">?</span>),
+        Expr::Eq(<span class="kw">_</span>, a, b) =&gt; <span class="prelude-val">Ok</span>(match_sum_total(<span class="kw-2">*</span>a, <span class="kw-2">*</span>b, EqualityKind::Eq)<span class="question-mark">?</span>),
+        Expr::AuxDeclaration(<span class="kw">_</span>, n, a) =&gt; {
+            <span class="kw">let </span>total: Atom = n.into();
+            <span class="kw">if let </span>Expr::Sum(<span class="kw">_</span>, sum_terms) = <span class="kw-2">*</span>a {
+                <span class="prelude-val">Ok</span>((sum_terms, total, EqualityKind::Eq))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">Err</span>(RuleNotApplicable)
+            }
+        }
+        <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
+    }<span class="question-mark">?</span>;
 
-    <span class="kw">let </span>Expr::Sum(<span class="kw">_</span>, sum_exprs) = sum_expr.clone() <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
     <span class="kw">let </span><span class="kw-2">mut </span>new_top_exprs: Vec&lt;Expr&gt; = <span class="macro">vec!</span>[];
     <span class="kw">let </span><span class="kw-2">mut </span>model = model.clone();
 
@@ -1253,6 +1316,24 @@
                 }
             }
 
+            <span class="comment">// negated terms: `-e ~&gt; -1*e`
+            //
+            // flatten e if non-atomic
+            </span>Expr::Neg(<span class="kw">_</span>, e) =&gt; {
+                <span class="comment">// needs flattening
+                </span><span class="kw">let </span>v: Atom = <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(<span class="kw-2">&amp;</span>e, <span class="kw-2">&amp;</span>model) {
+                    model = aux_var_info.model();
+                    new_top_exprs.push(aux_var_info.top_level_expr());
+                    aux_var_info.as_atom()
+                } <span class="kw">else </span>{
+                    <span class="comment">// if we can't flatten it, it must be an atom!
+                    </span><span class="attr">#[allow(clippy::unwrap_used)]
+                    </span>e.try_into().unwrap()
+                };
+
+                (Lit::Int(-<span class="number">1</span>), v)
+            }
+
             <span class="comment">// flatten non-flat terms without coefficients: e1 ~&gt; (1,__0)
             //
             // includes products without coefficients.
@@ -1273,15 +1354,36 @@
         vars.push(var);
     }
 
+    <span class="kw">let </span>use_weighted_sum = found_non_one_coeff;
     <span class="comment">// the expr should use a regular sum instead if the coefficients are all 1.
-    </span><span class="kw">if </span>!found_non_one_coeff {
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    }
-
-    <span class="kw">let </span>new_expr: Expr = <span class="kw">if </span>is_leq {
-        Expr::FlatWeightedSumLeq(Metadata::new(), coefficients, vars, total)
-    } <span class="kw">else </span>{
-        Expr::FlatWeightedSumGeq(Metadata::new(), coefficients, vars, total)
+    </span><span class="kw">let </span>new_expr: Expr = <span class="kw">match </span>(equality_kind, use_weighted_sum) {
+        (EqualityKind::Eq, <span class="bool-val">true</span>) =&gt; Expr::And(
+            Metadata::new(),
+            <span class="macro">vec!</span>[
+                Expr::FlatWeightedSumLeq(
+                    Metadata::new(),
+                    coefficients.clone(),
+                    vars.clone(),
+                    total.clone(),
+                ),
+                Expr::FlatWeightedSumGeq(Metadata::new(), coefficients, vars, total),
+            ],
+        ),
+        (EqualityKind::Eq, <span class="bool-val">false</span>) =&gt; Expr::And(
+            Metadata::new(),
+            <span class="macro">vec!</span>[
+                Expr::FlatSumLeq(Metadata::new(), vars.clone(), total.clone()),
+                Expr::FlatSumGeq(Metadata::new(), vars, total),
+            ],
+        ),
+        (EqualityKind::Leq, <span class="bool-val">true</span>) =&gt; {
+            Expr::FlatWeightedSumLeq(Metadata::new(), coefficients, vars, total)
+        }
+        (EqualityKind::Leq, <span class="bool-val">false</span>) =&gt; Expr::FlatSumLeq(Metadata::new(), vars, total),
+        (EqualityKind::Geq, <span class="bool-val">true</span>) =&gt; {
+            Expr::FlatWeightedSumGeq(Metadata::new(), coefficients, vars, total)
+        }
+        (EqualityKind::Geq, <span class="bool-val">false</span>) =&gt; Expr::FlatSumGeq(Metadata::new(), vars, total),
     };
 
     <span class="prelude-val">Ok</span>(Reduction::new(new_expr, new_top_exprs, model.variables))
@@ -1594,7 +1696,6 @@
             | Expr::Leq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>)
             | Expr::Geq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>)
             | Expr::Abs(<span class="kw">_</span>, <span class="kw">_</span>)
-            | Expr::Sum(<span class="kw">_</span>, <span class="kw">_</span>)
             | Expr::Product(<span class="kw">_</span>, <span class="kw">_</span>)
             | Expr::Neg(<span class="kw">_</span>, <span class="kw">_</span>)
             | Expr::Not(<span class="kw">_</span>, <span class="kw">_</span>)
@@ -1656,61 +1757,6 @@
     <span class="kw">let </span>expr = expr.with_children(children);
 
     <span class="prelude-val">Ok</span>(Reduction::new(expr, new_tops, model.variables))
-}
-
-<span class="comment">// TODO: normalise equalities such that atoms are always on the LHS.
-// i.e. always have a = sum(x,y,z), not sum(x,y,z) = a
-
-</span><span class="doccomment">/// Converts a Geq to a SumGeq if the left hand side is a sum
-///
-/// ```text
-/// sum([a, b, c]) &gt;= d ~&gt; sumgeq([a, b, c], d)
-/// ```
-</span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
-</span><span class="kw">fn </span>introduce_sumgeq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
-    <span class="kw">let </span>Expr::Geq(meta, e1, e2) = expr.clone() <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="kw">let </span>Expr::Sum(<span class="kw">_</span>, es) = <span class="kw-2">*</span>e1 <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="kw">let </span><span class="prelude-val">Some</span>(atoms) = expressions_to_atoms(<span class="kw-2">&amp;</span>es) <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="kw">let </span>Expr::Atomic(<span class="kw">_</span>, rhs) = <span class="kw-2">*</span>e2 <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="prelude-val">Ok</span>(Reduction::pure(Expr::FlatSumGeq(meta, atoms, rhs)))
-}
-
-<span class="doccomment">/// Converts a Leq to a SumLeq if the left hand side is a sum
-///
-/// ```text
-/// sum([a, b, c]) &gt;= d ~&gt; sumgeq([a, b, c], d)
-/// ```
-</span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
-</span><span class="kw">fn </span>introduce_sumleq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
-    <span class="kw">let </span>Expr::Leq(meta, e1, e2) = expr.clone() <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="kw">let </span>Expr::Sum(<span class="kw">_</span>, es) = <span class="kw-2">*</span>e1 <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="kw">let </span><span class="prelude-val">Some</span>(atoms) = expressions_to_atoms(<span class="kw-2">&amp;</span>es) <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="kw">let </span>Expr::Atomic(<span class="kw">_</span>, rhs) = <span class="kw-2">*</span>e2 <span class="kw">else </span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
-    };
-
-    <span class="prelude-val">Ok</span>(Reduction::pure(Expr::FlatSumLeq(meta, atoms, rhs)))
 }
 
 <span class="doccomment">/// Converts a Geq to an Ineq
@@ -1805,7 +1851,7 @@
 <span class="doccomment">/// ```text
 /// y + k &gt;= x ~&gt; ineq(x,y,k)
 /// ```
-</span><span class="attr">#[register_rule((<span class="string">"Minion"</span>,<span class="number">4500</span>))]
+</span><span class="attr">#[register_rule((<span class="string">"Minion"</span>,<span class="number">4800</span>))]
 </span><span class="kw">fn </span>y_plus_k_geq_x_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
     <span class="comment">// impl same as x_leq_y_plus_k but with lhs and rhs flipped
     </span><span class="kw">let </span>Expr::Geq(meta, e2, e1) = expr.clone() <span class="kw">else </span>{
@@ -1904,36 +1950,6 @@
         m.clone(),
         e.clone(),
         Atom::Literal(Lit::Bool(<span class="bool-val">false</span>)),
-    )))
-}
-
-<span class="comment">// FIXME: updatedisplay impl
-
-//FIXME: refactor symmetry checking for eq into its own function
-
-</span><span class="doccomment">/// Decomposes `sum(....) = e` into `sum(...) =&lt; e /\`sum(...) &gt;= e`
-///
-/// # Rationale
-/// Minion only has `SumLeq` and `SumGeq` constraints.
-</span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4100</span>))]
-</span><span class="kw">fn </span>sum_eq_to_inequalities(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
-    <span class="comment">//
-    </span><span class="kw">let </span>(sum, e1): (Box&lt;Expr&gt;, Box&lt;Expr&gt;) = <span class="kw">match </span>expr.clone() {
-        Expr::Eq(<span class="kw">_</span>, e1, e2) <span class="kw">if </span><span class="macro">matches!</span>(<span class="kw-2">*</span>e1, Expr::Sum(<span class="kw">_</span>, <span class="kw">_</span>)) =&gt; <span class="prelude-val">Ok</span>((e1, e2)),
-        Expr::Eq(<span class="kw">_</span>, e1, e2) <span class="kw">if </span><span class="macro">matches!</span>(<span class="kw-2">*</span>e2, Expr::Sum(<span class="kw">_</span>, <span class="kw">_</span>)) =&gt; <span class="prelude-val">Ok</span>((e2, e1)),
-
-        Expr::AuxDeclaration(<span class="kw">_</span>, name, e1) <span class="kw">if </span><span class="macro">matches!</span>(<span class="kw-2">*</span>e1, Expr::Sum(<span class="kw">_</span>, <span class="kw">_</span>)) =&gt; {
-            <span class="prelude-val">Ok</span>((e1, Box::new(Expr::Atomic(Metadata::new(), name.into()))))
-        }
-        <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(RuleNotApplicable),
-    }<span class="question-mark">?</span>;
-
-    <span class="prelude-val">Ok</span>(Reduction::pure(Expr::And(
-        Metadata::new(),
-        <span class="macro">vec!</span>[
-            Expr::Leq(Metadata::new(), sum.clone(), e1.clone()),
-            Expr::Geq(Metadata::new(), sum.clone(), e1),
-        ],
     )))
 }
 
