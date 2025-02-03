@@ -172,7 +172,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">use crate::rule_engine::{Rule, RuleSet};</pre>
+                <pre class="has-background-white py-0 px-2">use crate::rule_engine::{RuleData, RuleSet};</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -444,7 +444,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">    pub rules: Vec&lt;&amp;&#x27;a Rule&lt;&#x27;a&gt;&gt;,</pre>
+                <pre class="has-background-white py-0 px-2">    pub rules: Vec&lt;RuleData&lt;&#x27;a&gt;&gt;,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -652,7 +652,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        rules: Vec&lt;&amp;&#x27;a Rule&lt;&#x27;a&gt;&gt;,</pre>
+                <pre class="has-background-danger-light py-0 px-2">        rules: Vec&lt;RuleData&lt;&#x27;a&gt;&gt;,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -940,7 +940,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        rules: Vec&lt;&amp;&#x27;static Rule&lt;&#x27;static&gt;&gt;,</pre>
+                <pre class="has-background-danger-light py-0 px-2">        rules: Vec&lt;RuleData&lt;&#x27;static&gt;&gt;,</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1196,7 +1196,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        let rules: Vec&lt;&amp;str&gt; = self.rules.iter().map(|r| r.name).collect();</pre>
+                <pre class="has-background-danger-light py-0 px-2">        let rules: Vec&lt;&amp;str&gt; = self.rules.iter().map(|rd| rd.rule.name).collect();</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -1426,7 +1426,7 @@
 </div>
         <footer class="footer">
             <div class="content has-text-centered">
-                <p class="heading">Date: 2025-01-23 01:08</p>
+                <p class="heading">Date: 2025-02-03 22:14</p>
             </div>
         </footer>
     </body>

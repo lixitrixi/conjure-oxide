@@ -668,7 +668,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        for var in conjure_model.variables.keys() {</pre>
+                <pre class="has-background-danger-light py-0 px-2">        for var in conjure_model.symbols().keys() {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -700,7 +700,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">            let decision_var = match conjure_model.variables.get(var) {</pre>
+                <pre class="has-background-danger-light py-0 px-2">            let decision_var = match conjure_model.symbols().get_var(var) {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -5282,7 +5282,7 @@
 </div>
         <footer class="footer">
             <div class="content has-text-centered">
-                <p class="heading">Date: 2025-01-23 01:08</p>
+                <p class="heading">Date: 2025-02-03 22:14</p>
             </div>
         </footer>
     </body>
