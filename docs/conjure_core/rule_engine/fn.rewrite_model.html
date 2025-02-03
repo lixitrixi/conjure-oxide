@@ -1,64 +1,86 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Rewrites the given model by applying a set of rules to all its constraints."><title>rewrite_model in conjure_core::rule_engine - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../conjure_core/index.html">conjure_<wbr>core</a><span class="version">0.0.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">rewrite_<wbr>model</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#parameters" title="Parameters">Parameters</a></li><li><a href="#returns" title="Returns">Returns</a></li><li><a href="#side-effects" title="Side-Effects">Side-Effects</a></li><li><a href="#example" title="Example">Example</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li><li><a href="#panics" title="Panics">Panics</a></li><li><a href="#see-also" title="See Also">See Also</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In conjure_<wbr>core::<wbr>rule_<wbr>engine</a></h2></div></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><span class="rustdoc-breadcrumbs"><a href="../index.html">conjure_core</a>::<wbr><a href="index.html">rule_engine</a></span><h1>Function <span class="fn">rewrite_model</span><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/conjure_core/rule_engine/rewrite.rs.html#87-128">Source</a> </span></div><pre class="rust item-decl"><code>pub fn rewrite_model&lt;'a&gt;(
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Rewrites the given model by applying a set of rules to all its constraints, until no more rules can be applied."><title>rewrite_model in conjure_core::rule_engine - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (4a4309466 2025-02-02)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../static.files/storage-302de22f.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../conjure_core/index.html">conjure_<wbr>core</a><span class="version">0.0.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">rewrite_<wbr>model</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#parameters" title="Parameters">Parameters</a></li><li><a href="#returns" title="Returns">Returns</a></li><li><a href="#side-effects" title="Side-Effects">Side-Effects</a></li><li><a href="#example" title="Example">Example</a></li><li><a href="#performance-considerations" title="Performance Considerations">Performance Considerations</a></li><li><a href="#panics" title="Panics">Panics</a></li><li><a href="#see-also" title="See Also">See Also</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In conjure_<wbr>core::<wbr>rule_<wbr>engine</a></h2></div></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">conjure_core</a>::<wbr><a href="index.html">rule_engine</a></div><h1>Function <span class="fn">rewrite_model</span><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/conjure_core/rule_engine/rewrite.rs.html#102-142">Source</a> </span></div><pre class="rust item-decl"><code>pub fn rewrite_model&lt;'a&gt;(
     model: &amp;<a class="struct" href="../model/struct.Model.html" title="struct conjure_core::model::Model">Model</a>,
     rule_sets: &amp;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;&amp;'a <a class="struct" href="struct.RuleSet.html" title="struct conjure_core::rule_engine::RuleSet">RuleSet</a>&lt;'a&gt;&gt;,
-) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../model/struct.Model.html" title="struct conjure_core::model::Model">Model</a>, <a class="enum" href="enum.RewriteError.html" title="enum conjure_core::rule_engine::RewriteError">RewriteError</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Rewrites the given model by applying a set of rules to all its constraints.</p>
-<p>This function iteratively applies transformations to the model’s constraints using the specified rule sets.
-It returns a modified version of the model with all applicable rules applied, ensuring that any side-effects
-such as updates to the symbol table and top-level constraints are properly reflected in the returned model.</p>
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../model/struct.Model.html" title="struct conjure_core::model::Model">Model</a>, <a class="enum" href="enum.RewriteError.html" title="enum conjure_core::rule_engine::RewriteError">RewriteError</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Rewrites the given model by applying a set of rules to all its constraints, until no more rules can be applied.</p>
+<p>Rules are applied in order of priority (from highest to lowest)
+Rules can:</p>
+<ul>
+<li>Apply transformations to the constraints in the model (or their sub-expressions)</li>
+<li>Add new constraints to the model</li>
+<li>Modify the symbol table (e.g. add new variables)</li>
+</ul>
 <h2 id="parameters"><a class="doc-anchor" href="#parameters">§</a>Parameters</h2>
 <ul>
-<li><code>model</code>: A reference to the <a href="../model/struct.Model.html" title="struct conjure_core::model::Model"><code>Model</code></a> to be rewritten. The function will clone this model to produce a modified version.</li>
-<li><code>rule_sets</code>: A vector of references to <a href="struct.RuleSet.html" title="struct conjure_core::rule_engine::RuleSet"><code>RuleSet</code></a>s that define the rules to be applied to the model’s constraints.
-Each <code>RuleSet</code> is expected to contain a collection of rules that can transform one or more constraints
-within the model. The lifetime parameter <code>'a</code> ensures that the rules’ references are valid for the
-duration of the function execution.</li>
+<li><code>model</code>: A reference to the <a href="../model/struct.Model.html" title="struct conjure_core::model::Model"><code>Model</code></a> to be rewritten.</li>
+<li><code>rule_sets</code>: A vector of references to <a href="struct.RuleSet.html" title="struct conjure_core::rule_engine::RuleSet"><code>RuleSet</code></a>s to be applied.</li>
 </ul>
+<p>Each <code>RuleSet</code> contains a map of rules to priorities.</p>
 <h2 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h2>
 <ul>
-<li><code>Ok(Model)</code>: If successful, it returns a modified copy of the <a href="../model/struct.Model.html" title="struct conjure_core::model::Model"><code>Model</code></a> after all applicable rules have been
-applied. This new model includes any side-effects such as updates to the symbol table or modifications
-to the constraints.</li>
-<li><code>Err(RewriteError)</code>: If an error occurs during rule application (e.g., invalid rules or failed constraints),
-it returns a <a href="enum.RewriteError.html" title="enum conjure_core::rule_engine::RewriteError"><code>RewriteError</code></a> with details about the failure.</li>
+<li><code>Ok(Model)</code>: If successful, it returns a modified copy of the <a href="../model/struct.Model.html" title="struct conjure_core::model::Model"><code>Model</code></a></li>
+<li><code>Err(RewriteError)</code>: If an error occurs during rule application (e.g., invalid rules)</li>
 </ul>
 <h2 id="side-effects"><a class="doc-anchor" href="#side-effects">§</a>Side-Effects</h2>
 <ul>
-<li>When the model is rewritten, related data structures such as the symbol table (which tracks variable names and types)
-or other top-level constraints may also be updated to reflect these changes. These updates are applied to the returned model,
-ensuring that all related components stay consistent and aligned with the changes made during the rewrite.</li>
-<li>The function collects statistics about the rewriting process, including the number of rule applications
-and the total runtime of the rewriter. These statistics are then stored in the model’s context for
-performance monitoring and analysis.</li>
+<li>Rules can apply side-effects to the model (e.g. adding new constraints or variables).
+The original model is cloned and a modified copy is returned.</li>
+<li>Rule engine statistics (e.g. number of rule applications, run time) are collected and stored in the new model’s context.</li>
 </ul>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
 <ul>
 <li>
-<p>Using <code>rewrite_model</code> with the Expression <code>a + min(x, y)</code></p>
-<p>Initial expression: a + min(x, y)
-A model containing the expression is created. The variables of the model are represented by a SymbolTable and contain a,x,y.
-The contraints of the initail model is the expression itself.</p>
-<p>After getting the rules by their priorities and getting additional statistics the while loop of single interations is executed.
-Details for this process can be found in [<code>rewrite_iteration</code>] documentation.</p>
-<p>The loop is exited only when no more rules can be applied, when rewrite_iteration returns None and [<code>while let Some(step) = None</code>] occurs</p>
-<p>Will result in side effects ((d&lt;=x ^ d&lt;=y) being the [<code>new_top</code>] and the model will now be a conjuction of that and (a+d)
-Rewritten expression: ((a + d) ^ (d&lt;=x ^ d&lt;=y))</p>
+<p>Using <code>rewrite_model</code> with the constraint <code>(a + min(x, y)) = b</code></p>
+<p>Original model:</p>
+<div class="example-wrap"><pre class="language-text"><code>model: {
+  constraints: [(a + min(x, y) + 42 - 10) = b],
+  symbols: [a, b, x, y]
+}
+rule_sets: [{
+    name: &quot;MyRuleSet&quot;,
+    rules: [
+      min_to_var: 10,
+      const_eval: 20
+    ]
+  }]</code></pre></div>
+<p>Rules:</p>
+<ul>
+<li><code>min_to_var</code>: min([a, b]) ~&gt; c ; c &lt;= a &amp; c &lt;= b &amp; (c = a / c = b)</li>
+<li><code>const_eval</code>: c1 + c2 ~&gt; (c1 + c2) ; c1, c2 are constants</li>
+</ul>
+<p>Result:</p>
+<div class="example-wrap"><pre class="language-text"><code>model: {
+  constraints: [
+    (a + aux + 32) = b,
+    aux &lt;= x,
+    aux &lt;= y,
+    aux = x \/ aux = y
+  ],
+  symbols: [a, b, x, y, aux]
+}</code></pre></div>
+<p>Process:</p>
+<ol>
+<li>We traverse the expression tree until a rule can be applied.</li>
+<li>If multiple rules can be applied to the same expression, the higher priority one goes first.
+In this case, <code>const_eval</code> is applied before <code>min_to_var</code>.</li>
+<li>The rule <code>min_to_var</code> adds a new variable <code>aux</code> and new constraints to the model.</li>
+<li>When no more rules can be applied, the resulting model is returned.</li>
+</ol>
+<p>Details for this process can be found in [<code>rewrite_iteration</code>] documentation.</p>
 </li>
 </ul>
 <h2 id="performance-considerations"><a class="doc-anchor" href="#performance-considerations">§</a>Performance Considerations</h2>
 <ul>
-<li>The function checks if optimizations are enabled before applying rules, which may affect the performance
-of the rewriting process.</li>
-<li>Depending on the size of the model and the number of rules, the rewriting process might take a significant
-amount of time. Use the statistics collected (<code>rewriter_run_time</code> and <code>rewriter_rule_application_attempts</code>)
-to monitor and optimize performance.</li>
+<li>We recursively traverse the tree multiple times to check if any rules can be applied.</li>
+<li>Expressions are cloned on each rule application</li>
 </ul>
+<p>This can be expensive for large models</p>
 <h2 id="panics"><a class="doc-anchor" href="#panics">§</a>Panics</h2>
 <ul>
 <li>This function may panic if the model’s context is unavailable or if there is an issue with locking the context.</li>
 </ul>
 <h2 id="see-also"><a class="doc-anchor" href="#see-also">§</a>See Also</h2>
 <ul>
-<li><a href="fn.get_rule_priorities.html" title="fn conjure_core::rule_engine::get_rule_priorities"><code>get_rule_priorities</code></a>: Retrieves the priorities for the given rules.</li>
+<li><a href="fn.get_rules.html" title="fn conjure_core::rule_engine::get_rules"><code>get_rules</code></a>: Resolves the rules from the provided rule sets and sorts them by priority.</li>
 <li>[<code>rewrite_iteration</code>]: Executes a single iteration of rewriting the model using the specified rules.</li>
 </ul>
 </div></details></section></div></main></body></html>

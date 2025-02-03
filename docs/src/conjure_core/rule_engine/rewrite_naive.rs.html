@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rewrite_naive.rs`."><title>rewrite_naive.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rewrite_naive.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/rewrite_naive.rs`."><title>rewrite_naive.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (4a4309466 2025-02-02)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>rewrite_naive.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -115,18 +115,46 @@
 <a href="#114" id="114">114</a>
 <a href="#115" id="115">115</a>
 <a href="#116" id="116">116</a>
-<a href="#117" id="117">117</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{RewriteError, RuleSet};
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{resolve_rules::RuleData, RewriteError, RuleSet};
 <span class="kw">use crate</span>::{
     ast::Expression <span class="kw">as </span>Expr,
     bug,
     rule_engine::{
-        get_rule_priorities,
+        get_rules_grouped,
         rewriter_common::{log_rule_application, RuleResult},
-        Rule,
     },
     Model,
 };
-<span class="kw">use </span>std::collections::{BTreeMap, HashSet};
+
+<span class="kw">use </span>itertools::Itertools;
 <span class="kw">use </span>std::sync::Arc;
 <span class="kw">use </span>uniplate::Biplate;
 
@@ -137,99 +165,127 @@
     rule_sets: <span class="kw-2">&amp;</span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;&gt;,
     prop_multiple_equally_applicable: bool,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;Model, RewriteError&gt; {
-    <span class="kw">let </span>priorities =
-        get_rule_priorities(rule_sets).unwrap_or_else(|<span class="kw">_</span>| <span class="macro">bug!</span>(<span class="string">"get_rule_priorities() failed!"</span>));
+    <span class="kw">let </span>rules_grouped = get_rules_grouped(rule_sets)
+        .unwrap_or_else(|<span class="kw">_</span>| <span class="macro">bug!</span>(<span class="string">"get_rule_priorities() failed!"</span>))
+        .into_iter()
+        .collect_vec();
 
-    <span class="comment">// Group rules by priority in descending order.
-    </span><span class="kw">let </span><span class="kw-2">mut </span>grouped: BTreeMap&lt;u16, HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;&gt;&gt; = BTreeMap::new();
-    <span class="kw">for </span>(rule, priority) <span class="kw">in </span>priorities {
-        grouped.entry(priority).or_default().insert(rule);
-    }
-    <span class="kw">let </span>rules_by_priority: Vec&lt;(u16, HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;&gt;)&gt; = grouped.into_iter().collect();
-
-    <span class="kw">type </span>CtxFn = Arc&lt;<span class="kw">dyn </span>Fn(Expr) -&gt; Vec&lt;Expr&gt;&gt;;
     <span class="kw">let </span><span class="kw-2">mut </span>model = model.clone();
 
-    <span class="kw">loop </span>{
-        <span class="kw">let </span><span class="kw-2">mut </span>results: Vec&lt;(RuleResult&lt;<span class="lifetime">'_</span>&gt;, u16, Expr, CtxFn)&gt; = <span class="macro">vec!</span>[];
+    <span class="comment">// Rewrite until there are no more rules left to apply.
+    </span><span class="kw">while let </span><span class="prelude-val">Some</span>(()) =
+        try_rewrite_model(<span class="kw-2">&amp;mut </span>model, <span class="kw-2">&amp;</span>rules_grouped, prop_multiple_equally_applicable)
+    {}
 
-        <span class="comment">// Iterate over rules by priority in descending order.
-        </span><span class="lifetime">'top</span>: <span class="kw">for </span>(priority, rule_set) <span class="kw">in </span>rules_by_priority.iter().rev() {
-            <span class="kw">for </span>(expr, ctx) <span class="kw">in </span>Biplate::&lt;Expr&gt;::contexts_bi(<span class="kw-2">&amp;</span>model.get_constraints_vec()) {
-                <span class="comment">// Clone expr and ctx so they can be reused
-                </span><span class="kw">let </span>expr = expr.clone();
-                <span class="kw">let </span>ctx = ctx.clone();
-                <span class="kw">for </span>rule <span class="kw">in </span>rule_set {
-                    <span class="kw">match </span>(rule.application)(<span class="kw-2">&amp;</span>expr, <span class="kw-2">&amp;</span>model) {
-                        <span class="prelude-val">Ok</span>(red) =&gt; {
-                            <span class="comment">// Collect applicable rules
-                            </span>results.push((
-                                RuleResult {
-                                    rule,
-                                    reduction: red,
-                                },
-                                <span class="kw-2">*</span>priority,
-                                expr.clone(),
-                                ctx.clone(),
-                            ));
-                        }
-                        <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
-                            <span class="comment">// when called a lot, this becomes very expensive!
-                            </span><span class="attr">#[cfg(debug_assertions)]
-                            </span><span class="macro">tracing::trace!</span>(
-                                <span class="string">"Rule attempted but not applied: {} (priority {}), to expression: {}"</span>,
-                                rule.name,
-                                priority,
-                                expr
-                            );
-                        }
+    <span class="prelude-val">Ok</span>(model)
+}
+
+<span class="comment">// Tries to do a single rewrite on the model.
+//
+// Returns None if no change was made.
+</span><span class="kw">fn </span>try_rewrite_model(
+    model: <span class="kw-2">&amp;mut </span>Model,
+    rules_grouped: <span class="kw-2">&amp;</span>Vec&lt;(u16, Vec&lt;RuleData&lt;<span class="lifetime">'_</span>&gt;&gt;)&gt;,
+    prop_multiple_equally_applicable: bool,
+) -&gt; <span class="prelude-ty">Option</span>&lt;()&gt; {
+    <span class="kw">type </span>CtxFn = Arc&lt;<span class="kw">dyn </span>Fn(Expr) -&gt; Model&gt;;
+    <span class="kw">let </span><span class="kw-2">mut </span>results: Vec&lt;(RuleResult&lt;<span class="lifetime">'_</span>&gt;, u16, Expr, CtxFn)&gt; = <span class="macro">vec!</span>[];
+
+    <span class="comment">// Iterate over rules by priority in descending order.
+    </span><span class="lifetime">'top</span>: <span class="kw">for </span>(priority, rules) <span class="kw">in </span>rules_grouped.iter() {
+        <span class="comment">// Using Biplate, rewrite both the expression tree, and any value lettings in the symbol
+        // table.
+        </span><span class="kw">for </span>(expr, ctx) <span class="kw">in </span>&lt;<span class="kw">_ as </span>Biplate&lt;Expr&gt;&gt;::contexts_bi(model) {
+            <span class="comment">// Clone expr and ctx so they can be reused
+            </span><span class="kw">let </span>expr = expr.clone();
+            <span class="kw">let </span>ctx = ctx.clone();
+            <span class="kw">for </span>rd <span class="kw">in </span>rules {
+                <span class="kw">match </span>(rd.rule.application)(<span class="kw-2">&amp;</span>expr, model) {
+                    <span class="prelude-val">Ok</span>(red) =&gt; {
+                        <span class="comment">// Collect applicable rules
+                        </span>results.push((
+                            RuleResult {
+                                rule_data: rd.clone(),
+                                reduction: red,
+                            },
+                            <span class="kw-2">*</span>priority,
+                            expr.clone(),
+                            ctx.clone(),
+                        ));
                     }
-                }
-                <span class="comment">// This expression has the highest rule priority so far, so this is what we want to
-                // rewrite.
-                </span><span class="kw">if </span>!results.is_empty() {
-                    <span class="kw">break </span><span class="lifetime">'top</span>;
+                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
+                        <span class="comment">// when called a lot, this becomes very expensive!
+                        </span><span class="attr">#[cfg(debug_assertions)]
+                        </span><span class="macro">tracing::trace!</span>(
+                            <span class="string">"Rule attempted but not applied: {} (priority {}, rule set {}), to expression: {}"</span>,
+                            rd.rule.name,
+                            priority,
+                            rd.rule_set.name,
+                            expr
+                        );
+                    }
                 }
             }
-        }
-
-        <span class="kw">match </span>results.as_slice() {
-            [] =&gt; <span class="kw">break</span>, <span class="comment">// Exit if no rules are applicable.
-            </span>[(result, _priority, expr, ctx), ..] =&gt; {
-                <span class="comment">// Extract the single applicable rule and apply it
-
-                </span>log_rule_application(result, expr, <span class="kw-2">&amp;</span>model);
-
-                <span class="comment">// Replace expr with new_expression
-                </span>model.set_constraints(ctx(result.reduction.new_expression.clone()));
-
-                <span class="comment">// Apply new symbols and top level
-                </span>result.reduction.clone().apply(<span class="kw-2">&amp;mut </span>model);
-
-                <span class="kw">if </span>results.len() &gt; <span class="number">1 </span>&amp;&amp; prop_multiple_equally_applicable {
-                    <span class="kw">let </span>names: Vec&lt;<span class="kw">_</span>&gt; = results
-                        .iter()
-                        .map(|(result, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>)| result.rule.name)
-                        .collect();
-
-                    <span class="comment">// Extract the expression from the first result
-                    </span><span class="kw">let </span>expr = results[<span class="number">0</span>].<span class="number">2</span>.clone();
-
-                    <span class="comment">// Construct a single string to display the names of the rules grouped by priority
-                    </span><span class="kw">let </span><span class="kw-2">mut </span>rules_by_priority_string = String::new();
-                    rules_by_priority_string.push_str(<span class="string">"Rules grouped by priority:\n"</span>);
-                    <span class="kw">for </span>(priority, rule_set) <span class="kw">in </span>rules_by_priority.iter().rev() {
-                        rules_by_priority_string.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"Priority {}:\n"</span>, priority));
-                        <span class="kw">for </span>rule <span class="kw">in </span>rule_set {
-                            rules_by_priority_string.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"  - {}\n"</span>, rule.name));
-                        }
-                    }
-                    <span class="macro">bug!</span>(<span class="string">"Multiple equally applicable rules for {expr}: {names:#?}\n\n{rules_by_priority_string}"</span>);
-                }
+            <span class="comment">// This expression has the highest rule priority so far, so this is what we want to
+            // rewrite.
+            </span><span class="kw">if </span>!results.is_empty() {
+                <span class="kw">break </span><span class="lifetime">'top</span>;
             }
         }
     }
 
-    <span class="prelude-val">Ok</span>(model)
+    <span class="kw">match </span>results.as_slice() {
+        [] =&gt; {
+            <span class="kw">return </span><span class="prelude-val">None</span>;
+        } <span class="comment">// no rules are applicable.
+        </span>[(result, _priority, expr, ctx), ..] =&gt; {
+            <span class="kw">if </span>prop_multiple_equally_applicable {
+                assert_no_multiple_equally_applicable_rules(<span class="kw-2">&amp;</span>results, rules_grouped);
+            }
+
+            <span class="comment">// Extract the single applicable rule and apply it
+            </span>log_rule_application(result, expr, model);
+
+            <span class="comment">// Replace expr with new_expression
+            </span><span class="kw-2">*</span>model = ctx(result.reduction.new_expression.clone());
+
+            <span class="comment">// Apply new symbols and top level
+            </span>result.reduction.clone().apply(model);
+        }
+    }
+
+    <span class="prelude-val">Some</span>(())
+}
+
+<span class="comment">// Exits with a bug if there are multiple equally applicable rules for an expression.
+</span><span class="kw">fn </span>assert_no_multiple_equally_applicable_rules&lt;CtxFnType&gt;(
+    results: <span class="kw-2">&amp;</span>Vec&lt;(RuleResult&lt;<span class="lifetime">'_</span>&gt;, u16, Expr, CtxFnType)&gt;,
+    rules_grouped: <span class="kw-2">&amp;</span>Vec&lt;(u16, Vec&lt;RuleData&lt;<span class="lifetime">'_</span>&gt;&gt;)&gt;,
+) {
+    <span class="kw">if </span>results.len() &lt;= <span class="number">1 </span>{
+        <span class="kw">return</span>;
+    }
+
+    <span class="kw">let </span>names: Vec&lt;<span class="kw">_</span>&gt; = results
+        .iter()
+        .map(|(result, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>)| result.rule_data.rule.name)
+        .collect();
+
+    <span class="comment">// Extract the expression from the first result
+    </span><span class="kw">let </span>expr = results[<span class="number">0</span>].<span class="number">2</span>.clone();
+
+    <span class="comment">// Construct a single string to display the names of the rules grouped by priority
+    </span><span class="kw">let </span><span class="kw-2">mut </span>rules_by_priority_string = String::new();
+    rules_by_priority_string.push_str(<span class="string">"Rules grouped by priority:\n"</span>);
+    <span class="kw">for </span>(priority, rules) <span class="kw">in </span>rules_grouped.iter() {
+        rules_by_priority_string.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"Priority {}:\n"</span>, priority));
+        <span class="kw">for </span>rd <span class="kw">in </span>rules {
+            rules_by_priority_string.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(
+                <span class="string">"  - {} (from {})\n"</span>,
+                rd.rule.name, rd.rule_set.name
+            ));
+        }
+    }
+    <span class="macro">bug!</span>(<span class="string">"Multiple equally applicable rules for {expr}: {names:#?}\n\n{rules_by_priority_string}"</span>);
 }
 </code></pre></div></section></main></body></html>

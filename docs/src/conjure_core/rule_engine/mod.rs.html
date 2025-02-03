@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (4a4309466 2025-02-02)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -228,7 +228,10 @@
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a></pre></div><pre class="rust"><code><span class="kw">pub use </span>linkme::distributed_slice;
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a></pre></div><pre class="rust"><code><span class="kw">pub use </span>linkme::distributed_slice;
 
 <span class="doccomment">/// This procedural macro registers a decorated function with `conjure_rules`' global registry, and
 /// adds the rule to one or more `RuleSet`'s.
@@ -281,7 +284,7 @@
 /// This macro uses the following syntax:
 ///
 /// ```text
-/// register_rule_set!(&lt;RuleSet name&gt;, &lt;RuleSet order&gt;, (&lt;DependencyRuleSet1&gt;, &lt;DependencyRuleSet2&gt;, ...));
+/// register_rule_set!(&lt;RuleSet name&gt;, (&lt;DependencyRuleSet1&gt;, &lt;DependencyRuleSet2&gt;, ...));
 /// ```
 ///
 /// # Example
@@ -289,11 +292,11 @@
 /// ```rust
 /// use conjure_core::rule_engine::register_rule_set;
 ///
-/// register_rule_set!("MyRuleSet", 10, ("DependencyRuleSet", "AnotherRuleSet"));
+/// register_rule_set!("MyRuleSet", ("DependencyRuleSet", "AnotherRuleSet"));
 /// ```
 </span><span class="attr">#[doc(inline)]
 </span><span class="kw">pub use </span>conjure_macros::register_rule_set;
-<span class="kw">pub use </span>resolve_rules::{get_rule_priorities, get_rules_vec, resolve_rule_sets};
+<span class="kw">pub use </span>resolve_rules::{get_rules, get_rules_grouped, resolve_rule_sets, RuleData};
 <span class="kw">pub use </span>rewrite::rewrite_model;
 <span class="kw">pub use </span>rewrite_naive::rewrite_naive;
 <span class="kw">pub use </span>rewriter_common::RewriteError;
@@ -328,7 +331,7 @@
 ///
 /// # Example
 /// ```rust
-/// # use conjure_core::rule_engine::{ApplicationResult, Reduction, get_rules};
+/// # use conjure_core::rule_engine::{ApplicationResult, Reduction, get_all_rules};
 /// # use conjure_core::ast::Expression;
 /// # use conjure_core::model::Model;
 /// # use conjure_core::rule_engine::register_rule;
@@ -339,7 +342,7 @@
 /// }
 ///
 /// fn main() {
-///   println!("Rules: {:?}", get_rules());
+///   println!("Rules: {:?}", get_all_rules());
 /// }
 /// ```
 ///
@@ -348,7 +351,7 @@
 ///   Rules: [Rule { name: "identity", application: MEM }]
 /// ```
 /// Where `MEM` is the memory address of the `identity` function.
-</span><span class="kw">pub fn </span>get_rules() -&gt; Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>Rule&lt;<span class="lifetime">'static</span>&gt;&gt; {
+</span><span class="kw">pub fn </span>get_all_rules() -&gt; Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>Rule&lt;<span class="lifetime">'static</span>&gt;&gt; {
     RULES_DISTRIBUTED_SLICE.iter().collect()
 }
 
@@ -377,7 +380,10 @@
 /// Rule: Some(Rule { name: "identity", application: MEM })
 /// ```
 </span><span class="kw">pub fn </span>get_rule_by_name(name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>Rule&lt;<span class="lifetime">'static</span>&gt;&gt; {
-    get_rules().iter().find(|rule| rule.name == name).cloned()
+    get_all_rules()
+        .iter()
+        .find(|rule| rule.name == name)
+        .cloned()
 }
 
 <span class="doccomment">/// Get all rule sets
@@ -387,23 +393,23 @@
 /// # Example
 /// ```rust
 /// use conjure_core::rule_engine::register_rule_set;
-/// use conjure_core::rule_engine::get_rule_sets;
+/// use conjure_core::rule_engine::get_all_rule_sets;
 ///
-/// register_rule_set!("MyRuleSet", 10, ("AnotherRuleSet"));
-/// register_rule_set!("AnotherRuleSet", 5, ());
+/// register_rule_set!("MyRuleSet", ("AnotherRuleSet"));
+/// register_rule_set!("AnotherRuleSet", ());
 ///
-/// println!("Rule sets: {:?}", get_rule_sets());
+/// println!("Rule sets: {:?}", get_all_rule_sets());
 /// ```
 ///
 /// This will print (if no other rule sets are registered):
 /// ```text
 /// Rule sets: [
-///   RuleSet { name: "MyRuleSet", order: 10, rules: OnceLock { state: Uninitialized }, dependencies: ["AnotherRuleSet"] },
-///   RuleSet { name: "AnotherRuleSet", order: 5, rules: OnceLock { state: Uninitialized }, dependencies: [] }
+///   RuleSet { name: "MyRuleSet", rules: OnceLock { state: Uninitialized }, dependencies: ["AnotherRuleSet"] },
+///   RuleSet { name: "AnotherRuleSet", rules: OnceLock { state: Uninitialized }, dependencies: [] }
 /// ]
 /// ```
 ///
-</span><span class="kw">pub fn </span>get_rule_sets() -&gt; Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; {
+</span><span class="kw">pub fn </span>get_all_rule_sets() -&gt; Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; {
     RULE_SETS_DISTRIBUTED_SLICE.iter().collect()
 }
 
@@ -415,17 +421,17 @@
 /// use conjure_core::rule_engine::register_rule_set;
 /// use conjure_core::rule_engine::get_rule_set_by_name;
 ///
-/// register_rule_set!("MyRuleSet", 10, ("DependencyRuleSet", "AnotherRuleSet"));
+/// register_rule_set!("MyRuleSet", ("DependencyRuleSet", "AnotherRuleSet"));
 ///
 /// println!("Rule set: {:?}", get_rule_set_by_name("MyRuleSet"));
 /// ```
 ///
 /// This will print:
 /// ```text
-/// Rule set: Some(RuleSet { name: "MyRuleSet", order: 10, rules: OnceLock { state: Uninitialized }, dependencies: ["DependencyRuleSet", "AnotherRuleSet"] })
+/// Rule set: Some(RuleSet { name: "MyRuleSet", rules: OnceLock { state: Uninitialized }, dependencies: ["DependencyRuleSet", "AnotherRuleSet"] })
 /// ```
 </span><span class="kw">pub fn </span>get_rule_set_by_name(name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; {
-    get_rule_sets()
+    get_all_rule_sets()
         .iter()
         .find(|rule_set| rule_set.name == name)
         .cloned()
@@ -447,7 +453,7 @@
 </span><span class="kw">pub fn </span>get_rule_sets_for_solver_family(
     solver_family: SolverFamily,
 ) -&gt; Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; {
-    get_rule_sets()
+    get_all_rule_sets()
         .iter()
         .filter(|rule_set| {
             rule_set

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/model.rs`."><title>model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/</div>model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/model.rs`."><title>model.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (4a4309466 2025-02-02)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../static.files/storage-302de22f.js"></script><script defer src="../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/</div>model.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -167,30 +167,63 @@
 <a href="#166" id="166">166</a>
 <a href="#167" id="167">167</a>
 <a href="#168" id="168">168</a>
-<a href="#169" id="169">169</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::cell::RefCell;
-<span class="kw">use </span>std::collections::HashSet;
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::VecDeque;
 <span class="kw">use </span>std::fmt::{Debug, Display};
 <span class="kw">use </span>std::sync::{Arc, RwLock};
 
 <span class="kw">use </span>derivative::Derivative;
 <span class="kw">use </span>serde::{Deserialize, Serialize};
-<span class="kw">use </span>serde_with::serde_as;
+<span class="kw">use </span>uniplate::{Biplate, Tree, Uniplate};
 
 <span class="kw">use </span><span class="kw">crate</span>::ast::{DecisionVariable, Domain, Expression, Name, SymbolTable};
 <span class="kw">use </span><span class="kw">crate</span>::context::Context;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::pretty::{pretty_expressions_as_top_level, pretty_variable_declaration};
+<span class="kw">use </span><span class="kw">crate</span>::ast::pretty::{
+    pretty_domain_letting_declaration, pretty_expressions_as_top_level,
+    pretty_value_letting_declaration, pretty_variable_declaration,
+};
 
 <span class="doccomment">/// Represents a computational model containing variables, constraints, and a shared context.
 ///
 /// The `Model` struct holds a set of variables and constraints for manipulating and evaluating symbolic expressions.
 ///
 /// # Fields
-/// - `variables`:
-///   - Type: `SymbolTable`
-///   - A table that links each variable's name to its corresponding `DecisionVariable`.
-///   - For example, the name `x` might be linked to a `DecisionVariable` that says `x` can only take values between 1 and 10.
-///
 /// - `constraints`:
 ///   - Type: `Vec&lt;Expression&gt;`
 ///   - Represents the logical constraints applied to the model's variables.
@@ -202,59 +235,68 @@
 ///   - A shared object that stores global settings and state for the model.
 ///   - Can be safely read or changed by multiple parts of the program at the same time, making it good for multi-threaded use.
 ///
-/// - `next_var`:
-///   - Type: `RefCell&lt;i32&gt;`
-///   - A counter used to create new, unique variable names.
-///   - Allows updating the counter inside the model without making the whole model mutable.
-///
 /// # Usage
 /// This struct is typically used to:
 /// - Define a set of variables and constraints for rule-based evaluation.
 /// - Have transformations, optimizations, and simplifications applied to it using a set of rules.
-</span><span class="attr">#[serde_as]
-#[derive(Derivative, Clone, Debug, Serialize, Deserialize)]
+</span><span class="attr">#[derive(Derivative, Clone, Debug, Serialize, Deserialize)]
 #[derivative(PartialEq, Eq)]
 </span><span class="kw">pub struct </span>Model {
-    <span class="attr">#[serde_as(<span class="kw">as </span>= <span class="string">"Vec&lt;(_, _)&gt;"</span>)]
-    </span><span class="kw">pub </span>variables: SymbolTable,
     <span class="kw">pub </span>constraints: Vec&lt;Expression&gt;,
+
+    symbols: SymbolTable,
+
     <span class="attr">#[serde(skip)]
     #[derivative(PartialEq = <span class="string">"ignore"</span>)]
     </span><span class="kw">pub </span>context: Arc&lt;RwLock&lt;Context&lt;<span class="lifetime">'static</span>&gt;&gt;&gt;,
-    next_var: RefCell&lt;i32&gt;,
 }
 
 <span class="kw">impl </span>Model {
-    <span class="kw">pub fn </span>new(
-        variables: SymbolTable,
+    <span class="doccomment">/// Creates a new model.
+    </span><span class="kw">pub fn </span>new(
+        symbols: SymbolTable,
         constraints: Vec&lt;Expression&gt;,
         context: Arc&lt;RwLock&lt;Context&lt;<span class="lifetime">'static</span>&gt;&gt;&gt;,
     ) -&gt; Model {
         Model {
-            variables,
+            symbols,
             constraints,
             context,
-            next_var: RefCell::new(<span class="number">0</span>),
         }
     }
 
     <span class="kw">pub fn </span>new_empty(context: Arc&lt;RwLock&lt;Context&lt;<span class="lifetime">'static</span>&gt;&gt;&gt;) -&gt; Model {
         Model::new(Default::default(), Vec::new(), context)
     }
+
+    <span class="doccomment">/// The global symbol table for this model.
+    </span><span class="kw">pub fn </span>symbols(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>SymbolTable {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.symbols
+    }
+
+    <span class="doccomment">/// The global symbol table for this model, as a mutable reference.
+    </span><span class="kw">pub fn </span>symbols_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>SymbolTable {
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>.symbols
+    }
+
     <span class="comment">// Function to update a DecisionVariable based on its Name
     </span><span class="kw">pub fn </span>update_domain(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>Name, new_domain: Domain) {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(decision_var) = <span class="self">self</span>.variables.get_mut(name) {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(decision_var) = <span class="self">self</span>.symbols_mut().get_var_mut(name) {
             decision_var.domain = new_domain;
         }
     }
 
-    <span class="kw">pub fn </span>get_domain(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>Name) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Domain&gt; {
-        <span class="self">self</span>.variables.get(name).map(|v| <span class="kw-2">&amp;</span>v.domain)
+    <span class="doccomment">/// Gets the domain of `name` if it exists and has one.
+    </span><span class="kw">pub fn </span>get_domain(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>Name) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Domain&gt; {
+        <span class="self">self</span>.symbols().domain_of(name)
     }
 
-    <span class="comment">// Function to add a new DecisionVariable to the Model
-    </span><span class="kw">pub fn </span>add_variable(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: Name, decision_var: DecisionVariable) {
-        <span class="self">self</span>.variables.insert(name, decision_var);
+    <span class="doccomment">/// Adds a decision variable to the model.
+    ///
+    /// Returns `None` if there is a decision variable or other object with that name in the symbol
+    /// table.
+    </span><span class="kw">pub fn </span>add_variable(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: Name, decision_var: DecisionVariable) -&gt; <span class="prelude-ty">Option</span>&lt;()&gt; {
+        <span class="self">self</span>.symbols_mut().add_var(name, decision_var)
     }
 
     <span class="kw">pub fn </span>get_constraints_vec(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Expression&gt; {
@@ -289,43 +331,73 @@
 
     <span class="doccomment">/// Returns an arbitrary variable name that is not in the model.
     </span><span class="kw">pub fn </span>gensym(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Name {
-        <span class="kw">let </span>num = <span class="kw-2">*</span><span class="self">self</span>.next_var.borrow();
-        <span class="kw-2">*</span>(<span class="self">self</span>.next_var.borrow_mut()) += <span class="number">1</span>;
-        Name::MachineName(num) <span class="comment">// incremented when inserted
-    </span>}
+        <span class="self">self</span>.symbols().gensym()
+    }
 
     <span class="doccomment">/// Extends the models symbol table with the given symbol table, updating the gensym counter if
     /// necessary.
-    ///
-    </span><span class="kw">pub fn </span>extend_sym_table(<span class="kw-2">&amp;mut </span><span class="self">self</span>, symbol_table: SymbolTable) {
-        <span class="kw">if </span>symbol_table.keys().len() &gt; <span class="self">self</span>.variables.keys().len() {
-            <span class="kw">let </span>new_vars = symbol_table.keys().collect::&lt;HashSet&lt;<span class="kw">_</span>&gt;&gt;();
-            <span class="kw">let </span>old_vars = <span class="self">self</span>.variables.keys().collect::&lt;HashSet&lt;<span class="kw">_</span>&gt;&gt;();
+    </span><span class="kw">pub fn </span>extend_sym_table(<span class="kw-2">&amp;mut </span><span class="self">self</span>, other: SymbolTable) {
+        <span class="self">self</span>.symbols_mut().extend(other);
+    }
+}
 
-            <span class="kw">for </span>added_var <span class="kw">in </span>new_vars.difference(<span class="kw-2">&amp;</span>old_vars) {
-                <span class="kw">let </span><span class="kw-2">mut </span>next_var = <span class="self">self</span>.next_var.borrow_mut();
-                <span class="kw">match </span><span class="kw-2">*</span>added_var {
-                    Name::UserName(<span class="kw">_</span>) =&gt; {}
-                    Name::MachineName(m) =&gt; {
-                        <span class="kw">if </span><span class="kw-2">*</span>m &gt;= <span class="kw-2">*</span>next_var {
-                            <span class="kw-2">*</span>next_var = <span class="kw-2">*</span>m + <span class="number">1</span>;
-                        }
-                    }
-                }
-            }
-        }
-        <span class="self">self</span>.variables.extend(symbol_table);
+<span class="comment">// At time of writing (03/02/2025), the Uniplate derive macro doesn't like the lifetimes inside
+// context, and we do not yet have a way of ignoring this field.
+</span><span class="kw">impl </span>Uniplate <span class="kw">for </span>Model {
+    <span class="kw">fn </span>uniplate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Tree&lt;<span class="self">Self</span>&gt;, Box&lt;<span class="kw">dyn </span>Fn(Tree&lt;<span class="self">Self</span>&gt;) -&gt; <span class="self">Self</span>&gt;) {
+        <span class="comment">// Model contains no sub-models.
+        </span><span class="kw">let </span>self2 = <span class="self">self</span>.clone();
+        (Tree::Zero, Box::new(<span class="kw">move </span>|<span class="kw">_</span>| self2.clone()))
+    }
+}
+
+<span class="comment">// TODO: replace with derive macro when possible.
+</span><span class="kw">impl </span>Biplate&lt;Expression&gt; <span class="kw">for </span>Model {
+    <span class="kw">fn </span>biplate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Tree&lt;Expression&gt;, Box&lt;<span class="kw">dyn </span>Fn(Tree&lt;Expression&gt;) -&gt; <span class="self">Self</span>&gt;) {
+        <span class="kw">let </span>(symtab_tree, symtab_ctx) = <span class="self">self</span>.symbols.biplate();
+        <span class="kw">let </span>(constraints_tree, constraints_ctx) = <span class="self">self</span>.constraints.biplate();
+
+        <span class="kw">let </span>tree = Tree::Many(VecDeque::from([symtab_tree, constraints_tree]));
+
+        <span class="kw">let </span>self2 = <span class="self">self</span>.clone();
+        <span class="kw">let </span>ctx = Box::new(<span class="kw">move </span>|tree| {
+            <span class="kw">let </span>Tree::Many(fields) = tree <span class="kw">else </span>{
+                <span class="macro">panic!</span>(<span class="string">"number of children changed!"</span>);
+            };
+
+            <span class="kw">let </span><span class="kw-2">mut </span>self3 = self2.clone();
+            self3.symbols = (symtab_ctx)(fields[<span class="number">0</span>].clone());
+            self3.constraints = (constraints_ctx)(fields[<span class="number">1</span>].clone());
+            self3
+        });
+
+        (tree, ctx)
     }
 }
 
 <span class="kw">impl </span>Display <span class="kw">for </span>Model {
     <span class="attr">#[allow(clippy::unwrap_used)] </span><span class="comment">// [rustdocs]: should only fail iff the formatter fails
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
-        <span class="kw">for </span>name <span class="kw">in </span><span class="self">self</span>.variables.keys() {
+        <span class="kw">for </span>(name, <span class="kw">_</span>) <span class="kw">in </span><span class="self">self</span>.symbols().iter_value_letting() {
+            <span class="macro">writeln!</span>(
+                f,
+                <span class="string">"{}"</span>,
+                pretty_value_letting_declaration(<span class="self">self</span>.symbols(), name).unwrap()
+            )<span class="question-mark">?</span>;
+        }
+        <span class="kw">for </span>(name, <span class="kw">_</span>) <span class="kw">in </span><span class="self">self</span>.symbols().iter_domain_letting() {
+            <span class="macro">writeln!</span>(
+                f,
+                <span class="string">"{}"</span>,
+                pretty_domain_letting_declaration(<span class="self">self</span>.symbols(), name).unwrap()
+            )<span class="question-mark">?</span>;
+        }
+
+        <span class="kw">for </span>(name, <span class="kw">_</span>) <span class="kw">in </span><span class="self">self</span>.symbols().iter_var() {
             <span class="macro">writeln!</span>(
                 f,
                 <span class="string">"find {}"</span>,
-                pretty_variable_declaration(<span class="kw-2">&amp;</span><span class="self">self</span>.variables, name).unwrap()
+                pretty_variable_declaration(<span class="self">self</span>.symbols(), name).unwrap()
             )<span class="question-mark">?</span>;
         }
 

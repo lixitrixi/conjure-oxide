@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/resolve_rules.rs`."><title>resolve_rules.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>resolve_rules.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rule_engine/resolve_rules.rs`."><title>resolve_rules.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (4a4309466 2025-02-02)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rule_engine/</div>resolve_rules.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -152,15 +152,88 @@
 <a href="#151" id="151">151</a>
 <a href="#152" id="152">152</a>
 <a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::{HashMap, HashSet};
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a></pre></div><pre class="rust"><code><span class="kw">use </span>itertools::Itertools;
+<span class="kw">use </span>std::cmp::Ordering;
+<span class="kw">use </span>std::collections::{BTreeSet, HashSet};
 <span class="kw">use </span>std::fmt::Display;
-
 <span class="kw">use </span>thiserror::Error;
 
 <span class="kw">use </span><span class="kw">crate</span>::rule_engine::{get_rule_set_by_name, get_rule_sets_for_solver_family, Rule, RuleSet};
 <span class="kw">use </span><span class="kw">crate</span>::solver::SolverFamily;
 
-<span class="attr">#[derive(Debug, Error)]
+<span class="doccomment">/// Holds a rule and its priority, along with the rule set it came from.
+</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>RuleData&lt;<span class="lifetime">'a</span>&gt; {
+    <span class="kw">pub </span>rule: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;,
+    <span class="kw">pub </span>priority: u16,
+    <span class="kw">pub </span>rule_set: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;,
+}
+
+<span class="kw">impl </span>Display <span class="kw">for </span>RuleData&lt;<span class="lifetime">'_</span>&gt; {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
+        <span class="macro">write!</span>(
+            f,
+            <span class="string">"Rule: {} (priority: {}, from rule set: {})"</span>,
+            <span class="self">self</span>.rule.name, <span class="self">self</span>.priority, <span class="self">self</span>.rule_set.name
+        )
+    }
+}
+
+<span class="comment">// Equality is based on the rule itself.
+// Note: this is intentional.
+// If two RuleSets reference the same rule (possibly with different priorities),
+// we only want to keep one copy of the rule.
+</span><span class="kw">impl </span>PartialEq <span class="kw">for </span>RuleData&lt;<span class="lifetime">'_</span>&gt; {
+    <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
+        <span class="self">self</span>.rule == other.rule
+    }
+}
+
+<span class="kw">impl </span>Eq <span class="kw">for </span>RuleData&lt;<span class="lifetime">'_</span>&gt; {}
+
+<span class="comment">// Sort by priority (higher priority first), then by rule name (alphabetical).
+</span><span class="kw">impl </span>PartialOrd <span class="kw">for </span>RuleData&lt;<span class="lifetime">'_</span>&gt; {
+    <span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;std::cmp::Ordering&gt; {
+        <span class="prelude-val">Some</span>(<span class="self">self</span>.cmp(other))
+    }
+}
+
+<span class="kw">impl </span>Ord <span class="kw">for </span>RuleData&lt;<span class="lifetime">'_</span>&gt; {
+    <span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; std::cmp::Ordering {
+        <span class="kw">match </span><span class="self">self</span>.priority.cmp(<span class="kw-2">&amp;</span>other.priority) {
+            Ordering::Equal =&gt; <span class="self">self</span>.rule.name.cmp(other.rule.name),
+            ord =&gt; ord.reverse(),
+        }
+    }
+}
+
+<span class="doccomment">/// Error type for rule resolution.
+</span><span class="attr">#[derive(Debug, Error)]
 </span><span class="kw">pub enum </span>ResolveRulesError {
     RuleSetNotFound,
 }
@@ -196,9 +269,9 @@
 /// - A list of the given rule sets and all of their dependencies, or error
 ///
 </span><span class="attr">#[allow(clippy::mutable_key_type)] </span><span class="comment">// RuleSet is 'static so it's fine
-</span><span class="kw">pub fn </span>rule_sets_by_names&lt;<span class="lifetime">'a</span>&gt;(
+</span><span class="kw">fn </span>rule_sets_by_names(
     rule_set_names: <span class="kw-2">&amp;</span>Vec&lt;String&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt;, ResolveRulesError&gt; {
+) -&gt; <span class="prelude-ty">Result</span>&lt;HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt;, ResolveRulesError&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>rs_set: HashSet&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt; = HashSet::new();
 
     <span class="kw">for </span>rule_set_name <span class="kw">in </span>rule_set_names {
@@ -211,21 +284,70 @@
     <span class="prelude-val">Ok</span>(rs_set)
 }
 
+<span class="doccomment">/// Build a list of rules to apply (sorted by priority) from a list of rule sets.
+///
+/// # Arguments
+/// - `rule_sets` The rule sets to resolve the rules from.
+///
+/// # Returns
+/// - Rules to apply, sorted from highest to lowest priority.
+</span><span class="kw">pub fn </span>get_rules&lt;<span class="lifetime">'a</span>&gt;(
+    rule_sets: <span class="kw-2">&amp;</span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>IntoIterator&lt;Item = RuleData&lt;<span class="lifetime">'a</span>&gt;&gt;, ResolveRulesError&gt; {
+    <span class="comment">// Hashing is done by name which never changes, and the references are 'static
+    </span><span class="attr">#[allow(clippy::mutable_key_type)]
+    </span><span class="kw">let </span><span class="kw-2">mut </span>ans = BTreeSet::&lt;RuleData&lt;<span class="lifetime">'a</span>&gt;&gt;::new();
+
+    <span class="kw">for </span>rs <span class="kw">in </span>rule_sets {
+        <span class="kw">for </span>(rule, priority) <span class="kw">in </span>rs.get_rules() {
+            ans.insert(RuleData {
+                rule,
+                priority: <span class="kw-2">*</span>priority,
+                rule_set: rs,
+            });
+        }
+    }
+
+    <span class="prelude-val">Ok</span>(ans)
+}
+
+<span class="doccomment">/// Get rules grouped by priority from a list of rule sets.
+///
+/// # Arguments
+/// - `rule_sets` The rule sets to resolve the rules from.
+///
+/// # Returns
+/// - Rules to apply, grouped by priority, sorted from highest to lowest priority.
+</span><span class="kw">pub fn </span>get_rules_grouped&lt;<span class="lifetime">'a</span>&gt;(
+    rule_sets: <span class="kw-2">&amp;</span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>IntoIterator&lt;Item = (u16, Vec&lt;RuleData&lt;<span class="lifetime">'a</span>&gt;&gt;)&gt; + <span class="lifetime">'a</span>, ResolveRulesError&gt; {
+    <span class="kw">let </span>rules = get_rules(rule_sets)<span class="question-mark">?</span>;
+    <span class="kw">let </span>grouped: Vec&lt;(u16, Vec&lt;RuleData&lt;<span class="lifetime">'a</span>&gt;&gt;)&gt; = rules
+        .into_iter()
+        .chunk_by(|rule_data| rule_data.priority)
+        .into_iter()
+        <span class="comment">// Each chunk here is short-lived, so we clone/copy out the data
+        </span>.map(|(priority, chunk)| (priority, chunk.collect()))
+        .collect();
+    <span class="prelude-val">Ok</span>(grouped)
+}
+
 <span class="doccomment">/// Resolves the final set of rule sets to apply based on target solver and extra rule set names.
 ///
 /// # Arguments
-/// - `target_solver` The solver to resolve the rule sets for.
-/// - `extra_rs_names` The names of the extra rule sets to use
+/// - `target_solver` The solver family we're targeting
+/// - `extra_rs_names` Optional extra rule set names to enable
 ///
 /// # Returns
 /// - A vector of rule sets to apply.
 ///
-</span><span class="attr">#[allow(clippy::mutable_key_type)] </span><span class="comment">// RuleSet is 'static so it's fine
-</span><span class="kw">pub fn </span>resolve_rule_sets&lt;<span class="lifetime">'a</span>&gt;(
+</span><span class="kw">pub fn </span>resolve_rule_sets(
     target_solver: SolverFamily,
     extra_rs_names: <span class="kw-2">&amp;</span>Vec&lt;String&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt;, ResolveRulesError&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>ans = HashSet::new();
+) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>RuleSet&lt;<span class="lifetime">'static</span>&gt;&gt;, ResolveRulesError&gt; {
+    <span class="attr">#[allow(clippy::mutable_key_type)]
+    </span><span class="comment">// Hashing is done by name which never changes, and the references are 'static
+    </span><span class="kw">let </span><span class="kw-2">mut </span>ans = HashSet::new();
 
     <span class="kw">for </span>rs <span class="kw">in </span>get_rule_sets_for_solver_family(target_solver) {
         ans.extend(rs.with_dependencies());
@@ -233,77 +355,5 @@
 
     ans.extend(rule_sets_by_names(extra_rs_names)<span class="question-mark">?</span>);
     <span class="prelude-val">Ok</span>(ans.iter().cloned().collect())
-}
-
-<span class="doccomment">/// Convert a list of rule sets into a final map of rules to their priorities.
-///
-/// # Arguments
-/// - `rule_sets` The rule sets to get the rules from.
-/// # Returns
-/// - A map of rules to their priorities.
-</span><span class="kw">pub fn </span>get_rule_priorities&lt;<span class="lifetime">'a</span>&gt;(
-    rule_sets: <span class="kw-2">&amp;</span>Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;&gt;,
-) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u16&gt;, ResolveRulesError&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>rule_priorities: HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, (<span class="kw-2">&amp;</span><span class="lifetime">'a </span>RuleSet&lt;<span class="lifetime">'a</span>&gt;, u16)&gt; = HashMap::new();
-
-    <span class="kw">for </span>rs <span class="kw">in </span>rule_sets {
-        <span class="kw">for </span>(rule, priority) <span class="kw">in </span>rs.get_rules() {
-            <span class="kw">if let </span><span class="prelude-val">Some</span>((old_rs, <span class="kw">_</span>)) = rule_priorities.get(rule) {
-                <span class="kw">if </span>rs.order &gt;= old_rs.order {
-                    rule_priorities.insert(rule, (rs, <span class="kw-2">*</span>priority));
-                }
-            } <span class="kw">else </span>{
-                rule_priorities.insert(rule, (rs, <span class="kw-2">*</span>priority));
-            }
-        }
-    }
-
-    <span class="kw">let </span><span class="kw-2">mut </span>ans: HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u16&gt; = HashMap::new();
-    <span class="kw">for </span>(rule, (<span class="kw">_</span>, priority)) <span class="kw">in </span>rule_priorities {
-        ans.insert(rule, priority);
-    }
-
-    <span class="prelude-val">Ok</span>(ans)
-}
-
-<span class="doccomment">/// Compare two rules by their priorities and names.
-///
-/// Takes the rules and a map of rules to their priorities.
-/// If rules are not in the map, they are assumed to have priority 0.
-/// If the rules have the same priority, they are compared by their names.
-///
-/// # Arguments
-/// - `a` first rule to compare.
-/// - `b` second rule to compare.
-/// - `rule_priorities` The priorities of the rules.
-///
-/// # Returns
-/// - The ordering of the two rules.
-</span><span class="kw">pub fn </span>rule_cmp&lt;<span class="lifetime">'a</span>&gt;(
-    a: <span class="kw-2">&amp;</span>Rule&lt;<span class="lifetime">'a</span>&gt;,
-    b: <span class="kw-2">&amp;</span>Rule&lt;<span class="lifetime">'a</span>&gt;,
-    rule_priorities: <span class="kw-2">&amp;</span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u16&gt;,
-) -&gt; std::cmp::Ordering {
-    <span class="kw">let </span>a_priority = <span class="kw-2">*</span>rule_priorities.get(a).unwrap_or(<span class="kw-2">&amp;</span><span class="number">0</span>);
-    <span class="kw">let </span>b_priority = <span class="kw-2">*</span>rule_priorities.get(b).unwrap_or(<span class="kw-2">&amp;</span><span class="number">0</span>);
-
-    <span class="kw">if </span>a_priority == b_priority {
-        <span class="kw">return </span>a.name.cmp(b.name);
-    }
-
-    b_priority.cmp(<span class="kw-2">&amp;</span>a_priority)
-}
-
-<span class="doccomment">/// Get a final ordering of rules based on their priorities and names.
-///
-/// # Arguments
-/// - `rule_priorities` The priorities of the rules.
-///
-/// # Returns
-/// - A list of rules sorted by their priorities and names.
-</span><span class="kw">pub fn </span>get_rules_vec&lt;<span class="lifetime">'a</span>&gt;(rule_priorities: <span class="kw-2">&amp;</span>HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;, u16&gt;) -&gt; Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>rules: Vec&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>Rule&lt;<span class="lifetime">'a</span>&gt;&gt; = rule_priorities.keys().copied().collect();
-    rules.sort_by(|a, b| rule_cmp(a, b, rule_priorities));
-    rules
 }
 </code></pre></div></section></main></body></html>

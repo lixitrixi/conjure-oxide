@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/pretty.rs`."><title>pretty.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5d1d17d0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (ed43cbcb8 2025-01-21)" data-channel="nightly" data-search-js="search-ccb196c1.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>pretty.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/ast/pretty.rs`."><title>pretty.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (4a4309466 2025-02-02)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/ast/</div>pretty.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -90,7 +90,22 @@
 <a href="#89" id="89">89</a>
 <a href="#90" id="90">90</a>
 <a href="#91" id="91">91</a>
-<a href="#92" id="92">92</a></pre></div><pre class="rust"><code><span class="doccomment">//! Functions for pretty printing Conjure models.
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a></pre></div><pre class="rust"><code><span class="doccomment">//! Functions for pretty printing Conjure models.
 //!
 //! Most things can be pretty printed using `Display`; however some, notably collections
 //! can not, for example, Vec&lt;Expression&gt;
@@ -160,26 +175,41 @@
 /// a: int(1..5)
 /// ```
 ///
-/// Returns None if the symbol is not in the symbol table
+/// Returns None if the symbol is not in the symbol table, or if it is not a variable.
 </span><span class="kw">pub fn </span>pretty_variable_declaration(symbol_table: <span class="kw-2">&amp;</span>SymbolTable, var_name: <span class="kw-2">&amp;</span>Name) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
-    <span class="kw">let </span>var = symbol_table.get(var_name)<span class="question-mark">?</span>;
-    <span class="kw">match </span><span class="kw-2">&amp;</span>var.domain {
-        <span class="kw">super</span>::Domain::BoolDomain =&gt; <span class="prelude-val">Some</span>(<span class="macro">format!</span>(<span class="string">"{}: bool"</span>, var_name)),
-        <span class="kw">super</span>::Domain::IntDomain(domain) =&gt; {
-            <span class="kw">let </span><span class="kw-2">mut </span>domain_ranges: Vec&lt;String&gt; = <span class="macro">vec!</span>[];
-            <span class="kw">for </span>range <span class="kw">in </span>domain {
-                domain_ranges.push(<span class="kw">match </span>range {
-                    <span class="kw">super</span>::Range::Single(a) =&gt; a.to_string(),
-                    <span class="kw">super</span>::Range::Bounded(a, b) =&gt; <span class="macro">format!</span>(<span class="string">"{}..{}"</span>, a, b),
-                });
-            }
+    <span class="kw">let </span>var = symbol_table.get_var(var_name)<span class="question-mark">?</span>;
+    <span class="kw">let </span>domain = <span class="kw-2">&amp;</span>var.domain;
+    <span class="prelude-val">Some</span>(<span class="macro">format!</span>(<span class="string">"{var_name}: {domain}"</span>))
+}
 
-            <span class="kw">if </span>domain_ranges.is_empty() {
-                <span class="prelude-val">Some</span>(<span class="macro">format!</span>(<span class="string">"{}: int"</span>, var_name))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Some</span>(<span class="macro">format!</span>(<span class="string">"{}: int({})"</span>, var_name, domain_ranges.join(<span class="string">","</span>)))
-            }
-        }
-    }
+<span class="doccomment">/// Pretty prints, in essence syntax, the declaration for the given value letting.
+///
+/// E.g.
+///
+/// ```text
+/// letting A be 1+2+3
+/// ```
+///
+/// Returns None if the symbol is not in the symbol table, or if it is not a value letting.
+</span><span class="kw">pub fn </span>pretty_value_letting_declaration(symbol_table: <span class="kw-2">&amp;</span>SymbolTable, name: <span class="kw-2">&amp;</span>Name) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
+    <span class="kw">let </span>letting = symbol_table.get_value_letting(name)<span class="question-mark">?</span>;
+    <span class="prelude-val">Some</span>(<span class="macro">format!</span>(<span class="string">"letting {name} be {letting}"</span>))
+}
+
+<span class="doccomment">/// Pretty prints, in essence syntax, the declaration for the given domain letting.
+///
+/// E.g.
+///
+/// ```text
+/// letting A be domain bool
+/// ```
+///
+/// Returns None if the symbol is not in the symbol table, or if it is not a domain letting.
+</span><span class="kw">pub fn </span>pretty_domain_letting_declaration(
+    symbol_table: <span class="kw-2">&amp;</span>SymbolTable,
+    name: <span class="kw-2">&amp;</span>Name,
+) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
+    <span class="kw">let </span>letting = symbol_table.get_domain_letting(name)<span class="question-mark">?</span>;
+    <span class="prelude-val">Some</span>(<span class="macro">format!</span>(<span class="string">"letting {name} be domain {letting}"</span>))
 }
 </code></pre></div></section></main></body></html>
