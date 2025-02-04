@@ -44,7 +44,7 @@
             </div>
             <div class="column has-background-white p-0"
                  role="cell">
-                <pre class="has-background-white py-0 px-2">use std::{fmt::Display, io::Write, sync::Arc};</pre>
+                <pre class="has-background-white py-0 px-2">use std::{collections::VecDeque, fmt::Display, io::Write, sync::Arc};</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2092,7 +2092,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">    let mut rng = rand::thread_rng();</pre>
+                <pre class="has-background-danger-light py-0 px-2">    let mut rng = rand::rng();</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2364,7 +2364,7 @@
             </div>
             <div class="column has-background-danger-light p-0"
                  role="cell">
-                <pre class="has-background-danger-light py-0 px-2">        r.new_tree.cata(Arc::new(|_, cs: Vec&lt;i32&gt;| {</pre>
+                <pre class="has-background-danger-light py-0 px-2">        r.new_tree.cata(Arc::new(|_, cs: VecDeque&lt;i32&gt;| {</pre>
             </div>
         </div><div class="columns p-0 m-0" role="row">
             <div
@@ -2466,7 +2466,7 @@
 </div>
         <footer class="footer">
             <div class="content has-text-centered">
-                <p class="heading">Date: 2025-02-03 22:14</p>
+                <p class="heading">Date: 2025-02-04 11:12</p>
             </div>
         </footer>
     </body>
