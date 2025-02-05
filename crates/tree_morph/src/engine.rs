@@ -1,14 +1,5 @@
-use crate::{helpers::one_or_select, Commands, Reduction, Rule};
+use crate::{helpers::one_or_select, prelude::*};
 use uniplate::Uniplate;
-
-// TODO: (Felix) dirty/clean optimisation: replace tree with a custom tree structure,
-//               which contains the original tree and adds metadata fields?
-
-// TODO: (Felix) add logging via `log` crate; possibly need tree type to be Debug?
-//               could be a crate feature?
-
-// TODO: (Felix) add "control" rules; e.g. ignore a subtree to a certain depth?
-//               test by ignoring everything once a metadata field is set? e.g. "reduce until contains X"
 
 /// Exhaustively transform a tree with the given list of functions.
 ///

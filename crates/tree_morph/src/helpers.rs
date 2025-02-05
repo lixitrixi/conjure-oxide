@@ -1,6 +1,6 @@
 use std::{collections::VecDeque, fmt::Display, io::Write, sync::Arc};
 
-use crate::{Reduction, Rule};
+use crate::prelude::*;
 use multipeek::multipeek;
 use uniplate::Uniplate;
 
