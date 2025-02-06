@@ -28,7 +28,7 @@ fn transform(cmd: &mut Commands<Expr, bool>, expr: &Expr, meta: &bool) -> Option
 #[ignore = "this will fail until we fix it"]
 fn test_meta_branching_side_effect() {
     let expr = Expr::One;
-    let (expr, meta) = reduce(&[transform], expr, false);
+    let (expr, meta) = morph(vec![vec![transform]], select_first, expr, false);
     assert_eq!(expr, Expr::Two);
     assert_eq!(meta, true);
 }

@@ -63,7 +63,7 @@ fn test_single_var() {
     let meta = Meta {
         num_applications: 0,
     };
-    let (expr, meta) = reduce_with_rules(&[ReductionRule::Eval], select_first, expr, meta);
+    let (expr, meta) = morph(vec![vec![ReductionRule::Eval]], select_first, expr, meta);
     assert_eq!(expr, Expr::Val(42));
     assert_eq!(meta.num_applications, 0);
 }
@@ -74,7 +74,7 @@ fn test_add_zero() {
     let meta = Meta {
         num_applications: 0,
     };
-    let (expr, meta) = reduce_with_rules(&[ReductionRule::AddZero], select_first, expr, meta);
+    let (expr, meta) = morph(vec![vec![ReductionRule::AddZero]], select_first, expr, meta);
     assert_eq!(expr, Expr::Val(42));
     assert_eq!(meta.num_applications, 1);
 }
@@ -85,7 +85,7 @@ fn test_mul_one() {
     let meta = Meta {
         num_applications: 0,
     };
-    let (expr, meta) = reduce_with_rules(&[ReductionRule::MulOne], select_first, expr, meta);
+    let (expr, meta) = morph(vec![vec![ReductionRule::MulOne]], select_first, expr, meta);
     assert_eq!(expr, Expr::Val(42));
     assert_eq!(meta.num_applications, 1);
 }
@@ -96,7 +96,7 @@ fn test_eval_add() {
     let meta = Meta {
         num_applications: 0,
     };
-    let (expr, meta) = reduce_with_rules(&[ReductionRule::Eval], select_first, expr, meta);
+    let (expr, meta) = morph(vec![vec![ReductionRule::Eval]], select_first, expr, meta);
     assert_eq!(expr, Expr::Val(3));
     assert_eq!(meta.num_applications, 1);
 }
@@ -110,7 +110,7 @@ fn test_eval_nested() {
     let meta = Meta {
         num_applications: 0,
     };
-    let (expr, meta) = reduce_with_rules(&[ReductionRule::Eval], select_first, expr, meta);
+    let (expr, meta) = morph(vec![vec![ReductionRule::Eval]], select_first, expr, meta);
     assert_eq!(expr, Expr::Val(9));
     assert_eq!(meta.num_applications, 2);
 }

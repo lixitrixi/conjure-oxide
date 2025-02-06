@@ -17,35 +17,22 @@ enum Expr {
     Wrap(Box<Expr>), // [E]
 }
 
-/// Rule container: holds a primitive function and implements the Rule trait
-struct Rl(fn(&Expr) -> Option<Expr>);
-
-impl Rule<Expr, ()> for Rl {
-    fn apply(&self, _: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> {
-        self.0(expr)
+/// [a] ~> a
+fn rule_unwrap_a(_: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> {
+    if let Expr::Wrap(inner) = expr {
+        if let Expr::A = **inner {
+            return Some(Expr::A);
+        }
     }
+    None
 }
 
-mod rules {
-    use super::*;
-
-    /// [a] ~> a
-    pub fn unwrap_a(expr: &Expr) -> Option<Expr> {
-        if let Expr::Wrap(inner) = expr {
-            if let Expr::A = **inner {
-                return Some(Expr::A);
-            }
-        }
-        None
+/// a ~> b
+fn rule_a_to_b(_: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> {
+    if let Expr::A = expr {
+        return Some(Expr::B);
     }
-
-    /// a ~> b
-    pub fn a_to_b(expr: &Expr) -> Option<Expr> {
-        if let Expr::A = expr {
-            return Some(Expr::B);
-        }
-        None
-    }
+    None
 }
 
 #[test]
@@ -55,15 +42,15 @@ fn test_same_group() {
     // [a]
     let expr = Expr::Wrap(Box::new(Expr::A));
 
-    let (expr, _) = reduce_with_rule_groups(
-        &[&[Rl(rules::unwrap_a), Rl(rules::a_to_b)]],
+    let (result, _) = morph(
+        vec![vec![rule_fn!(rule_unwrap_a), rule_fn!(rule_a_to_b)]],
         select_first,
         expr,
         (),
     );
 
     // [a] ~> a ~> b
-    assert_eq!(expr, Expr::B);
+    assert_eq!(result, Expr::B);
 }
 
 #[test]
@@ -73,13 +60,13 @@ fn test_a_to_b_first() {
     // [a]
     let expr = Expr::Wrap(Box::new(Expr::A));
 
-    let (expr, _) = reduce_with_rule_groups(
-        &[&[Rl(rules::a_to_b)], &[Rl(rules::unwrap_a)]],
+    let (result, _) = morph(
+        vec![vec![rule_fn!(rule_a_to_b)], vec![rule_fn!(rule_unwrap_a)]],
         select_first,
         expr,
         (),
     );
 
     // [a] ~> [b]
-    assert_eq!(expr, Expr::Wrap(Box::new(Expr::B)));
+    assert_eq!(result, Expr::Wrap(Box::new(Expr::B)));
 }
