@@ -10,25 +10,31 @@ enum Expr {
     D,
 }
 
+fn rule_b_to_c(_: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> {
+    if let Expr::B = expr {
+        return Some(Expr::C);
+    }
+    None
+}
+
 #[test]
 fn test_closure_rules() {
     let expr = Expr::A;
 
     let (result, _) = morph(
         vec![
-            rule_fns![|_, t, _| match t {
-                Expr::A => Some(Expr::B),
-                _ => None,
-            }],
-            rule_fns![
-                |_, t, _| match t {
-                    Expr::B => Some(Expr::C),
+            vec![
+                (|_, t, _| match t {
+                    Expr::A => Some(Expr::B),
                     _ => None,
-                },
+                }) as RuleFn<_, _>, // Same as macro expansion
+            ],
+            rule_fns![
                 |_, t, _| match t {
                     Expr::C => Some(Expr::D),
                     _ => None,
-                }
+                },
+                rule_b_to_c,
             ],
         ],
         select_first,

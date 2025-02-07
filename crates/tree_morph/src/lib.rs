@@ -8,8 +8,8 @@
 pub mod commands;
 pub mod engine;
 pub mod helpers;
-pub mod reduction;
-pub mod traits;
+pub mod rule;
+pub mod update;
 
 pub mod prelude {
     use super::*;
@@ -18,6 +18,6 @@ pub mod prelude {
     pub use commands::Commands;
     pub use engine::morph;
     pub use helpers::select_first;
-    pub use reduction::Reduction;
-    pub use traits::Rule;
+    pub use rule::{Rule, RuleFn};
+    pub use update::Update;
 }

@@ -1,10 +1,11 @@
 use crate::commands::Commands;
 use uniplate::Uniplate;
 
-/// Represents a successful application of a rule.
+/// Represents the effects of a successful rule application, including the full
+/// new tree and any side-effects
 ///
-/// This includes the new whole tree and side-effects to be applied.
-pub struct Reduction<T, M>
+///
+pub struct Update<T, M>
 where
     T: Uniplate,
 {

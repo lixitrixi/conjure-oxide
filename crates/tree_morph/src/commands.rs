@@ -1,10 +1,7 @@
 use std::collections::VecDeque;
 use uniplate::Uniplate;
 
-enum Command<T, M>
-where
-    T: Uniplate,
-{
+enum Command<T: Uniplate, M> {
     Transform(fn(&T) -> T),
     MutMeta(fn(&mut M)),
 }
