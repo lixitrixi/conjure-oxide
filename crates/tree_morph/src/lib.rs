@@ -14,7 +14,7 @@ pub mod traits;
 pub mod prelude {
     use super::*;
 
-    pub use crate::rule_fn;
+    pub use crate::rule_fns;
     pub use commands::Commands;
     pub use engine::morph;
     pub use helpers::select_first;

@@ -1,9 +1,5 @@
-//! Here we test the `reduce_with_rule_groups` function.
-//! Each rule group is applied to the whole tree as with `reduce_with_rules`, before the next group is tried.
-//! Every time a change is made, the algorithm starts again with the first group.
-//!
-//! This lets us make powerful "evaluation" rules which greedily reduce the tree as much as possible, before other
-//! "rewriting" rules are applied.
+//! Here we test rule groups with differing priorities.
+//! Rules in a higher-index group will be applied first, even if they apply to lower nodes in the tree.
 
 use tree_morph::prelude::*;
 use uniplate::derive::Uniplate;
@@ -43,7 +39,7 @@ fn test_same_group() {
     let expr = Expr::Wrap(Box::new(Expr::A));
 
     let (result, _) = morph(
-        vec![vec![rule_fn!(rule_unwrap_a), rule_fn!(rule_a_to_b)]],
+        vec![vec![rule_unwrap_a as _], rule_fns![rule_a_to_b]],
         select_first,
         expr,
         (),
@@ -61,7 +57,7 @@ fn test_a_to_b_first() {
     let expr = Expr::Wrap(Box::new(Expr::A));
 
     let (result, _) = morph(
-        vec![vec![rule_fn!(rule_a_to_b)], vec![rule_fn!(rule_unwrap_a)]],
+        vec![rule_fns![rule_a_to_b], rule_fns![rule_unwrap_a]],
         select_first,
         expr,
         (),

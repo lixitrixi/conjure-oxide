@@ -1,6 +1,9 @@
 use crate::commands::Commands;
 use uniplate::Uniplate;
 
+/// Defines tree rewriting behaviour for a type.
+///
+/// TODO:
 pub trait Rule<T: Uniplate, M> {
     /// Applies the rule to the given subtree and returns the result if applicable.
     ///
@@ -8,7 +11,7 @@ pub trait Rule<T: Uniplate, M> {
     fn apply(&self, commands: &mut Commands<T, M>, subtree: &T, meta: &M) -> Option<T>;
 }
 
-// Allows the user to pass closures directly as rules
+// Allows the user to pass closures and function pointers directly as rules
 impl<T, M, F> Rule<T, M> for F
 where
     T: Uniplate,
@@ -23,11 +26,9 @@ where
 ///
 /// Function pointers do not have the same type even if they have the same signature,
 ///     so this provides a way to pass different functions to the engine.
-///
-//# TODO: example
 #[macro_export]
-macro_rules! rule_fn {
-    ($name:ident) => {
-        $name as fn(&mut _, &_, &_) -> Option<_>
+macro_rules! rule_fns {
+    [$( $exp:expr ),*] => {
+        vec![$( $exp as fn(&mut _, &_, &_) -> Option<_>, )*]
     };
 }

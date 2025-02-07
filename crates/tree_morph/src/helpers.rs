@@ -43,31 +43,18 @@ pub fn select_first_or_panic<T, M, R>(
     rs: &mut dyn Iterator<Item = (&R, Reduction<T, M>)>,
 ) -> Option<Reduction<T, M>>
 where
-    T: Uniplate + Display,
-    R: Rule<T, M>,
+    T: Uniplate + std::fmt::Debug,
+    R: Rule<T, M> + std::fmt::Debug,
 {
     let mut rs = multipeek(rs);
     if rs.peek_nth(1).is_some() {
-        // TODO (Felix) Log list of rules
-        panic!("Multiple rules applicable to expression \"{}\"", t);
+        let rules = rs.map(|(r, _)| r).collect::<Vec<_>>();
+        panic!(
+            "Multiple rules applicable to expression {:?}\n{:?}",
+            t, rules
+        );
     }
     rs.next().map(|(_, r)| r)
-}
-
-macro_rules! select_prompt {
-    () => {
-        "--- Current Expression ---
-{}
-
---- Rules ---
-{}
-
----
-q   No change
-<n> Apply rule n
-
-:"
-    };
 }
 
 pub fn select_user_input<T, M, R>(
@@ -96,7 +83,20 @@ where
         .join("\n\n");
 
     loop {
-        print!(select_prompt!(), t, rules);
+        print!(
+            "--- Current Expression ---
+{}
+
+--- Rules ---
+{}
+
+---
+q   No change
+<n> Apply rule n
+
+:",
+            t, rules
+        );
         std::io::stdout().flush().unwrap(); // Print the : on same line
 
         let mut line = String::new();
