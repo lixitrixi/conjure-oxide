@@ -108,7 +108,7 @@ fn transform_beta_reduce(cmd: &mut Commands<Expr, u32>, expr: &Expr, _: &u32) ->
 }
 
 #[test]
-fn test_simple_application() {
+fn simple_application() {
     // (\x. x) 1 -> 1
     let expr = Expr::App(
         Box::new(Expr::Abs(0, Box::new(Expr::Var(0)))),
@@ -120,7 +120,7 @@ fn test_simple_application() {
 }
 
 #[test]
-fn test_nested_application() {
+fn nested_application() {
     // ((\x. x) (\y. y)) 1 -> 1
     let expr = Expr::App(
         Box::new(Expr::App(
@@ -135,7 +135,7 @@ fn test_nested_application() {
 }
 
 #[test]
-fn test_capture_avoiding_substitution() {
+fn capture_avoiding_substitution() {
     // (\x. (\y. x)) 1 -> (\y. 1)
     let expr = Expr::App(
         Box::new(Expr::Abs(0, Box::new(Expr::Abs(1, Box::new(Expr::Var(0)))))),
@@ -147,7 +147,7 @@ fn test_capture_avoiding_substitution() {
 }
 
 #[test]
-fn test_double_reduction() {
+fn double_reduction() {
     // (\x. (\y. y)) 1 -> (\y. y)
     let expr = Expr::App(
         Box::new(Expr::Abs(0, Box::new(Expr::Abs(1, Box::new(Expr::Var(1)))))),
@@ -159,7 +159,7 @@ fn test_double_reduction() {
 }
 
 #[test]
-fn test_id() {
+fn id() {
     // (\x. x) -> (\x. x)
     let expr = Expr::Abs(0, Box::new(Expr::Var(0)));
     let (expr, meta) = morph(vec![vec![transform_beta_reduce]], select_first, expr, 0);
@@ -168,7 +168,7 @@ fn test_id() {
 }
 
 #[test]
-fn test_no_reduction() {
+fn no_reduction() {
     // x -> x
     let expr = Expr::Var(1);
     let (result, meta) = morph(
@@ -182,7 +182,7 @@ fn test_no_reduction() {
 }
 
 #[test]
-fn test_complex_expression() {
+fn complex_expression() {
     // (((\x. (\y. x y)) (\z. z)) (\w. w)) -> (\y. (\w. w) y) -> (\w. w)
     let expr = Expr::App(
         Box::new(Expr::App(

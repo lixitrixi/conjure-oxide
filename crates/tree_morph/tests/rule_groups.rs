@@ -32,14 +32,14 @@ fn rule_a_to_b(_: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> 
 }
 
 #[test]
-fn test_same_group() {
+fn same_group() {
     // If the rules are in the same group, unwrap_a will apply higher in the tree
 
     // [a]
     let expr = Expr::Wrap(Box::new(Expr::A));
 
     let (result, _) = morph(
-        vec![vec![rule_unwrap_a as _], rule_fns![rule_a_to_b]],
+        vec![rule_fns![rule_unwrap_a], rule_fns![rule_a_to_b]],
         select_first,
         expr,
         (),
@@ -50,7 +50,7 @@ fn test_same_group() {
 }
 
 #[test]
-fn test_a_to_b_first() {
+fn a_to_b_first() {
     // a_to_b is in a higher group than unwrap_a, so it will be applied first to the lower expression
 
     // [a]

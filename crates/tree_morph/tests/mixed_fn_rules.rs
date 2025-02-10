@@ -18,7 +18,7 @@ fn rule_b_to_c(_: &mut Commands<Expr, ()>, expr: &Expr, _: &()) -> Option<Expr> 
 }
 
 #[test]
-fn test_closure_rules() {
+fn closure_rules() {
     let expr = Expr::A;
 
     let (result, _) = morph(

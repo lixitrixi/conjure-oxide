@@ -1,10 +1,21 @@
+//! Various selector functions for different use cases.
+//!
+//! A selector function accepts an iterator over ([`Rule`], [`Update`]) pairs and returns the selected
+//! [`Update`], or `None`.
+//!
+//! [`morph`](crate::morph) will call the given selector function when there is an ambiguity in which
+//! rule to apply. That is, when more than one rule from the same group returns [`Some(...)`]
+//! for a given sub-tree.
+
 use std::{collections::VecDeque, fmt::Display, io::Write, sync::Arc};
 
-use crate::prelude::*;
+use crate::{Rule, Update};
 use multipeek::multipeek;
 use uniplate::Uniplate;
 
 /// Returns the first [`Update`] if the iterator only yields one, otherwise calls `select`.
+///
+/// See the module-level documentation for more information.
 pub(crate) fn one_or_select<T, M, R>(
     select: impl Fn(&T, &mut dyn Iterator<Item = (&R, Update<T, M>)>) -> Option<Update<T, M>>,
     t: &T,
@@ -25,6 +36,8 @@ where
 ///
 /// This is a good default selection strategy, especially when you expect only one possible
 /// rule to apply to any one term.
+///
+/// See the module-level documentation for more information.
 pub fn select_first<T, M, R>(
     _: &T,
     rs: &mut dyn Iterator<Item = (&R, Update<T, M>)>,
@@ -36,10 +49,14 @@ where
     rs.next().map(|(_, u)| u)
 }
 
-/// Select the first [`Update`] or panic if there is more than one.
+/// Panics when called by the engine, printing the original subtree and all applicable rules
+/// and their results.
 ///
-/// This is useful when you expect exactly one rule to be applicable in all cases.
-pub fn select_first_or_panic<T, M, R>(
+/// This is useful when you always expect no more than one rule to be applicable, as the
+/// engine will only call the selector function when there is an ambiguity in which to apply.
+///
+/// See the module-level documentation for more information.
+pub fn select_panic<T, M, R>(
     t: &T,
     rs: &mut dyn Iterator<Item = (&R, Update<T, M>)>,
 ) -> Option<Update<T, M>>
@@ -47,17 +64,18 @@ where
     T: Uniplate + std::fmt::Debug,
     R: Rule<T, M> + std::fmt::Debug,
 {
-    let mut rs = multipeek(rs);
-    if rs.peek_nth(1).is_some() {
-        let rules = rs.map(|(r, _)| r).collect::<Vec<_>>();
-        panic!(
-            "Multiple rules applicable to expression {:?}\n{:?}",
-            t, rules
-        );
-    }
-    rs.next().map(|(_, u)| u)
+    let rules = rs.map(|(r, _)| r).collect::<Vec<_>>();
+    // Since `one_or_select` only calls the selector if there is more than one rule,
+    // at this point there is guaranteed to be more than one rule.
+    panic!(
+        "Multiple rules applicable to expression {:?}\n{:?}",
+        t, rules
+    );
 }
 
+/// Selects an [`Update`] based on user input through stdin.
+///
+/// See the module-level documentation for more information.
 pub fn select_user_input<T, M, R>(
     t: &T,
     rs: &mut dyn Iterator<Item = (&R, Update<T, M>)>,
@@ -71,15 +89,26 @@ where
     let rules = choices
         .iter()
         .enumerate()
-        .map(|(i, (r, Update { new_tree, .. }))| {
-            format!(
-                "{}. {}
+        .map(
+            |(
+                i,
+                (
+                    r,
+                    Update {
+                        new_subtree: new_tree,
+                        ..
+                    },
+                ),
+            )| {
+                format!(
+                    "{}. {}
    ~> {}",
-                i + 1,
-                r,
-                new_tree
-            )
-        })
+                    i + 1,
+                    r,
+                    new_tree
+                )
+            },
+        )
         .collect::<Vec<_>>()
         .join("\n\n");
 
@@ -117,7 +146,9 @@ q   No change
     }
 }
 
-/// Selects a random `Reduction` from the iterator.
+/// Selects a random [`Update`] from the iterator.
+///
+/// See the module-level documentation for more information.
 pub fn select_random<T, M, R>(
     _: &T,
     rs: &mut dyn Iterator<Item = (&R, Update<T, M>)>,
@@ -131,10 +162,12 @@ where
     rs.choose(&mut rng).map(|(_, u)| u)
 }
 
-/// Selects the `Reduction` which results in the smallest subtree.
+/// Selects the [`Update`] which results in the smallest subtree.
 ///
 /// Subtree size is determined by maximum depth.
 /// Among trees with the same depth, the first in the iterator order is selected.
+///
+/// See the module-level documentation for more information.
 pub fn select_smallest_subtree<T, M, R>(
     _: &T,
     rs: &mut dyn Iterator<Item = (&R, Update<T, M>)>,
@@ -144,7 +177,7 @@ where
     R: Rule<T, M>,
 {
     rs.min_by_key(|(_, u)| {
-        u.new_tree.cata(Arc::new(|_, cs: VecDeque<i32>| {
+        u.new_subtree.cata(Arc::new(|_, cs: VecDeque<i32>| {
             // Max subtree height + 1
             cs.iter().max().unwrap_or(&0) + 1
         }))

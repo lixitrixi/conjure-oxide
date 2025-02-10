@@ -1,16 +1,13 @@
-//! # Tree Morph
-//!
-//! **A generic rule-based term rewriting library.**
-//!
-//! This library provides methods which, given a tree and a collection of node-to-node transformation rules,
-//! repeatedly rewrites parts of the tree until no more rules can be applied.
+#![doc = include_str!("../README.md")]
+#![warn(missing_docs)]
 
-pub mod commands;
-pub mod engine;
+mod commands;
+mod engine;
 pub mod helpers;
-pub mod rule;
-pub mod update;
+mod rule;
+mod update;
 
+/// Re-exported functions and types for convenience.
 pub mod prelude {
     use super::*;
 
@@ -21,3 +18,8 @@ pub mod prelude {
     pub use rule::{Rule, RuleFn};
     pub use update::Update;
 }
+
+pub use commands::Commands;
+pub use engine::morph;
+pub use rule::{Rule, RuleFn};
+pub use update::Update;

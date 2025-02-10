@@ -34,7 +34,7 @@ fn circ_circ_tri_to_sqr(_: &mut Commands<Shape, ()>, expr: &Shape, _: &()) -> Op
 }
 
 #[test]
-fn test_circ_tri() {
+fn circ_tri() {
     // O(/\)
     let expr = Shape::Circle(Box::new(Shape::Triangle));
 
@@ -49,7 +49,7 @@ fn test_circ_tri() {
 }
 
 #[test]
-fn test_circ_circ_tri() {
+fn circ_circ_tri() {
     // O(O(/\))
     let expr = Shape::Circle(Box::new(Shape::Circle(Box::new(Shape::Triangle))));
 
@@ -65,7 +65,7 @@ fn test_circ_circ_tri() {
 }
 
 #[test]
-fn test_shape_higher_priority() {
+fn shape_higher_priority() {
     // O(O(/\))
     let expr = Shape::Circle(Box::new(Shape::Circle(Box::new(Shape::Triangle))));
 
@@ -83,14 +83,14 @@ fn test_shape_higher_priority() {
 
 #[should_panic]
 #[test]
-fn test_shape_multiple_rules_panic() {
+fn shape_multiple_rules_panic() {
     // O(O(/\))
     let expr = Shape::Circle(Box::new(Shape::Circle(Box::new(Shape::Triangle))));
 
     // Same rule twice, applicable at the same time
     morph(
         vec![rule_fns![circ_tri_to_tri, circ_tri_to_tri]],
-        tree_morph::helpers::select_first_or_panic,
+        tree_morph::helpers::select_panic,
         expr,
         (),
     );

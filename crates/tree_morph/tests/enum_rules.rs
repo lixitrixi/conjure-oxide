@@ -51,7 +51,7 @@ struct Meta {
 }
 
 #[test]
-fn test_single_var() {
+fn single_var() {
     let expr = Expr::Val(42);
     let meta = Meta {
         num_applications: 0,
@@ -67,7 +67,7 @@ fn test_single_var() {
 }
 
 #[test]
-fn test_add_zero() {
+fn add_zero() {
     let expr = Expr::Add(Box::new(Expr::Val(0)), Box::new(Expr::Val(42)));
     let meta = Meta {
         num_applications: 0,
@@ -83,7 +83,7 @@ fn test_add_zero() {
 }
 
 #[test]
-fn test_mul_one() {
+fn mul_one() {
     let expr = Expr::Mul(Box::new(Expr::Val(1)), Box::new(Expr::Val(42)));
     let meta = Meta {
         num_applications: 0,
@@ -99,7 +99,7 @@ fn test_mul_one() {
 }
 
 #[test]
-fn test_eval_add() {
+fn eval_add() {
     let expr = Expr::Add(Box::new(Expr::Val(1)), Box::new(Expr::Val(2)));
     let meta = Meta {
         num_applications: 0,
@@ -115,7 +115,7 @@ fn test_eval_add() {
 }
 
 #[test]
-fn test_eval_nested() {
+fn eval_nested() {
     let expr = Expr::Mul(
         Box::new(Expr::Add(Box::new(Expr::Val(1)), Box::new(Expr::Val(2)))),
         Box::new(Expr::Val(3)),
