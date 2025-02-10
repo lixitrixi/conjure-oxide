@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/subsitute_lettings.rs`."><title>subsitute_lettings.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (f027438f8 2025-02-03)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>subsitute_lettings.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/subsitute_lettings.rs`."><title>subsitute_lettings.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (124cc9219 2025-02-09)" data-channel="nightly" data-search-js="search-581efc7a.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-3a5871a4.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-4d63596a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>subsitute_lettings.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -56,22 +56,12 @@
 <a href="#55" id="55">55</a>
 <a href="#56" id="56">56</a>
 <a href="#57" id="57">57</a>
-<a href="#58" id="58">58</a>
-<a href="#59" id="59">59</a>
-<a href="#60" id="60">60</a>
-<a href="#61" id="61">61</a>
-<a href="#62" id="62">62</a>
-<a href="#63" id="63">63</a>
-<a href="#64" id="64">64</a>
-<a href="#65" id="65">65</a>
-<a href="#66" id="66">66</a>
-<a href="#67" id="67">67</a></pre></div><pre class="rust"><code><span class="kw">use </span>conjure_macros::register_rule;
+<a href="#58" id="58">58</a></pre></div><pre class="rust"><code><span class="kw">use </span>conjure_macros::register_rule;
 
 <span class="kw">use crate</span>::{
-    ast::{Atom, Domain, Expression <span class="kw">as </span>Expr},
+    ast::{Atom, Domain, Expression <span class="kw">as </span>Expr, SymbolTable},
     bug,
     rule_engine::{ApplicationError::RuleNotApplicable, ApplicationResult, Reduction},
-    Model,
 };
 
 <span class="doccomment">/// Substitutes value lettings for their values.
@@ -83,32 +73,27 @@
 /// Otherwise, the letting may be put into a flat constraint, as it is a reference. At this point
 /// it ceases to be an expression, so we cannot match over it.
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">5000</span>))]
-</span><span class="kw">fn </span>substitute_value_lettings(expr: <span class="kw-2">&amp;</span>Expr, m: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>substitute_value_lettings(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Reference(name)) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
 
-    <span class="kw">let </span>value = m
-        .symbols()
-        .get_value_letting(name)
-        .ok_or(RuleNotApplicable)<span class="question-mark">?</span>;
+    <span class="kw">let </span>value = symbols.get_value_letting(name).ok_or(RuleNotApplicable)<span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(Reduction::pure(value.clone()))
 }
 
 <span class="doccomment">/// Substitutes domain lettings for their values in the symbol table.
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">5000</span>))]
-</span><span class="kw">fn </span>substitute_domain_lettings(expr: <span class="kw-2">&amp;</span>Expr, m: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
-    <span class="kw">let </span><span class="kw-2">mut </span>model = m.clone();
+</span><span class="kw">fn </span>substitute_domain_lettings(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
+    <span class="kw">let </span><span class="kw-2">mut </span>new_symbols = symbols.clone();
     <span class="kw">let </span><span class="kw-2">mut </span>has_changed = <span class="bool-val">false</span>;
-    <span class="kw">for </span>name <span class="kw">in </span>m.symbols().names() {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(d) = model.symbols_mut().domain_of_mut(name) {
-            <span class="comment">// For some reason, Rust didn't want to do this match in one go.
-            //
-            // if let Some(d @ Domain::Reference(domain_name)) gave borrow checker errors.
-            </span><span class="kw">if let </span>Domain::DomainReference(domain_name) = d {
-                <span class="kw-2">*</span>d = m
-                    .symbols()
+
+    <span class="comment">// using both the old and new symbol tables to placate the borrow checker.
+    </span><span class="kw">for </span>name <span class="kw">in </span>symbols.names() {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(d) = new_symbols.domain_of_mut(name) {
+            <span class="kw">if let </span>Domain::DomainReference(domain_name) = d {
+                <span class="kw-2">*</span>d = symbols
                     .get_domain_letting(<span class="kw-2">&amp;</span>domain_name.clone())
                     .unwrap_or_else(|| {
                         <span class="macro">bug!</span>(
@@ -124,10 +109,7 @@
     }
 
     <span class="kw">if </span>has_changed {
-        <span class="prelude-val">Ok</span>(Reduction::with_symbols(
-            expr.clone(),
-            model.symbols().clone(),
-        ))
+        <span class="prelude-val">Ok</span>(Reduction::with_symbols(expr.clone(), new_symbols))
     } <span class="kw">else </span>{
         <span class="prelude-val">Err</span>(RuleNotApplicable)
     }

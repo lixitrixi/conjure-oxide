@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/utils.rs`."><title>utils.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (f027438f8 2025-02-03)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>utils.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/utils.rs`."><title>utils.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (124cc9219 2025-02-09)" data-channel="nightly" data-search-js="search-581efc7a.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-3a5871a4.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-4d63596a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>utils.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -136,16 +136,13 @@
 <a href="#135" id="135">135</a>
 <a href="#136" id="136">136</a>
 <a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a></pre></div><pre class="rust"><code><span class="kw">use </span>tracing::instrument;
+<a href="#138" id="138">138</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::ast::SymbolTable;
+<span class="kw">use </span>tracing::instrument;
 <span class="kw">use </span>uniplate::{Biplate, Uniplate};
 
 <span class="kw">use crate</span>::{
     ast::{Atom, DecisionVariable, Domain, Expression <span class="kw">as </span>Expr, Name},
     metadata::Metadata,
-    Model,
 };
 
 <span class="doccomment">/// True iff `expr` is an `Atom`.
@@ -203,13 +200,13 @@
 ///
 /// * `Some(ToAuxVarOutput)` if successful, containing:
 ///     
-///     + A new model, modified to include the auxiliary variable in the symbol table.
+///     + A new symbol table, modified to include the auxiliary variable.
 ///     + A new top level expression, containing the declaration of the auxiliary variable.
 ///     + A reference to the auxiliary variable to replace the existing expression with.
 ///
 </span><span class="attr">#[instrument]
-</span><span class="kw">pub fn </span>to_aux_var(expr: <span class="kw-2">&amp;</span>Expr, m: <span class="kw-2">&amp;</span>Model) -&gt; <span class="prelude-ty">Option</span>&lt;ToAuxVarOutput&gt; {
-    <span class="kw">let </span><span class="kw-2">mut </span>m = m.clone();
+</span><span class="kw">pub fn </span>to_aux_var(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; <span class="prelude-ty">Option</span>&lt;ToAuxVarOutput&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>symbols = symbols.clone();
 
     <span class="comment">// No need to put an atom in an aux_var
     </span><span class="kw">if </span>is_atom(expr) {
@@ -221,20 +218,20 @@
         <span class="kw">return </span><span class="prelude-val">None</span>;
     }
 
-    <span class="kw">let </span>name = m.gensym();
+    <span class="kw">let </span>name = symbols.gensym();
 
-    <span class="kw">let </span><span class="prelude-val">Some</span>(domain) = expr.domain_of(m.symbols()) <span class="kw">else </span>{
+    <span class="kw">let </span><span class="prelude-val">Some</span>(domain) = expr.domain_of(<span class="kw-2">&amp;</span>symbols) <span class="kw">else </span>{
         <span class="macro">tracing::trace!</span>(<span class="string">"could not find domain of {}"</span>, expr);
         <span class="kw">return </span><span class="prelude-val">None</span>;
     };
 
-    m.add_variable(name.clone(), DecisionVariable::new(domain.clone()));
+    symbols.add_var(name.clone(), DecisionVariable::new(domain.clone()));
 
     <span class="prelude-val">Some</span>(ToAuxVarOutput {
         aux_name: name.clone(),
         aux_decl: Expr::AuxDeclaration(Metadata::new(), name, Box::new(expr.clone())),
         aux_domain: domain,
-        new_model: m,
+        symbols,
         _unconstructable: (),
     })
 }
@@ -245,7 +242,7 @@
     aux_decl: Expr,
     <span class="attr">#[allow(dead_code)] </span><span class="comment">// TODO: aux_domain should be used soon, try removing this pragma
     </span>aux_domain: Domain,
-    new_model: Model,
+    symbols: SymbolTable,
     _unconstructable: (),
 }
 
@@ -267,12 +264,9 @@
         <span class="self">self</span>.aux_decl.clone()
     }
 
-    <span class="doccomment">/// Returns the new `Model`, modified to contain this auxiliary variable in the symbol table.
-    ///
-    /// Like `Reduction`, this new model does not include the new top level expression. To get
-    /// this, use [`top_level_expr()`](`ToAuxVarOutput::top_level_expr()`).
-    </span><span class="kw">pub fn </span>model(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Model {
-        <span class="self">self</span>.new_model.clone()
+    <span class="doccomment">/// Returns the new `SymbolTable`, modified to contain this auxiliary variable in the symbol table.
+    </span><span class="kw">pub fn </span>symbols(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SymbolTable {
+        <span class="self">self</span>.symbols.clone()
     }
 
     <span class="doccomment">/// Returns the name of the auxiliary variable.

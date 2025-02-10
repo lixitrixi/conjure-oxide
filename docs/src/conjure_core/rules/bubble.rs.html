@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/bubble.rs`."><title>bubble.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (f027438f8 2025-02-03)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>bubble.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/bubble.rs`."><title>bubble.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (124cc9219 2025-02-09)" data-channel="nightly" data-search-js="search-581efc7a.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-3a5871a4.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-4d63596a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>bubble.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -182,17 +182,15 @@
 <a href="#181" id="181">181</a>
 <a href="#182" id="182">182</a>
 <a href="#183" id="183">183</a>
-<a href="#184" id="184">184</a>
-<a href="#185" id="185">185</a></pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::ast::{Expression, ReturnType};
+<a href="#184" id="184">184</a></pre></div><pre class="rust"><code><span class="kw">use </span>conjure_core::ast::{Expression, ReturnType};
 <span class="kw">use </span>conjure_core::metadata::Metadata;
 <span class="kw">use </span>conjure_core::rule_engine::{
     register_rule, register_rule_set, ApplicationError, ApplicationError::<span class="kw-2">*</span>, ApplicationResult,
     Reduction,
 };
-<span class="kw">use </span>conjure_core::Model;
 <span class="kw">use </span>uniplate::Uniplate;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::{Atom, Literal};
+<span class="kw">use </span><span class="kw">crate</span>::ast::{Atom, Literal, SymbolTable};
 
 <span class="kw">use </span><span class="kw">super</span>::utils::is_all_constant;
 
@@ -206,7 +204,7 @@
     e.g. (a / b = c) @ (b != 0) =&gt; (a / b = c) &amp; (b != 0)
 */
 </span><span class="attr">#[register_rule((<span class="string">"Bubble"</span>, <span class="number">8900</span>))]
-</span><span class="kw">fn </span>expand_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>expand_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">match </span>expr {
         Expression::Bubble(<span class="kw">_</span>, a, b) <span class="kw">if </span>a.return_type() == <span class="prelude-val">Some</span>(ReturnType::Bool) =&gt; {
             <span class="prelude-val">Ok</span>(Reduction::pure(Expression::And(
@@ -224,7 +222,7 @@
     E.g. ((a / b) @ (b != 0)) = c =&gt; (a / b = c) @ (b != 0)
 */
 </span><span class="attr">#[register_rule((<span class="string">"Bubble"</span>, <span class="number">8900</span>))]
-</span><span class="kw">fn </span>bubble_up(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>bubble_up(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span><span class="kw-2">mut </span>sub = expr.children();
     <span class="kw">let </span><span class="kw-2">mut </span>bubbled_conditions = <span class="macro">vec!</span>[];
     <span class="kw">for </span>e <span class="kw">in </span>sub.iter_mut() {
@@ -258,7 +256,7 @@
 /// boolean-type expression it is paired with.
 
 </span><span class="attr">#[register_rule((<span class="string">"Bubble"</span>, <span class="number">6000</span>))]
-</span><span class="kw">fn </span>div_to_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>div_to_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">if </span>is_all_constant(expr) {
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     }
@@ -292,7 +290,7 @@
 /// boolean-type expression it is paired with.
 ///
 </span><span class="attr">#[register_rule((<span class="string">"Bubble"</span>, <span class="number">6000</span>))]
-</span><span class="kw">fn </span>mod_to_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>mod_to_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">if </span>is_all_constant(expr) {
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     }
@@ -326,7 +324,7 @@
 /// boolean-type expression it is paired with.
 ///
 </span><span class="attr">#[register_rule((<span class="string">"Bubble"</span>, <span class="number">6000</span>))]
-</span><span class="kw">fn </span>pow_to_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>pow_to_bubble(expr: <span class="kw-2">&amp;</span>Expression, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">if </span>is_all_constant(expr) {
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     }

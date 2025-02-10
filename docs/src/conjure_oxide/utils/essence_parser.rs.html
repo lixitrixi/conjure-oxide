@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/utils/essence_parser.rs`."><title>essence_parser.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (f027438f8 2025-02-03)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_oxide/utils/</div>essence_parser.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `conjure_oxide/src/utils/essence_parser.rs`."><title>essence_parser.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_oxide" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (124cc9219 2025-02-09)" data-channel="nightly" data-search-js="search-581efc7a.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-3a5871a4.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-4d63596a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_oxide/utils/</div>essence_parser.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -325,7 +325,21 @@
 <a href="#324" id="324">324</a>
 <a href="#325" id="325">325</a>
 <a href="#326" id="326">326</a>
-<a href="#327" id="327">327</a></pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::legacy_numeric_constants)]
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a></pre></div><pre class="rust"><code><span class="attr">#![allow(clippy::legacy_numeric_constants)]
 </span><span class="kw">use </span>conjure_core::error::Error;
 <span class="kw">use </span>std::fs;
 <span class="kw">use </span>std::sync::{Arc, RwLock};
@@ -356,7 +370,7 @@
             <span class="string">"find_statement_list" </span>=&gt; {
                 <span class="kw">let </span>var_hashmap = parse_find_statement(statement, <span class="kw-2">&amp;</span>source_code);
                 <span class="kw">for </span>(name, decision_variable) <span class="kw">in </span>var_hashmap {
-                    model.add_variable(name, decision_variable);
+                    model.symbols_mut().add_var(name, decision_variable);
                 }
             }
             <span class="string">"constraint_list" </span>=&gt; {
@@ -433,8 +447,7 @@
 }
 
 <span class="kw">fn </span>parse_int_domain(int_domain: Node, source_code: <span class="kw-2">&amp;</span>str) -&gt; Domain {
-    <span class="comment">//TODO implement functionality for non-simple ints
-    </span><span class="kw">if </span>int_domain.child_count() == <span class="number">1 </span>{
+    <span class="kw">if </span>int_domain.child_count() == <span class="number">1 </span>{
         Domain::IntDomain(<span class="macro">vec!</span>[Range::Bounded(std::i32::MIN, std::i32::MAX)])
     } <span class="kw">else </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>ranges: Vec&lt;Range&lt;i32&gt;&gt; = Vec::new();
@@ -545,6 +558,7 @@
                 <span class="string">"&gt;=" </span>=&gt; Expression::Geq(Metadata::new(), Box::new(expr1), Box::new(expr2)),
                 <span class="string">"&lt;" </span>=&gt; Expression::Lt(Metadata::new(), Box::new(expr1), Box::new(expr2)),
                 <span class="string">"&gt;" </span>=&gt; Expression::Gt(Metadata::new(), Box::new(expr1), Box::new(expr2)),
+                <span class="string">"-&gt;" </span>=&gt; Expression::Imply(Metadata::new(), Box::new(expr1), Box::new(expr2)),
                 <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">"Not a supported comp_op"</span>),
             }
         }
@@ -560,9 +574,7 @@
 
             <span class="kw">match </span>op_type {
                 <span class="string">"+" </span>=&gt; Expression::Sum(Metadata::new(), <span class="macro">vec!</span>[expr1, expr2]),
-                <span class="string">"-" </span>=&gt; {
-                    <span class="macro">panic!</span>(<span class="string">"Subtraction expressions not supported yet"</span>)
-                }
+                <span class="string">"-" </span>=&gt; Expression::Minus(Metadata::new(), Box::new(expr1), Box::new(expr2)),
                 <span class="string">"*" </span>=&gt; Expression::Product(Metadata::new(), <span class="macro">vec!</span>[expr1, expr2]),
                 <span class="string">"/" </span>=&gt; {
                     <span class="comment">//TODO: add checks for if division is safe or not
@@ -640,6 +652,22 @@
             Expression::Atomic(
                 Metadata::new(),
                 Atom::Reference(Name::UserName(variable_name)),
+            )
+        }
+        <span class="string">"abs_value" </span>=&gt; {
+            <span class="kw">let </span>child = constraint.child(<span class="number">1</span>).expect(<span class="string">"Error with absolute value"</span>);
+            Expression::Abs(
+                Metadata::new(),
+                Box::new(parse_constraint(child, source_code)),
+            )
+        }
+        <span class="string">"unary_minus_expr" </span>=&gt; {
+            <span class="kw">let </span>child = constraint
+                .child(<span class="number">1</span>)
+                .expect(<span class="string">"Error with unary minus expression"</span>);
+            Expression::Neg(
+                Metadata::new(),
+                Box::new(parse_constraint(child, source_code)),
             )
         }
         <span class="kw">_ </span>=&gt; {

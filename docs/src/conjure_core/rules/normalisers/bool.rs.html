@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/normalisers/bool.rs`."><title>bool.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (f027438f8 2025-02-03)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../../static.files/storage-302de22f.js"></script><script defer src="../../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/normalisers/</div>bool.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/normalisers/bool.rs`."><title>bool.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (124cc9219 2025-02-09)" data-channel="nightly" data-search-js="search-581efc7a.js" data-settings-js="settings-6dad6058.js" ><script src="../../../../static.files/storage-3a5871a4.js"></script><script defer src="../../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-4d63596a.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/normalisers/</div>bool.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -320,8 +320,7 @@
 <a href="#319" id="319">319</a>
 <a href="#320" id="320">320</a>
 <a href="#321" id="321">321</a>
-<a href="#322" id="322">322</a>
-<a href="#323" id="323">323</a></pre></div><pre class="rust"><code><span class="doccomment">//! Normalising rules for boolean operations (not, and, or, -&gt;).
+<a href="#322" id="322">322</a></pre></div><pre class="rust"><code><span class="doccomment">//! Normalising rules for boolean operations (not, and, or, -&gt;).
 
 </span><span class="kw">use </span>conjure_core::ast::Expression <span class="kw">as </span>Expr;
 <span class="kw">use </span>conjure_core::metadata::Metadata;
@@ -329,12 +328,11 @@
     register_rule, ApplicationError, ApplicationError::RuleNotApplicable, ApplicationResult,
     Reduction,
 };
-<span class="kw">use </span>conjure_core::Model;
 <span class="kw">use </span>uniplate::Uniplate;
 
 <span class="kw">use </span>Expr::<span class="kw-2">*</span>;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::Atom;
+<span class="kw">use </span><span class="kw">crate</span>::ast::{Atom, SymbolTable};
 
 <span class="doccomment">/// Removes double negations
 ///
@@ -342,7 +340,7 @@
 /// not(not(a)) = a
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8400</span>))]
-</span><span class="kw">fn </span>remove_double_negation(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>remove_double_negation(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">match </span>expr {
         Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
             Not(<span class="kw">_</span>, expr_box) =&gt; <span class="prelude-val">Ok</span>(Reduction::pure(<span class="kw-2">*</span>expr_box.clone())),
@@ -358,7 +356,7 @@
 /// or(and(a, b), c) ~&gt; and(or(a, c), or(b, c))
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8400</span>))]
-</span><span class="kw">fn </span>distribute_or_over_and(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>distribute_or_over_and(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">fn </span>find_and(exprs: <span class="kw-2">&amp;</span>[Expr]) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
         <span class="comment">// ToDo: may be better to move this to some kind of utils module?
         </span><span class="kw">for </span>(i, e) <span class="kw">in </span>exprs.iter().enumerate() {
@@ -406,7 +404,7 @@
 /// not(and(a, b)) ~&gt; or(not(a), not(b))
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8400</span>))]
-</span><span class="kw">fn </span>distribute_not_over_and(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>distribute_not_over_and(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">for </span>child <span class="kw">in </span>expr.universe() {
         <span class="kw">if </span><span class="macro">matches!</span>(
             child,
@@ -443,7 +441,7 @@
 /// not(or(a, b)) ~&gt; and(not(a), not(b))
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8400</span>))]
-</span><span class="kw">fn </span>distribute_not_over_or(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>distribute_not_over_or(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">match </span>expr {
         Not(<span class="kw">_</span>, contents) =&gt; <span class="kw">match </span>contents.as_ref() {
             Or(metadata, exprs) =&gt; {
@@ -472,7 +470,7 @@
 /// or([a]) ~&gt; a
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8800</span>))]
-</span><span class="kw">fn </span>remove_unit_vector_and(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>remove_unit_vector_and(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">match </span>expr {
         And(<span class="kw">_</span>, exprs) =&gt; {
             <span class="kw">if </span>exprs.len() == <span class="number">1 </span>{
@@ -490,7 +488,7 @@
 /// or([a]) ~&gt; a
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8800</span>))]
-</span><span class="kw">fn </span>remove_unit_vector_or(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>remove_unit_vector_or(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">match </span>expr {
         <span class="comment">// do not conflict with unwrap_nested_or rule.
         </span>Or(<span class="kw">_</span>, exprs) <span class="kw">if </span>exprs.len() == <span class="number">1 </span>&amp;&amp; !<span class="macro">matches!</span>(exprs[<span class="number">0</span>], Or(<span class="kw">_</span>, <span class="kw">_</span>)) =&gt; {
@@ -507,7 +505,7 @@
 /// ```
 /// where p,q are safe.
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8800</span>))]
-</span><span class="kw">fn </span>normalise_implies_contrapositive(expr: <span class="kw-2">&amp;</span>Expr, _model: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>normalise_implies_contrapositive(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Imply(<span class="kw">_</span>, e1, e2) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -540,7 +538,7 @@
 ///
 /// where p-&gt;q is safe
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8800</span>))]
-</span><span class="kw">fn </span>normalise_implies_negation(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>normalise_implies_negation(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Not(<span class="kw">_</span>, e1) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -572,7 +570,7 @@
 /// Has a higher priority than `normalise_implies_uncurry` as this should apply first. See the
 /// docstring for `normalise_implies_uncurry`.
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8800</span>))]
-</span><span class="kw">fn </span>normalise_implies_left_distributivity(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>normalise_implies_left_distributivity(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Imply(<span class="kw">_</span>, e1, e2) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -629,7 +627,7 @@
 /// With this rule, I am assuming (without empirical evidence) that and is a cheaper constraint
 /// than implication (in particular, Minion's reifyimply constraint).
 </span><span class="attr">#[register_rule((<span class="string">"Base"</span>, <span class="number">8400</span>))]
-</span><span class="kw">fn </span>normalise_implies_uncurry(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>normalise_implies_uncurry(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Imply(<span class="kw">_</span>, p, e1) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };

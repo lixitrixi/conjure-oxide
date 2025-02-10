@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (f027438f8 2025-02-03)" data-channel="nightly" data-search-js="search-2d513d54.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-302de22f.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9b5d7e41.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>minion.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/conjure_core/src/rules/minion.rs`."><title>minion.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cf3c48c1.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="conjure_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (124cc9219 2025-02-09)" data-channel="nightly" data-search-js="search-581efc7a.js" data-settings-js="settings-6dad6058.js" ><script src="../../../static.files/storage-3a5871a4.js"></script><script defer src="../../../static.files/src-script-8fee9dc5.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-4d63596a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">conjure_core/rules/</div>minion.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -993,16 +993,15 @@
 <a href="#992" id="992">992</a>
 <a href="#993" id="993">993</a>
 <a href="#994" id="994">994</a>
-<a href="#995" id="995">995</a>
-<a href="#996" id="996">996</a>
-<a href="#997" id="997">997</a>
-<a href="#998" id="998">998</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
+<a href="#995" id="995">995</a></pre></div><pre class="rust"><code><span class="comment">/************************************************************************/
 /*        Rules for translating to Minion-supported constraints         */
 /************************************************************************/
 
 </span><span class="kw">use </span>std::convert::TryInto;
 
-<span class="kw">use </span><span class="kw">crate</span>::ast::{Atom, DecisionVariable, Domain, Expression <span class="kw">as </span>Expr, Literal <span class="kw">as </span>Lit, ReturnType};
+<span class="kw">use </span><span class="kw">crate</span>::ast::{
+    Atom, DecisionVariable, Domain, Expression <span class="kw">as </span>Expr, Literal <span class="kw">as </span>Lit, ReturnType, SymbolTable,
+};
 
 <span class="kw">use </span><span class="kw">crate</span>::metadata::Metadata;
 <span class="kw">use </span><span class="kw">crate</span>::rule_engine::{
@@ -1011,7 +1010,6 @@
 <span class="kw">use </span><span class="kw">crate</span>::rules::extra_check;
 
 <span class="kw">use </span><span class="kw">crate</span>::solver::SolverFamily;
-<span class="kw">use </span><span class="kw">crate</span>::Model;
 <span class="kw">use </span>uniplate::Uniplate;
 <span class="kw">use </span>ApplicationError::<span class="kw-2">*</span>;
 
@@ -1020,7 +1018,7 @@
 <span class="macro">register_rule_set!</span>(<span class="string">"Minion"</span>, (<span class="string">"Base"</span>), (SolverFamily::Minion));
 
 <span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4200</span>))]
-</span><span class="kw">fn </span>introduce_producteq(expr: <span class="kw-2">&amp;</span>Expr, model: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_producteq(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="comment">// product = val
     </span><span class="kw">let </span>val: Atom;
     <span class="kw">let </span>product: Expr;
@@ -1083,7 +1081,7 @@
         .try_into()
         .or(<span class="prelude-val">Err</span>(RuleNotApplicable))<span class="question-mark">?</span>;
 
-    <span class="kw">let </span><span class="kw-2">mut </span>model = model.clone();
+    <span class="kw">let </span><span class="kw-2">mut </span>symbols = symbols.clone();
     <span class="kw">let </span><span class="kw-2">mut </span>new_tops: Vec&lt;Expr&gt; = <span class="macro">vec!</span>[];
 
     <span class="comment">// FIXME: add a test for this
@@ -1092,14 +1090,14 @@
         // similar to other introduction rules.
         </span><span class="kw">let </span>next_factor_atom: Atom = next_factor.clone().try_into().or(<span class="prelude-val">Err</span>(RuleNotApplicable))<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>aux_var = model.gensym();
+        <span class="kw">let </span>aux_var = symbols.gensym();
         <span class="comment">// TODO: find this domain without having to make unnecessary Expr and Metadata objects
         // Just using the domain of expr doesn't work
         </span><span class="kw">let </span>aux_domain = Expr::Product(Metadata::new(), <span class="macro">vec!</span>[y.clone().into(), next_factor])
-            .domain_of(<span class="kw-2">&amp;</span>model.symbols().clone())
+            .domain_of(<span class="kw-2">&amp;</span>symbols)
             .ok_or(ApplicationError::DomainError)<span class="question-mark">?</span>;
 
-        model.add_variable(aux_var.clone(), DecisionVariable { domain: aux_domain });
+        symbols.add_var(aux_var.clone(), DecisionVariable { domain: aux_domain });
 
         <span class="kw">let </span>new_top_expr =
             Expr::FlatProductEq(Metadata::new(), y, next_factor_atom, aux_var.clone().into());
@@ -1111,7 +1109,7 @@
     <span class="prelude-val">Ok</span>(Reduction::new(
         Expr::FlatProductEq(Metadata::new(), x, y, val),
         new_tops,
-        model.symbols().clone(),
+        symbols,
     ))
 }
 
@@ -1175,7 +1173,7 @@
 /// Cases 6 and 7 could potentially be a normalising rule `-e ~&gt; -1*e`. However, I think that we
 /// should only turn negations into a product when they are inside a sum, not all the time.
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4600</span>))]
-</span><span class="kw">fn </span>introduce_weighted_sumleq_sumgeq(expr: <span class="kw-2">&amp;</span>Expr, model: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_weighted_sumleq_sumgeq(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="comment">// Keep track of which type of (in)equality was in the input, and use this to decide what
     // constraints to make at the end
 
@@ -1264,7 +1262,7 @@
     }<span class="question-mark">?</span>;
 
     <span class="kw">let </span><span class="kw-2">mut </span>new_top_exprs: Vec&lt;Expr&gt; = <span class="macro">vec!</span>[];
-    <span class="kw">let </span><span class="kw-2">mut </span>model = model.clone();
+    <span class="kw">let </span><span class="kw-2">mut </span>symbols = symbols.clone();
 
     <span class="kw">let </span><span class="kw-2">mut </span>coefficients: Vec&lt;Lit&gt; = <span class="macro">vec!</span>[];
     <span class="kw">let </span><span class="kw-2">mut </span>vars: Vec&lt;Atom&gt; = <span class="macro">vec!</span>[];
@@ -1295,9 +1293,9 @@
                     <span class="comment">// c * &lt;some non-flat expression&gt;
                     </span>[Expr::Atomic(<span class="kw">_</span>, Atom::Literal(c)), e1] =&gt; {
                         <span class="attr">#[allow(clippy::unwrap_used)] </span><span class="comment">// aux var failing is a bug
-                        </span><span class="kw">let </span>aux_var_info = to_aux_var(e1, <span class="kw-2">&amp;</span>model).unwrap();
+                        </span><span class="kw">let </span>aux_var_info = to_aux_var(e1, <span class="kw-2">&amp;</span>symbols).unwrap();
 
-                        model = aux_var_info.model();
+                        symbols = aux_var_info.symbols();
                         <span class="kw">let </span>var = aux_var_info.as_atom();
                         new_top_exprs.push(aux_var_info.top_level_expr());
                         (c.clone(), var)
@@ -1308,9 +1306,9 @@
                         <span class="kw">let </span>e1 = Expr::Product(Metadata::new(), rest.to_vec());
 
                         <span class="attr">#[allow(clippy::unwrap_used)] </span><span class="comment">// aux var failing is a bug
-                        </span><span class="kw">let </span>aux_var_info = to_aux_var(<span class="kw-2">&amp;</span>e1, <span class="kw-2">&amp;</span>model).unwrap();
+                        </span><span class="kw">let </span>aux_var_info = to_aux_var(<span class="kw-2">&amp;</span>e1, <span class="kw-2">&amp;</span>symbols).unwrap();
 
-                        model = aux_var_info.model();
+                        symbols = aux_var_info.symbols();
                         <span class="kw">let </span>var = aux_var_info.as_atom();
                         new_top_exprs.push(aux_var_info.top_level_expr());
                         (c.clone(), var)
@@ -1325,8 +1323,8 @@
             // flatten e if non-atomic
             </span>Expr::Neg(<span class="kw">_</span>, e) =&gt; {
                 <span class="comment">// needs flattening
-                </span><span class="kw">let </span>v: Atom = <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(<span class="kw-2">&amp;</span>e, <span class="kw-2">&amp;</span>model) {
-                    model = aux_var_info.model();
+                </span><span class="kw">let </span>v: Atom = <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(<span class="kw-2">&amp;</span>e, <span class="kw-2">&amp;</span>symbols) {
+                    symbols = aux_var_info.symbols();
                     new_top_exprs.push(aux_var_info.top_level_expr());
                     aux_var_info.as_atom()
                 } <span class="kw">else </span>{
@@ -1343,9 +1341,9 @@
             // includes products without coefficients.
             </span>e =&gt; {
                 <span class="comment">//
-                </span><span class="kw">let </span>aux_var_info = to_aux_var(<span class="kw-2">&amp;</span>e, <span class="kw-2">&amp;</span>model).ok_or(RuleNotApplicable)<span class="question-mark">?</span>;
+                </span><span class="kw">let </span>aux_var_info = to_aux_var(<span class="kw-2">&amp;</span>e, <span class="kw-2">&amp;</span>symbols).ok_or(RuleNotApplicable)<span class="question-mark">?</span>;
 
-                model = aux_var_info.model();
+                symbols = aux_var_info.symbols();
                 <span class="kw">let </span>var = aux_var_info.as_atom();
                 new_top_exprs.push(aux_var_info.top_level_expr());
                 (Lit::Int(<span class="number">1</span>), var)
@@ -1390,15 +1388,11 @@
         (EqualityKind::Geq, <span class="bool-val">false</span>) =&gt; Expr::FlatSumGeq(Metadata::new(), vars, total),
     };
 
-    <span class="prelude-val">Ok</span>(Reduction::new(
-        new_expr,
-        new_top_exprs,
-        model.symbols().clone(),
-    ))
+    <span class="prelude-val">Ok</span>(Reduction::new(new_expr, new_top_exprs, symbols))
 }
 
 <span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4200</span>))]
-</span><span class="kw">fn </span>introduce_diveq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_diveq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="comment">// div = val
     </span><span class="kw">let </span>val: Atom;
     <span class="kw">let </span>div: Expr;
@@ -1450,7 +1444,7 @@
 }
 
 <span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4200</span>))]
-</span><span class="kw">fn </span>introduce_modeq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_modeq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="comment">// div = val
     </span><span class="kw">let </span>val: Atom;
     <span class="kw">let </span>div: Expr;
@@ -1501,7 +1495,7 @@
 }
 
 <span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
-</span><span class="kw">fn </span>introduce_abseq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_abseq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>(x, abs_y): (Atom, Expr) = <span class="kw">match </span>expr.clone() {
         Expr::Eq(<span class="kw">_</span>, a, b) =&gt; {
             <span class="kw">let </span>a_atom: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Atom&gt; = (<span class="kw-2">&amp;*</span>a).try_into().ok();
@@ -1532,7 +1526,7 @@
 
 <span class="doccomment">/// Introduces a `MinionPowEq` constraint from a `SafePow`
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4200</span>))]
-</span><span class="kw">fn </span>introduce_poweq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_poweq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>(a, b, total) = <span class="kw">match </span>expr.clone() {
         Expr::Eq(<span class="kw">_</span>, e1, e2) =&gt; <span class="kw">match </span>(<span class="kw-2">*</span>e1, <span class="kw-2">*</span>e2) {
             (Expr::Atomic(<span class="kw">_</span>, total), Expr::SafePow(<span class="kw">_</span>, a, b)) =&gt; <span class="prelude-val">Ok</span>((a, b, total)),
@@ -1561,7 +1555,7 @@
 ///   where x,y are atoms
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
-</span><span class="kw">fn </span>introduce_minuseq_from_eq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_minuseq_from_eq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Eq(<span class="kw">_</span>, a, b) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -1596,7 +1590,7 @@
 ///   where x,y are atoms
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
-</span><span class="kw">fn </span>introduce_minuseq_from_aux_decl(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_minuseq_from_aux_decl(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="comment">// a =aux -b
     //
     </span><span class="kw">let </span>Expr::AuxDeclaration(<span class="kw">_</span>, a, b) = expr <span class="kw">else </span>{
@@ -1626,7 +1620,7 @@
 /// where x is atomic, y is non-atomic
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
-</span><span class="kw">fn </span>introduce_reifyimply_ineq_from_imply(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>introduce_reifyimply_ineq_from_imply(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Imply(<span class="kw">_</span>, x, y) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -1675,26 +1669,26 @@
 ///
 /// See [`introduce_reifyimply_ineq_from_imply`].
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4200</span>))]
-</span><span class="kw">fn </span>flatten_imply(expr: <span class="kw-2">&amp;</span>Expr, model: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>flatten_imply(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Imply(meta, x, y) = expr <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
 
     <span class="comment">// flatten x
-    </span><span class="kw">let </span>aux_var_info = to_aux_var(x.as_ref(), model).ok_or(RuleNotApplicable)<span class="question-mark">?</span>;
+    </span><span class="kw">let </span>aux_var_info = to_aux_var(x.as_ref(), symbols).ok_or(RuleNotApplicable)<span class="question-mark">?</span>;
 
-    <span class="kw">let </span>model = aux_var_info.model();
+    <span class="kw">let </span>symbols = aux_var_info.symbols();
     <span class="kw">let </span>new_x = aux_var_info.as_expr();
 
     <span class="prelude-val">Ok</span>(Reduction::new(
         Expr::Imply(meta.clone(), Box::new(new_x), y.clone()),
         <span class="macro">vec!</span>[aux_var_info.top_level_expr()],
-        model.symbols().clone(),
+        symbols,
     ))
 }
 
 <span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4200</span>))]
-</span><span class="kw">fn </span>flatten_generic(expr: <span class="kw-2">&amp;</span>Expr, model: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>flatten_generic(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">if </span>!<span class="macro">matches!</span>(
         expr,
         Expr::SafeDiv(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>)
@@ -1713,13 +1707,13 @@
 
     <span class="kw">let </span><span class="kw-2">mut </span>children = expr.children();
 
-    <span class="kw">let </span><span class="kw-2">mut </span>model = model.clone();
+    <span class="kw">let </span><span class="kw-2">mut </span>symbols = symbols.clone();
     <span class="kw">let </span><span class="kw-2">mut </span>num_changed = <span class="number">0</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>new_tops: Vec&lt;Expr&gt; = <span class="macro">vec!</span>[];
 
     <span class="kw">for </span>child <span class="kw">in </span>children.iter_mut() {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(child, <span class="kw-2">&amp;</span>model) {
-            model = aux_var_info.model();
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(child, <span class="kw-2">&amp;</span>symbols) {
+            symbols = aux_var_info.symbols();
             new_tops.push(aux_var_info.top_level_expr());
             <span class="kw-2">*</span>child = aux_var_info.as_expr();
             num_changed += <span class="number">1</span>;
@@ -1732,11 +1726,11 @@
 
     <span class="kw">let </span>expr = expr.with_children(children);
 
-    <span class="prelude-val">Ok</span>(Reduction::new(expr, new_tops, model.symbols().clone()))
+    <span class="prelude-val">Ok</span>(Reduction::new(expr, new_tops, symbols))
 }
 
 <span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4200</span>))]
-</span><span class="kw">fn </span>flatten_eq(expr: <span class="kw-2">&amp;</span>Expr, model: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>flatten_eq(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">if </span>!<span class="macro">matches!</span>(expr, Expr::Eq(<span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>)) {
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     }
@@ -1744,13 +1738,13 @@
     <span class="kw">let </span><span class="kw-2">mut </span>children = expr.children();
     <span class="macro">debug_assert_eq!</span>(children.len(), <span class="number">2</span>);
 
-    <span class="kw">let </span><span class="kw-2">mut </span>model = model.clone();
+    <span class="kw">let </span><span class="kw-2">mut </span>symbols = symbols.clone();
     <span class="kw">let </span><span class="kw-2">mut </span>num_changed = <span class="number">0</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>new_tops: Vec&lt;Expr&gt; = <span class="macro">vec!</span>[];
 
     <span class="kw">for </span>child <span class="kw">in </span>children.iter_mut() {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(child, <span class="kw-2">&amp;</span>model) {
-            model = aux_var_info.model();
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(aux_var_info) = to_aux_var(child, <span class="kw-2">&amp;</span>symbols) {
+            symbols = aux_var_info.symbols();
             new_tops.push(aux_var_info.top_level_expr());
             <span class="kw-2">*</span>child = aux_var_info.as_expr();
             num_changed += <span class="number">1</span>;
@@ -1764,7 +1758,7 @@
 
     <span class="kw">let </span>expr = expr.with_children(children);
 
-    <span class="prelude-val">Ok</span>(Reduction::new(expr, new_tops, model.symbols().clone()))
+    <span class="prelude-val">Ok</span>(Reduction::new(expr, new_tops, symbols))
 }
 
 <span class="doccomment">/// Converts a Geq to an Ineq
@@ -1773,7 +1767,7 @@
 /// x &gt;= y ~&gt; y &lt;= x + 0 ~&gt; ineq(y,x,0)
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4100</span>))]
-</span><span class="kw">fn </span>geq_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>geq_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Geq(meta, e1, e2) = expr.clone() <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -1800,7 +1794,7 @@
 /// x &lt;= y ~&gt; x &lt;= y + 0 ~&gt; ineq(x,y,0)
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4100</span>))]
-</span><span class="kw">fn </span>leq_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>leq_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Leq(meta, e1, e2) = expr.clone() <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -1827,7 +1821,7 @@
 /// x &lt;= y + k ~&gt; ineq(x,y,k)
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>,<span class="number">4500</span>))]
-</span><span class="kw">fn </span>x_leq_y_plus_k_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>x_leq_y_plus_k_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>Expr::Leq(meta, e1, e2) = expr.clone() <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     };
@@ -1860,7 +1854,7 @@
 /// y + k &gt;= x ~&gt; ineq(x,y,k)
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>,<span class="number">4800</span>))]
-</span><span class="kw">fn </span>y_plus_k_geq_x_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>y_plus_k_geq_x_to_ineq(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="comment">// impl same as x_leq_y_plus_k but with lhs and rhs flipped
     </span><span class="kw">let </span>Expr::Geq(meta, e2, e1) = expr.clone() <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
@@ -1907,13 +1901,13 @@
 /// trivial match).
 
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4100</span>))]
-</span><span class="kw">fn </span>not_literal_to_wliteral(expr: <span class="kw-2">&amp;</span>Expr, mdl: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>not_literal_to_wliteral(expr: <span class="kw-2">&amp;</span>Expr, symbols: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">use </span>Domain::BoolDomain;
     <span class="kw">match </span>expr {
         Expr::Not(m, expr) =&gt; {
             <span class="kw">if let </span>Expr::Atomic(<span class="kw">_</span>, Atom::Reference(name)) = (<span class="kw-2">**</span>expr).clone() {
-                <span class="kw">if </span>mdl
-                    .get_domain(<span class="kw-2">&amp;</span>name)
+                <span class="kw">if </span>symbols
+                    .domain_of(<span class="kw-2">&amp;</span>name)
                     .is_some_and(|x| <span class="macro">matches!</span>(x, BoolDomain))
                 {
                     <span class="kw">return </span><span class="prelude-val">Ok</span>(Reduction::pure(Expr::FlatWatchedLiteral(
@@ -1939,7 +1933,7 @@
 /// nested expressions are constraints not variables.
 
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4090</span>))]
-</span><span class="kw">fn </span>not_constraint_to_reify(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>not_constraint_to_reify(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">if </span>!<span class="macro">matches!</span>(expr, Expr::Not(<span class="kw">_</span>,c) <span class="kw">if </span>!<span class="macro">matches!</span>(<span class="kw-2">**</span>c, Expr::Atomic(<span class="kw">_</span>,<span class="kw">_</span>))) {
         <span class="kw">return </span><span class="prelude-val">Err</span>(RuleNotApplicable);
     }
@@ -1970,7 +1964,7 @@
 /// where c is a boolean constraint
 /// ```
 </span><span class="attr">#[register_rule((<span class="string">"Minion"</span>, <span class="number">4400</span>))]
-</span><span class="kw">fn </span>bool_eq_to_reify(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>Model) -&gt; ApplicationResult {
+</span><span class="kw">fn </span>bool_eq_to_reify(expr: <span class="kw-2">&amp;</span>Expr, <span class="kw">_</span>: <span class="kw-2">&amp;</span>SymbolTable) -&gt; ApplicationResult {
     <span class="kw">let </span>(atom, e): (Atom, Box&lt;Expr&gt;) = <span class="kw">match </span>expr {
         Expr::AuxDeclaration(<span class="kw">_</span>, name, e) =&gt; <span class="prelude-val">Ok</span>((name.clone().into(), e.clone())),
         Expr::Eq(<span class="kw">_</span>, a, b) =&gt; <span class="kw">match </span>(a.as_ref(), b.as_ref()) {
