@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["get_default_rule_sets"]};
+window.SIDEBAR_ITEMS = {"static":["DEFAULT_RULE_SETS"]};
